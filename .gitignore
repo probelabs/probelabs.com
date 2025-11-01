@@ -11,3 +11,7 @@ lerna-debug.log*
 .env
 .env.local
 .env.*.local
+
+# Synced documentation from project repos
+docs/
+scripts/.tmp/
