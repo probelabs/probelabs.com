@@ -631,10 +631,6 @@ a:hover {
   max-width: none !important;
 }
 
-/* Hide sidebar on portfolio page */
-.portfolio-home ~ aside,
-.VPSidebar {
-  display: none !important;
 }
 
 /* Full width container for portfolio */
