@@ -29,7 +29,7 @@ const ThemeSwitcher = {
       if (frontmatter.value?.theme === 'portfolio') {
         return h(PortfolioTheme.Layout)
       }
-      // Otherwise use default VitePress theme
+      // Otherwise use default VitePress theme with all its features
       return h(DefaultTheme.Layout, null, {
         'home-features-after': () => h(FeatureList)
       })
@@ -38,7 +38,7 @@ const ThemeSwitcher = {
 }
 
 export default {
-  ...DefaultTheme,
+  extends: DefaultTheme,
   Layout: ThemeSwitcher,
   enhanceApp({ app }) {
     // Register default theme components
