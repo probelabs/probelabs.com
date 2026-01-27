@@ -22,6 +22,7 @@
             <li><a href="/visor">Visor</a></li>
             <li><a href="/products/memory-layer">Memory Layer</a></li>
             <li><a href="/maid">Maid</a></li>
+            <li><a href="https://goreplay.org">GoReplay</a></li>
           </ul>
         </div>
         <div class="footer-col">

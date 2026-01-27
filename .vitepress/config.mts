@@ -113,6 +113,7 @@ export default defineConfig({
           ]},
           { text: 'Labs', items: [
             { text: 'Maid', link: '/maid' },
+            { text: 'GoReplay', link: 'https://goreplay.org' },
             { text: 'Memory Layer', link: '/products/memory-layer' },
             { text: 'Big Brain', link: '/big-brain' },
             { text: 'AFK', link: '/afk' },

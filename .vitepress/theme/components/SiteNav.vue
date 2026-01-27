@@ -52,6 +52,19 @@
                       <div class="mega-card-desc">Fast Mermaid linter with auto-fix</div>
                     </div>
                   </a>
+                  <a href="https://goreplay.org" class="mega-menu-card">
+                    <div class="mega-card-icon mega-card-icon--goreplay">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <polyline points="4 4 4 10 10 10"/>
+                        <path d="M20 12a8 8 0 0 0-14-5"/>
+                        <path d="M4 12a8 8 0 0 0 14 5"/>
+                      </svg>
+                    </div>
+                    <div class="mega-card-content">
+                      <div class="mega-card-title">GoReplay</div>
+                      <div class="mega-card-desc">Open-source traffic replay for testing</div>
+                    </div>
+                  </a>
                   <a href="/big-brain" class="mega-menu-card">
                     <div class="mega-card-icon mega-card-icon--bigbrain">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a9 9 0 0 1 9 9c0 3.1-1.5 5.7-4 7.4V20a2 2 0 0 1-2 2h-6a2 2 0 0 1-2-2v-1.6C4.5 16.7 3 14.1 3 11a9 9 0 0 1 9-9z"/><path d="M9 22v-4M15 22v-4M12 2v6"/></svg>
@@ -254,14 +267,15 @@
         <a href="/visor" class="mobile-sublink">Visor</a>
       </div>
       <!-- Labs Section -->
-      <div class="mobile-section">
-        <div class="mobile-section-label">Labs</div>
-        <a href="/maid" class="mobile-sublink">Maid</a>
-        <a href="/big-brain" class="mobile-sublink">Big Brain</a>
-        <a href="/afk" class="mobile-sublink">AFK</a>
-        <a href="/vow" class="mobile-sublink">Vow</a>
-        <a href="/memaris" class="mobile-sublink">Memaris</a>
-        <a href="/logoscope" class="mobile-sublink">Logoscope</a>
+        <div class="mobile-section">
+          <div class="mobile-section-label">Labs</div>
+          <a href="/maid" class="mobile-sublink">Maid</a>
+          <a href="https://goreplay.org" class="mobile-sublink">GoReplay</a>
+          <a href="/big-brain" class="mobile-sublink">Big Brain</a>
+          <a href="/afk" class="mobile-sublink">AFK</a>
+          <a href="/vow" class="mobile-sublink">Vow</a>
+          <a href="/memaris" class="mobile-sublink">Memaris</a>
+          <a href="/logoscope" class="mobile-sublink">Logoscope</a>
       </div>
       <!-- Solutions Section -->
       <div class="mobile-section">
@@ -579,6 +593,7 @@ onUnmounted(() => {
 .site-nav .mega-card-icon--probe { background: linear-gradient(135deg, #dbeafe, #bfdbfe); color: #2563eb; }
 .site-nav .mega-card-icon--visor { background: linear-gradient(135deg, #dcfce7, #bbf7d0); color: #16a34a; }
 .site-nav .mega-card-icon--mermaid { background: linear-gradient(135deg, #fef3c7, #fde68a); color: #d97706; }
+.site-nav .mega-card-icon--goreplay { background: linear-gradient(135deg, #ffedd5, #fed7aa); color: #c2410c; }
 .site-nav .mega-card-icon--bigbrain { background: linear-gradient(135deg, #f3e8ff, #e9d5ff); color: #7c3aed; }
 .site-nav .mega-card-icon--afk { background: linear-gradient(135deg, #e0e7ff, #c7d2fe); color: #4f46e5; }
 .site-nav .mega-card-icon--vow { background: linear-gradient(135deg, #fee2e2, #fecaca); color: #dc2626; }
