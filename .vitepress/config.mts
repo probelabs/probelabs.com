@@ -1,10 +1,9 @@
 import { defineConfig } from 'vitepress'
-import { sidebar } from './config-sidebar.mts'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "Probe",
-  description: "AI-friendly, fully local, semantic code search tool designed to power the next generation of AI coding assistants",
+  title: "Probe Labs",
+  description: "Agentic infrastructure platform enabling 10x engineering teams. Build the engineering organization that moves at AI speed.",
   lastUpdated: true,
   cleanUrls: true,
   appearance: true,
@@ -56,11 +55,29 @@ export default defineConfig({
     },
     plugins: [
       {
-        name: 'rewrite-maid',
+        name: 'rewrite-public-apps',
+        enforce: 'pre',
         configureServer(server) {
+          // Add middleware at the very start of the stack
+          const publicApps = ['maid', 'visor', 'probe', 'big-brain', 'afk', 'vow', 'memaris', 'logoscope']
+
           server.middlewares.use((req, res, next) => {
-            if (req.url === '/maid' || req.url === '/maid/') {
-              req.url = '/maid/index.html'
+            // Parse the URL to handle query strings properly
+            const url = new URL(req.url || '/', `http://${req.headers.host}`)
+            const pathname = url.pathname
+
+            for (const app of publicApps) {
+              // Redirect non-trailing-slash to trailing-slash
+              if (pathname === `/${app}`) {
+                res.writeHead(301, { Location: `/${app}/${url.search}` })
+                res.end()
+                return
+              }
+              // Rewrite trailing-slash to index.html
+              if (pathname === `/${app}/`) {
+                req.url = `/${app}/index.html${url.search}`
+                break
+              }
             }
             next()
           })
@@ -76,47 +93,168 @@ export default defineConfig({
     
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Probe', link: '/probe' },
-      { text: 'Quick Start', link: '/docs/probe/quick-start' },
-      { text: 'Blog', link: '/docs/probe/blog/' },
-      { text: 'Changelog', link: '/docs/probe/changelog' },
       {
-        text: 'Documentation',
+        text: 'Solutions',
         items: [
-          { text: 'Core Concepts & Setup', items: [
-            { text: 'What is Probe?', link: '/docs/probe/features' },
-            { text: 'Installation', link: '/docs/probe/installation' },
-            { text: 'Quick Start', link: '/docs/probe/quick-start' },
-            { text: 'Language Support', link: '/docs/probe/language-support-overview' },
-            { text: 'Supported Languages', link: '/docs/probe/supported-languages' },
-            { text: 'How It Works', link: '/docs/probe/how-it-works' },
+          { text: 'Engineering Leadership', link: '/solutions/engineering-leadership' },
+          { text: 'Platform Teams', link: '/solutions/platform-teams' },
+          { text: 'Engineers', link: '/solutions/engineers' },
+          { text: 'Product & Support', link: '/solutions/non-technical' },
+          { text: 'Agencies', link: '/solutions/agencies' },
+          { text: 'Enterprise', link: '/solutions/enterprise' }
+        ]
+      },
+      {
+        text: 'Products',
+        items: [
+          { text: 'Core Products', items: [
+            { text: 'Probe', link: '/probe' },
+            { text: 'Visor', link: '/visor' }
           ]},
-          { text: 'Use Cases / Workflows', items: [
-            { text: 'AI Code Editors & MCP', link: '/docs/probe/use-cases/integrating-probe-into-ai-code-editors' },
-            { text: 'CLI for AI Workflows', link: '/docs/probe/use-cases/advanced-cli' },
-            { text: 'Web Interface for Teams', link: '/docs/probe/use-cases/deploying-probe-web-interface' },
-            { text: 'Developers & SDK', link: '/docs/probe/use-cases/building-ai-tools' },
-          ]},
-          { text: 'Reference Documentation', items: [
-            { text: 'CLI Reference (Commands & Flags)', link: '/docs/probe/cli-mode' },
-            { text: 'AI Integration Overview', link: '/docs/probe/ai-integration' },
-            { text: 'AI Chat Mode', link: '/docs/probe/ai-chat' },
-            { text: 'Web Interface', link: '/docs/probe/web-interface' },
-            { text: 'MCP Protocol & Tools Reference', link: '/docs/probe/mcp-server' },
-            { text: 'Node.js SDK API Reference', link: '/docs/probe/nodejs-sdk' },
-            { text: 'Output Formats Reference', link: '/docs/probe/output-formats' },
-            { text: 'Search Reference', link: '/docs/probe/search-reference' },
-            { text: 'Code Extraction', link: '/docs/probe/code-extraction' },
-            { text: 'Adding Languages', link: '/docs/probe/adding-languages' },
+          { text: 'Labs', items: [
+            { text: 'Maid', link: '/maid' },
+            { text: 'Memory Layer', link: '/products/memory-layer' },
+            { text: 'Big Brain', link: '/big-brain' },
+            { text: 'AFK', link: '/afk' },
+            { text: 'Vow', link: '/vow' },
+            { text: 'Memaris', link: '/memaris' },
+            { text: 'Logoscope', link: '/logoscope' }
           ]}
         ]
       },
-      { text: 'GitHub', link: 'https://github.com/probelabs/probe' },
-      { text: 'Discord', link: 'https://discord.gg/hBN4UsTZ' }
+      {
+        text: 'Company',
+        items: [
+          { text: 'About', link: '/company/about' },
+          { text: 'Blog', link: '/blog/' }
+        ]
+      },
+      {
+        text: 'Guides',
+        items: [
+          { text: 'Build a Slack Bot', link: '/docs/guides/slack-bot' }
+        ]
+      },
+      {
+        text: 'Probe Docs',
+        items: [
+          { text: 'Foundations (Probe + Visor)', items: [
+            { text: 'What is Probe?', link: '/docs/features' },
+            { text: 'What is Visor?', link: '/docs/visor' },
+          ]},
+          { text: 'Use Cases / Workflows', items: [
+            { text: 'Chat with Code', link: '/docs/chat-with-code' },
+            { text: 'Intelligent Code Review', link: '/docs/code-review' },
+            { text: 'GitHub Assistant', link: '/docs/github-assistant' },
+            { text: 'Engineering Process Automation', link: '/docs/use-cases/visor-workflows' },
+            { text: 'Developers & SDK', link: '/docs/use-cases/building-ai-tools' },
+          ]},
+          { text: 'Probe Reference', items: [
+            { text: 'Probe Installation', link: '/docs/installation' },
+            { text: 'Probe Quick Start', link: '/docs/quick-start' },
+            { text: 'How Probe Works', link: '/docs/how-it-works' },
+            { text: 'Language Support', link: '/docs/language-support-overview' },
+            { text: 'CLI Reference (Commands & Flags)', link: '/docs/cli-mode' },
+            { text: 'Advanced CLI Usage', link: '/docs/advanced-cli' },
+            { text: 'CLI for AI Workflows', link: '/docs/use-cases/cli-ai-workflows' },
+            { text: 'AI Integration Overview', link: '/docs/ai-integration' },
+            { text: 'AI Code Editors (MCP/ACP)', link: '/docs/integrations/ai-code-editors' },
+            { text: 'AI Chat Mode', link: '/docs/ai-chat' },
+            { text: 'Web Interface', link: '/docs/web-interface' },
+            { text: 'MCP Protocol & Tools Reference', link: '/docs/mcp-server' },
+            { text: 'Node.js SDK API Reference', link: '/docs/nodejs-sdk' },
+            { text: 'Output Formats Reference', link: '/docs/output-formats' },
+            { text: 'Search Reference', link: '/docs/search-reference' },
+            { text: 'Code Extraction', link: '/docs/code-extraction' },
+          ]},
+          { text: 'Visor Reference', items: [
+            { text: 'Visor Reference', link: '/docs/visor' },
+          ]}
+        ]
+      },
+      { text: 'Contact', link: '#contact' }
     ],
 
-    // Path-specific sidebars (imported from config-sidebar.mts)
-    sidebar,
+    sidebar: {
+      '/docs/': [
+        {
+          text: 'Use Cases / Workflows',
+          collapsed: false,
+          items: [
+            { text: 'Chat with Code', link: '/docs/chat-with-code' },
+            { text: 'Intelligent Code Review', link: '/docs/code-review' },
+            { text: 'GitHub Assistant', link: '/docs/github-assistant' },
+            { text: 'Engineering Process Automation', link: '/docs/use-cases/visor-workflows' },
+            { text: 'Developers & SDK', link: '/docs/use-cases/building-ai-tools' }
+          ]
+        },
+        {
+          text: 'Foundations (Probe + Visor)',
+          collapsed: false,
+          items: [
+            { text: 'What is Probe?', link: '/docs/features' },
+            { text: 'What is Visor?', link: '/docs/visor' },
+          ]
+        },
+        {
+          text: 'Guides',
+          collapsed: false,
+          items: [
+            { text: 'Build a Slack Bot', link: '/docs/guides/slack-bot' }
+          ]
+        },
+        {
+          text: 'Probe Reference',
+          collapsed: false,
+          items: [
+            { text: 'Probe Installation', link: '/docs/installation' },
+            { text: 'Probe Quick Start', link: '/docs/quick-start' },
+            { text: 'How Probe Works', link: '/docs/how-it-works' },
+            { text: 'Language Support', link: '/docs/language-support-overview' },
+            { text: 'CLI Reference (Commands & Flags)', link: '/docs/cli-mode' },
+            { text: 'Advanced CLI Usage', link: '/docs/advanced-cli' },
+            { text: 'CLI for AI Workflows', link: '/docs/use-cases/cli-ai-workflows' },
+            { text: 'AI Integration Overview', link: '/docs/ai-integration' },
+            { text: 'AI Code Editors (MCP/ACP)', link: '/docs/integrations/ai-code-editors' },
+            { text: 'AI Chat Mode', link: '/docs/ai-chat' },
+            { text: 'Web Interface', link: '/docs/web-interface' },
+            { text: 'MCP Protocol & Tools Reference', link: '/docs/mcp-server' },
+            { text: 'Node.js SDK API Reference', link: '/docs/nodejs-sdk' },
+            { text: 'Output Formats Reference', link: '/docs/output-formats' },
+            { text: 'Search Reference', link: '/docs/search-reference' },
+            { text: 'Code Extraction', link: '/docs/code-extraction' },
+          ]
+        },
+        {
+          text: 'Visor Reference',
+          collapsed: false,
+          items: [
+            { text: 'Visor Reference', link: '/docs/visor' }
+          ]
+        },
+        {
+          text: 'Contributing',
+          collapsed: true,
+          items: [
+            { text: 'Contributing Guide', link: 'https://github.com/probelabs/probe/blob/main/CONTRIBUTING.md' },
+            { text: 'Code of Conduct', link: 'https://github.com/probelabs/probe/blob/main/CODE_OF_CONDUCT.md' },
+            { text: 'Adding Languages', link: '/docs/adding-languages' },
+            { text: 'Documentation Maintenance', link: '/docs/contributing/documentation-maintenance' },
+            { text: 'Documentation Structure', link: '/docs/contributing/documentation-structure' },
+            { text: 'Documentation Cross-References', link: '/docs/contributing/documentation-cross-references' }
+          ]
+        },
+        {
+          text: 'Release Information',
+          collapsed: true,
+          items: [
+            { text: 'Changelog', link: '/docs/changelog' },
+            { text: 'Blog', link: '/blog/' },
+            { text: 'GitHub Releases', link: 'https://github.com/probelabs/probe/releases' }
+          ]
+        }
+      ]
+    },
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/probelabs/probe' },

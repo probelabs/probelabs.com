@@ -1,0 +1,4290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visor - Predictable Agent Workflows</title>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3Y0Z9SZLF2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3Y0Z9SZLF2');
+    </script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #000;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .effects-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            min-height: 100vh;
+            z-index: 1;
+        }
+
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .hero-content {
+            position: relative;
+            text-align: center;
+            z-index: 2;
+            pointer-events: auto;
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: calc(28vh + 70px);
+            padding-bottom: 10vh;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            color: rgba(255, 255, 255, 0.03);
+            text-transform: uppercase;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            user-select: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.02);
+            letter-spacing: 0.02em;
+            line-height: 1.5;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+            user-select: text;
+        }
+
+        .hero-title.illuminated {
+            color: rgba(255, 255, 255, 0.95);
+            text-shadow: 
+                -3px -1px 20px rgba(255, 50, 100, 0.5),
+                3px 1px 20px rgba(50, 100, 255, 0.5),
+                0 0 40px rgba(255, 255, 255, 0.2),
+                -5px 2px 30px rgba(255, 200, 0, 0.3),
+                5px -2px 30px rgba(0, 255, 200, 0.3);
+            animation: chromatic-shift 6s ease-in-out infinite alternate;
+        }
+
+        .hero-subtitle.illuminated {
+            color: rgba(255, 255, 255, 0.75);
+            text-shadow:
+                -2px 0 15px rgba(150, 255, 50, 0.4),
+                2px 0 15px rgba(255, 50, 255, 0.4),
+                0 0 25px rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes chromatic-shift {
+            0%, 100% {
+                filter: hue-rotate(0deg) brightness(1.2) contrast(1.1);
+            }
+            25% {
+                filter: hue-rotate(5deg) brightness(1.3) contrast(1.15);
+            }
+            50% {
+                filter: hue-rotate(-5deg) brightness(1.4) contrast(1.1);
+            }
+            75% {
+                filter: hue-rotate(3deg) brightness(1.25) contrast(1.05);
+            }
+        }
+
+        .light-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            min-height: 100vh;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            mix-blend-mode: screen;
+        }
+
+        @keyframes galaxyRotate {
+            0% { transform: rotate(0deg) translateX(60px) rotate(0deg) scale(1); }
+            25% { transform: rotate(90deg) translateX(60px) rotate(-90deg) scale(1.1); }
+            50% { transform: rotate(180deg) translateX(60px) rotate(-180deg) scale(0.9); }
+            75% { transform: rotate(270deg) translateX(60px) rotate(-270deg) scale(1.1); }
+            100% { transform: rotate(360deg) translateX(60px) rotate(-360deg) scale(1); }
+        }
+        
+        @keyframes galaxyRotateReverse {
+            0% { transform: rotate(0deg) translateX(40px) rotate(0deg) scale(1); }
+            25% { transform: rotate(-90deg) translateX(40px) rotate(90deg) scale(0.9); }
+            50% { transform: rotate(-180deg) translateX(40px) rotate(180deg) scale(1.1); }
+            75% { transform: rotate(-270deg) translateX(40px) rotate(270deg) scale(0.9); }
+            100% { transform: rotate(-360deg) translateX(40px) rotate(360deg) scale(1); }
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 3s ease;
+        }
+
+        /* Hero CTAs */
+        .hero-ctas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+            opacity: 0.1;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hero-ctas.illuminated {
+            opacity: 1;
+        }
+
+        .micro-credibility {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.02);
+            position: relative;
+            z-index: 2;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+        }
+
+        .micro-credibility.illuminated {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .micro-credibility span {
+            position: relative;
+            padding: 0 1rem;
+        }
+
+        .micro-credibility span:not(:last-child)::after {
+            content: "·";
+            position: absolute;
+            right: -0.75rem;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .hero-ctas {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .micro-credibility {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            
+            .micro-credibility span::after {
+                display: none;
+            }
+        }
+
+        /* Visor Demo Section */
+        .visor-demo-section {
+            background: none;
+        }
+
+        .demo-description {
+            text-align: center;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Workflow Diagram */
+        .workflow-diagram-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .workflow-diagram {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .diagram-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.75rem 1rem;
+            background: rgba(30, 30, 30, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .diagram-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .diagram-dot:nth-child(1) { background: #ff5f57; }
+        .diagram-dot:nth-child(2) { background: #febc2e; }
+        .diagram-dot:nth-child(3) { background: #28ca42; }
+
+        .diagram-title {
+            margin-left: auto;
+            font-size: 0.75rem;
+            font-family: 'Monaco', 'Menlo', monospace;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .diagram-content {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .diagram-section {
+            width: 100%;
+            max-width: 400px;
+            padding: 1rem 1.5rem;
+            background: rgba(79, 70, 229, 0.1);
+            border: 1px solid rgba(79, 70, 229, 0.3);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .diagram-section-agent {
+            background: rgba(124, 58, 237, 0.15);
+            border-color: rgba(124, 58, 237, 0.4);
+        }
+
+        .diagram-section-output {
+            background: rgba(34, 197, 94, 0.1);
+            border-color: rgba(34, 197, 94, 0.3);
+        }
+
+        .diagram-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 0.5rem;
+        }
+
+        .diagram-code code {
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .diagram-arrow {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .diagram-metrics {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .metric {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .metric-icon {
+            color: #4ade80;
+            font-weight: bold;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .demo-card {
+            background: none;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+        }
+
+        .demo-card h3,
+        .github-section h3,
+        .terminal-demo h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.95);
+            display: inline-block;
+        }
+
+        .yaml-block {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .yaml-block code {
+            color: #e6e6e6;
+        }
+
+        /* YAML Syntax Highlighting */
+        .yaml-key {
+            color: #79c0ff;
+            font-weight: 500;
+        }
+
+        .yaml-string {
+            color: #a5d6ff;
+        }
+
+        .yaml-value {
+            color: #ffa657;
+        }
+
+        .yaml-comment {
+            color: #8b949e;
+            font-style: italic;
+        }
+
+        .yaml-block-container {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .yaml-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.75rem 1rem;
+            background: rgba(30, 30, 30, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .yaml-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .yaml-dot:nth-child(1) { background: #ff5f57; }
+        .yaml-dot:nth-child(2) { background: #febc2e; }
+        .yaml-dot:nth-child(3) { background: #28ca42; }
+
+        .yaml-title {
+            margin-left: auto;
+            font-size: 0.75rem;
+            font-family: 'Monaco', 'Menlo', monospace;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Right Column Layout */
+        .demo-right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* GitHub Section */
+        .github-section {
+            width: 100%;
+        }
+
+
+        /* GitHub PR Mock */
+        .github-mock {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            overflow: hidden;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .pr-header {
+            padding: 1rem;
+            border-bottom: 1px solid #30363d;
+            background: #161b22;
+        }
+
+        .pr-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .pr-title strong {
+            color: #f0f6fc;
+        }
+
+        .pr-status {
+            font-size: 0.8rem;
+        }
+
+        .pr-meta {
+            color: #7d8590;
+            font-size: 0.8rem;
+        }
+
+        .visor-comment {
+            padding: 1rem;
+            background: #0d1117;
+            border-left: 3px solid #4f46e5;
+            margin: 0.5rem;
+            border-radius: 6px;
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .bot-avatar {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #4f46e5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .bot-avatar::after {
+            content: 'V';
+        }
+
+        .comment-header strong {
+            color: #f0f6fc;
+        }
+
+        .comment-time {
+            color: #7d8590;
+            font-size: 0.8rem;
+        }
+
+        .summary-section h4 {
+            color: #f0f6fc;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .findings-overview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .finding-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .finding-badge.high {
+            background: rgba(248, 113, 113, 0.2);
+            color: #fca5a5;
+            border: 1px solid rgba(248, 113, 113, 0.3);
+        }
+
+        .finding-badge.medium {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+        }
+
+        .finding-badge.passed {
+            background: rgba(34, 197, 94, 0.2);
+            color: #4ade80;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .collapsible-section {
+            margin-bottom: 0.75rem;
+        }
+
+        .collapsible-section summary {
+            cursor: pointer;
+            padding: 0.5rem 0;
+            color: #f0f6fc;
+            font-size: 0.9rem;
+        }
+
+        .collapsible-section[open] summary {
+            margin-bottom: 0.5rem;
+        }
+
+        .finding-list {
+            padding-left: 1rem;
+        }
+
+        .finding-item {
+            margin-bottom: 0.5rem;
+            color: #c9d1d9;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .finding-item code {
+            background: rgba(110, 118, 129, 0.4);
+            padding: 0.125rem 0.25rem;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            color: #79c0ff;
+        }
+
+        /* Terminal Mock */
+        .terminal-demo {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+
+        .terminal-mock {
+            background: #1e1e1e;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .terminal-header {
+            background: #323233;
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot.red { background: #ff5f57; }
+        .dot.yellow { background: #ffbd2e; }
+        .dot.green { background: #28ca42; }
+
+        .terminal-title {
+            color: #ffffff;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .terminal-content {
+            padding: 1rem;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            color: #d4d4d4;
+            background: #1e1e1e;
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        .terminal-line {
+            margin-bottom: 0.125rem;
+        }
+
+        .status-warning {
+            color: #ffbd2e;
+            font-weight: 600;
+        }
+
+        .status-success {
+            color: #28ca42;
+            font-weight: 600;
+        }
+
+        .terminal-prompt {
+            color: #6a9955;
+        }
+
+        @media (max-width: 768px) {
+            .demo-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .demo-right-column {
+                gap: 1rem;
+            }
+            
+            .terminal-content {
+                font-size: 0.75rem;
+                padding: 0.75rem;
+            }
+            
+            .yaml-block {
+                font-size: 0.75rem;
+            }
+            
+            .findings-overview {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+
+
+        /* Content Sections */
+        .section {
+            position: relative;
+            z-index: 2;
+            padding: 4rem 0;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.95);
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Problem + Solution Section */
+        .problem-solution-section {
+            background: none;
+        }
+
+        .problem-story {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .problem-story h2 {
+            font-size: 2.8rem;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+        }
+
+        .large-text {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .solution-highlight {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.95);
+            padding: 1.5rem;
+            background: rgba(79, 70, 229, 0.1);
+            border: 1px solid rgba(79, 70, 229, 0.3);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            margin-bottom: 3rem;
+        }
+
+        .what-is-visor {
+            max-width: 900px;
+            margin: 0 auto 3rem;
+            text-align: center;
+        }
+
+        .what-is-visor h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        /* Before/After Comparison */
+        .before-after {
+            margin-top: 3rem;
+        }
+
+        .comparison-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .comparison-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .comparison-card h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .comparison-card.before {
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .comparison-card.after {
+            border-color: rgba(34, 197, 94, 0.3);
+        }
+
+        .pr-mock {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.85rem;
+        }
+
+        .alert-spam {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .alert-item {
+            padding: 0.25rem;
+            opacity: 0.8;
+        }
+
+        .alert-more {
+            padding: 0.25rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-style: italic;
+        }
+
+        .clean-summary {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .summary-header {
+            font-weight: 600;
+            color: rgba(34, 197, 94, 0.9);
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .issue-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .issue-group strong {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .issue-item {
+            padding-left: 0.5rem;
+        }
+
+        .passed-checks {
+            color: rgba(34, 197, 94, 0.7);
+            font-style: italic;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .section-cta {
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-cards {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
+        /* What is Visor Section */
+        .what-is-section {
+            background: rgba(15, 23, 42, 0.2);
+        }
+
+        .definition {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        /* Core Benefits Section */
+        .core-benefits-section {
+            background: none;
+        }
+
+        .how-it-works {
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .how-it-works h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .pillar {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            transition: transform 0.2s ease;
+        }
+
+        .pillar:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .pillar-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .pillar h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .pillar p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        .mid-page-cta {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        /* How It Works Section */
+        .how-it-works-section {
+            background: rgba(30, 41, 59, 0.3);
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .step {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+        }
+
+        .step h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .step p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        .step-cta {
+            text-align: center;
+        }
+
+        /* Button System - Add back for new sections */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+
+        .btn-large {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5b52e8, #8b47ed);
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        /* Social Proof Section */
+        .social-proof-section {
+            background: none;
+        }
+
+        .use-cases {
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .use-cases h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .who-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .who-item {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: transform 0.2s ease;
+        }
+
+        .who-item:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .who-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .who-item h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .who-item p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        /* Comparison Section */
+        .comparison-section {
+            background: rgba(30, 41, 59, 0.4);
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .comparison-item {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .comparison-item h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .comparison-desc {
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .comparison-example {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            border-left: 3px solid rgba(79, 70, 229, 0.5);
+            padding-left: 1rem;
+            margin-top: 1rem;
+        }
+
+        .visor-advantage {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.2), rgba(124, 58, 237, 0.2));
+            border: 1px solid rgba(79, 70, 229, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .visor-advantage h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        /* Features Section */
+        .features-section {
+            background: rgba(15, 23, 42, 0.4);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-item {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            transition: transform 0.2s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .feature-item h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .feature-item p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Examples Section */
+        .examples-section {
+            background: rgba(30, 41, 59, 0.3);
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .example-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .example-number {
+            position: absolute;
+            top: -15px;
+            left: 2rem;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .example-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.95);
+            margin-top: 0.5rem;
+        }
+
+        .example-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .example-card li {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .example-card li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: rgba(79, 70, 229, 0.8);
+            font-weight: 600;
+        }
+
+        /* Get Started Section */
+        .get-started-section {
+            background: none;
+        }
+
+        .get-started-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .option-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .option-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .code-block code {
+            color: #e6e6e6;
+        }
+
+        .get-started-ctas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        /* Config Generator */
+        .config-generator {
+            margin: 3rem 0;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .config-generator h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .config-generator p {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .tool-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .tool-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tool-option:hover {
+            border-color: rgba(79, 70, 229, 0.3);
+            background: rgba(79, 70, 229, 0.05);
+        }
+
+        .tool-option input[type="checkbox"] {
+            display: none;
+        }
+
+        .checkmark {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .tool-option input[type="checkbox"]:checked + .checkmark {
+            background: rgba(79, 70, 229, 0.8);
+            border-color: rgba(79, 70, 229, 1);
+        }
+
+        .tool-option input[type="checkbox"]:checked + .checkmark::after {
+            content: "✓";
+            position: absolute;
+            top: -2px;
+            left: 3px;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .tool-option span:not(.checkmark) {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+
+        .generated-config {
+            margin-top: 2rem;
+            position: relative;
+        }
+
+        #generated-yaml code {
+            color: #e6e6e6;
+        }
+
+        .copy-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(79, 70, 229, 0.8);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .generated-config:hover .copy-button {
+            opacity: 1;
+        }
+
+        .copy-button:hover {
+            background: rgba(79, 70, 229, 1);
+        }
+
+        .copy-button.copied {
+            background: rgba(34, 197, 94, 0.8);
+        }
+
+        /* Section Intro Text */
+        .section-intro {
+            text-align: center;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.7;
+        }
+
+        .section-callout {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #a78bfa;
+            margin-top: 2rem;
+        }
+
+        /* Use Cases Section */
+        .usecases-section {
+            background: rgba(15, 23, 42, 0.3);
+        }
+
+        .usecases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .usecase-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .usecase-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(79, 70, 229, 0.4);
+        }
+
+        .usecase-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 1rem;
+        }
+
+        .usecase-icon svg {
+            width: 100%;
+            height: 100%;
+            color: #a78bfa;
+        }
+
+        .usecase-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .usecase-card p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.5;
+        }
+
+        /* Primitives Section */
+        .primitives-section {
+            background: none;
+        }
+
+        .primitives-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .primitive-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+            transition: border-color 0.2s ease;
+        }
+
+        .primitive-card:hover {
+            border-color: rgba(79, 70, 229, 0.4);
+        }
+
+        .primitive-card h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .primitive-card p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.5;
+        }
+
+        /* Comparison Section */
+        .comparison-section {
+            background: rgba(30, 41, 59, 0.4);
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .comparison-col {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .comparison-common {
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .comparison-visor {
+            background: rgba(79, 70, 229, 0.1);
+            border-color: rgba(79, 70, 229, 0.4);
+        }
+
+        .comparison-col h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .comparison-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .comparison-col li {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            padding: 0.5rem 0;
+            padding-left: 1.25rem;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .comparison-col li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.85em;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .comparison-visor li::before {
+            background: #a78bfa;
+        }
+
+        /* Example Section */
+        .example-section {
+            background: none;
+        }
+
+        .example-layout {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .example-yaml .yaml-block-container {
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .example-yaml .code-block {
+            margin: 0;
+            border-radius: 0;
+            background: transparent;
+            border: none;
+        }
+
+        .example-callouts {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .callout-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+
+        .callout-number {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .callout-card h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 0.25rem;
+        }
+
+        .callout-card p {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.4;
+        }
+
+        .callout-card code {
+            background: rgba(79, 70, 229, 0.2);
+            padding: 0.125rem 0.375rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: #a5b4fc;
+        }
+
+        .example-cta {
+            text-align: center;
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        /* Governance Section */
+        .governance-section {
+            background: rgba(15, 23, 42, 0.3);
+        }
+
+        .governance-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .governance-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .governance-card h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .governance-card p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.5;
+        }
+
+        .governance-card code {
+            background: rgba(79, 70, 229, 0.2);
+            padding: 0.125rem 0.375rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: #a5b4fc;
+        }
+
+        /* Observability Section */
+        .observability-section {
+            background: none;
+        }
+
+        .trace-preview {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            overflow: hidden;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .trace-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background: rgba(30, 30, 30, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .trace-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .trace-id {
+            font-size: 0.75rem;
+            font-family: 'Monaco', 'Menlo', monospace;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .trace-list {
+            padding: 1rem;
+        }
+
+        .trace-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+        }
+
+        .trace-ok {
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        .trace-retry {
+            background: rgba(251, 191, 36, 0.1);
+        }
+
+        .trace-name {
+            flex: 1;
+            font-size: 0.85rem;
+            font-family: 'Monaco', 'Menlo', monospace;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .trace-time {
+            font-size: 0.75rem;
+            font-family: 'Monaco', 'Menlo', monospace;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .trace-status {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .trace-ok .trace-status {
+            background: rgba(34, 197, 94, 0.3);
+            color: #4ade80;
+        }
+
+        .trace-retry .trace-status {
+            background: rgba(251, 191, 36, 0.3);
+            color: #fbbf24;
+        }
+
+        .observability-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .observability-list li {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            padding-left: 1.25rem;
+            position: relative;
+        }
+
+        .observability-list li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.5em;
+            width: 6px;
+            height: 6px;
+            background: #a78bfa;
+            border-radius: 50%;
+        }
+
+        /* Testing Section */
+        .testing-section {
+            background: rgba(15, 23, 42, 0.3);
+        }
+
+        .testing-layout {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .testing-example .yaml-block-container {
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .testing-example .code-block {
+            margin: 0;
+            border-radius: 0;
+            background: transparent;
+            border: none;
+        }
+
+        .testing-features {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .testing-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1.25rem;
+        }
+
+        .testing-card h3 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .testing-card p {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.5;
+        }
+
+        .testing-card code {
+            background: rgba(79, 70, 229, 0.2);
+            padding: 0.125rem 0.375rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: #a5b4fc;
+        }
+
+        /* Providers Section */
+        .providers-section {
+            background: none;
+        }
+
+        .providers-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .provider-chip {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 1.25rem 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            transition: border-color 0.2s ease;
+        }
+
+        .provider-chip:hover {
+            border-color: rgba(79, 70, 229, 0.4);
+        }
+
+        .provider-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+        }
+
+        .provider-name {
+            font-size: 0.8rem;
+            font-weight: 600;
+            font-family: 'Monaco', 'Menlo', monospace;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 0.25rem;
+        }
+
+        .provider-desc {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.3;
+        }
+
+        /* Get Started Section */
+        .get-started-section {
+            background: rgba(15, 23, 42, 0.3);
+        }
+
+        .get-started-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .get-started-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .get-started-number {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 700;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+        }
+
+        .get-started-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .get-started-card p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.5;
+        }
+
+        .get-started-card code {
+            background: rgba(79, 70, 229, 0.2);
+            padding: 0.125rem 0.375rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: #a5b4fc;
+        }
+
+        .get-started-ctas {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background: none;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .faq-item {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .faq-item h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .faq-item p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        .faq-item code {
+            background: rgba(79, 70, 229, 0.2);
+            padding: 0.125rem 0.375rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: #a5b4fc;
+        }
+
+        /* Final CTA Section */
+        .final-cta-section {
+            background: none;
+        }
+
+        .cta-card {
+            text-align: center;
+            padding: 3rem;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.2), rgba(124, 58, 237, 0.2));
+            border: 1px solid rgba(79, 70, 229, 0.3);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-card h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.95);
+            text-shadow: none;
+        }
+
+        .cta-card > p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.7;
+        }
+
+        .cta-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        /* Probe Ecosystem Section */
+        #probe-ecosystem {
+            padding: 80px 0;
+            background: none;
+            position: relative;
+            z-index: 10;
+        }
+        
+        #probe-ecosystem * {
+            user-select: text !important;
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            position: relative;
+            z-index: 11;
+        }
+
+        .probe-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            user-select: text;
+            -webkit-user-select: text;
+            -moz-user-select: text;
+        }
+
+        .probe-logo {
+            margin-bottom: 32px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .probe-logo img {
+            width: 80px;
+            height: auto;
+            opacity: 0.9;
+        }
+
+        #probe-ecosystem h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #fff;
+            user-select: text;
+            -webkit-user-select: text;
+            -moz-user-select: text;
+        }
+
+        .probe-description {
+            font-size: 18px;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto 32px;
+            user-select: text;
+            -webkit-user-select: text;
+            -moz-user-select: text;
+        }
+
+        .probe-description a {
+            color: #fff;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            transition: opacity 0.2s ease;
+        }
+
+        .probe-description a:hover {
+            opacity: 0.8;
+        }
+
+        .probe-cta {
+            display: inline-flex;
+            align-items: center;
+            padding: 14px 28px;
+            background: #fff;
+            color: #000;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            position: relative;
+            z-index: 10;
+            cursor: pointer;
+        }
+
+        .probe-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
+        }
+        }
+
+        @media (max-width: 768px) {
+            #probe-ecosystem {
+                padding: 60px 20px;
+            }
+
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.8);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 3rem 0 2rem;
+            margin-top: 0;
+            position: relative;
+            z-index: 100;
+        }
+
+        .footer-content {
+            color: rgba(255, 255, 255, 0.8);
+            position: relative;
+            z-index: 101;
+        }
+        
+        .footer a {
+            position: relative;
+            z-index: 102;
+            pointer-events: auto;
+        }
+
+        .footer-main {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-column h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 1rem;
+        }
+
+        .footer-column a {
+            display: block;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-column a:hover {
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content {
+                padding-top: 20vh;
+                padding-bottom: 25vh;
+            }
+            
+            .hero-title {
+                font-size: clamp(2rem, 5vw, 3rem);
+                margin-bottom: 1rem;
+            }
+            
+            .hero-subtitle {
+                font-size: clamp(1rem, 2vw, 1.2rem);
+                margin-bottom: 1.5rem;
+            }
+            
+            .problem-story h2 {
+                font-size: 2.2rem;
+            }
+            
+            .large-text {
+                font-size: 1.1rem;
+            }
+            
+            .section h2 {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 3rem 0;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .pillars-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .steps-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .who-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .examples-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .get-started-options {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .faq-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .tool-selector {
+                grid-template-columns: 1fr;
+            }
+            
+            .config-generator {
+                margin: 2rem 0;
+            }
+            
+            .code-block {
+                font-size: 0.8rem;
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .example-layout,
+            .testing-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .providers-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .get-started-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .governance-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .providers-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .observability-list {
+                grid-template-columns: 1fr;
+            }
+
+            .example-cta,
+            .get-started-ctas,
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-card {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.8rem;
+                line-height: 1.2;
+            }
+
+            .hero-subtitle {
+                font-size: 0.95rem;
+            }
+
+            .btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.85rem;
+            }
+
+            .btn-large {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .pillar, .who-item, .example-card, .faq-item, .option-card {
+                padding: 1.5rem;
+            }
+
+            .providers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .usecases-grid,
+            .primitives-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+        /* Navigation Styles - Dark Theme */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .nav-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .nav-logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .nav-title {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-link {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: #a5b4fc;
+        }
+
+        /* Dropdown Styles */
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown-trigger {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-dropdown-arrow {
+            transition: transform 0.2s ease;
+        }
+
+        .nav-dropdown-trigger.is-open .nav-dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .nav-mega-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding-top: 12px;
+            display: none;
+            z-index: 100;
+        }
+
+        .nav-mega-menu.open {
+            display: block;
+        }
+
+        .nav-dropdown:hover .nav-mega-menu {
+            display: block;
+        }
+
+        .nav-dropdown:hover .nav-dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .nav-mega-menu--wide {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .mega-menu-content {
+            background: #0d1117;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            padding: 32px;
+            min-width: 680px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-mega-menu--wide .mega-menu-content {
+            min-width: 0;
+            width: max-content;
+        }
+
+        .mega-menu-columns {
+            display: flex;
+            gap: 24px;
+        }
+
+        .mega-menu-divider-vertical {
+            width: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 4px 0;
+        }
+
+        .mega-menu-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #a5b4fc;
+            margin-bottom: 16px;
+        }
+
+        .mega-menu-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 1rem 0;
+        }
+
+        .mega-menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .mega-menu-grid--3col {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .mega-menu-grid--2col {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .mega-menu-grid--1col {
+            grid-template-columns: 1fr;
+        }
+
+        .mega-menu-card {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 8px;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .mega-menu-card:hover {
+            background: rgba(79, 70, 229, 0.1);
+        }
+
+        .mega-menu-card--active {
+            background: rgba(79, 70, 229, 0.2);
+            border: 1px solid rgba(79, 70, 229, 0.3);
+        }
+
+        .mega-card-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .mega-card-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .mega-card-icon--probe { background: linear-gradient(135deg, #1e3a5f, #2563eb); color: #60a5fa; }
+        .mega-card-icon--visor { background: linear-gradient(135deg, #1e3a3f, #059669); color: #34d399; }
+        .mega-card-icon--mermaid { background: linear-gradient(135deg, #3f1e3a, #db2777); color: #f472b6; }
+        .mega-card-icon--memory { background: linear-gradient(135deg, #2e1e5f, #6366f1); color: #a5b4fc; }
+        .mega-card-icon--leadership { background: linear-gradient(135deg, #3f2e1e, #d97706); color: #fbbf24; }
+        .mega-card-icon--platform { background: linear-gradient(135deg, #1e3f3f, #0891b2); color: #22d3ee; }
+        .mega-card-icon--engineers { background: linear-gradient(135deg, #2e1e4f, #7c3aed); color: #a78bfa; }
+        .mega-card-icon--support { background: linear-gradient(135deg, #3f1e3a, #db2777); color: #f472b6; }
+        .mega-card-icon--agencies { background: linear-gradient(135deg, #3f1e1e, #dc2626); color: #f87171; }
+        .mega-card-icon--enterprise { background: linear-gradient(135deg, #2e2e3f, #6b7280); color: #9ca3af; }
+
+        .mega-card-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .mega-card-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 2px;
+        }
+
+        .mega-card-desc {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.4;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-github {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.2s ease;
+        }
+
+        .nav-github:hover {
+            color: #a5b4fc;
+        }
+
+        .nav-btn {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(79, 70, 229, 0.4);
+        }
+
+        .nav-btn-mobile {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            padding: 16px 24px;
+            background: rgba(0, 0, 0, 0.95);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-menu.open {
+            display: flex;
+        }
+
+        .mobile-section {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-section-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #a5b4fc;
+            margin-bottom: 8px;
+        }
+
+        .mobile-sublink {
+            display: block;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            padding: 8px 0;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .mobile-sublink:hover {
+            color: #a5b4fc;
+        }
+
+        .mobile-sublink--active {
+            color: #a5b4fc;
+            font-weight: 600;
+        }
+
+        .mobile-link {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .mobile-link:hover {
+            color: #a5b4fc;
+        }
+
+        .mobile-cta {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            text-align: center;
+            margin-top: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-cta:hover {
+            box-shadow: 0 6px 16px rgba(79, 70, 229, 0.4);
+        }
+
+        /* Responsive Navigation */
+        @media (max-width: 968px) {
+            .nav-links {
+                display: none;
+            }
+
+            .nav-btn-mobile {
+                display: flex;
+            }
+
+            .nav-actions .nav-btn {
+                display: none;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav" id="mainNav">
+        <div class="nav-container">
+            <a href="/" class="nav-brand">
+                <div class="nav-logo">
+                    <img src="/probe/logo.png" alt="Probe" class="nav-logo-img">
+                </div>
+                <span class="nav-title">ProbeLabs</span>
+            </a>
+            <div class="nav-links">
+                <!-- Products Dropdown -->
+                <div class="nav-dropdown">
+                    <button class="nav-link nav-dropdown-trigger" onclick="toggleDropdown('products')">
+                        Products
+                        <svg class="nav-dropdown-arrow" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <div class="nav-mega-menu" id="dropdown-products">
+                        <div class="mega-menu-content">
+                            <div class="mega-menu-section">
+                                <div class="mega-menu-label">Core Products</div>
+                                <div class="mega-menu-grid">
+                                    <a href="/probe" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--probe">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Probe</div>
+                                            <div class="mega-card-desc">AI-native code search across enterprise codebases</div>
+                                        </div>
+                                    </a>
+                                    <a href="/visor" class="mega-menu-card mega-menu-card--active">
+                                        <div class="mega-card-icon mega-card-icon--visor">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Visor</div>
+                                            <div class="mega-card-desc">Deterministic workflow engine for agent automation</div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="mega-menu-divider"></div>
+                                <div class="mega-menu-label">Labs</div>
+                                <div class="mega-menu-grid">
+                                    <a href="/maid" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--mermaid">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Maid</div>
+                                            <div class="mega-card-desc">Fast Mermaid linter with auto-fix</div>
+                                        </div>
+                                    </a>
+                                    <a href="/big-brain" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--bigbrain">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a9 9 0 0 1 9 9c0 3.1-1.5 5.7-4 7.4V20a2 2 0 0 1-2 2h-6a2 2 0 0 1-2-2v-1.6C4.5 16.7 3 14.1 3 11a9 9 0 0 1 9-9z"/><path d="M9 22v-4M15 22v-4M12 2v6"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Big Brain</div>
+                                            <div class="mega-card-desc">Hand off stuck problems to smarter models</div>
+                                        </div>
+                                    </a>
+                                    <a href="/afk" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--afk">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">AFK</div>
+                                            <div class="mega-card-desc">Control Claude Code from your phone</div>
+                                        </div>
+                                    </a>
+                                    <a href="/vow" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--vow">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Vow</div>
+                                            <div class="mega-card-desc">AI accountability gates for commits</div>
+                                        </div>
+                                    </a>
+                                    <a href="/memaris" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--memaris">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Memaris</div>
+                                            <div class="mega-card-desc">Persistent memory from past AI sessions</div>
+                                        </div>
+                                    </a>
+                                    <a href="/logoscope" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--logoscope">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Logoscope</div>
+                                            <div class="mega-card-desc">AI-powered log analysis and insights</div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Solutions Dropdown -->
+                <div class="nav-dropdown">
+                    <button class="nav-link nav-dropdown-trigger" onclick="toggleDropdown('solutions')">
+                        Solutions
+                        <svg class="nav-dropdown-arrow" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                <div class="nav-mega-menu nav-mega-menu--wide" id="dropdown-solutions">
+                    <div class="mega-menu-content">
+                        <div class="mega-menu-columns">
+                            <div class="mega-menu-section">
+                                <div class="mega-menu-label">By Role</div>
+                                <div class="mega-menu-grid mega-menu-grid--1col">
+                                    <a href="/solutions/engineering-leadership" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--leadership">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Engineering Leadership</div>
+                                            <div class="mega-card-desc">Org-wide automation with predictability</div>
+                                        </div>
+                                    </a>
+                                    <a href="/solutions/platform-teams" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--platform">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Platform Teams</div>
+                                            <div class="mega-card-desc">Build once, run everywhere</div>
+                                        </div>
+                                    </a>
+                                    <a href="/solutions/engineers" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--engineers">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Engineers</div>
+                                            <div class="mega-card-desc">Full context, any codebase</div>
+                                        </div>
+                                    </a>
+                                    <a href="/solutions/non-technical" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--support">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Product &amp; Support</div>
+                                            <div class="mega-card-desc">Engineering-grade context without the bottleneck</div>
+                                        </div>
+                                    </a>
+                                    <a href="/solutions/agencies" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--agencies">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Agencies</div>
+                                            <div class="mega-card-desc">Repeatable delivery on client codebases</div>
+                                        </div>
+                                    </a>
+                                    <a href="/solutions/enterprise" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--enterprise">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Enterprise</div>
+                                            <div class="mega-card-desc">Transform legacy codebases at scale</div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="mega-menu-divider-vertical"></div>
+                            <div class="mega-menu-section">
+                                <div class="mega-menu-label">By Solution</div>
+                                <div class="mega-menu-grid mega-menu-grid--1col">
+                                    <a href="/docs/chat-with-code" class="mega-menu-card">
+                                        <div class="mega-card-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Chat with Code</div>
+                                            <div class="mega-card-desc">Grounded answers from your codebase</div>
+                                        </div>
+                                    </a>
+                                    <a href="/docs/code-review" class="mega-menu-card">
+                                        <div class="mega-card-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Intelligent Code Review</div>
+                                            <div class="mega-card-desc">Structured reviews with guardrails</div>
+                                        </div>
+                                    </a>
+                                    <a href="/docs/github-assistant" class="mega-menu-card">
+                                        <div class="mega-card-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 18a4 4 0 0 1-8 0v-1a4 4 0 0 1 8 0v1z"/><circle cx="12" cy="7" r="4"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">GitHub Assistant</div>
+                                            <div class="mega-card-desc">Issue and PR automation in GitHub</div>
+                                        </div>
+                                    </a>
+                                    <a href="/docs/use-cases/visor-workflows" class="mega-menu-card">
+                                        <div class="mega-card-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Engineering Process Automation</div>
+                                            <div class="mega-card-desc">Visor workflows for real processes</div>
+                                        </div>
+                                    </a>
+                                    <a href="/docs/use-cases/building-ai-tools" class="mega-menu-card">
+                                        <div class="mega-card-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Developers &amp; SDK</div>
+                                            <div class="mega-card-desc">Build custom tooling on Probe</div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <a href="/docs" class="nav-link">Docs</a>
+            </div>
+            <div class="nav-actions">
+                <a href="https://github.com/probelabs" target="_blank" rel="noopener noreferrer" class="nav-github" aria-label="GitHub">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                        <path d="M9 18c-4.51 2-5-2-7-2"/>
+                    </svg>
+                </a>
+                <button class="nav-btn-mobile" aria-label="Menu" onclick="toggleMobileMenu()">
+                    <svg class="menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/>
+                    </svg>
+                    <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                        <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+                    </svg>
+                </button>
+                <a href="/quick-start" class="nav-btn">Get Started</a>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-section">
+                <div class="mobile-section-label">Core Products</div>
+                <a href="/probe" class="mobile-sublink">Probe</a>
+                <a href="/visor" class="mobile-sublink mobile-sublink--active">Visor</a>
+            </div>
+            <div class="mobile-section">
+                <div class="mobile-section-label">Labs</div>
+                <a href="/maid" class="mobile-sublink">Maid</a>
+                <a href="/big-brain" class="mobile-sublink">Big Brain</a>
+                <a href="/afk" class="mobile-sublink">AFK</a>
+                <a href="/vow" class="mobile-sublink">Vow</a>
+                <a href="/memaris" class="mobile-sublink">Memaris</a>
+                <a href="/logoscope" class="mobile-sublink">Logoscope</a>
+            </div>
+            <div class="mobile-section">
+                <div class="mobile-section-label">Solutions</div>
+                <a href="/solutions/engineering-leadership" class="mobile-sublink">Engineering Leadership</a>
+                <a href="/solutions/platform-teams" class="mobile-sublink">Platform Teams</a>
+                <a href="/solutions/engineers" class="mobile-sublink">Engineers</a>
+                <a href="/solutions/non-technical" class="mobile-sublink">Product & Support</a>
+                <a href="/solutions/agencies" class="mobile-sublink">Agencies</a>
+                <a href="/solutions/enterprise" class="mobile-sublink">Enterprise</a>
+            </div>
+            <div class="mobile-section">
+                <div class="mobile-section-label">Solutions (By Use Case)</div>
+                <a href="/docs/chat-with-code" class="mobile-sublink">Chat with Code</a>
+                <a href="/docs/code-review" class="mobile-sublink">Intelligent Code Review</a>
+                <a href="/docs/github-assistant" class="mobile-sublink">GitHub Assistant</a>
+                <a href="/docs/use-cases/visor-workflows" class="mobile-sublink">Engineering Process Automation</a>
+                <a href="/docs/use-cases/building-ai-tools" class="mobile-sublink">Developers &amp; SDK</a>
+            </div>
+            <a href="/docs" class="mobile-link">Docs</a>
+            <a href="https://github.com/probelabs" class="mobile-link" target="_blank">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;margin-right:0.5rem;">
+                    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                    <path d="M9 18c-4.51 2-5-2-7-2"/>
+                </svg>
+                GitHub
+            </a>
+            <a href="/quick-start" class="mobile-cta">Get Started</a>
+        </div>
+    </nav>
+
+    <div class="effects-wrapper">
+        <canvas id="canvas"></canvas>
+        <div class="light-particles" id="particles"></div>
+    </div>
+    
+    <!-- Keep existing hero with effects -->
+    <div class="hero-content">
+        <h1 class="hero-title">VISOR</h1>
+        <p class="hero-subtitle">Turn engineering processes into workflows with guardrails for humans and AI. Define steps, validation, approvals, and fallbacks in YAML, then trace every run with OpenTelemetry.</p>
+
+        <div class="hero-ctas">
+            <a href="https://github.com/probelabs/visor/tree/main/examples" class="btn btn-primary btn-large">View Examples</a>
+            <a href="/docs/use-cases/visor-workflows" class="btn btn-secondary btn-large">Engineering Process Automation</a>
+            <a href="https://github.com/probelabs/visor" class="btn btn-ghost btn-large">Read Docs</a>
+        </div>
+
+        <div class="micro-credibility">
+            <span>On-prem</span>
+            <span>Any Model</span>
+            <span>OpenTelemetry</span>
+            <span>MCP Tools</span>
+            <span>Open Source</span>
+        </div>
+    </div>
+
+    <!-- Guardrails Section -->
+    <section class="guardrails-section section">
+        <div class="container">
+            <h2>Workflows Are Guardrails for Humans and AI</h2>
+            <p class="section-intro">In real engineering teams, we use checklists, reviews, and approvals to reduce mistakes. Visor lets you encode those guardrails as workflows: explicit steps, validated outputs, bounded loops, and safe fallbacks.</p>
+            <div class="primitives-grid">
+                <div class="primitive-card">
+                    <h3>Explicit steps</h3>
+                    <p>Map discovery, triage, review, and release into minimal, auditable stages.</p>
+                </div>
+                <div class="primitive-card">
+                    <h3>Validated outputs</h3>
+                    <p>Schema checks keep AI output structured and reliable.</p>
+                </div>
+                <div class="primitive-card">
+                    <h3>Human approvals</h3>
+                    <p>Require sign-off where it matters, automate the rest.</p>
+                </div>
+                <div class="primitive-card">
+                    <h3>Safe fallbacks</h3>
+                    <p>Timeouts, retries, and failure routes are defined up front.</p>
+                </div>
+                <div class="primitive-card">
+                    <h3>Controlled tools</h3>
+                    <p>Limit what agents can call and make every tool invocation auditable.</p>
+                </div>
+                <div class="primitive-card">
+                    <h3>Observable runs</h3>
+                    <p>Trace every step so you can answer “what happened?” with evidence.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workflow Diagram Section -->
+    <section class="visor-demo-section section">
+        <div class="container">
+            <h2>Predictable Agent Automation</h2>
+            <p class="demo-description">Define once in YAML, run anywhere with full observability</p>
+
+            <div class="workflow-diagram-container">
+                <div class="workflow-diagram">
+                    <div class="diagram-header">
+                        <span class="diagram-dot"></span>
+                        <span class="diagram-dot"></span>
+                        <span class="diagram-dot"></span>
+                        <span class="diagram-title">workflow.yaml</span>
+                    </div>
+                    <div class="diagram-content">
+                        <div class="diagram-section">
+                            <div class="diagram-label">Trigger</div>
+                            <div class="diagram-code"><code>PR opened, Slack thread, webhook, schedule</code></div>
+                        </div>
+                        <div class="diagram-arrow">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                        <div class="diagram-section diagram-section-agent">
+                            <div class="diagram-label">Execute Steps</div>
+                            <div class="diagram-code"><code>AI + MCP + GitHub + HTTP + shell</code><br><code>Schema validation + quality gates</code></div>
+                        </div>
+                        <div class="diagram-arrow">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                        <div class="diagram-section diagram-section-output">
+                            <div class="diagram-label">Observable Output</div>
+                            <div class="diagram-metrics">
+                                <div class="metric"><span class="metric-icon">&#10003;</span><span>Traced</span></div>
+                                <div class="metric"><span class="metric-icon">&#10003;</span><span>Validated</span></div>
+                                <div class="metric"><span class="metric-icon">&#10003;</span><span>Reproducible</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="usecases-section section">
+        <div class="container">
+            <h2>Automations That Mirror Real Engineering Processes</h2>
+            <div class="usecases-grid">
+                <div class="usecase-card">
+                    <div class="usecase-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><line x1="6" y1="9" x2="6" y2="21"/></svg>
+                    </div>
+                    <h3>PR Automation</h3>
+                    <p>Staged reviews with schema outputs, policy gates, and consistent comments/checks.</p>
+                </div>
+                <div class="usecase-card">
+                    <div class="usecase-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    </div>
+                    <h3>Issue Triage</h3>
+                    <p>Auto-classify Jira/Zendesk tickets, estimate severity, route to the right team, and draft a first response.</p>
+                </div>
+                <div class="usecase-card">
+                    <div class="usecase-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    </div>
+                    <h3>Slack Assistant</h3>
+                    <p>Support, PM, QA, and sales can query source-of-truth context and generate escalation packets.</p>
+                </div>
+                <div class="usecase-card">
+                    <div class="usecase-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    </div>
+                    <h3>Webhooks + Control Plane</h3>
+                    <p>Run release, deploy, and incident workflows from webhooks - not only GitHub events.</p>
+                </div>
+                <div class="usecase-card">
+                    <div class="usecase-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    </div>
+                    <h3>Cross-Repo Analysis</h3>
+                    <p>Fan out to multiple repos/services, run per-repo analysis, aggregate results, enforce policy gates.</p>
+                </div>
+                <div class="usecase-card">
+                    <div class="usecase-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    </div>
+                    <h3>Scheduled Audits</h3>
+                    <p>Nightly security audits and periodic health checks with consistent reporting and traceability.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Primitives Section -->
+    <section class="primitives-section section">
+        <div class="container">
+            <h2>Workflow Building Blocks</h2>
+            <p class="section-intro">Once you define the guardrails, these primitives make them executable: explicit steps, schemas, routing, and safe failure handling.</p>
+            <div class="primitives-grid">
+                <div class="primitive-card">
+                    <h3>Config-first workflows</h3>
+                    <p>One YAML defines steps, routing, schemas, templates, and outputs.</p>
+                </div>
+                <div class="primitive-card">
+                    <h3>Graph execution</h3>
+                    <p>Dependencies, fan-out, fan-in, routing, and bounded loops are first-class.</p>
+                </div>
+                <div class="primitive-card">
+                    <h3>Deterministic artifacts</h3>
+                    <p>Schemas + templates produce stable outputs for humans and machines.</p>
+                </div>
+                <div class="primitive-card">
+                    <h3>Multi-provider steps</h3>
+                    <p>AI, GitHub, HTTP, shell, MCP tools, memory, and reusable sub-workflows.</p>
+                </div>
+                <div class="primitive-card">
+                    <h3>Stateful runs</h3>
+                    <p>Built-in memory namespaces and isolated run state without external DBs.</p>
+                </div>
+                <div class="primitive-card">
+                    <h3>Observability by default</h3>
+                    <p>OpenTelemetry traces + log correlation (trace_id/span_id).</p>
+                </div>
+                <div class="primitive-card">
+                    <h3>Testable workflows</h3>
+                    <p>Validate behavior with fixtures/mocks before rolling workflows out.</p>
+                </div>
+            </div>
+            <p class="section-callout">AI is a step - not the system.</p>
+        </div>
+    </section>
+
+    <!-- CI vs Visor Comparison Section -->
+    <section class="comparison-section section">
+        <div class="container">
+            <h2>CI Is Great for Builds. Visor Is Built for Agent Workflows.</h2>
+            <p class="section-intro">CI tools are optimized for building, testing, and deploying code. Visor is optimized for governed automation across teams and tools - where you need routing, human-in-loop, validated outputs, and auditable runs.</p>
+            <div class="comparison-grid">
+                <div class="comparison-col comparison-common">
+                    <h3>CI Pipelines</h3>
+                    <ul>
+                        <li>Optimized for build/test/deploy</li>
+                        <li>Linear or matrix execution</li>
+                        <li>Exit codes as signals</li>
+                        <li>Logs for debugging</li>
+                    </ul>
+                </div>
+                <div class="comparison-col comparison-visor">
+                    <h3>Visor Workflows</h3>
+                    <ul>
+                        <li>Control flow is explicit: routing and loops are defined and bounded</li>
+                        <li>Outputs are guaranteed: schemas enforce structure</li>
+                        <li>Frontends are first-class: GitHub, Slack, webhooks, schedules</li>
+                        <li>Tool usage is auditable: tools are declared and traceable</li>
+                        <li>Runs are reproducible: state is isolated, testable like code</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Example Walkthrough Section -->
+    <section class="example-section section" id="example-config">
+        <div class="container">
+            <h2>A Single YAML That Demonstrates the Core Benefits</h2>
+            <p class="section-intro">This example shows composition, observability, state, frontends, safe loops, MCP tools, GitHub automation, and more - all in one file.</p>
+
+            <div class="example-layout">
+                <div class="example-yaml">
+                    <div class="yaml-block-container">
+                        <div class="yaml-header">
+                            <span class="yaml-dot"></span>
+                            <span class="yaml-dot"></span>
+                            <span class="yaml-dot"></span>
+                            <span class="yaml-title">pr-review.yaml</span>
+                        </div>
+                        <pre class="code-block yaml-block"><code><span class="yaml-key">extends:</span> <span class="yaml-value">[default, ./environments/prod.yaml]</span>
+<span class="yaml-key">telemetry:</span> <span class="yaml-value">{ enabled: true }</span>
+<span class="yaml-key">routing:</span> <span class="yaml-value">{ max_loops: 6 }</span>
+<span class="yaml-key">slack:</span> <span class="yaml-value">{ threads: required }</span>
+<span class="yaml-key">steps:</span>
+  <span class="yaml-key">pr-overview:</span>
+    <span class="yaml-key">type:</span> <span class="yaml-value">ai</span>
+    <span class="yaml-key">on:</span> <span class="yaml-value">[pr_opened, pr_updated]</span>
+    <span class="yaml-key">schema:</span> <span class="yaml-value">overview</span>
+    <span class="yaml-key">prompt:</span> <span class="yaml-value">Summarize the PR in 5 bullets.</span>
+  <span class="yaml-key">lint-fix:</span>
+    <span class="yaml-key">type:</span> <span class="yaml-value">command</span>
+    <span class="yaml-key">exec:</span> <span class="yaml-value">"npm run lint -- --fix"</span>
+    <span class="yaml-key">on_fail:</span> <span class="yaml-value">{ run: [lint-remediate] }</span>
+  <span class="yaml-key">lint-remediate:</span>
+    <span class="yaml-key">type:</span> <span class="yaml-value">claude-code</span>
+    <span class="yaml-key">depends_on:</span> <span class="yaml-value">[lint-fix]</span>
+    <span class="yaml-key">allowedTools:</span> <span class="yaml-value">[Read, Edit]</span>
+    <span class="yaml-key">maxTurns:</span> <span class="yaml-value">3</span>
+    <span class="yaml-key">prompt:</span> <span class="yaml-value">|</span>
+      <span class="yaml-value">Fix the lint errors below:</span>
+      <span class="yaml-value">{{ outputs['lint-fix'].stderr }}</span>
+  <span class="yaml-key">security-scan:</span>
+    <span class="yaml-key">type:</span> <span class="yaml-value">mcp</span>
+    <span class="yaml-key">command:</span> <span class="yaml-value">npx</span>
+    <span class="yaml-key">args:</span> <span class="yaml-value">["-y", "@semgrep/mcp"]</span>
+    <span class="yaml-key">method:</span> <span class="yaml-value">scan</span>
+  <span class="yaml-key">trusted-note:</span>
+    <span class="yaml-key">type:</span> <span class="yaml-value">github</span>
+    <span class="yaml-key">if:</span> <span class="yaml-value">"hasMinPermission('MEMBER')"</span>
+    <span class="yaml-key">op:</span> <span class="yaml-value">comment.create</span>
+  <span class="yaml-key">nightly-audit:</span>
+    <span class="yaml-key">type:</span> <span class="yaml-value">ai</span>
+    <span class="yaml-key">schedule:</span> <span class="yaml-value">"0 2 * * *"</span>
+    <span class="yaml-key">schema:</span> <span class="yaml-value">code-review</span></code></pre>
+                    </div>
+                </div>
+                <div class="example-callouts">
+                    <div class="callout-card">
+                        <div class="callout-number">1</div>
+                        <h4>Composition + environments</h4>
+                        <p><code>extends</code> layers org defaults, team overrides, and env-specific config.</p>
+                    </div>
+                    <div class="callout-card">
+                        <div class="callout-number">2</div>
+                        <h4>MCP tool integration</h4>
+                        <p>Native Semgrep, custom tools, and any MCP server - declared and auditable.</p>
+                    </div>
+                    <div class="callout-card">
+                        <div class="callout-number">3</div>
+                        <h4>Permission gating</h4>
+                        <p><code>hasMinPermission('MEMBER')</code> restricts steps to trusted contributors.</p>
+                    </div>
+                    <div class="callout-card">
+                        <div class="callout-number">4</div>
+                        <h4>Scheduled + event-driven</h4>
+                        <p>PR events, Slack threads, webhooks, and cron schedules in one workflow.</p>
+                    </div>
+                    <div class="callout-card">
+                        <div class="callout-number">5</div>
+                        <h4>Schema-validated AI</h4>
+                        <p>AI steps return structured JSON that validates against <code>schema: overview</code>.</p>
+                    </div>
+                    <div class="callout-card">
+                        <div class="callout-number">6</div>
+                        <h4>Safe remediation loops</h4>
+                        <p><code>on_fail</code> triggers Claude Code with linter output - bounded tools, max turns, traceable.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="example-cta">
+                <a href="https://github.com/probelabs/visor/tree/main/examples" class="btn btn-secondary">Open Full Example YAML</a>
+                <a href="https://github.com/probelabs/visor/tree/main/examples" class="btn btn-ghost">See More Examples</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Governance Section -->
+    <section class="governance-section section">
+        <div class="container">
+            <h2>Teams Own Workflows. Leadership Owns Predictability.</h2>
+            <p class="section-intro">Visor is designed for organizations where different teams own different services - and still need to execute as one system.</p>
+            <div class="governance-grid">
+                <div class="governance-card">
+                    <h3>Org-wide standards via composition</h3>
+                    <p>Keep defaults in one place; override per team/env via <code>extends</code>.</p>
+                </div>
+                <div class="governance-card">
+                    <h3>Policy gates for critical workflows</h3>
+                    <p>Fail fast on violations (<code>fail_if</code>), route failures deterministically, require human approval when needed.</p>
+                </div>
+                <div class="governance-card">
+                    <h3>Permission-aware automation</h3>
+                    <p>Gate actions (<code>hasMinPermission('MEMBER')</code>) so workflows stay safe.</p>
+                </div>
+                <div class="governance-card">
+                    <h3>Bounded control plane</h3>
+                    <p>Retries and loops are capped; "self-healing" is deterministic and observable.</p>
+                </div>
+            </div>
+            <p class="section-callout">This is how you scale automation without centralizing every decision.</p>
+        </div>
+    </section>
+
+    <!-- Observability Section -->
+    <section class="observability-section section">
+        <div class="container">
+            <h2>Every Run Is Traceable</h2>
+            <p class="section-intro">Visor emits OpenTelemetry traces and correlates logs for every step. You can answer "what happened?" with evidence, not guesswork.</p>
+            <div class="trace-preview">
+                <div class="trace-header">
+                    <span class="trace-title">Run Trace</span>
+                    <span class="trace-id">run_id: abc-123-def</span>
+                </div>
+                <div class="trace-list">
+                    <div class="trace-item trace-ok">
+                        <span class="trace-name">pr-review.checkout</span>
+                        <span class="trace-time">1.2s</span>
+                        <span class="trace-status">ok</span>
+                    </div>
+                    <div class="trace-item trace-ok">
+                        <span class="trace-name">pr-review.analyze</span>
+                        <span class="trace-time">3.4s</span>
+                        <span class="trace-status">ok</span>
+                    </div>
+                    <div class="trace-item trace-ok">
+                        <span class="trace-name">pr-review.review</span>
+                        <span class="trace-time">8.7s</span>
+                        <span class="trace-status">ok</span>
+                    </div>
+                    <div class="trace-item trace-retry">
+                        <span class="trace-name">pr-review.validate</span>
+                        <span class="trace-time">0.3s</span>
+                        <span class="trace-status">retry</span>
+                    </div>
+                    <div class="trace-item trace-ok">
+                        <span class="trace-name">pr-review.validate (retry)</span>
+                        <span class="trace-time">0.2s</span>
+                        <span class="trace-status">ok</span>
+                    </div>
+                    <div class="trace-item trace-ok">
+                        <span class="trace-name">pr-review.post</span>
+                        <span class="trace-time">0.8s</span>
+                        <span class="trace-status">ok</span>
+                    </div>
+                </div>
+            </div>
+            <ul class="observability-list">
+                <li>Workflow version + run_id</li>
+                <li>Step timings + retries + loop iterations</li>
+                <li>Tool/MCP invocations (what was allowed vs used)</li>
+                <li>Schema validation pass/fail</li>
+                <li>Produced artifacts (PR comments, labels, webhook payloads)</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Testing Section -->
+    <section class="testing-section section">
+        <div class="container">
+            <h2>Built-in Test Framework - Tests Live With Your Workflows</h2>
+            <p class="section-intro">Visor includes an integration test framework. Write tests in the same YAML as your workflows, run them in CI, and catch regressions before they hit production.</p>
+            <div class="testing-layout">
+                <div class="testing-example">
+                    <div class="yaml-block-container">
+                        <div class="yaml-header">
+                            <span class="yaml-dot"></span>
+                            <span class="yaml-dot"></span>
+                            <span class="yaml-dot"></span>
+                            <span class="yaml-title">pr-review.test.yaml</span>
+                        </div>
+                        <pre class="code-block yaml-block"><code><span class="yaml-key">tests:</span>
+  <span class="yaml-key">pr-overview-returns-schema:</span>
+    <span class="yaml-key">trigger:</span>
+      <span class="yaml-key">event:</span> <span class="yaml-value">pr_opened</span>
+      <span class="yaml-key">fixture:</span> <span class="yaml-value">./fixtures/small-pr.json</span>
+    <span class="yaml-key">mock:</span>
+      <span class="yaml-key">ai:</span> <span class="yaml-value">./mocks/overview-response.json</span>
+    <span class="yaml-key">assert:</span>
+      <span class="yaml-value">- "outputs['pr-overview'].bullets.length === 5"</span>
+      <span class="yaml-value">- "outputs['pr-overview'].risk != null"</span>
+  <span class="yaml-key">lint-fix-retries-on-fail:</span>
+    <span class="yaml-key">trigger:</span>
+      <span class="yaml-key">event:</span> <span class="yaml-value">pr_opened</span>
+    <span class="yaml-key">mock:</span>
+      <span class="yaml-key">command:</span> <span class="yaml-value">{ exitCode: 1, then: 0 }</span>
+    <span class="yaml-key">assert:</span>
+      <span class="yaml-value">- "steps['lint-fix'].retries === 1"</span>
+      <span class="yaml-value">- "steps['lint-fix'].status === 'ok'"</span></code></pre>
+                    </div>
+                </div>
+                <div class="testing-features">
+                    <div class="testing-card">
+                        <h3>Fixtures + mocks</h3>
+                        <p>Simulate PR payloads, AI responses, and command outputs without calling real services.</p>
+                    </div>
+                    <div class="testing-card">
+                        <h3>Assertions on outputs</h3>
+                        <p>Verify schema shapes, step statuses, retry counts, and routing decisions.</p>
+                    </div>
+                    <div class="testing-card">
+                        <h3>Run in CI</h3>
+                        <p><code>visor test ./workflows/</code> runs all tests and fails the build on regressions.</p>
+                    </div>
+                    <div class="testing-card">
+                        <h3>Replay production runs</h3>
+                        <p>Capture real inputs, replay them in tests, and assert the same outputs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Providers Section -->
+    <section class="providers-section section">
+        <div class="container">
+            <h2>Mix Providers in One Workflow</h2>
+            <p class="section-intro">In your YAML you're already combining multiple "providers" (step types) in a single run.</p>
+            <div class="providers-grid">
+                <div class="provider-chip">
+                    <span class="provider-icon">AI</span>
+                    <span class="provider-name">ai</span>
+                    <span class="provider-desc">Schema outputs, session reuse</span>
+                </div>
+                <div class="provider-chip">
+                    <span class="provider-icon">CC</span>
+                    <span class="provider-name">claude-code</span>
+                    <span class="provider-desc">Tool-scoped reasoning</span>
+                </div>
+                <div class="provider-chip">
+                    <span class="provider-icon">MCP</span>
+                    <span class="provider-name">mcp</span>
+                    <span class="provider-desc">Semgrep, internal servers</span>
+                </div>
+                <div class="provider-chip">
+                    <span class="provider-icon">GH</span>
+                    <span class="provider-name">github</span>
+                    <span class="provider-desc">Labels, comments, PR ops</span>
+                </div>
+                <div class="provider-chip">
+                    <span class="provider-icon">HTTP</span>
+                    <span class="provider-name">http</span>
+                    <span class="provider-desc">Webhooks + polling</span>
+                </div>
+                <div class="provider-chip">
+                    <span class="provider-icon">CMD</span>
+                    <span class="provider-name">command</span>
+                    <span class="provider-desc">Deterministic shell steps</span>
+                </div>
+                <div class="provider-chip">
+                    <span class="provider-icon">GIT</span>
+                    <span class="provider-name">git-checkout</span>
+                    <span class="provider-desc">Isolated repo checkouts</span>
+                </div>
+                <div class="provider-chip">
+                    <span class="provider-icon">HI</span>
+                    <span class="provider-name">human-input</span>
+                    <span class="provider-desc">Supervised flows via Slack/CLI</span>
+                </div>
+                <div class="provider-chip">
+                    <span class="provider-icon">MEM</span>
+                    <span class="provider-name">memory</span>
+                    <span class="provider-desc">State without external DB</span>
+                </div>
+                <div class="provider-chip">
+                    <span class="provider-icon">WF</span>
+                    <span class="provider-name">workflow</span>
+                    <span class="provider-desc">Import and reuse workflows</span>
+                </div>
+            </div>
+            <p class="section-callout">You can keep AI steps narrow and predictable - most reliability comes from the workflow design.</p>
+        </div>
+    </section>
+
+    <!-- Get Started Section -->
+    <section class="get-started-section section">
+        <div class="container">
+            <h2>Try Visor Locally, Then Deploy the Same YAML</h2>
+            <div class="get-started-grid">
+                <div class="get-started-card">
+                    <div class="get-started-number">1</div>
+                    <h3>Run the example YAML</h3>
+                    <p>Clone the repo and run <code>examples/pr-review.yaml</code> locally.</p>
+                </div>
+                <div class="get-started-card">
+                    <div class="get-started-number">2</div>
+                    <h3>Turn on GitHub automation</h3>
+                    <p>Enable issues + PR workflows with a GitHub App.</p>
+                </div>
+                <div class="get-started-card">
+                    <div class="get-started-number">3</div>
+                    <h3>Run a Slack bot locally</h3>
+                    <p>Same pipeline, easier debugging.</p>
+                </div>
+            </div>
+            <div class="get-started-ctas">
+                <a href="https://github.com/probelabs/visor/tree/main/examples" class="btn btn-primary btn-large">View Examples</a>
+                <a href="https://github.com/probelabs/visor" class="btn btn-secondary">Read Docs</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section section">
+        <div class="container">
+            <h2>Common Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>Is Visor "deterministic AI"?</h3>
+                    <p>No. Visor makes the workflow behavior deterministic: explicit steps, constrained tools, validated outputs, bounded loops, and traceability. AI is a controlled step inside that system.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Does this replace CI?</h3>
+                    <p>Not necessarily. CI is still great for builds/tests/deploys. Visor complements CI when you need routing, human-in-loop, multi-provider automation, schema outputs, and observable agent workflows.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>How do you prevent "one mega-agent with 100 tools"?</h3>
+                    <p>Workflows declare tools and MCP servers explicitly. AI steps can disable tools entirely or run with allowlists. Tool usage is auditable.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>How do teams customize without breaking standards?</h3>
+                    <p>Use <code>extends</code> and imports: org defaults live centrally, teams override per environment or repo. Policy gates enforce what must remain true.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>Can we run this on-prem and use our preferred model?</h3>
+                    <p>Yes - Visor is designed to run on your infrastructure and to support provider/model choice (the workflow defines what you use).</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3>How do we observe and debug runs?</h3>
+                    <p>OpenTelemetry tracing + log correlation are built-in (<code>telemetry.enabled</code>). You can inspect step timings, retries, loop iterations, and validation outcomes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="final-cta-section section">
+        <div class="container">
+            <div class="cta-card">
+                <h2>Build Workflows You Can Trust - and Prove</h2>
+                <p>If you're moving toward agent-first development, Visor gives you the control plane: explicit steps, schemas, bounded loops, and full observability - so automation scales without chaos.</p>
+                <div class="cta-buttons">
+                    <a href="https://github.com/probelabs/visor/tree/main/examples" class="btn btn-primary btn-large">View Examples</a>
+                    <a href="https://cal.com/leonid-bugaev/30min" class="btn btn-secondary">Book a Demo</a>
+                    <a href="https://github.com/probelabs/visor" class="btn btn-ghost">Read Docs</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-main">
+                    <div class="footer-brand">
+                        <h3>Visor</h3>
+                        <p>Predictable Agent Workflows</p>
+                    </div>
+
+                    <div class="footer-links">
+                        <div class="footer-column">
+                            <h4>Products</h4>
+                            <a href="/probe">Probe</a>
+                            <a href="/visor">Visor</a>
+                            <a href="/maid">Maid</a>
+                            <a href="/big-brain">Big Brain</a>
+                            <a href="/afk">AFK</a>
+                            <a href="/vow">Vow</a>
+                            <a href="/memaris">Memaris</a>
+                            <a href="/logoscope">Logoscope</a>
+                        </div>
+
+                        <div class="footer-column">
+                            <h4>Resources</h4>
+                            <a href="https://github.com/probelabs/visor">Documentation</a>
+                            <a href="https://github.com/probelabs/visor/tree/main/examples">Examples</a>
+                            <a href="https://github.com/probelabs/visor">GitHub</a>
+                        </div>
+
+                        <div class="footer-column">
+                            <h4>Company</h4>
+                            <a href="/">ProbeLabs</a>
+                            <a href="https://cal.com/leonid-bugaev/30min">Book a Demo</a>
+                            <span style="color: rgba(255, 255, 255, 0.7);">hello@probelabs.com</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>© 2026 Visor · Built by <a href="https://probelabs.com" target="_blank" style="color: #fff; text-decoration: underline;">ProbeLabs</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Scene setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ 
+            canvas: document.getElementById('canvas'),
+            antialias: false,
+            alpha: true,
+            powerPreference: "high-performance"
+        });
+        
+        // Track scroll for dimming effect
+        let scrollOpacity = 1.0;
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setClearColor(0x000000, 0);
+        camera.position.z = 5;
+
+        // Light wave shader (optimized)
+        const waveGeometry = new THREE.PlaneGeometry(1.5, 25, 5, 30);
+        const waveMaterial = new THREE.ShaderMaterial({
+            transparent: true,
+            blending: THREE.AdditiveBlending,
+            vertexShader: `
+                varying vec2 vUv;
+                uniform float wavePosition;
+                
+                void main() {
+                    vUv = uv;
+                    vec3 pos = position;
+                    float wave = sin(position.y * 3.0 + wavePosition * 0.5) * 0.05;
+                    pos.x += wave;
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+                }
+            `,
+            fragmentShader: `
+                uniform float time;
+                uniform float wavePosition;
+                varying vec2 vUv;
+                
+                void main() {
+                    float intensity = 1.0 - abs(vUv.x - 0.5) * 2.0;
+                    intensity = pow(intensity, 1.5);
+                    
+                    float shimmer = 0.7 + 0.3 * sin(vUv.y * 30.0 + time * 5.0);
+                    float brightness = intensity * shimmer;
+                    
+                    float fadeIn = smoothstep(-10.0, -8.0, wavePosition);
+                    float fadeOut = 1.0 - smoothstep(8.0, 10.0, wavePosition);
+                    brightness *= fadeIn * fadeOut;
+                    
+                    gl_FragColor = vec4(1.0, 1.0, 0.98, brightness * 0.9);
+                }
+            `,
+            uniforms: {
+                time: { value: 0 },
+                wavePosition: { value: -10 }
+            }
+        });
+        
+        const wave = new THREE.Mesh(waveGeometry, waveMaterial);
+        wave.position.y = 1.5; // Move wave up to align with moved hero text
+        scene.add(wave);
+
+        // Beautiful caustic background (from first version, optimized)
+        const causticGeometry = new THREE.PlaneGeometry(20, 20, 40, 40);
+        const causticMaterial = new THREE.ShaderMaterial({
+            transparent: true,
+            blending: THREE.AdditiveBlending,
+            vertexShader: `
+                varying vec2 vUv;
+                void main() {
+                    vUv = uv;
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                }
+            `,
+            fragmentShader: `
+                uniform float time;
+                uniform float progress;
+                varying vec2 vUv;
+                
+                vec3 hsv2rgb(vec3 c) {
+                    vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+                    vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
+                    return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
+                }
+                
+                void main() {
+                    vec2 center = vec2(0.5, 0.5);
+                    float dist = distance(vUv, center);
+                    
+                    // Beautiful caustic patterns
+                    float caustic1 = sin(dist * 20.0 - time * 2.0 + vUv.x * 10.0);
+                    float caustic2 = cos(dist * 15.0 + time * 1.5 - vUv.y * 8.0);
+                    float caustic3 = sin((vUv.x + vUv.y) * 12.0 + time * 1.8);
+                    float caustic = (caustic1 + caustic2 + caustic3) / 3.0;
+                    caustic = caustic * 0.5 + 0.5;
+                    caustic = smoothstep(0.2, 0.8, caustic);
+                    
+                    // Activate after wave passes center
+                    float activation = smoothstep(0.3, 0.8, progress);
+                    
+                    // Rainbow colors
+                    float hue = fract(dist * 0.5 + time * 0.05 + vUv.x * 0.3);
+                    vec3 color = hsv2rgb(vec3(hue, 0.8, 1.0));
+                    
+                    // Radial fade
+                    float radialFade = 1.0 - smoothstep(0.1, 0.8, dist);
+                    
+                    float intensity = caustic * activation * radialFade * 0.4;
+                    
+                    gl_FragColor = vec4(color * intensity, intensity);
+                }
+            `,
+            uniforms: {
+                time: { value: 0 },
+                progress: { value: 0 }
+            }
+        });
+        
+        const causticPlane = new THREE.Mesh(causticGeometry, causticMaterial);
+        causticPlane.position.z = -2;
+        scene.add(causticPlane);
+
+        // Rainbow beams (simplified but beautiful)
+        const rainbowColors = [
+            new THREE.Color(1.0, 0.0, 0.3),
+            new THREE.Color(1.0, 0.5, 0.0),
+            new THREE.Color(1.0, 1.0, 0.0),
+            new THREE.Color(0.0, 1.0, 0.3),
+            new THREE.Color(0.0, 0.5, 1.0),
+            new THREE.Color(0.3, 0.0, 1.0),
+            new THREE.Color(0.7, 0.0, 1.0)
+        ];
+
+        const rainbowBeams = [];
+        rainbowColors.forEach((color, i) => {
+            const beamGeometry = new THREE.PlaneGeometry(20, 0.2, 10, 1);  // Increased width to extend right side
+            const beamMaterial = new THREE.ShaderMaterial({
+                transparent: true,
+                blending: THREE.AdditiveBlending,
+                vertexShader: `
+                    varying vec2 vUv;
+                    void main() {
+                        vUv = uv;
+                        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                    }
+                `,
+                fragmentShader: `
+                    uniform float progress;
+                    uniform vec3 color;
+                    uniform float delay;
+                    varying vec2 vUv;
+                    
+                    void main() {
+                        float intensity = 1.0 - abs(vUv.y - 0.5) * 2.0;
+                        intensity = pow(intensity, 2.0);
+                        
+                        float activation = smoothstep(0.4 + delay, 0.6 + delay, progress);
+                        
+                        // Reversed: long left (0.2 to 0.8), short right (0.8 to 1.0)
+                        float spread;
+                        if (vUv.x <= 0.2) {
+                            // Beyond 0.2 on left, completely transparent
+                            spread = 0.0;
+                        } else if (vUv.x <= 0.8) {
+                            // Left side: gradually fade in from 0.2 to 0.8
+                            float fadeIn = (vUv.x - 0.2) / 0.6;
+                            spread = activation * fadeIn;
+                        } else {
+                            // Right side: fade out from 0.8 to 1.0
+                            spread = smoothstep(1.0, 0.8, vUv.x) * activation;
+                        }
+                        
+                        gl_FragColor = vec4(color, intensity * spread * 0.6);
+                    }
+                `,
+                uniforms: {
+                    progress: { value: 0 },
+                    color: { value: color },
+                    delay: { value: i * 0.02 }
+                }
+            });
+            
+            const beam = new THREE.Mesh(beamGeometry, beamMaterial);
+            beam.position.x = 2;  // Keep original position
+            beam.position.y = 1.5; // Move beam up to align with moved hero text
+            beam.rotation.z = (i - 3) * 0.08;
+            rainbowBeams.push(beam);
+            scene.add(beam);
+        });
+
+        // Animation
+        let startTime = Date.now();
+        let waveX = -10;
+        let progress = 0;
+        let textIlluminated = false;
+        let animationComplete = false;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            const elapsed = (Date.now() - startTime) / 1000;
+            
+            if (!animationComplete) {
+                // Move wave across screen 30% faster (0.77 seconds total)
+                waveX = -10 + Math.min(elapsed * 26, 20);
+                wave.position.x = waveX;
+                progress = Math.min(elapsed / 0.77, 1);
+                
+                // Update shaders
+                waveMaterial.uniforms.time.value = elapsed;
+                waveMaterial.uniforms.wavePosition.value = waveX;
+                
+                causticMaterial.uniforms.progress.value = progress;
+                
+                rainbowBeams.forEach(beam => {
+                    beam.material.uniforms.progress.value = progress;
+                });
+                
+                // Illuminate text when wave hits center
+                if (waveX > -1 && waveX < 1 && !textIlluminated) {
+                    textIlluminated = true;
+                    const title = document.querySelector('.hero-title');
+                    const subtitle = document.querySelector('.hero-subtitle');
+                    const ctas = document.querySelector('.hero-ctas');
+                    const credibility = document.querySelector('.micro-credibility');
+                    
+                    if (title) title.classList.add('illuminated');
+                    if (subtitle) subtitle.classList.add('illuminated');
+                    if (ctas) ctas.classList.add('illuminated');
+                    if (credibility) credibility.classList.add('illuminated');
+                    
+                    // Create floating particles
+                    createParticles();
+                }
+                
+                // Stop animation when complete
+                if (waveX >= 10) {
+                    animationComplete = true;
+                }
+            }
+            
+            // Add gentle rotation to caustic plane
+            causticPlane.rotation.z = elapsed * 0.05;
+            
+            // Add subtle rotation to rainbow beams
+            rainbowBeams.forEach((beam, i) => {
+                beam.rotation.z = (i - 3) * 0.08 + Math.sin(elapsed * 0.3 + i * 0.5) * 0.02;
+            });
+            
+            // Gentle wave rotation
+            wave.rotation.z = Math.sin(elapsed * 0.4) * 0.01;
+            
+            // Continue animating caustics
+            causticMaterial.uniforms.time.value = elapsed;
+            
+            // Apply scroll-based opacity
+            renderer.domElement.style.opacity = scrollOpacity;
+            
+            renderer.render(scene, camera);
+        }
+
+        // Create floating light particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.top = Math.random() * 100 + '%';
+                    particle.style.background = `hsl(${Math.random() * 360}, 100%, 70%)`;
+                    particle.style.boxShadow = `0 0 10px currentColor`;
+                    const rotationType = Math.random() > 0.5 ? 'galaxyRotate' : 'galaxyRotateReverse';
+                    particle.style.animation = `${rotationType} ${8 + Math.random() * 4}s linear infinite`;
+                    particle.style.animationDelay = `${Math.random() * 2}s`;
+                    container.appendChild(particle);
+                    
+                    setTimeout(() => {
+                        particle.style.opacity = '0.6';
+                    }, 50);
+                }, i * 100);
+            }
+        }
+
+        // Handle resize
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }, 100);
+        });
+        
+        // Handle scroll for dimming effect
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const heroHeight = window.innerHeight;
+            // Start dimming after scrolling past 70% of hero (was 50%)
+            const fadeStart = heroHeight * 0.7;
+            const fadeEnd = heroHeight * 2.0;  // Much slower fade (was 1.2)
+            
+            if (scrollY <= fadeStart) {
+                scrollOpacity = 1.0;
+            } else if (scrollY >= fadeEnd) {
+                scrollOpacity = 0.5;  // Less dimming (was 0.3)
+            } else {
+                // Smooth transition from 1.0 to 0.5
+                const progress = (scrollY - fadeStart) / (fadeEnd - fadeStart);
+                scrollOpacity = 1.0 - (progress * 0.5);  // Slower dimming rate
+            }
+        });
+
+        animate();
+
+        // Interactive Config Generator
+        function generateConfig() {
+            const checkboxes = document.querySelectorAll('input[name="tools"]:checked');
+            const selectedTools = Array.from(checkboxes).map(cb => cb.value);
+            
+            if (selectedTools.length === 0) {
+                document.getElementById('generated-yaml').innerHTML = '';
+                return;
+            }
+
+            const configs = {
+                'ai-reviewer': `  ai_code_reviewer:
+    type: ai
+    model: claude-3-5-sonnet
+    prompt: |
+      Review this PR thoroughly for:
+      - Logic errors and bugs
+      - Edge cases not handled
+      - Code maintainability and readability
+      - Performance optimizations
+      - Security vulnerabilities
+      - Best practices and patterns
+    on: [pr_opened, pr_updated]
+    output:
+      format: detailed_review`,
+                
+                'ai-assistant': `  ai_assistant:
+    type: ai
+    command: probe
+    prompt: |
+      You are a helpful AI assistant for this repository.
+      Answer questions, explain code, suggest improvements,
+      and help developers with their tasks.
+    on: [comment, issue_open]
+    capabilities:
+      - code_explanation
+      - bug_troubleshooting
+      - implementation_suggestions`,
+                
+                semgrep: `  - name: semgrep
+    runner: tool
+    image: returntocorp/semgrep:latest
+    commands:
+      - semgrep --config=auto --json .
+    conditions:
+      files: ["**/*.py", "**/*.js", "**/*.go", "**/*.java"]`,
+                
+                trivy: `  - name: trivy-vuln
+    runner: tool
+    image: aquasec/trivy:latest
+    commands:
+      - trivy fs --format json .
+    conditions:
+      files: ["package.json", "requirements.txt", "go.mod"]`,
+                
+                trufflehog: `  - name: secrets-scan
+    runner: tool
+    image: trufflesecurity/trufflehog:latest
+    commands:
+      - trufflehog filesystem . --json
+    conditions:
+      max_diff_size: 1000`,
+                
+                eslint: `  - name: eslint
+    runner: script
+    script: |
+      npx eslint . --ext .js,.jsx,.ts,.tsx --format json
+    conditions:
+      files: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]`,
+                
+                gitleaks: `  - name: gitleaks
+    runner: tool
+    image: zricethezav/gitleaks:latest
+    commands:
+      - gitleaks detect --source . --report-format json
+    conditions:
+      max_diff_size: 500`,
+                
+                bandit: `  - name: bandit
+    runner: tool
+    image: securitycodescans/bandit:latest
+    commands:
+      - bandit -r . -f json
+    conditions:
+      files: ["**/*.py"]`
+            };
+
+            const yamlConfig = `# visor.yaml
+version: "1"
+
+checks:
+${selectedTools.map(tool => configs[tool]).join('\n\n')}
+
+processors:
+  - name: ai-summarizer
+    type: ai
+    model: claude-3-5-sonnet
+    prompt: |
+      Analyze all findings from the checks.
+      Group by severity and provide actionable recommendations.
+      Focus on the most critical issues that could block deployment.
+    schema:
+      type: object
+      properties:
+        summary: { type: string }
+        critical_issues: { type: array }
+        recommendations: { type: array }
+        risk_assessment: { type: string }
+
+outputs:
+  pr_comment:
+    template: summary
+    max_findings: 10
+  sarif:
+    enabled: true
+  json:
+    enabled: true`;
+
+            document.getElementById('generated-yaml').innerHTML = `<code>${yamlConfig}</code>`;
+        }
+
+        // Add event listeners to checkboxes
+        document.querySelectorAll('input[name="tools"]').forEach(checkbox => {
+            checkbox.addEventListener('change', generateConfig);
+        });
+
+        // Copy configuration function
+        function copyConfig() {
+            const yamlText = document.querySelector('#generated-yaml code').textContent;
+            navigator.clipboard.writeText(yamlText).then(() => {
+                const button = document.getElementById('copy-config');
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+
+        // Add intersection observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections for animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(30px)';
+                section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(section);
+            });
+        });
+
+        // Navigation Dropdown functionality
+        let openDropdown = null;
+
+        function toggleDropdown(name) {
+            const dropdown = document.getElementById('dropdown-' + name);
+            const trigger = dropdown.previousElementSibling;
+            const allDropdowns = document.querySelectorAll('.nav-mega-menu');
+            const allTriggers = document.querySelectorAll('.nav-dropdown-trigger');
+
+            // Close all other dropdowns
+            allDropdowns.forEach(d => {
+                if (d !== dropdown) {
+                    d.classList.remove('open');
+                }
+            });
+            allTriggers.forEach(t => {
+                if (t !== trigger) {
+                    t.classList.remove('is-open');
+                }
+            });
+
+            // Toggle current dropdown
+            dropdown.classList.toggle('open');
+            trigger.classList.toggle('is-open');
+            openDropdown = dropdown.classList.contains('open') ? name : null;
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.nav-dropdown')) {
+                document.querySelectorAll('.nav-mega-menu').forEach(d => d.classList.remove('open'));
+                document.querySelectorAll('.nav-dropdown-trigger').forEach(t => t.classList.remove('is-open'));
+                openDropdown = null;
+            }
+        });
+
+        // Mobile menu functionality
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuIcon = document.querySelector('.menu-icon');
+            const closeIcon = document.querySelector('.close-icon');
+
+            mobileMenu.classList.toggle('open');
+
+            if (mobileMenu.classList.contains('open')) {
+                menuIcon.style.display = 'none';
+                closeIcon.style.display = 'block';
+            } else {
+                menuIcon.style.display = 'block';
+                closeIcon.style.display = 'none';
+            }
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuIcon = document.querySelector('.menu-icon');
+            const closeIcon = document.querySelector('.close-icon');
+
+            if (!e.target.closest('.nav') && mobileMenu.classList.contains('open')) {
+                mobileMenu.classList.remove('open');
+                menuIcon.style.display = 'block';
+                closeIcon.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

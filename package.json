@@ -1,15 +1,14 @@
 {
-  "name": "probelabs-website",
+  "name": "probe-docs",
   "version": "1.0.0",
-  "description": "Official website for Probe Labs - home of Probe, Maid, and other developer tools",
+  "description": "Documentation for Probe - AI-friendly code search tool",
   "scripts": {
-    "sync": "node scripts/sync-docs.js",
-    "dev": "npm run sync && vitepress dev",
-    "build": "npm run sync && vitepress build",
-    "preview": "vitepress preview",
     "docs:dev": "vitepress dev",
     "docs:build": "vitepress build",
-    "docs:preview": "vitepress preview"
+    "docs:preview": "vitepress preview",
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview"
   },
   "dependencies": {
     "highlight.js": "^11.11.1",

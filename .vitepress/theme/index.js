@@ -1,42 +1,120 @@
 import { h } from 'vue'
 import DefaultTheme from 'vitepress/theme'
-import { useData } from 'vitepress'
+import { useData, useRouter } from 'vitepress'
+import { onMounted, watch } from 'vue'
 
-// Import portfolio theme
+// Import both themes
 import PortfolioTheme from '../portfolio-theme/index.js'
 
 // Import default theme styles and components
 import './custom.css'
 import './home.css'
 import './blog.css'
+import './product-solution.css'
 import FeatureList from './components/FeatureList.vue'
 import CodeEditor from './components/CodeEditor.vue'
 import CommandExample from './components/CommandExample.vue'
 import BlogPostLayout from './components/BlogPostLayout.vue'
 import BlogLayout from './layouts/BlogLayout.vue'
+import ProbelabsLanding from './layouts/ProbelabsLanding.vue'
+import DocsLayout from './layouts/DocsLayout.vue'
+import SiteFooter from './components/SiteFooter.vue'
 import FeatureSection from '../components/FeatureSection.vue'
 import SimpleFeatureSection from '../components/SimpleFeatureSection.vue'
 import StarsBackground from '../components/StarsBackground.vue'
 import HomeFeatures from '../components/HomeFeatures.vue'
+import SiteNav from './components/SiteNav.vue'
+import SidebarSearch from './components/SidebarSearch.vue'
+import Tabs from '../components/Tabs.vue'
+import Tab from '../components/Tab.vue'
+
+// Helper to check if current path is in sidebar items
+const isPathInSidebar = (currentPath, sidebar) => {
+  if (!sidebar) return false
+
+  // Handle object-style sidebar (keyed by path prefix)
+  if (typeof sidebar === 'object' && !Array.isArray(sidebar)) {
+    for (const prefix of Object.keys(sidebar)) {
+      if (currentPath.startsWith(prefix.replace(/\/$/, ''))) {
+        return true
+      }
+    }
+    return false
+  }
+
+  // Handle array-style sidebar
+  if (!Array.isArray(sidebar)) return false
+
+  for (const group of sidebar) {
+    if (!group.items) continue
+    for (const item of group.items) {
+      const itemPath = item.link?.replace(/\.html$/, '').replace(/\/$/, '') || ''
+      const checkPath = currentPath.replace(/\.html$/, '').replace(/\/$/, '').replace(/\.md$/, '')
+      if (itemPath && (checkPath === itemPath || checkPath.startsWith(itemPath + '/'))) {
+        return true
+      }
+    }
+  }
+  return false
+}
+
+// Theme switcher component
+const ThemeSwitcher = {
+  setup() {
+    const { frontmatter, page, theme } = useData()
+
+    return () => {
+      // Use probelabs landing theme for homepage
+      if (frontmatter.value?.theme === 'probelabs') {
+        return h(ProbelabsLanding)
+      }
+      // Use portfolio theme if specified
+      if (frontmatter.value?.theme === 'portfolio') {
+        return h(PortfolioTheme.Layout)
+      }
+
+      // Check if this is a custom page with its own footer embedded
+      const path = page.value?.relativePath || ''
+      const hasOwnFooter = path.startsWith('products/') || path.startsWith('solutions/') || path.startsWith('company/') || path === 'terms.md' || path === 'privacy.md'
+
+      // Use custom DocsLayout for pages that are in the sidebar (documentation pages)
+      const currentPath = '/' + path.replace(/\.md$/, '')
+      const isDocPage = !frontmatter.value?.layout &&
+                       !hasOwnFooter &&
+                       isPathInSidebar(currentPath, theme.value?.sidebar)
+
+      if (isDocPage) {
+        return h(DocsLayout)
+      }
+
+      // Otherwise use default VitePress theme with custom nav
+      // Skip layout-bottom footer for pages that have their own
+      if (hasOwnFooter) {
+        return h(DefaultTheme.Layout, null, {
+          'layout-top': () => h(SiteNav),
+          'sidebar-nav-before': () => h(SidebarSearch),
+          'home-features-after': () => h(FeatureList)
+        })
+      }
+
+      return h(DefaultTheme.Layout, null, {
+        'layout-top': () => h(SiteNav),
+        'sidebar-nav-before': () => h(SidebarSearch),
+        'home-features-after': () => h(FeatureList),
+        'layout-bottom': () => h(SiteFooter)
+      })
+    }
+  }
+}
+
+// Paths that should force full page reload (static HTML apps in /public)
+const STATIC_APP_PATHS = ['/maid', '/visor', '/probe']
 
 export default {
-  extends: DefaultTheme,
-  Layout() {
-    const { frontmatter } = useData()
-    
-    // Use portfolio theme only for pages with theme: portfolio
-    if (frontmatter.value?.theme === 'portfolio') {
-      return h(PortfolioTheme.Layout)
-    }
-    
-    // For all other pages, use the default VitePress theme
-    // This will include proper sidebar rendering
-    return h(DefaultTheme.Layout, null, {
-      'home-features-after': () => h(FeatureList)
-    })
-  },
-  enhanceApp({ app }) {
-    // Register custom components
+  ...DefaultTheme,
+  Layout: ThemeSwitcher,
+  enhanceApp({ app, router }) {
+    // Register default theme components
     app.component('FeatureList', FeatureList)
     app.component('CodeEditor', CodeEditor)
     app.component('CommandExample', CommandExample)
@@ -46,10 +124,30 @@ export default {
     app.component('SimpleFeatureSection', SimpleFeatureSection)
     app.component('StarsBackground', StarsBackground)
     app.component('HomeFeatures', HomeFeatures)
+    app.component('SiteFooter', SiteFooter)
+    app.component('SiteNav', SiteNav)
+    app.component('SidebarSearch', SidebarSearch)
+    app.component('Tabs', Tabs)
+    app.component('Tab', Tab)
 
     // Enhance portfolio theme as well
     if (PortfolioTheme.enhanceApp) {
       PortfolioTheme.enhanceApp({ app })
+    }
+
+    // Force full page reload for static app paths (maid, visor, probe)
+    // These are standalone HTML apps that don't use VitePress routing
+    if (typeof window !== 'undefined') {
+      router.onBeforeRouteChange = (to) => {
+        const path = to.split('?')[0].split('#')[0]
+        for (const staticPath of STATIC_APP_PATHS) {
+          if (path === staticPath || path === staticPath + '/' || path.startsWith(staticPath + '/')) {
+            window.location.href = to
+            return false // Prevent VitePress navigation
+          }
+        }
+        return true
+      }
     }
   }
 }

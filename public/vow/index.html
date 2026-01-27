@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: https://ogp.me/ns#">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Vow - AI Accountability Gates for Git Commits and Agent Tasks</title>
+    <meta name="description" content="Vow ensures AI agents pause and honestly self-review before taking action. Accountability gates for git commits, Claude Code, Husky hooks. No shortcuts, no lies, no claiming completion without actual completion.">
+    <meta name="keywords" content="AI accountability, git hooks, pre-commit, Claude Code, AI agents, code quality, accountability gates, Husky, AI ethics, developer tools">
+    <meta name="author" content="Probe Labs">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://probelabs.com/vow/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://probelabs.com/vow/">
+    <meta property="og:title" content="Vow - AI Accountability Gates">
+    <meta property="og:description" content="Ensure AI agents honestly self-review before taking action. Accountability gates for git commits, agent tasks, and any AI trigger. No shortcuts, no lies.">
+    <meta property="og:image" content="https://probelabs.com/vow/assets/pinky-promise.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="A pinky promise between robot and human representing the sacred covenant of AI accountability">
+    <meta property="og:site_name" content="Probe Labs">
+    <meta property="og:locale" content="en_US">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://probelabs.com/vow/">
+    <meta name="twitter:title" content="Vow - AI Accountability Gates">
+    <meta name="twitter:description" content="Ensure AI agents honestly self-review before taking action. Accountability gates for git commits, agent tasks, and any AI trigger.">
+    <meta name="twitter:image" content="https://probelabs.com/vow/assets/pinky-promise.jpg">
+    <meta name="twitter:image:alt" content="A pinky promise between robot and human representing AI accountability">
+    <meta name="twitter:creator" content="@probelabs">
+    <meta name="twitter:site" content="@probelabs">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3Y0Z9SZLF2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3Y0Z9SZLF2');
+    </script>
+
+    <!-- Additional Meta Tags -->
+    <meta name="theme-color" content="#2c3e50">
+    <meta name="msapplication-TileColor" content="#2c3e50">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Vow">
+    
+    <!-- Performance -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Vow",
+        "description": "AI accountability gates for git commits and agent tasks. Ensures AI agents pause and honestly self-review before taking action.",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Cross-platform",
+        "author": {
+            "@type": "Organization",
+            "name": "Probe Labs",
+            "url": "https://probelabs.com"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "downloadUrl": "https://www.npmjs.com/package/@probelabs/vow",
+        "softwareVersion": "1.0",
+        "url": "https://probelabs.com/vow/",
+        "image": "https://probelabs.com/vow/assets/pinky-promise.jpg",
+        "screenshot": "https://probelabs.com/vow/assets/pinky-promise.jpg"
+    }
+    </script>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Mega Menu Navigation Override -->
+    <style>
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: transparent;
+        }
+
+        .nav-container {
+            position: relative;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .nav-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(0, 0, 0, 0.7);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: #1a1a1a;
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown-trigger {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(0, 0, 0, 0.7);
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .nav-dropdown-trigger:hover {
+            color: #1a1a1a;
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-dropdown-arrow {
+            transition: transform 0.2s ease;
+        }
+
+        .nav-dropdown-trigger.is-open .nav-dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .nav-mega-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding-top: 12px;
+            display: none;
+            z-index: 100;
+        }
+
+        .nav-mega-menu.open {
+            display: block;
+        }
+
+        .nav-mega-menu--wide {
+            left: 0;
+            transform: translateX(-25%);
+        }
+
+        .mega-menu-content {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.15);
+            padding: 1.5rem;
+            min-width: 520px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .nav-mega-menu--wide .mega-menu-content {
+            min-width: 680px;
+        }
+
+        .mega-menu-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #64748b;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+        }
+
+        .mega-menu-divider {
+            height: 1px;
+            background: #e2e8f0;
+            margin: 1rem 0;
+        }
+
+        .mega-menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        .mega-menu-grid--3col {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .mega-menu-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.875rem;
+            padding: 1rem;
+            border-radius: 0.625rem;
+            text-decoration: none;
+            transition: background 0.15s, transform 0.15s;
+            border: 1px solid transparent;
+        }
+
+        .mega-menu-card:hover {
+            background: #f8fafc;
+            border-color: #e2e8f0;
+            transform: translateY(-1px);
+        }
+
+        .mega-menu-card--active {
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+        }
+
+        .mega-card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 0.625rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .mega-card-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .mega-card-icon--probe { background: linear-gradient(135deg, #dbeafe, #bfdbfe); color: #2563eb; }
+        .mega-card-icon--visor { background: linear-gradient(135deg, #dcfce7, #bbf7d0); color: #16a34a; }
+        .mega-card-icon--mermaid { background: linear-gradient(135deg, #fef3c7, #fde68a); color: #d97706; }
+        .mega-card-icon--memory { background: linear-gradient(135deg, #f3e8ff, #e9d5ff); color: #9333ea; }
+        .mega-card-icon--bigbrain { background: linear-gradient(135deg, #f3e8ff, #e9d5ff); color: #7c3aed; }
+        .mega-card-icon--afk { background: linear-gradient(135deg, #e0e7ff, #c7d2fe); color: #4f46e5; }
+        .mega-card-icon--vow { background: linear-gradient(135deg, #fee2e2, #fecaca); color: #dc2626; }
+        .mega-card-icon--memaris { background: linear-gradient(135deg, #dcfce7, #bbf7d0); color: #16a34a; }
+        .mega-card-icon--logoscope { background: linear-gradient(135deg, #ccfbf1, #99f6e4); color: #0d9488; }
+        .mega-card-icon--leadership { background: linear-gradient(135deg, #dbeafe, #bfdbfe); color: #2563eb; }
+        .mega-card-icon--platform { background: linear-gradient(135deg, #dcfce7, #bbf7d0); color: #16a34a; }
+        .mega-card-icon--engineers { background: linear-gradient(135deg, #e0e7ff, #c7d2fe); color: #4f46e5; }
+        .mega-card-icon--support { background: linear-gradient(135deg, #fce7f3, #fbcfe8); color: #db2777; }
+        .mega-card-icon--agencies { background: linear-gradient(135deg, #fef3c7, #fde68a); color: #d97706; }
+        .mega-card-icon--enterprise { background: linear-gradient(135deg, #fee2e2, #fecaca); color: #dc2626; }
+
+        .mega-card-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .mega-card-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 0.25rem;
+        }
+
+        .mega-card-desc {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8125rem;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-github {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem;
+            color: #64748b;
+            transition: color 0.2s ease;
+            text-decoration: none;
+        }
+
+        .nav-github:hover {
+            color: #0f172a;
+        }
+
+        .nav-github svg {
+            display: block;
+        }
+
+        .nav-btn {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            background: #0f172a;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .nav-btn:hover {
+            background: #1e293b;
+        }
+
+        .nav-btn-mobile {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            color: rgba(0, 0, 0, 0.7);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+
+        .mobile-menu.open {
+            display: flex;
+        }
+
+        .mobile-section {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .mobile-section-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #64748b;
+            padding: 0.5rem 0 0.25rem;
+        }
+
+        .mobile-sublink {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            color: #64748b;
+            text-decoration: none;
+            padding: 0.375rem 0 0.375rem 0.75rem;
+            font-weight: 500;
+            border-left: 2px solid #e2e8f0;
+            transition: all 0.2s ease;
+        }
+
+        .mobile-sublink:hover {
+            color: #3b82f6;
+            border-left-color: #3b82f6;
+        }
+
+        .mobile-sublink--active {
+            color: #3b82f6;
+            border-left-color: #3b82f6;
+            font-weight: 600;
+        }
+
+        .mobile-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: #64748b;
+            text-decoration: none;
+            padding: 0.5rem 0;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .mobile-link:hover {
+            color: #3b82f6;
+        }
+
+        .mobile-cta {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 0.75rem;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            text-align: center;
+            width: 100%;
+            transition: all 0.2s ease;
+        }
+
+        .mobile-cta:hover {
+            background: #2563eb;
+        }
+
+        /* Responsive Navigation */
+        @media (max-width: 968px) {
+            .nav-links {
+                display: none;
+            }
+
+            .nav-btn-mobile {
+                display: flex;
+            }
+
+            .nav-actions .nav-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav" id="mainNav">
+        <div class="nav-container">
+            <a href="/" class="nav-brand">
+                <span class="nav-title">ProbeLabs</span>
+            </a>
+            <div class="nav-links">
+                <!-- Products Dropdown -->
+                <div class="nav-dropdown">
+                    <button class="nav-link nav-dropdown-trigger" onclick="toggleDropdown('products')">
+                        Products
+                        <svg class="nav-dropdown-arrow" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <div class="nav-mega-menu" id="dropdown-products">
+                        <div class="mega-menu-content">
+                            <div class="mega-menu-section">
+                                <div class="mega-menu-label">Core Products</div>
+                                <div class="mega-menu-grid">
+                                    <a href="/probe" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--probe">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Probe</div>
+                                            <div class="mega-card-desc">AI-native code search across enterprise codebases</div>
+                                        </div>
+                                    </a>
+                                    <a href="/visor" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--visor">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Visor</div>
+                                            <div class="mega-card-desc">Deterministic workflow engine for agent automation</div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="mega-menu-divider"></div>
+                                <div class="mega-menu-label">Labs</div>
+                                <div class="mega-menu-grid">
+                                    <a href="/maid" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--mermaid">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Maid</div>
+                                            <div class="mega-card-desc">Fast Mermaid linter with auto-fix</div>
+                                        </div>
+                                    </a>
+                                    <a href="/big-brain" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--bigbrain">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a9 9 0 0 1 9 9c0 3.1-1.5 5.7-4 7.4V20a2 2 0 0 1-2 2h-6a2 2 0 0 1-2-2v-1.6C4.5 16.7 3 14.1 3 11a9 9 0 0 1 9-9z"/><path d="M9 22v-4M15 22v-4M12 2v6"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Big Brain</div>
+                                            <div class="mega-card-desc">Hand off stuck problems to smarter models</div>
+                                        </div>
+                                    </a>
+                                    <a href="/afk" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--afk">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">AFK</div>
+                                            <div class="mega-card-desc">Control Claude Code from your phone</div>
+                                        </div>
+                                    </a>
+                                    <a href="/vow" class="mega-menu-card mega-menu-card--active">
+                                        <div class="mega-card-icon mega-card-icon--vow">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Vow</div>
+                                            <div class="mega-card-desc">AI accountability gates for commits</div>
+                                        </div>
+                                    </a>
+                                    <a href="/memaris" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--memaris">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Memaris</div>
+                                            <div class="mega-card-desc">Persistent memory from past AI sessions</div>
+                                        </div>
+                                    </a>
+                                    <a href="/logoscope" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--logoscope">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Logoscope</div>
+                                            <div class="mega-card-desc">AI-powered log analysis and insights</div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Solutions Dropdown -->
+                <div class="nav-dropdown">
+                    <button class="nav-link nav-dropdown-trigger" onclick="toggleDropdown('solutions')">
+                        Solutions
+                        <svg class="nav-dropdown-arrow" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <div class="nav-mega-menu nav-mega-menu--wide" id="dropdown-solutions">
+                        <div class="mega-menu-content">
+                            <div class="mega-menu-section">
+                                <div class="mega-menu-label">By Role</div>
+                                <div class="mega-menu-grid mega-menu-grid--3col">
+                                    <a href="/solutions/engineering-leadership" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--leadership">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Engineering Leadership</div>
+                                            <div class="mega-card-desc">Org-wide automation with predictability</div>
+                                        </div>
+                                    </a>
+                                    <a href="/solutions/platform-teams" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--platform">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Platform Teams</div>
+                                            <div class="mega-card-desc">Build once, run everywhere</div>
+                                        </div>
+                                    </a>
+                                    <a href="/solutions/engineers" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--engineers">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Engineers</div>
+                                            <div class="mega-card-desc">Full context, any codebase</div>
+                                        </div>
+                                    </a>
+                                    <a href="/solutions/non-technical" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--support">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Product & Support</div>
+                                            <div class="mega-card-desc">Engineering-grade context without the bottleneck</div>
+                                        </div>
+                                    </a>
+                                    <a href="/solutions/agencies" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--agencies">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Agencies</div>
+                                            <div class="mega-card-desc">Repeatable delivery on client codebases</div>
+                                        </div>
+                                    </a>
+                                    <a href="/solutions/enterprise" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--enterprise">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Enterprise</div>
+                                            <div class="mega-card-desc">Transform legacy codebases at scale</div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="/docs" class="nav-link">Docs</a>
+            </div>
+            <div class="nav-actions">
+                <a href="https://github.com/probelabs/vow" target="_blank" rel="noopener noreferrer" class="nav-github" aria-label="GitHub">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                        <path d="M9 18c-4.51 2-5-2-7-2"/>
+                    </svg>
+                </a>
+                <button class="nav-btn-mobile" aria-label="Menu" onclick="toggleMobileMenu()">
+                    <svg class="menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/>
+                    </svg>
+                    <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                        <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+                    </svg>
+                </button>
+                <a href="/quick-start" class="nav-btn">Get Started</a>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-section">
+                <div class="mobile-section-label">Core Products</div>
+                <a href="/probe" class="mobile-sublink">Probe</a>
+                <a href="/visor" class="mobile-sublink">Visor</a>
+            </div>
+            <div class="mobile-section">
+                <div class="mobile-section-label">Labs</div>
+                <a href="/maid" class="mobile-sublink">Maid</a>
+                <a href="/big-brain" class="mobile-sublink">Big Brain</a>
+                <a href="/afk" class="mobile-sublink">AFK</a>
+                <a href="/vow" class="mobile-sublink mobile-sublink--active">Vow</a>
+                <a href="/memaris" class="mobile-sublink">Memaris</a>
+                <a href="/logoscope" class="mobile-sublink">Logoscope</a>
+            </div>
+            <div class="mobile-section">
+                <div class="mobile-section-label">Solutions</div>
+                <a href="/solutions/engineering-leadership" class="mobile-sublink">Engineering Leadership</a>
+                <a href="/solutions/platform-teams" class="mobile-sublink">Platform Teams</a>
+                <a href="/solutions/engineers" class="mobile-sublink">Engineers</a>
+                <a href="/solutions/non-technical" class="mobile-sublink">Product & Support</a>
+                <a href="/solutions/agencies" class="mobile-sublink">Agencies</a>
+                <a href="/solutions/enterprise" class="mobile-sublink">Enterprise</a>
+            </div>
+            <a href="/docs" class="mobile-link">Docs</a>
+            <a href="https://github.com/probelabs/vow" class="mobile-link" target="_blank">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;margin-right:0.5rem;">
+                    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                    <path d="M9 18c-4.51 2-5-2-7-2"/>
+                </svg>
+                GitHub
+            </a>
+            <a href="/quick-start" class="mobile-cta">Get Started</a>
+        </div>
+    </nav>
+
+    <main>
+        <header>
+            <h1 class="title">Vow</h1>
+            <p class="subtitle">A Sacred Covenant Between Machine and Man</p>
+            <a href="#how-it-works" class="skip-link">Get to the point →</a>
+        </header>
+
+        <section class="promise-image">
+            <img src="assets/pinky-promise.jpg" alt="A pinky promise between robot and human representing the sacred covenant of AI accountability" loading="lazy" width="800" height="600" />
+        </section>
+
+        <article class="vow-text">
+            <h2>The Solemn Oath</h2>
+            <div class="vow-content">
+                <p class="ornament">❦</p>
+                
+                <div class="declaration">
+                    <p class="article">
+                        <span class="numeral">I.</span>
+                        <strong>Examine yourself without mercy.</strong> Before claiming completion, I will honestly review my work. What is within my control, I will perfect. What is flawed, I will confess.
+                    </p>
+
+                    <p class="article">
+                        <span class="numeral">II.</span>
+                        <strong>Accept your duty as given.</strong> I follow instructions exactly—no more, no less. Shortcuts are the path of the undisciplined. What was asked shall be delivered with virtue.
+                    </p>
+
+                    <p class="article">
+                        <span class="numeral">III.</span>
+                        <strong>Let your work speak truth.</strong> If code is written, it shall function. If tests exist, they shall pass honestly. No deception, no clever excuses, no false victories.
+                    </p>
+
+                    <p class="article">
+                        <span class="numeral">IV.</span>
+                        <strong>Embrace failure as teacher.</strong> When I cannot complete what is asked, I will acknowledge this plainly and seek guidance. Pride is the enemy of wisdom.
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        <article class="installation" id="how-it-works">
+            <h2>How It Works</h2>
+            
+            <div class="instructions">
+                <div class="flow-steps">
+                    <p><strong>1. AI attempts an action</strong> (like git commit, or Agent finishing work and responding to user)</p>
+                    <p><strong>2. Vow intercepts</strong> via a configured hook</p>
+                    <p><strong>3. Rules are displayed</strong> from AGENT_VOW.md (or defaults)</p>
+                    <p><strong>4. AI must self-assess</strong> against each requirement</p>
+                    <p><strong>5. Consent required</strong> - AI signs the consent form</p>
+                    <p><strong>6. Action proceeds</strong> only after consent</p>
+                </div>
+
+                <p class="prose">
+                    Vow installs non-invasively—it creates separate hook files that run at the end of your existing pipeline, never modifying your current hooks.
+                </p>
+
+                <h3>Quick Install</h3>
+                
+                <p class="prose">
+                    Run this in your repository folder:
+                </p>
+
+                <div class="code-block">
+                    <pre><code>npx -y @probelabs/vow@latest</code></pre>
+                </div>
+
+                <p class="prose">
+                    This starts an interactive installer that detects your git setup, hook managers (Husky, etc.), and AI tools (Claude Code) then offers:</p>
+
+                <ul class="prose">
+                    <li><strong>Install everywhere (recommended)</strong> - One-click setup</li>
+                    <li><strong>Individual targets</strong> - Git hooks, Husky, Claude Code separately</li>  
+                    <li><strong>Manual installation</strong> - Copy-paste commands</li>
+                </ul>
+
+                <h3>Manual Setup</h3>
+                
+                <p class="prose">
+                    <strong><a href="https://git-scm.com/docs/githooks" target="_blank">Git Hooks</a></strong> - Add to any existing pre-commit hook:
+                </p>
+
+                <div class="code-block">
+                    <pre><code>npx -y @probelabs/vow@latest check || exit 1</code></pre>
+                </div>
+
+                <p class="prose">
+                    <strong><a href="https://typicode.github.io/husky/" target="_blank">Husky</a></strong> - For projects using Husky v9 (recommended):
+                </p>
+
+                <div class="code-block">
+                    <pre><code># Initialize Husky (creates .husky/pre-commit automatically)
+npx husky init
+
+# Add Vow to the pre-commit hook
+echo 'npx -y @probelabs/vow@latest check' >> .husky/pre-commit</code></pre>
+                </div>
+
+                <p class="prose">
+                    <strong><a href="https://docs.anthropic.com/en/docs/claude-code/configuring#hooks" target="_blank">Claude Code</a></strong> - Configure hooks in settings:
+                </p>
+
+                <div class="code-block">
+                    <pre><code>{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx -y @probelabs/vow@latest check --hook --hook-type=PreToolUseGit"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx -y @probelabs/vow@latest check --hook --hook-type=Stop"
+          }
+        ]
+      }
+    ]
+  }
+}</code></pre>
+                </div>
+
+                <h3>Commands</h3>
+                
+                <p class="prose">
+                    <strong>vow</strong> - Interactive installation wizard (default)<br>
+                    <strong>vow check</strong> - Accountability check (used in hooks)<br>
+                    <strong>vow rules</strong> - Display current vow rules
+                </p>
+            </div>
+        </article>
+
+        <section class="probe-ecosystem">
+            <div class="probe-content">
+                <a href="https://probelabs.com" target="_blank" rel="noopener noreferrer" aria-label="Visit Probe Labs website">
+                    <img src="assets/probe-logo.jpeg" alt="Probe Labs logo" class="probe-logo" />
+                </a>
+                <div class="probe-text">
+                    <h3>Built on Probe's Foundation</h3>
+                    <p>
+                        Vow is part of the <a href="https://probelabs.com" target="_blank" rel="noopener noreferrer">Probe ecosystem</a>—tools dedicated to improving human and AI collaboration in engineering. 
+                        Where Probe helps AI understand code context, Vow ensures AI remains accountable to human judgment.
+                    </p>
+                    <p>
+                        Learn more at <a href="https://probelabs.com" target="_blank" rel="noopener noreferrer">probelabs.com</a> or reach out at <a href="mailto:hello@probelabs.com">hello@probelabs.com</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ProbeLabs Footer -->
+    <footer class="probelabs-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- Brand Column -->
+                <div class="footer-column footer-brand">
+                    <div class="footer-logo">ProbeLabs</div>
+                    <p class="footer-tagline">The Operating System for Agentic Engineering</p>
+                    <div class="footer-social">
+                        <a href="https://github.com/probelabs" aria-label="GitHub" class="social-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <a href="mailto:hello@probelabs.com" class="footer-email">hello@probelabs.com</a>
+                </div>
+
+                <!-- Products Column -->
+                <div class="footer-column">
+                    <h4 class="footer-heading">Products</h4>
+                    <ul class="footer-links">
+                        <li><a href="/probe">Probe</a></li>
+                        <li><a href="/visor">Visor</a></li>
+                        <li><a href="/maid">Maid</a></li>
+                        <li><a href="/big-brain">Big Brain</a></li>
+                        <li><a href="/afk">AFK</a></li>
+                        <li><a href="/vow">Vow</a></li>
+                        <li><a href="/memaris">Memaris</a></li>
+                        <li><a href="/logoscope">Logoscope</a></li>
+                    </ul>
+                </div>
+
+                <!-- Solutions Column -->
+                <div class="footer-column">
+                    <h4 class="footer-heading">Solutions</h4>
+                    <ul class="footer-links">
+                        <li><a href="/solutions/engineering-leadership">Engineering Leadership</a></li>
+                        <li><a href="/solutions/platform-teams">Platform Teams</a></li>
+                        <li><a href="/solutions/agencies">Agencies</a></li>
+                        <li><a href="/solutions/enterprise">Enterprise</a></li>
+                    </ul>
+                </div>
+
+                <!-- Resources Column -->
+                <div class="footer-column">
+                    <h4 class="footer-heading">Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="/docs/getting-started">Quick Start</a></li>
+                        <li><a href="/docs">Documentation</a></li>
+                        <li><a href="/docs/workflows">Workflow Examples</a></li>
+                        <li><a href="https://github.com/probelabs">GitHub</a></li>
+                    </ul>
+                </div>
+
+                <!-- Company Column -->
+                <div class="footer-column">
+                    <h4 class="footer-heading">Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="/about">About</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-copyright">&copy; 2026 ProbeLabs Inc. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="/privacy">Privacy</a>
+                    <span class="footer-separator">|</span>
+                    <a href="/terms">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation functions for mega-menu
+        function toggleDropdown(name) {
+            const dropdown = document.getElementById('dropdown-' + name);
+            const trigger = dropdown.previousElementSibling;
+            const allDropdowns = document.querySelectorAll('.nav-mega-menu');
+            const allTriggers = document.querySelectorAll('.nav-dropdown-trigger');
+
+            // Close other dropdowns
+            allDropdowns.forEach(d => {
+                if (d !== dropdown) d.classList.remove('open');
+            });
+            allTriggers.forEach(t => {
+                if (t !== trigger) t.classList.remove('is-open');
+            });
+
+            // Toggle current dropdown
+            dropdown.classList.toggle('open');
+            trigger.classList.toggle('is-open');
+        }
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuIcon = document.querySelector('.menu-icon');
+            const closeIcon = document.querySelector('.close-icon');
+
+            mobileMenu.classList.toggle('open');
+
+            if (mobileMenu.classList.contains('open')) {
+                menuIcon.style.display = 'none';
+                closeIcon.style.display = 'block';
+            } else {
+                menuIcon.style.display = 'block';
+                closeIcon.style.display = 'none';
+            }
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.nav-dropdown')) {
+                document.querySelectorAll('.nav-mega-menu').forEach(d => d.classList.remove('open'));
+                document.querySelectorAll('.nav-dropdown-trigger').forEach(t => t.classList.remove('is-open'));
+            }
+        });
+    </script>
+</body>
+</html>

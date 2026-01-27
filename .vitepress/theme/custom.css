@@ -146,8 +146,10 @@
   z-index: 1;
 }
 
-/* Hide the default features section since we're using our custom one */
-.vp-features {
+/* Hide the default features section on custom pages since they use their own design */
+.ps-page .vp-features,
+.portfolio-home .vp-features,
+.probelabs-landing .vp-features {
   display: none !important;
 }
 
@@ -163,39 +165,43 @@ button,
   transition: all 0.3s ease;
 }
 
-/* Base Styles */
-body {
+/* Base Styles - scoped to non-doc pages to preserve VitePress defaults in documentation */
+body:has(.portfolio-home),
+body:has(.ps-page),
+body:has(.probelabs-landing) {
   font-family: var(--font-sans);
   color: var(--text-primary);
   line-height: 1.6;
   background-color: var(--bg-primary);
 }
 
-/* Links */
-a {
+/* Links - scoped to custom pages to preserve VitePress defaults in documentation */
+/* Exclude buttons (any element with class containing 'btn') */
+.portfolio-home a:not([class*="btn"]),
+.ps-page a:not([class*="btn"]),
+.probelabs-landing a:not([class*="btn"]) {
   color: var(--link-color);
   text-decoration: none;
 }
 
-a:hover {
+.portfolio-home a:not([class*="btn"]):hover,
+.ps-page a:not([class*="btn"]):hover,
+.probelabs-landing a:not([class*="btn"]):hover {
   color: var(--link-hover-color);
 }
 
-/* Code Block Styles */
-.vp-doc div[class*='language-'] {
+/* Code Block Styles - scoped to custom pages only */
+.ps-page .vp-doc div[class*='language-'],
+.portfolio-home .vp-doc div[class*='language-'] {
   background: var(--bg-code-block);
-  /* border-radius: var(--radius-lg); */
   box-shadow: 0 4px 12px var(--shadow-color);
   margin: var(--space-md) 0;
-  /* padding: var(--space-xs) !important; */
-  /* border: 1px solid var(--border-color); */
-  /* width: 100%; */
   overflow-x: auto;
 }
 
-.vp-doc div[class*='language-'] pre {
+.ps-page .vp-doc div[class*='language-'] pre,
+.portfolio-home .vp-doc div[class*='language-'] pre {
   padding: var(--space-xs) !important;
-  /* width: 100%; */
 }
 
 .quick-start-option .vp-doc div[class*='language-'] {
@@ -203,18 +209,21 @@ a:hover {
 }
 
 @media (max-width: 768px) {
-  .vp-doc div[class*='language-'] pre {
+  .ps-page .vp-doc div[class*='language-'] pre,
+  .portfolio-home .vp-doc div[class*='language-'] pre {
     padding: calc(var(--space-xs) * 0.75) calc(var(--space-xs) * 0.5) !important;
   }
 }
 
 @media (max-width: 640px) {
-  .vp-doc div[class*='language-'] pre {
+  .ps-page .vp-doc div[class*='language-'] pre,
+  .portfolio-home .vp-doc div[class*='language-'] pre {
     padding: calc(var(--space-xs) * 0.5) calc(var(--space-xs) * 0.25) !important;
   }
 }
 
-.vp-doc div[class*='language-'] code {
+.ps-page .vp-doc div[class*='language-'] code,
+.portfolio-home .vp-doc div[class*='language-'] code {
   font-family: var(--font-mono);
   font-size: 14px;
   line-height: 1.5;
@@ -222,21 +231,24 @@ a:hover {
 }
 
 @media (max-width: 768px) {
-  .vp-doc div[class*='language-'] code {
+  .ps-page .vp-doc div[class*='language-'] code,
+  .portfolio-home .vp-doc div[class*='language-'] code {
     font-size: 13px;
     padding: 0.5rem;
   }
 }
 
 @media (max-width: 640px) {
-  .vp-doc div[class*='language-'] code {
+  .ps-page .vp-doc div[class*='language-'] code,
+  .portfolio-home .vp-doc div[class*='language-'] code {
     font-size: 12px;
     padding: 0.25rem;
   }
 }
 
-/* Line numbers */
-.vp-doc div[class*='language-'] .line-numbers {
+/* Line numbers - scoped to custom pages only */
+.ps-page .vp-doc div[class*='language-'] .line-numbers,
+.portfolio-home .vp-doc div[class*='language-'] .line-numbers {
   padding-right: var(--space-sm);
   font-family: var(--font-mono);
   font-size: 14px;
@@ -245,21 +257,24 @@ a:hover {
 }
 
 @media (max-width: 768px) {
-  .vp-doc div[class*='language-'] .line-numbers {
+  .ps-page .vp-doc div[class*='language-'] .line-numbers,
+  .portfolio-home .vp-doc div[class*='language-'] .line-numbers {
     padding-right: calc(var(--space-sm) * 0.75);
     font-size: 13px;
   }
 }
 
 @media (max-width: 640px) {
-  .vp-doc div[class*='language-'] .line-numbers {
+  .ps-page .vp-doc div[class*='language-'] .line-numbers,
+  .portfolio-home .vp-doc div[class*='language-'] .line-numbers {
     padding-right: calc(var(--space-sm) * 0.5);
     font-size: 12px;
   }
 }
 
-/* Code block header */
-.vp-doc div[class*='language-']::before {
+/* Code block header - scoped to custom pages only */
+.ps-page .vp-doc div[class*='language-']::before,
+.portfolio-home .vp-doc div[class*='language-']::before {
   content: '';
   position: absolute;
   top: var(--space-xs);
@@ -268,7 +283,8 @@ a:hover {
   gap: 6px;
 }
 
-.vp-doc div[class*='language-']::after {
+.ps-page .vp-doc div[class*='language-']::after,
+.portfolio-home .vp-doc div[class*='language-']::after {
   content: attr(data-lang);
   position: absolute;
   top: var(--space-xs);
@@ -280,12 +296,14 @@ a:hover {
 }
 
 @media (max-width: 768px) {
-  .vp-doc div[class*='language-']::before {
+  .ps-page .vp-doc div[class*='language-']::before,
+  .portfolio-home .vp-doc div[class*='language-']::before {
     top: calc(var(--space-xs) * 0.75);
     left: calc(var(--space-xs) * 0.75);
   }
 
-  .vp-doc div[class*='language-']::after {
+  .ps-page .vp-doc div[class*='language-']::after,
+  .portfolio-home .vp-doc div[class*='language-']::after {
     top: calc(var(--space-xs) * 0.75);
     right: calc(var(--space-sm) * 0.75);
     font-size: 11px;
@@ -293,12 +311,14 @@ a:hover {
 }
 
 @media (max-width: 640px) {
-  .vp-doc div[class*='language-']::before {
+  .ps-page .vp-doc div[class*='language-']::before,
+  .portfolio-home .vp-doc div[class*='language-']::before {
     top: calc(var(--space-xs) * 0.5);
     left: calc(var(--space-xs) * 0.5);
   }
 
-  .vp-doc div[class*='language-']::after {
+  .ps-page .vp-doc div[class*='language-']::after,
+  .portfolio-home .vp-doc div[class*='language-']::after {
     top: calc(var(--space-xs) * 0.5);
     right: calc(var(--space-sm) * 0.5);
     font-size: 10px;
@@ -332,29 +352,36 @@ a:hover {
   --syntax-punctuation: #c9d1d9;
 }
 
-/* Headers */
-.vp-doc h1,
-.vp-doc h2,
-.vp-doc h3 {
+/* Headers - scoped to custom pages only to preserve VitePress defaults in documentation */
+.ps-page .vp-doc h1,
+.ps-page .vp-doc h2,
+.ps-page .vp-doc h3,
+.portfolio-home .vp-doc h1,
+.portfolio-home .vp-doc h2,
+.portfolio-home .vp-doc h3 {
   font-weight: 600;
   line-height: 1.25;
   margin: var(--space-xl) 0 var(--space-md);
 }
 
-.vp-doc h1 {
+.ps-page .vp-doc h1,
+.portfolio-home .vp-doc h1 {
   font-size: 32px;
 }
 
-.vp-doc h2 {
+.ps-page .vp-doc h2,
+.portfolio-home .vp-doc h2 {
   font-size: 24px;
 }
 
-.vp-doc h3 {
+.ps-page .vp-doc h3,
+.portfolio-home .vp-doc h3 {
   font-size: 20px;
 }
 
-/* Inline code */
-.vp-doc :not(pre)>code {
+/* Inline code - scoped to custom pages only */
+.ps-page .vp-doc :not(pre)>code,
+.portfolio-home .vp-doc :not(pre)>code {
   background-color: var(--code-inline-bg);
   color: var(--code-inline-text);
   padding: 0.2em 0.4em;
@@ -363,8 +390,9 @@ a:hover {
   font-family: var(--font-mono);
 }
 
-/* Blockquotes */
-.vp-doc blockquote {
+/* Blockquotes - scoped to custom pages only */
+.ps-page .vp-doc blockquote,
+.portfolio-home .vp-doc blockquote {
   border-left: 4px solid var(--blockquote-border);
   color: var(--blockquote-text);
   padding: var(--space-sm) var(--space-md);
@@ -373,39 +401,47 @@ a:hover {
   border-radius: var(--radius-sm);
 }
 
-/* Tables */
-.vp-doc table {
+/* Tables - scoped to custom pages only */
+.ps-page .vp-doc table,
+.portfolio-home .vp-doc table {
   border-collapse: collapse;
   width: 100%;
   margin: var(--space-md) 0;
   border: 1px solid var(--border-color);
 }
 
-.vp-doc th,
-.vp-doc td {
+.ps-page .vp-doc th,
+.ps-page .vp-doc td,
+.portfolio-home .vp-doc th,
+.portfolio-home .vp-doc td {
   border: 1px solid var(--border-color);
   padding: var(--space-xs) var(--space-sm);
 }
 
-.vp-doc th {
+.ps-page .vp-doc th,
+.portfolio-home .vp-doc th {
   background-color: var(--bg-secondary);
   font-weight: 600;
 }
 
+/* Container padding - scoped to custom pages only */
 @media (min-width: 960px) {
-  .vp-doc.container {
+  .ps-page .vp-doc.container,
+  .portfolio-home .vp-doc.container {
     padding: 0 !important;
   }
 }
 
 @media (max-width: 768px) {
-  .vp-doc.container {
+  .ps-page .vp-doc.container,
+  .portfolio-home .vp-doc.container {
     padding: 0 0.5rem !important;
   }
 }
 
 @media (max-width: 640px) {
-  .vp-doc.container {
+  .ps-page .vp-doc.container,
+  .portfolio-home .vp-doc.container {
     padding: 0 0.25rem !important;
   }
 }
@@ -466,8 +502,9 @@ a:hover {
   margin: var(--space-md) 0;
 }
 
-/* Section Spacing */
-.vp-doc>*+* {
+/* Section Spacing - scoped to custom pages only */
+.ps-page .vp-doc>*+*,
+.portfolio-home .vp-doc>*+* {
   margin-top: var(--space-xl);
 }
 
@@ -622,20 +659,73 @@ a:hover {
   color: inherit;
 }
 
-/* Portfolio Page Styles */
-.VPDoc.has-aside .content-container {
-  max-width: 100% !important;
-}
-
+/* Portfolio Page Styles - scoped to portfolio pages only */
 .vp-doc .portfolio-home {
   max-width: none !important;
 }
 
+/* Hide sidebar on portfolio page only */
+.portfolio-home ~ aside {
+  display: none !important;
 }
 
-/* Full width container for portfolio */
-.VPContent.has-sidebar {
+/* Full width container for portfolio page only */
+.vp-doc:has(.portfolio-home) {
+  max-width: 100% !important;
+}
+
+.vp-doc:has(.portfolio-home) .content-container {
+  max-width: 100% !important;
   padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* ========================================
+   Hide sidebar and full-width layout for Product/Solution pages (.ps-page)
+   ======================================== */
+
+/* Hide the left sidebar */
+body:has(.ps-page) .VPSidebar {
+  display: none !important;
+}
+
+/* Hide the right "On this page" aside */
+body:has(.ps-page) .VPDocAside {
+  display: none !important;
+}
+
+/* Remove sidebar padding from content */
+body:has(.ps-page) .VPContent.has-sidebar {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* Override VitePress large screen padding-right - only applies on docs pages */
+@media (min-width: 1440px) {
+  body:has(.ps-page) .VPContent.has-sidebar,
+  body:has(.portfolio-home) .VPContent.has-sidebar,
+  body:has(.probelabs-landing) .VPContent.has-sidebar {
+    padding-right: 0 !important;
+  }
+}
+
+/* Make content full-width */
+body:has(.ps-page) .VPDoc {
+  padding: 0 !important;
+}
+
+body:has(.ps-page) .VPDoc.has-aside .content-container {
+  max-width: 100% !important;
+}
+
+body:has(.ps-page) .VPDoc .container {
+  max-width: 100% !important;
+  padding: 0 !important;
+}
+
+body:has(.ps-page) .vp-doc {
+  max-width: 100% !important;
+  padding: 0 !important;
 }
 
 /* Override VitePress home layout defaults */
@@ -662,4 +752,47 @@ a:hover {
 /* Smooth scroll behavior */
 html {
   scroll-behavior: smooth;
+}
+
+/* Docs: add more breathing room above the first page title (avoid margin-collapsing) */
+body:has(.docs-layout) .vp-doc h1 {
+  margin-top: 0 !important;
+  margin-bottom: 2rem !important;
+}
+
+/* ========================================
+   Custom SiteNav Integration - Hide VitePress default nav
+   ======================================== */
+
+/* Hide VitePress default navbar when SiteNav is present */
+body:has(.site-nav) .VPNav {
+  display: none !important;
+}
+
+/* Hide VitePress default layout when using custom DocsLayout */
+body:has(.docs-layout) .VPNav,
+body:has(.docs-layout) .VPSidebar,
+body:has(.docs-layout) .VPDocAside,
+body:has(.docs-layout) .VPLocalNav {
+  display: none !important;
+}
+
+/* Content area padding for fixed nav on non-docs pages using SiteNav */
+body:has(.site-nav):not(:has(.docs-layout)) .VPContent {
+  padding-top: 64px !important;
+}
+
+/* Fix local nav positioning for fixed nav on non-docs pages */
+body:has(.site-nav):not(:has(.docs-layout)) .VPLocalNav {
+  top: 64px !important;
+}
+
+/* ========================================
+   Hide VitePress default footer on pages with their own footer
+   (terms-page, privacy-page, and other ps-page pages)
+   ======================================== */
+body:has(.terms-page) .VPFooter,
+body:has(.privacy-page) .VPFooter,
+body:has(.ps-page) .VPFooter {
+  display: none !important;
 }

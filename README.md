@@ -1,128 +1,183 @@
-# probelabs.com
+# Probe Documentation Site
 
-Official website for Probe Labs - home of Probe, Maid, and other developer tools.
+This directory contains the VitePress-powered documentation site for the Probe project. This README provides information about the documentation structure, how to contribute, and how to maintain the documentation.
 
-## Architecture
+## Documentation Structure
 
-This is a **multi-project documentation aggregator**. The website pulls documentation from individual project repositories and builds a unified site.
+The documentation is organized into several main sections:
 
-### Structure
+- **Getting Started**: Quick Start, Installation, Core Features
+- **Core Functionality**: How It Works, Search Functionality, Code Extraction, CLI Mode
+- **AI Integration**: AI Integration Overview, AI Chat Mode, MCP Server, MCP Integration, Node.js SDK, Web Interface
+- **Language Support**: Language Support Overview, Supported Languages, Adding Languages
 
-```
-probelabs.com (this repo)
-├── index.md                    # Portfolio home page
-├── probe.md                    # Probe project landing page
-├── public/
-│   └── maid/                  # Maid standalone site (HTML)
-├── scripts/
-│   └── sync-docs.js           # Script to sync docs from projects
-├── docs/                      # Generated (not committed to git)
-│   ├── probe/                # Pulled from probelabs/probe
-│   └── maid/                 # Pulled from probelabs/mermaid-lint
-└── .vitepress/
-    ├── portfolio-theme/      # Custom portfolio theme
-    └── theme/                # Docs theme customizations
-```
+For a complete overview of the documentation structure, see [documentation-maintenance.md](./documentation-maintenance.md).
 
-### Projects
+## Key Documentation Files
 
-Each project maintains its documentation in its own repository:
+- **index.md**: Main landing page with feature highlights
+- **quick-start.md**: Getting started guide
+- **installation.md**: Detailed installation instructions
+- **features.md**: Overview of core features
+- **how-it-works.md**: Technical explanation of Probe's architecture
+- **ai-integration.md**: Overview of AI integration capabilities
+- **language-support-overview.md**: Overview of language support features
+- **documentation-guide.md**: Guide for users on how to use the documentation
+- **documentation-maintenance.md**: Technical guide for documentation maintainers
 
-- **Probe** - `probelabs/probe` → `/docs/probe/`
-- **Maid** - Standalone HTML site in `/public/maid/`
-- **More projects** - Add to `scripts/sync-docs.js`
+## Cross-References
 
-## Development
+The documentation uses cross-references to help users navigate between related topics. For a complete guide on cross-references and documentation maintenance, see [documentation-maintenance.md](./documentation-maintenance.md).
 
-```bash
-# Install dependencies
-npm install
+When adding new documentation or updating existing documentation, please ensure that cross-references are maintained and updated as needed.
 
-# Sync docs from project repos + run dev server
-npm run dev
+## Defining Features in index.md
 
-# Just sync docs (without starting server)
-npm run sync
+The `index.md` file supports a custom features section that can be defined in the frontmatter. Each feature can have the following properties:
 
-# Build for production (syncs docs first)
-npm run build
-
-# Preview production build
-npm run preview
+```yaml
+features:
+  - icon: 🔎                      # Emoji icon (optional if image is provided)
+    title: Feature Title          # Required
+    details: Feature description  # Required
+    link: /page-link              # Optional link to another page
+    linkText: Learn more          # Optional custom text for the link (defaults to "Learn more")
+    theme: alt                    # Optional theme (alt, brand, or default)
+    image: /icons/my-icon.svg     # Optional image path (replaces the emoji icon)
+    highlight: true               # Optional boolean to highlight the feature
 ```
 
-## Adding a New Project
+### Example Feature Definition
 
-1. **Add project configuration** in `scripts/sync-docs.js`:
+Here's an example of how to define features in the index.md frontmatter:
 
-```javascript
-{
-  name: 'your-project',
-  repo: 'https://github.com/probelabs/your-project.git',
-  branch: 'main',
-  docsPath: 'docs',           // Path to docs in source repo
-  targetPath: 'docs/your-project',  // Where to put in website
-  files: ['*.md', 'guides']   // Files/folders to sync
+```yaml
+---
+layout: home
+
+hero:
+  name: "Probe"
+  text: "Local, AI-ready\nCode Exploration"
+  tagline: "Open-source tooling that truly understands your codebase."
+  
+features:
+  - icon: 🔎
+    title: AST-Aware Code Search
+    details: Search your code with semantic understanding. Find functions, classes, and patterns across your entire codebase.
+    link: /how-it-works
+    linkText: Learn how it works
+    highlight: true
+    
+  - icon: ⚡
+    title: Lightning Fast
+    details: Built on ripgrep and tree-sitter for blazing fast performance. No indexing needed.
+    theme: alt
+    
+  - icon: 🔒
+    title: 100% Local & Private
+    details: Your code stays on your machine. Perfect for sensitive projects.
+    image: /icons/privacy-icon.svg
+---
+```
+
+## Custom Components
+
+The documentation uses several custom components:
+
+### CodeEditor
+
+The `CodeEditor` component displays code snippets with syntax highlighting:
+
+```markdown
+<CodeEditor filePath="example.js">
+function handleError(error) {
+  console.error(`Error: ${error.message}`);
+  return { success: false, error: error.message };
 }
+</CodeEditor>
 ```
 
-2. **Create landing page** at `your-project.md`
+### CommandExample
 
-3. **Update VitePress config** (`.vitepress/config.mts`) to add navigation
+The `CommandExample` component displays command-line examples:
 
-4. **Run sync**: `npm run sync`
+```markdown
+<CommandExample>probe search "error handling" ./src</CommandExample>
+```
 
-## How It Works
+With output:
 
-### Build-Time Sync
+```markdown
+<CommandExample output="Found 3 matches in 2 files">probe search "user authentication" ./src</CommandExample>
+```
 
-The `scripts/sync-docs.js` script:
+## Documentation Conventions
 
-1. Clones each project repo (shallow clone, specific branch)
-2. Copies specified docs to `docs/{project}/`
-3. Cleans up temp files
+Please follow these conventions when contributing to the documentation:
 
-This runs automatically before:
-- `npm run dev` - Development server
-- `npm run build` - Production build
+1. **File Names**: Use kebab-case for file names (e.g., `quick-start.md`, `how-it-works.md`)
+2. **Headings**: Use Title Case for headings (e.g., "Getting Started", "Core Functionality")
+3. **Code Examples**: Use appropriate syntax highlighting for code examples
+4. **Cross-References**: Use relative links for cross-references (e.g., `[Quick Start](./quick-start.md)`)
+5. **Images**: Store images in the `public` directory and reference them with absolute paths (e.g., `/images/example.png`)
 
-### Benefits
+## Running the Site Locally
 
-- ✅ **Single source of truth** - Projects own their docs
-- ✅ **Independent updates** - Update docs in project repo
-- ✅ **Centralized deployment** - One site, one build
-- ✅ **Version control** - Docs live with code
-- ✅ **No submodules** - Simple build-time sync
+To run the site locally:
+
+1. Navigate to the site directory
+2. Install dependencies: `npm install`
+3. Start the development server: `npm run dev`
 
 ## Deployment
 
-Deployed to Cloudflare Pages at https://probelabs.com
+The site is deployed using **Cloudflare Pages** with automatic deployments from the main branch to **probelabs.com**.
 
-**Build command**: `npm run build`  
-**Output directory**: `.vitepress/dist`  
-**Node version**: 20
+### Deployment Configuration
+- Platform: Cloudflare Pages
+- Domain: probelabs.com
+- Build command: `npm run build`
+- Output directory: `.vitepress/dist`
+- Node.js version: 20
 
-The sync script runs automatically during build, pulling latest docs from each project's main branch.
+For detailed deployment instructions, see [DEPLOYMENT.md](./DEPLOYMENT.md).
 
-## Tech Stack
+### Previous Deployment
+The site was previously deployed via GitHub Pages. The old workflow has been disabled and renamed to `vitepress-gh-pages.yml.disabled`.
 
-- **VitePress** - Documentation framework
-- **Custom Portfolio Theme** - Landing page
-- **Node.js sync script** - Documentation aggregation
-- **Git shallow clones** - Fast doc syncing
+## Building for Production
 
-## Contributing
+To build the site for production:
 
-### Website Changes
-Make changes directly in this repo for:
-- Landing pages
-- Themes
-- Navigation
-- Public assets
+```bash
+npm run build
+```
 
-### Documentation Changes
-Update documentation in the respective project repositories:
-- Probe docs → `probelabs/probe/site/`
-- Maid docs → `probelabs/mermaid-lint/docs/`
+The built site will be in the `.vitepress/dist` directory.
 
-The website will automatically pull the latest docs on next build.
+## Contributing to the Documentation
+
+We welcome contributions to the Probe documentation. If you find errors, omissions, or have suggestions for improvements, please consider contributing:
+
+1. Fork the [Probe repository](https://github.com/probelabs/probe) on GitHub
+2. Make your changes to the documentation files in the `site` directory
+3. Ensure that cross-references are maintained and updated as needed
+4. Run the site locally to verify your changes
+5. Submit a pull request with your changes
+
+## Maintenance Guidelines
+
+When maintaining the documentation:
+
+1. **Keep Cross-References Updated**: When adding or removing documentation, update cross-references in related files
+2. **Maintain Consistent Style**: Follow the established style and formatting conventions
+3. **Update Navigation**: When adding new documentation, update the navigation structure as described in [documentation-maintenance.md](./documentation-maintenance.md)
+4. **Check for Broken Links**: Regularly check for broken links and fix them
+5. **Update Examples**: Keep code examples and command examples up to date with the latest version of Probe
+6. **Review Regularly**: Regularly review the documentation for accuracy and completeness
+
+## VitePress Configuration
+
+The VitePress configuration is located in the `.vitepress/config.js` file. When updating the documentation structure, be sure to update the sidebar and navigation configuration in this file.
+
+For more information on VitePress configuration, see the [VitePress documentation](https://vitepress.dev/reference/site-config).# Temporary test change

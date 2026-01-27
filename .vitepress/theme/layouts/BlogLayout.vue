@@ -1,7 +1,9 @@
 <script setup>
+import { computed } from 'vue'
 import { useData } from 'vitepress'
 
 const { page, frontmatter } = useData()
+const currentYear = computed(() => new Date().getFullYear())
 </script>
 
 <template>
@@ -30,7 +32,7 @@ const { page, frontmatter } = useData()
         <div class="footer-content">
           <div class="footer-copyright">
             Released under the Apache 2.0 License.<br>
-            Copyright © 2025 Leonid Bugaev
+            Copyright © {{ currentYear }} Leonid Bugaev
           </div>
           <div class="footer-links">
             <a href="https://github.com/probelabs/probe" target="_blank" class="footer-link">
@@ -146,6 +148,8 @@ const { page, frontmatter } = useData()
   border-top: 1px solid var(--blog-border-color);
   padding: 2rem 0;
   font-size: 0.9rem;
+  position: relative;
+  z-index: 100;
 }
 
 .blog-theme .footer-content {

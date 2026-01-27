@@ -1,9 +1,9 @@
 <template>
   <div class="stars-background-container">
     <canvas ref="starsCanvas" class="stars-background"></canvas>
-    <div v-for="planet in planets" :key="planet.type" 
-         class="planet" 
-         :class="planet.type"
+    <div v-for="planet in planets" :key="planet.type"
+         class="planet"
+         :class="[planet.type, { 'no-transition': !transitionsEnabled }]"
          :style="getPlanetStyle(planet)">
     </div>
   </div>
@@ -13,11 +13,12 @@
 export default {
   data() {
     return {
+      transitionsEnabled: false,
       planets: [
         {
           type: 'moon',
-          baseScale: 0.2,
-          scale: 0.2,
+          baseScale: 0.35,
+          scale: 0.35,
           position: { x: 0, y: 0 },
           opacity: 0.15,
           speed: { x: 0.02, y: 0.015 },
@@ -25,8 +26,8 @@ export default {
         },
         {
           type: 'saturn',
-          baseScale: 0.4,
-          scale: 0.4,
+          baseScale: 0.55,
+          scale: 0.55,
           position: { x: 0, y: 0 },
           opacity: 0.15,
           speed: { x: 0.025, y: 0.02 },
@@ -34,8 +35,8 @@ export default {
         },
         {
           type: 'sun',
-          baseScale: 0.6,
-          scale: 0.6,
+          baseScale: 0.75,
+          scale: 0.75,
           position: { x: 0, y: 0 },
           opacity: 0.15,
           speed: { x: 0.03, y: 0.018 },
@@ -54,10 +55,28 @@ export default {
         opacity: planet.opacity
       }
     },
+    // Get a position within the visible area (for initial load)
+    // Randomly distributed across the visible area
+    getVisibleStartPosition() {
+      // Random position across the visible area (15-85%)
+      const x = Math.random() * 70 + 15
+      const y = Math.random() * 70 + 15
+
+      // Random direction
+      const angle = Math.random() * Math.PI * 2
+      const dirX = Math.cos(angle)
+      const dirY = Math.sin(angle)
+
+      return {
+        pos: { x, y },
+        dir: { x: dirX, y: dirY }
+      }
+    },
+    // Get a position starting from off-screen (for respawning)
     getRandomStartPosition() {
       const side = Math.floor(Math.random() * 4) // 0: top, 1: right, 2: bottom, 3: left
       let x, y, dirX, dirY
-      
+
       switch(side) {
         case 0: // top
           x = Math.random() * 80 + 10
@@ -84,7 +103,7 @@ export default {
           dirY = Math.random() * 2 - 1
           break
       }
-      
+
       // Normalize the direction vector
       const length = Math.sqrt(dirX * dirX + dirY * dirY)
       return {
@@ -97,15 +116,14 @@ export default {
       const dx = planet.position.x - 50
       const dy = planet.position.y - 50
       const distance = Math.sqrt(dx * dx + dy * dy)
-      
+
       // Max distance is from center to corner (about 70.71)
       const maxDistance = Math.sqrt(50 * 50 + 50 * 50)
-      
-      // Calculate scale factor based on distance
-      // When at center: 1.15 (15% larger)
-      // When at max distance: 0.85 (15% smaller)
-      const scaleFactor = 1.15 - (0.3 * distance / maxDistance)
-      
+
+      // Very subtle scale change (5% total range) to avoid noticeable shrinking
+      // Scale ranges from 1.025 (center) to 0.975 (edges) - barely noticeable
+      const scaleFactor = 1.025 - (0.05 * distance / maxDistance)
+
       // Apply scale factor to base scale
       planet.scale = planet.baseScale * scaleFactor
     },
@@ -145,9 +163,29 @@ export default {
     }
   },
   mounted() {
-    // Initialize random positions and directions for planets
-    this.planets.forEach(planet => {
-      this.resetPlanetPosition(planet)
+    // Initialize planet positions - first 2 visible, last one off-screen
+    this.planets.forEach((planet, index) => {
+      if (index < 2) {
+        // First 2 planets start in visible area
+        const { pos, dir } = this.getVisibleStartPosition()
+        planet.position = pos
+        planet.direction = {
+          x: dir.x / Math.sqrt(dir.x * dir.x + dir.y * dir.y),
+          y: dir.y / Math.sqrt(dir.x * dir.x + dir.y * dir.y)
+        }
+        this.updatePlanetScale(planet)
+      } else {
+        // Last planet starts off-screen
+        this.resetPlanetPosition(planet)
+      }
+    })
+
+    // Enable transitions after initial positioning is painted
+    // Use double requestAnimationFrame to ensure the initial state is rendered first
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        this.transitionsEnabled = true
+      })
     })
 
     // Start planet animation
@@ -346,6 +384,10 @@ export default {
   filter: brightness(0.8);
   transition: transform 0.5s ease, opacity 0.3s ease;
   pointer-events: auto;
+}
+
+.planet.no-transition {
+  transition: none !important;
 }
 
 .planet:hover {

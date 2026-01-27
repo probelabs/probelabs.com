@@ -1,0 +1,3152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Probe - Local, AI-Ready Code Intelligence</title>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3Y0Z9SZLF2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3Y0Z9SZLF2');
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --font-body: 'Inter', system-ui, sans-serif;
+            --font-display: 'Space Grotesk', system-ui, sans-serif;
+            --c-text: #0f172a;
+            --c-text-muted: #475569;
+            --c-text-subtle: #64748b;
+            --c-border: #e2e8f0;
+            --c-bg-subtle: #f1f5f9;
+            --c-brand-600: #16a34a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            line-height: 1.6;
+            color: #213547;
+        }
+
+        /* Stars Canvas Background */
+        .stars-background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        #starsCanvas {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Floating Planets */
+        .planet {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            filter: brightness(0.8);
+            transition: transform 0.5s ease, opacity 0.3s ease;
+            pointer-events: auto;
+            /* Hidden initially until JS positions them */
+            opacity: 0;
+            top: -100%;
+            left: -100%;
+        }
+
+        .planet.no-transition {
+            transition: none !important;
+        }
+
+        .planet:hover {
+            filter: brightness(1);
+            transform: translate(-50%, -50%) scale(1.1) !important;
+            opacity: 0.9 !important;
+        }
+
+        .moon {
+            background-image: url('moon.png');
+        }
+
+        .saturn {
+            background-image: url('saturn.png');
+        }
+
+        .sun {
+            background-image: url('sun.png');
+        }
+
+        /* Navigation - exact copy from home page */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1.5rem 0;
+            transition: all 0.3s ease;
+            background: transparent;
+            border-bottom: 1px solid transparent;
+        }
+
+        .nav.scrolled {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom-color: var(--c-border);
+            padding: 0.75rem 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .nav-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .nav-logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .nav-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .nav-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .nav-title {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: var(--c-text);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: var(--c-text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .nav-link:hover {
+            color: var(--c-brand-600);
+        }
+
+        /* Dropdown Navigation */
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown-trigger {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .nav-dropdown-arrow {
+            transition: transform 0.2s;
+        }
+
+        .nav-dropdown:hover .nav-dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        /* Mega Menu */
+        .nav-mega-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding-top: 0.75rem;
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s, visibility 0.2s;
+        }
+
+        .nav-dropdown:hover .nav-mega-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .mega-menu-content {
+            background: white;
+            border: 1px solid var(--c-border);
+            border-radius: 0.75rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.08);
+            padding: 2rem;
+            min-width: 680px;
+        }
+
+        .nav-mega-menu--wide {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .nav-mega-menu--wide .mega-menu-content {
+            min-width: 0;
+            width: max-content;
+        }
+
+        .mega-menu-columns {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .mega-menu-divider-vertical {
+            width: 1px;
+            background: var(--c-border);
+            margin: 0.25rem 0;
+        }
+
+        .mega-menu-label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--c-text-subtle);
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+        }
+
+        .mega-menu-divider {
+            height: 1px;
+            background: var(--c-border, rgba(255,255,255,0.1));
+            margin: 1rem 0;
+        }
+
+        .mega-menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+        }
+
+        .mega-menu-grid--3col {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .mega-menu-grid--2col {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .mega-menu-grid--1col {
+            grid-template-columns: 1fr;
+        }
+
+        .mega-menu-card {
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            padding: 0.375rem 0.5rem;
+            border-radius: 0.625rem;
+            text-decoration: none;
+            transition: background 0.15s, transform 0.15s;
+            border: 1px solid transparent;
+        }
+
+        .mega-menu-card:hover {
+            background: var(--c-bg-subtle);
+            border-color: var(--c-border);
+            transform: translateY(-1px);
+        }
+
+        .mega-menu-card.is-active {
+            background: var(--c-bg-subtle);
+            border-color: var(--c-border);
+        }
+
+        .mega-card-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.625rem;
+            flex-shrink: 0;
+        }
+
+        .mega-card-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .mega-card-icon--probe { background: linear-gradient(135deg, #dbeafe, #bfdbfe); color: #2563eb; }
+        .mega-card-icon--visor { background: linear-gradient(135deg, #dcfce7, #bbf7d0); color: #16a34a; }
+        .mega-card-icon--mermaid { background: linear-gradient(135deg, #fef3c7, #fde68a); color: #d97706; }
+        .mega-card-icon--memory { background: linear-gradient(135deg, #f3e8ff, #e9d5ff); color: #9333ea; }
+        .mega-card-icon--leadership { background: linear-gradient(135deg, #dbeafe, #bfdbfe); color: #2563eb; }
+        .mega-card-icon--platform { background: linear-gradient(135deg, #dcfce7, #bbf7d0); color: #16a34a; }
+        .mega-card-icon--engineers { background: linear-gradient(135deg, #e0e7ff, #c7d2fe); color: #4f46e5; }
+        .mega-card-icon--support { background: linear-gradient(135deg, #fce7f3, #fbcfe8); color: #db2777; }
+        .mega-card-icon--agencies { background: linear-gradient(135deg, #fef3c7, #fde68a); color: #d97706; }
+        .mega-card-icon--enterprise { background: linear-gradient(135deg, #fee2e2, #fecaca); color: #dc2626; }
+
+        .mega-card-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .mega-card-title {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--c-text);
+            margin-bottom: 0.25rem;
+        }
+
+        .mega-card-desc {
+            font-size: 0.8125rem;
+            color: var(--c-text-muted);
+            line-height: 1.5;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-github {
+            padding: 0.5rem;
+            color: var(--c-text-subtle);
+            transition: color 0.2s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-github:hover {
+            color: var(--c-text);
+        }
+
+        .nav-github svg {
+            display: block;
+        }
+
+        .nav-btn {
+            padding: 0.5rem 1rem;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: white;
+            background: var(--c-text);
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-btn:hover {
+            background: #1e293b;
+        }
+
+        .nav-btn-mobile {
+            display: none;
+            padding: 0.5rem;
+            background: transparent;
+            border: none;
+            color: #213547;
+            cursor: pointer;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white !important;
+            padding: 0.6rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .nav-cta:hover {
+            background: linear-gradient(135deg, #5558e8 0%, #7c4fe6 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+        }
+
+        /* Mobile menu toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: #1a1a2e;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        /* Main Content */
+        .main-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Hero Section - Two Column Layout */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 2rem 80px;
+        }
+
+        .hero-inner {
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-content {
+            text-align: left;
+        }
+
+        .hero-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .probe-logo-large {
+            width: 320px;
+            height: auto;
+            filter: drop-shadow(0 8px 40px rgba(99, 102, 241, 0.4));
+        }
+
+        .hero-image .workflow-diagram {
+            max-width: 420px;
+            width: 100%;
+        }
+
+        .hero-name {
+            display: block;
+            font-size: clamp(3rem, 8vw, 5rem);
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.25rem;
+        }
+
+        .hero-tagline {
+            display: block;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: #213547;
+            font-weight: 700;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(99, 102, 241, 0.1);
+            color: #6366f1;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            font-family: 'Space Grotesk', sans-serif;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: #213547;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-title .gradient-text {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.35rem);
+            color: #3c3c43;
+            max-width: 600px;
+            margin: 0 0 2.5rem;
+            line-height: 1.7;
+        }
+
+        .hero-ctas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: flex-start;
+            margin-bottom: 3rem;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.9);
+            color: #1a1a2e;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+            justify-content: flex-start;
+            color: #4a5568;
+            font-size: 0.9rem;
+        }
+
+        .hero-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .hero-stat strong {
+            color: #213547;
+        }
+
+        /* Quick Start Grid */
+        .quick-start-section {
+            padding: 80px 2rem;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-logo {
+            width: 48px;
+            height: auto;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 2px 10px rgba(99, 102, 241, 0.2));
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #5a5a7a;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .quick-start-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .quick-start-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .quick-start-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(99, 102, 241, 0.12);
+            border-color: rgba(99, 102, 241, 0.2);
+        }
+
+        .quick-start-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .quick-start-card h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #1a1a2e;
+            margin-bottom: 0.75rem;
+        }
+
+        .quick-start-card p {
+            color: #5a5a7a;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .quick-start-card .arrow {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #6366f1;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 100px 2rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid var(--c-border);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(99, 102, 241, 0.08);
+            border-color: rgba(99, 102, 241, 0.2);
+        }
+
+        .feature-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--c-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            color: var(--c-text-muted);
+            font-size: 0.875rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Code Example Sections */
+        .code-section {
+            padding: 80px 2rem;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .code-section:nth-child(even) {
+            background: transparent;
+        }
+
+        .code-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .code-grid.reversed {
+            direction: rtl;
+        }
+
+        .code-grid.reversed > * {
+            direction: ltr;
+        }
+
+        .code-content h2 {
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 1rem;
+        }
+
+        .code-content p {
+            color: #5a5a7a;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .code-content ul {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .code-content ul li {
+            color: #5a5a7a;
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .code-content ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 1rem;
+            width: 6px;
+            height: 6px;
+            background: #6366f1;
+            border-radius: 50%;
+        }
+
+        .code-block {
+            background: #1a1a2e;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .code-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .code-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .code-dot.red { background: #ff5f56; }
+        .code-dot.yellow { background: #ffbd2e; }
+        .code-dot.green { background: #27ca40; }
+
+        .code-header span {
+            margin-left: auto;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+            font-family: monospace;
+        }
+
+        .code-block pre {
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #e2e8f0;
+        }
+
+        .code-block code {
+            color: #e2e8f0;
+        }
+
+        .code-block .comment { color: #6a737d; }
+        .code-block .string { color: #9ecbff; }
+        .code-block .keyword { color: #f97583; }
+        .code-block .function { color: #b392f0; }
+        .code-block .number { color: #79b8ff; }
+        .code-block .property { color: #85e89d; }
+
+        /* Audience Cards Section */
+        .audience-section {
+            padding: 100px 2rem;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+        }
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .audience-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .audience-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(99, 102, 241, 0.12);
+            border-color: rgba(99, 102, 241, 0.2);
+        }
+
+        .audience-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            margin-bottom: 0.75rem;
+        }
+
+        .audience-card p {
+            color: #5a5a7a;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .audience-link {
+            color: #6366f1;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .audience-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer - matching home page */
+        footer {
+            padding: 4rem 0 2rem;
+            background: #0f172a;
+            color: #94a3b8;
+            position: relative;
+            z-index: 100;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-tagline {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin: 0 0 1.5rem;
+            line-height: 1.5;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social a {
+            color: #64748b;
+            transition: color 0.2s;
+        }
+
+        .footer-social a:hover {
+            color: white;
+        }
+
+        .footer-email {
+            display: block;
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-email:hover {
+            color: white;
+        }
+
+        .footer-col h4 {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: white;
+            margin: 0 0 1rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-col li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-col a {
+            font-size: 0.9375rem;
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-col a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2rem;
+            border-top: 1px solid #1e293b;
+        }
+
+        .footer-copy {
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-legal a {
+            font-size: 0.875rem;
+            color: #64748b;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-legal a:hover {
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .quick-start-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .code-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .code-grid.reversed {
+                direction: ltr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .nav-github {
+                display: none;
+            }
+
+            .nav-btn {
+                display: none;
+            }
+
+            .nav-btn-mobile {
+                display: flex;
+            }
+
+            .hero {
+                padding: 100px 1.5rem 60px;
+            }
+
+            .hero-inner {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .hero-content {
+                text-align: center;
+                order: 2;
+            }
+
+            .hero-image {
+                order: 1;
+            }
+
+            .hero-image .workflow-diagram {
+                max-width: 100%;
+            }
+
+            .hero-subtitle {
+                margin: 0 auto 2rem;
+            }
+
+            .guarantee-badges {
+                justify-content: center;
+            }
+
+            .hero-ctas {
+                justify-content: center;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .quick-start-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .audience-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-social {
+                justify-content: center;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .footer-legal {
+                justify-content: center;
+            }
+        }
+
+        /* Mobile Navigation Menu */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 999;
+            padding: 80px 2rem 2rem;
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+            overflow-y: auto;
+        }
+
+        .mobile-nav.active {
+            display: flex;
+        }
+
+        .mobile-nav-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--c-text);
+        }
+
+        .mobile-section {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .mobile-section-label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--c-text-subtle);
+            padding: 0.5rem 0 0.25rem;
+        }
+
+        .mobile-sublink {
+            color: var(--c-text-muted);
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            padding: 0.375rem 0 0.375rem 0.75rem;
+            border-left: 2px solid var(--c-border);
+            transition: all 0.2s;
+        }
+
+        .mobile-sublink:hover {
+            color: var(--c-brand-600);
+            border-left-color: var(--c-brand-600);
+        }
+
+        .mobile-link {
+            color: var(--c-text-muted);
+            font-weight: 500;
+            text-decoration: none;
+            padding: 0.5rem 0;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .mobile-link:hover {
+            color: var(--c-brand-600);
+        }
+
+        .mobile-cta {
+            width: 100%;
+            padding: 0.75rem;
+            text-align: center;
+            background: var(--c-brand-600);
+            color: white;
+            font-weight: 700;
+            border-radius: 0.5rem;
+            text-decoration: none;
+        }
+
+        /* ===== NEW STYLES FOR UPDATED CONTENT ===== */
+
+        /* Hero Badge and Guarantee Badges */
+        .hero-badge-new {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #6366f1;
+            margin-bottom: 1.5rem;
+        }
+
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            background: #6366f1;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .guarantee-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .guarantee-badge {
+            padding: 0.4rem 0.875rem;
+            background: rgba(22, 163, 74, 0.1);
+            border: 1px solid rgba(22, 163, 74, 0.2);
+            border-radius: 50px;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: #16a34a;
+        }
+
+        /* Workflow Diagram */
+        .workflow-diagram {
+            background: white;
+            border: 1px solid var(--c-border);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .diagram-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.875rem 1rem;
+            background: #f8fafc;
+            border-bottom: 1px solid var(--c-border);
+        }
+
+        .diagram-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .diagram-dot:nth-child(1) { background: #ff5f57; }
+        .diagram-dot:nth-child(2) { background: #febc2e; }
+        .diagram-dot:nth-child(3) { background: #28c840; }
+
+        .diagram-title {
+            margin-left: auto;
+            font-size: 0.8125rem;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            color: var(--c-text-subtle);
+        }
+
+        .diagram-content {
+            padding: 1.5rem;
+        }
+
+        .diagram-section {
+            padding: 1rem;
+            background: #f8fafc;
+            border: 1px solid var(--c-border);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+        .diagram-section-agent {
+            background: rgba(99, 102, 241, 0.05);
+            border-color: rgba(99, 102, 241, 0.2);
+        }
+
+        .diagram-section-output {
+            background: rgba(22, 163, 74, 0.05);
+            border-color: rgba(22, 163, 74, 0.2);
+        }
+
+        .diagram-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--c-text-subtle);
+            margin-bottom: 0.5rem;
+        }
+
+        .diagram-code {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.8125rem;
+            color: var(--c-text);
+        }
+
+        .diagram-code code {
+            display: block;
+            line-height: 1.6;
+        }
+
+        .diagram-arrow {
+            display: flex;
+            justify-content: center;
+            padding: 0.5rem 0;
+            color: var(--c-text-subtle);
+        }
+
+        .diagram-arrow svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .diagram-metrics {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .metric {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            font-size: 0.8125rem;
+            color: #16a34a;
+            font-weight: 500;
+        }
+
+        .metric-icon {
+            width: 14px;
+            height: 14px;
+        }
+
+        .metric-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Pain/Problem Section */
+        .pain-section {
+            padding: 80px 2rem;
+            background: #f8fafc;
+        }
+
+        .pain-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .pain-content > p {
+            font-size: 1.125rem;
+            color: var(--c-text-muted);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .pain-bullets {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1.5rem;
+        }
+
+        .pain-bullets li {
+            font-size: 1rem;
+            color: var(--c-text-muted);
+            padding: 0.75rem 0 0.75rem 1.5rem;
+            position: relative;
+            border-bottom: 1px solid var(--c-border);
+        }
+
+        .pain-bullets li:last-child {
+            border-bottom: none;
+        }
+
+        .pain-bullets li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 1.1rem;
+            width: 6px;
+            height: 6px;
+            background: #ef4444;
+            border-radius: 50%;
+        }
+
+        .pain-bullets li strong {
+            color: var(--c-text);
+        }
+
+        .pain-closer {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #16a34a !important;
+            margin: 0;
+        }
+
+        /* Pillars/Core Capabilities Section */
+        .pillars-section {
+            padding: 80px 2rem;
+        }
+
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .pillar-card {
+            padding: 2rem;
+            background: #f8fafc;
+            border: 1px solid var(--c-border);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(99, 102, 241, 0.1);
+            border-color: rgba(99, 102, 241, 0.2);
+        }
+
+        .pillar-number {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #6366f1;
+            margin-bottom: 1rem;
+        }
+
+        .pillar-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--c-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .pillar-tagline {
+            font-size: 0.9375rem;
+            font-style: italic;
+            color: var(--c-text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .pillar-bullets {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1rem;
+        }
+
+        .pillar-bullets li {
+            font-size: 0.9375rem;
+            color: var(--c-text-muted);
+            padding: 0.5rem 0 0.5rem 1.25rem;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .pillar-bullets li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.85rem;
+            width: 5px;
+            height: 5px;
+            background: #6366f1;
+            border-radius: 50%;
+        }
+
+        .pillar-closer {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #6366f1;
+            margin: 0;
+            padding-top: 1rem;
+            border-top: 1px solid var(--c-border);
+        }
+
+        /* Comparison Section */
+        .comparison-section {
+            padding: 80px 2rem;
+            background: #f8fafc;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto 2rem;
+        }
+
+        .comparison-col {
+            padding: 2rem;
+            background: white;
+            border: 1px solid var(--c-border);
+            border-radius: 16px;
+        }
+
+        .comparison-col h3 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--c-text-subtle);
+            margin: 0 0 1.5rem;
+        }
+
+        .comparison-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .comparison-col li {
+            font-size: 0.9375rem;
+            color: var(--c-text-muted);
+            padding: 0.5rem 0 0.5rem 1.25rem;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .comparison-common li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.85rem;
+            width: 5px;
+            height: 5px;
+            background: var(--c-text-subtle);
+            border-radius: 50%;
+        }
+
+        .comparison-probe {
+            background: rgba(99, 102, 241, 0.03);
+            border-color: rgba(99, 102, 241, 0.2);
+        }
+
+        .comparison-probe h3 {
+            color: #6366f1;
+        }
+
+        .comparison-probe li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.85rem;
+            width: 5px;
+            height: 5px;
+            background: #6366f1;
+            border-radius: 50%;
+        }
+
+        .comparison-closer {
+            text-align: center;
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: var(--c-text);
+        }
+
+        /* Terminal Blocks for Quick Start */
+        .terminal-block {
+            background: white;
+            border: 1px solid var(--c-border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.75rem 1rem;
+            background: #f8fafc;
+            border-bottom: 1px solid var(--c-border);
+        }
+
+        .terminal-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot:nth-child(1) { background: #ff5f57; }
+        .terminal-dot:nth-child(2) { background: #febc2e; }
+        .terminal-dot:nth-child(3) { background: #28c840; }
+
+        .terminal-title {
+            margin-left: auto;
+            font-size: 0.75rem;
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            color: var(--c-text-subtle);
+        }
+
+        .terminal-content {
+            padding: 1rem 1.25rem;
+            background: #0f172a;
+        }
+
+        .terminal-line {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 0.875rem;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+
+        .terminal-prompt {
+            color: #22d3ee;
+            margin-right: 0.5rem;
+        }
+
+        .terminal-small .terminal-content {
+            padding: 0.875rem 1rem;
+        }
+
+        .terminal-small .terminal-line {
+            font-size: 0.8125rem;
+        }
+
+        .terminal-json {
+            white-space: pre;
+        }
+
+        .terminal-comment {
+            color: #6b7280;
+        }
+
+        /* Quick Start Cards - Updated */
+        .quickstart-grid-new {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .quickstart-card-new {
+            padding: 1.5rem;
+            background: #f8fafc;
+            border: 1px solid var(--c-border);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .quickstart-card-new:hover {
+            border-color: rgba(99, 102, 241, 0.3);
+        }
+
+        .quickstart-featured-new {
+            grid-column: span 2;
+            background: rgba(99, 102, 241, 0.03);
+            border-color: rgba(99, 102, 241, 0.15);
+        }
+
+        .quickstart-header-new {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .quickstart-icon-new {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #6366f1;
+            border-radius: 10px;
+        }
+
+        .quickstart-icon-new svg {
+            width: 20px;
+            height: 20px;
+            color: white;
+        }
+
+        .quickstart-header-new h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--c-text);
+            margin: 0;
+        }
+
+        .quickstart-card-new > p {
+            font-size: 0.9375rem;
+            color: var(--c-text-muted);
+            margin: 0 0 1rem;
+            line-height: 1.6;
+        }
+
+        .quickstart-flow {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .flow-step {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--c-text);
+            background: white;
+            border: 1px solid var(--c-border);
+            padding: 0.25rem 0.625rem;
+            border-radius: 4px;
+        }
+
+        .flow-arrow {
+            font-size: 0.6875rem;
+            color: var(--c-text-subtle);
+            font-style: italic;
+        }
+
+        .quickstart-cta {
+            text-align: center;
+            margin-top: 2.5rem;
+        }
+
+        /* MCP Tabs */
+        .mcp-tabs {
+            position: relative;
+        }
+
+        .mcp-tabs input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .mcp-tabs-nav {
+            display: flex;
+            gap: 2px;
+            margin-bottom: 0.5rem;
+            background: #e2e8f0;
+            border-radius: 8px;
+            padding: 2px;
+        }
+
+        .mcp-tabs-nav label {
+            flex: 1;
+            padding: 0.375rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--c-text-muted);
+            text-align: center;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .mcp-tabs-nav label:hover {
+            color: var(--c-text);
+        }
+
+        #mcp-claude:checked ~ .mcp-tabs-nav label[for="mcp-claude"],
+        #mcp-json:checked ~ .mcp-tabs-nav label[for="mcp-json"],
+        #mcp-codex:checked ~ .mcp-tabs-nav label[for="mcp-codex"] {
+            background: white;
+            color: #6366f1;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+
+        .mcp-tabs-content {
+            position: relative;
+        }
+
+        .mcp-tab-panel {
+            display: none;
+        }
+
+        #mcp-claude:checked ~ .mcp-tabs-content #panel-claude,
+        #mcp-json:checked ~ .mcp-tabs-content #panel-json,
+        #mcp-codex:checked ~ .mcp-tabs-content #panel-codex {
+            display: block;
+        }
+
+        .mcp-tab-panel .terminal-block {
+            margin-bottom: 0;
+        }
+
+        /* Docs Section */
+        .docs-section {
+            padding: 80px 2rem;
+            background: #f8fafc;
+        }
+
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .doc-card {
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+            background: white;
+            border: 1px solid var(--c-border);
+            border-radius: 16px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .doc-card:hover {
+            border-color: #6366f1;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .doc-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--c-text);
+            margin: 0 0 0.375rem;
+        }
+
+        .doc-card p {
+            font-size: 0.875rem;
+            color: var(--c-text-muted);
+            margin: 0 0 1rem;
+            flex-grow: 1;
+        }
+
+        .doc-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: #6366f1;
+        }
+
+        /* CTA Section - Updated */
+        .cta-section {
+            padding: 80px 2rem;
+        }
+
+        .cta-card-new {
+            text-align: center;
+            padding: 3rem;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            border-radius: 24px;
+        }
+
+        .cta-power {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #6366f1;
+            margin: 0 0 0.75rem;
+        }
+
+        .cta-card-new h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--c-text);
+            margin: 0 0 0.75rem;
+        }
+
+        .cta-card-new > p:not(.cta-power) {
+            font-size: 1.125rem;
+            color: var(--c-text-muted);
+            margin: 0 0 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: transparent;
+            color: var(--c-text-muted);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .btn-ghost:hover {
+            color: var(--c-text);
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        /* Responsive for new sections */
+        @media (max-width: 1024px) {
+            .pillars-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quickstart-grid-new {
+                grid-template-columns: 1fr;
+            }
+
+            .quickstart-featured-new {
+                grid-column: span 1;
+            }
+
+            .docs-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .guarantee-badges {
+                justify-content: center;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .docs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .diagram-metrics {
+                flex-wrap: wrap;
+            }
+
+            .mcp-tabs-nav {
+                flex-wrap: wrap;
+            }
+
+            .mcp-tabs-nav label {
+                flex: none;
+                padding: 0.375rem 1rem;
+            }
+
+            .cta-card-new {
+                padding: 2rem;
+            }
+
+            .cta-card-new h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Stars Background Canvas and Planets -->
+    <div class="stars-background-container">
+        <canvas id="starsCanvas"></canvas>
+        <!-- Floating Planets -->
+        <div id="moon" class="planet moon no-transition"></div>
+        <div id="saturn" class="planet saturn no-transition"></div>
+        <div id="sun" class="planet sun no-transition"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="mainNav">
+        <div class="nav-container">
+            <a href="/" class="nav-brand">
+                <div class="nav-logo">
+                    <img src="logo.png" alt="Probe" class="nav-logo-img">
+                </div>
+                <span class="nav-title">ProbeLabs</span>
+            </a>
+            <div class="nav-links">
+                <div class="nav-dropdown">
+                    <button class="nav-link nav-dropdown-trigger">
+                        Products
+                        <svg class="nav-dropdown-arrow" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <div class="nav-mega-menu">
+                        <div class="mega-menu-content">
+                            <div class="mega-menu-label">Core Products</div>
+                            <div class="mega-menu-grid">
+                                <a href="/probe/" class="mega-menu-card is-active">
+                                    <div class="mega-card-icon mega-card-icon--probe">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                                    </div>
+                                    <div class="mega-card-content">
+                                        <div class="mega-card-title">Probe</div>
+                                        <div class="mega-card-desc">AI-native code search across enterprise codebases</div>
+                                    </div>
+                                </a>
+                                <a href="/visor" class="mega-menu-card">
+                                    <div class="mega-card-icon mega-card-icon--visor">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                    </div>
+                                    <div class="mega-card-content">
+                                        <div class="mega-card-title">Visor</div>
+                                        <div class="mega-card-desc">Deterministic workflow engine for agent automation</div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="mega-menu-divider"></div>
+                            <div class="mega-menu-label">Labs</div>
+                            <div class="mega-menu-grid">
+                                <a href="/maid" class="mega-menu-card">
+                                    <div class="mega-card-icon mega-card-icon--mermaid">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                                    </div>
+                                    <div class="mega-card-content">
+                                        <div class="mega-card-title">Maid</div>
+                                        <div class="mega-card-desc">Fast Mermaid linter with auto-fix</div>
+                                    </div>
+                                </a>
+                                <a href="/big-brain" class="mega-menu-card">
+                                    <div class="mega-card-icon mega-card-icon--bigbrain">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a9 9 0 0 1 9 9c0 3.1-1.5 5.7-4 7.4V20a2 2 0 0 1-2 2h-6a2 2 0 0 1-2-2v-1.6C4.5 16.7 3 14.1 3 11a9 9 0 0 1 9-9z"/><path d="M9 22v-4M15 22v-4M12 2v6"/></svg>
+                                    </div>
+                                    <div class="mega-card-content">
+                                        <div class="mega-card-title">Big Brain</div>
+                                        <div class="mega-card-desc">Hand off stuck problems to smarter models</div>
+                                    </div>
+                                </a>
+                                <a href="/afk" class="mega-menu-card">
+                                    <div class="mega-card-icon mega-card-icon--afk">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                                    </div>
+                                    <div class="mega-card-content">
+                                        <div class="mega-card-title">AFK</div>
+                                        <div class="mega-card-desc">Control Claude Code from your phone</div>
+                                    </div>
+                                </a>
+                                <a href="/vow" class="mega-menu-card">
+                                    <div class="mega-card-icon mega-card-icon--vow">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                                    </div>
+                                    <div class="mega-card-content">
+                                        <div class="mega-card-title">Vow</div>
+                                        <div class="mega-card-desc">AI accountability gates for commits</div>
+                                    </div>
+                                </a>
+                                <a href="/memaris" class="mega-menu-card">
+                                    <div class="mega-card-icon mega-card-icon--memaris">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                                    </div>
+                                    <div class="mega-card-content">
+                                        <div class="mega-card-title">Memaris</div>
+                                        <div class="mega-card-desc">Persistent memory from past AI sessions</div>
+                                    </div>
+                                </a>
+                                <a href="/logoscope" class="mega-menu-card">
+                                    <div class="mega-card-icon mega-card-icon--logoscope">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+                                    </div>
+                                    <div class="mega-card-content">
+                                        <div class="mega-card-title">Logoscope</div>
+                                        <div class="mega-card-desc">AI-powered log analysis and insights</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-dropdown">
+                    <button class="nav-link nav-dropdown-trigger">
+                        Solutions
+                        <svg class="nav-dropdown-arrow" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <div class="nav-mega-menu nav-mega-menu--wide">
+                        <div class="mega-menu-content">
+                            <div class="mega-menu-columns">
+                                <div class="mega-menu-section">
+                                    <div class="mega-menu-label">By Role</div>
+                                    <div class="mega-menu-grid mega-menu-grid--1col">
+                                        <a href="/solutions/engineering-leadership" class="mega-menu-card">
+                                            <div class="mega-card-icon mega-card-icon--leadership">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                            </div>
+                                            <div class="mega-card-content">
+                                                <div class="mega-card-title">Engineering Leadership</div>
+                                                <div class="mega-card-desc">Org-wide automation with predictability</div>
+                                            </div>
+                                        </a>
+                                        <a href="/solutions/platform-teams" class="mega-menu-card">
+                                            <div class="mega-card-icon mega-card-icon--platform">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>
+                                            </div>
+                                            <div class="mega-card-content">
+                                                <div class="mega-card-title">Platform Teams</div>
+                                                <div class="mega-card-desc">Build once, run everywhere</div>
+                                            </div>
+                                        </a>
+                                        <a href="/solutions/engineers" class="mega-menu-card">
+                                            <div class="mega-card-icon mega-card-icon--engineers">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                                            </div>
+                                            <div class="mega-card-content">
+                                                <div class="mega-card-title">Engineers</div>
+                                                <div class="mega-card-desc">Full context, any codebase</div>
+                                            </div>
+                                        </a>
+                                        <a href="/solutions/non-technical" class="mega-menu-card">
+                                            <div class="mega-card-icon mega-card-icon--support">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                                            </div>
+                                            <div class="mega-card-content">
+                                                <div class="mega-card-title">Product &amp; Support</div>
+                                                <div class="mega-card-desc">Engineering-grade context without the bottleneck</div>
+                                            </div>
+                                        </a>
+                                        <a href="/solutions/agencies" class="mega-menu-card">
+                                            <div class="mega-card-icon mega-card-icon--agencies">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                                            </div>
+                                            <div class="mega-card-content">
+                                                <div class="mega-card-title">Agencies</div>
+                                                <div class="mega-card-desc">Repeatable delivery on client codebases</div>
+                                            </div>
+                                        </a>
+                                        <a href="/solutions/enterprise" class="mega-menu-card">
+                                            <div class="mega-card-icon mega-card-icon--enterprise">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                                            </div>
+                                            <div class="mega-card-content">
+                                                <div class="mega-card-title">Enterprise</div>
+                                                <div class="mega-card-desc">Transform legacy codebases at scale</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="mega-menu-divider-vertical"></div>
+                                <div class="mega-menu-section">
+                                    <div class="mega-menu-label">By Solution</div>
+                                    <div class="mega-menu-grid mega-menu-grid--1col">
+                                        <a href="/docs/chat-with-code" class="mega-menu-card">
+                                            <div class="mega-card-icon">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                                            </div>
+                                            <div class="mega-card-content">
+                                                <div class="mega-card-title">Chat with Code</div>
+                                                <div class="mega-card-desc">Grounded answers from your codebase</div>
+                                            </div>
+                                        </a>
+                                        <a href="/docs/code-review" class="mega-menu-card">
+                                            <div class="mega-card-icon">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
+                                            </div>
+                                            <div class="mega-card-content">
+                                                <div class="mega-card-title">Intelligent Code Review</div>
+                                                <div class="mega-card-desc">Structured reviews with guardrails</div>
+                                            </div>
+                                        </a>
+                                        <a href="/docs/github-assistant" class="mega-menu-card">
+                                            <div class="mega-card-icon">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 18a4 4 0 0 1-8 0v-1a4 4 0 0 1 8 0v1z"/><circle cx="12" cy="7" r="4"/></svg>
+                                            </div>
+                                            <div class="mega-card-content">
+                                                <div class="mega-card-title">GitHub Assistant</div>
+                                                <div class="mega-card-desc">Issue and PR automation in GitHub</div>
+                                            </div>
+                                        </a>
+                                        <a href="/docs/use-cases/visor-workflows" class="mega-menu-card">
+                                            <div class="mega-card-icon">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                                            </div>
+                                            <div class="mega-card-content">
+                                                <div class="mega-card-title">Engineering Process Automation</div>
+                                                <div class="mega-card-desc">Visor workflows for real processes</div>
+                                            </div>
+                                        </a>
+                                        <a href="/docs/use-cases/building-ai-tools" class="mega-menu-card">
+                                            <div class="mega-card-icon">
+                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+                                            </div>
+                                            <div class="mega-card-content">
+                                                <div class="mega-card-title">Developers &amp; SDK</div>
+                                                <div class="mega-card-desc">Build custom tooling on Probe</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="/docs" class="nav-link">Docs</a>
+            </div>
+            <div class="nav-actions">
+                <a href="https://github.com/probelabs/probe" target="_blank" rel="noopener noreferrer" class="nav-github" aria-label="GitHub">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                        <path d="M9 18c-4.51 2-5-2-7-2"/>
+                    </svg>
+                </a>
+                <button class="nav-btn-mobile" onclick="toggleMobileMenu()" aria-label="Menu">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/>
+                    </svg>
+                </button>
+                <a href="/quick-start" class="nav-btn">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav" id="mobileNav">
+        <button class="mobile-nav-close" onclick="toggleMobileMenu()">&times;</button>
+        <div class="mobile-section">
+            <div class="mobile-section-label">Core Products</div>
+            <a href="/probe/" class="mobile-sublink">Probe</a>
+            <a href="/visor" class="mobile-sublink">Visor</a>
+        </div>
+        <div class="mobile-section">
+            <div class="mobile-section-label">Labs</div>
+            <a href="/maid" class="mobile-sublink">Maid</a>
+            <a href="/big-brain" class="mobile-sublink">Big Brain</a>
+            <a href="/afk" class="mobile-sublink">AFK</a>
+            <a href="/vow" class="mobile-sublink">Vow</a>
+            <a href="/memaris" class="mobile-sublink">Memaris</a>
+            <a href="/logoscope" class="mobile-sublink">Logoscope</a>
+        </div>
+        <div class="mobile-section">
+            <div class="mobile-section-label">Solutions</div>
+            <a href="/solutions/engineering-leadership" class="mobile-sublink">Engineering Leadership</a>
+            <a href="/solutions/platform-teams" class="mobile-sublink">Platform Teams</a>
+            <a href="/solutions/engineers" class="mobile-sublink">Engineers</a>
+            <a href="/solutions/non-technical" class="mobile-sublink">Product & Support</a>
+            <a href="/solutions/agencies" class="mobile-sublink">Agencies</a>
+            <a href="/solutions/enterprise" class="mobile-sublink">Enterprise</a>
+        </div>
+        <div class="mobile-section">
+            <div class="mobile-section-label">Solutions (By Use Case)</div>
+            <a href="/docs/chat-with-code" class="mobile-sublink">Chat with Code</a>
+            <a href="/docs/code-review" class="mobile-sublink">Intelligent Code Review</a>
+            <a href="/docs/github-assistant" class="mobile-sublink">GitHub Assistant</a>
+            <a href="/docs/use-cases/visor-workflows" class="mobile-sublink">Engineering Process Automation</a>
+            <a href="/docs/use-cases/building-ai-tools" class="mobile-sublink">Developers &amp; SDK</a>
+        </div>
+        <a href="/docs" class="mobile-link">Docs</a>
+        <a href="https://github.com/probelabs/probe" target="_blank" class="mobile-link">GitHub</a>
+        <a href="/quick-start" class="mobile-cta">Get Started</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-inner">
+                <!-- Left Column: Content -->
+                <div class="hero-content">
+                    <div class="hero-badge-new"><span class="badge-dot"></span> Context Retrieval Engine</div>
+                    <h1 class="hero-title">
+                        <span class="hero-name">Probe</span>
+                        <span class="hero-tagline">Context retrieval that <span class="gradient-text">understands code</span></span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Most tools do text search + a few surrounding lines. Probe understands functions, symbols, and document structure, ranks results, and extracts only the relevant scope.
+                    </p>
+                    <div class="guarantee-badges">
+                        <span class="guarantee-badge">50+ Languages</span>
+                        <span class="guarantee-badge">100% Local</span>
+                        <span class="guarantee-badge">Open Source</span>
+                        <span class="guarantee-badge">No Indexing</span>
+                    </div>
+                    <div class="hero-ctas">
+                        <a href="/quick-start" class="btn-primary">
+                            Get Started
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                        <a href="https://github.com/probelabs/probe" class="btn-secondary" target="_blank">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                            </svg>
+                            GitHub
+                        </a>
+                    </div>
+                </div>
+                <!-- Right Column: Workflow Diagram -->
+                <div class="hero-image">
+                    <div class="workflow-diagram">
+                        <div class="diagram-header">
+                            <span class="diagram-dot"></span>
+                            <span class="diagram-dot"></span>
+                            <span class="diagram-dot"></span>
+                            <span class="diagram-title">probe search</span>
+                        </div>
+                        <div class="diagram-content">
+                            <div class="diagram-section">
+                                <div class="diagram-label">Query</div>
+                                <div class="diagram-code"><code><span style="color: #6366f1;">$</span> probe "auth flow" ./src</code></div>
+                            </div>
+                            <div class="diagram-arrow">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </div>
+                            <div class="diagram-section diagram-section-agent">
+                                <div class="diagram-label">Structure-Aware Search</div>
+                                <div class="diagram-code"><code>AST parsing → Symbol matching</code><code>BM25 ranking → Scope detection</code></div>
+                            </div>
+                            <div class="diagram-arrow">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </div>
+                            <div class="diagram-section diagram-section-output">
+                                <div class="diagram-label">Scoped Context</div>
+                                <div class="diagram-metrics">
+                                    <div class="metric"><span class="metric-icon"><svg viewBox="0 0 16 16" fill="none"><path d="M13.5 2.5l-7 7-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Ranked</span></div>
+                                    <div class="metric"><span class="metric-icon"><svg viewBox="0 0 16 16" fill="none"><path d="M13.5 2.5l-7 7-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Bounded</span></div>
+                                    <div class="metric"><span class="metric-icon"><svg viewBox="0 0 16 16" fill="none"><path d="M13.5 2.5l-7 7-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Expandable</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Problem Section -->
+        <section class="pain-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="hero-badge-new" style="margin: 0 auto 1rem;"><span class="badge-dot"></span> The Problem</span>
+                    <h2 class="section-title">Why Most "AI Code Understanding" Breaks at Scale</h2>
+                </div>
+                <div class="pain-content">
+                    <p>In small repos, "search a few strings and read 20 lines around it" works. In large codebases it fails because understanding requires structure, boundaries, and the big picture—not just matching text.</p>
+                    <ul class="pain-bullets">
+                        <li><strong>Code isn't text.</strong> It's symbols, scopes, call paths, and ownership boundaries.</li>
+                        <li><strong>Docs aren't text.</strong> They're sections, headings, and contracts.</li>
+                        <li><strong>The failure mode is predictable:</strong> tools say "I understand" too early.</li>
+                    </ul>
+                    <p class="pain-closer">Probe is built to make "I understand" mean something.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Core Capabilities Section -->
+        <section class="pillars-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="hero-badge-new" style="margin: 0 auto 1rem; background: rgba(22, 163, 74, 0.1); color: #16a34a; border-color: rgba(22, 163, 74, 0.2);"><span class="badge-dot" style="background: #16a34a;"></span> Core Capabilities</span>
+                    <h2 class="section-title">How Probe Works</h2>
+                </div>
+                <div class="pillars-grid">
+                    <div class="pillar-card">
+                        <div class="pillar-number">01</div>
+                        <h3>Structure-aware retrieval</h3>
+                        <p class="pillar-tagline">Search like you understand the language, not like you're scanning strings</p>
+                        <ul class="pillar-bullets">
+                            <li>Understands functions, variables, and scopes (not just matching lines)</li>
+                            <li>Markdown-aware: respects headers, sections, and document structure</li>
+                            <li>Returns results with file paths + line numbers + clear boundaries</li>
+                        </ul>
+                    </div>
+                    <div class="pillar-card">
+                        <div class="pillar-number">02</div>
+                        <h3>Elastic depth</h3>
+                        <p class="pillar-tagline">Start narrow, expand only when needed</p>
+                        <ul class="pillar-bullets">
+                            <li>Extracts only the scope you need (signature / key lines / relevant block)</li>
+                            <li>Shows where a function starts and ends, so the agent can decide to expand</li>
+                            <li>"Go deeper" is deliberate: pull the full function body only when required</li>
+                        </ul>
+                        <p class="pillar-closer">Stop shipping entire files into prompts just to answer one question.</p>
+                    </div>
+                    <div class="pillar-card">
+                        <div class="pillar-number">03</div>
+                        <h3>Precise extraction</h3>
+                        <p class="pillar-tagline">Precision tools beat "read the whole file"</p>
+                        <ul class="pillar-bullets">
+                            <li>Extract by line range, symbol/function name, or section</li>
+                            <li>Produce consistent "context artifacts" that workflows can reuse</li>
+                            <li>Token-efficient: one Probe query can replace many "search/open/scroll" steps</li>
+                        </ul>
+                        <p class="pillar-closer">Better retrieval → better plans → better automation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Start Section - Get Started in Seconds -->
+        <section class="quick-start-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="hero-badge-new" style="margin: 0 auto 1rem;"><span class="badge-dot"></span> Quick Start</span>
+                    <h2 class="section-title">Get Started in Seconds</h2>
+                    <p class="section-subtitle">Choose your preferred way to integrate Probe into your workflow.</p>
+                </div>
+                <div class="quickstart-grid-new">
+                    <!-- Featured: Command Line -->
+                    <div class="quickstart-card-new quickstart-featured-new">
+                        <div class="quickstart-header-new">
+                            <div class="quickstart-icon-new">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                            </div>
+                            <h3>Command Line</h3>
+                        </div>
+                        <p>Search any codebase instantly with a single command. No installation required - just run via npx.</p>
+                        <div class="terminal-block">
+                            <div class="terminal-header">
+                                <span class="terminal-dot"></span>
+                                <span class="terminal-dot"></span>
+                                <span class="terminal-dot"></span>
+                                <span class="terminal-title">Terminal</span>
+                            </div>
+                            <div class="terminal-content">
+                                <div class="terminal-line"><span class="terminal-prompt">$</span> npx -y @probelabs/probe@latest "authentication flow" ./src</div>
+                            </div>
+                        </div>
+                        <div class="quickstart-flow">
+                            <span class="flow-step">Run command</span>
+                            <span class="flow-arrow">then</span>
+                            <span class="flow-step">Get ranked results</span>
+                            <span class="flow-arrow">then</span>
+                            <span class="flow-step">Extract context</span>
+                        </div>
+                    </div>
+
+                    <!-- AI Chat Mode -->
+                    <div class="quickstart-card-new">
+                        <div class="quickstart-header-new">
+                            <div class="quickstart-icon-new">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                            </div>
+                            <h3>AI Chat Mode</h3>
+                        </div>
+                        <p>Interactive chat interface for exploring code with AI assistance. Opens in your browser.</p>
+                        <div class="terminal-block terminal-small">
+                            <div class="terminal-header">
+                                <span class="terminal-dot"></span>
+                                <span class="terminal-dot"></span>
+                                <span class="terminal-dot"></span>
+                            </div>
+                            <div class="terminal-content">
+                                <div class="terminal-line"><span class="terminal-prompt">$</span> npx -y @probelabs/probe-chat@latest --web</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MCP Server -->
+                    <div class="quickstart-card-new">
+                        <div class="quickstart-header-new">
+                            <div class="quickstart-icon-new">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                            </div>
+                            <h3>MCP Server</h3>
+                        </div>
+                        <p>Connect to Claude Code, Cursor, Codex, or any MCP-compatible AI editor.</p>
+                        <div class="mcp-tabs">
+                            <input type="radio" name="mcp-tab" id="mcp-claude" checked>
+                            <input type="radio" name="mcp-tab" id="mcp-json">
+                            <input type="radio" name="mcp-tab" id="mcp-codex">
+                            <div class="mcp-tabs-nav">
+                                <label for="mcp-claude">Claude Code</label>
+                                <label for="mcp-json">JSON Config</label>
+                                <label for="mcp-codex">Codex</label>
+                            </div>
+                            <div class="mcp-tabs-content">
+                                <div class="mcp-tab-panel" id="panel-claude">
+                                    <div class="terminal-block terminal-small">
+                                        <div class="terminal-header">
+                                            <span class="terminal-dot"></span>
+                                            <span class="terminal-dot"></span>
+                                            <span class="terminal-dot"></span>
+                                        </div>
+                                        <div class="terminal-content">
+                                            <div class="terminal-line">claude mcp add probe -- npx -y @probelabs/probe@latest agent --mcp</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mcp-tab-panel" id="panel-json">
+                                    <div class="terminal-block terminal-small">
+                                        <div class="terminal-header">
+                                            <span class="terminal-dot"></span>
+                                            <span class="terminal-dot"></span>
+                                            <span class="terminal-dot"></span>
+                                            <span class="terminal-title">mcp_config.json</span>
+                                        </div>
+                                        <div class="terminal-content">
+                                            <div class="terminal-line terminal-json">{</div>
+                                            <div class="terminal-line terminal-json">  "mcpServers": {</div>
+                                            <div class="terminal-line terminal-json">    "probe": {</div>
+                                            <div class="terminal-line terminal-json">      "command": "npx",</div>
+                                            <div class="terminal-line terminal-json">      "args": ["-y", "@probelabs/probe@latest", "mcp"]</div>
+                                            <div class="terminal-line terminal-json">    }</div>
+                                            <div class="terminal-line terminal-json">  }</div>
+                                            <div class="terminal-line terminal-json">}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mcp-tab-panel" id="panel-codex">
+                                    <div class="terminal-block terminal-small">
+                                        <div class="terminal-header">
+                                            <span class="terminal-dot"></span>
+                                            <span class="terminal-dot"></span>
+                                            <span class="terminal-dot"></span>
+                                            <span class="terminal-title">~/.codex/config.toml</span>
+                                        </div>
+                                        <div class="terminal-content">
+                                            <div class="terminal-line terminal-comment"># Auto-detects Codex auth</div>
+                                            <div class="terminal-line">[mcp_servers.probe]</div>
+                                            <div class="terminal-line">command = "npx"</div>
+                                            <div class="terminal-line">args = ["-y", "@probelabs/probe@latest", "mcp"]</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Node.js SDK -->
+                    <div class="quickstart-card-new">
+                        <div class="quickstart-header-new">
+                            <div class="quickstart-icon-new">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                            </div>
+                            <h3>Node.js SDK</h3>
+                        </div>
+                        <p>Programmatic access for building custom integrations and workflows.</p>
+                        <div class="terminal-block terminal-small">
+                            <div class="terminal-header">
+                                <span class="terminal-dot"></span>
+                                <span class="terminal-dot"></span>
+                                <span class="terminal-dot"></span>
+                            </div>
+                            <div class="terminal-content">
+                                <div class="terminal-line"><span class="terminal-prompt">$</span> npm install @probelabs/probe</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="quickstart-cta">
+                    <a href="/quick-start" class="btn-secondary">
+                        View Full Documentation
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison Section -->
+        <section class="comparison-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="hero-badge-new" style="margin: 0 auto 1rem;"><span class="badge-dot"></span> The Difference</span>
+                    <h2 class="section-title">Code as Text vs. Code as a Codebase</h2>
+                </div>
+                <div class="comparison-grid">
+                    <div class="comparison-col comparison-common">
+                        <h3>Common approach</h3>
+                        <ul>
+                            <li>Run 2–3 text queries</li>
+                            <li>Grab a few lines around matches</li>
+                            <li>Assume it's enough context</li>
+                            <li>Move on confidently (often wrong)</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-col comparison-probe">
+                        <h3>Probe approach</h3>
+                        <ul>
+                            <li>Build a ranked set of structural hits</li>
+                            <li>Extract scoped, minimal context with boundaries</li>
+                            <li>Highlight the important identifiers</li>
+                            <li>Expand intentionally when deeper context is needed</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="comparison-closer">It's not about "more context." It's about the <strong>right context</strong>, delivered efficiently.</p>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="hero-badge-new" style="margin: 0 auto 1rem;"><span class="badge-dot"></span> Capabilities</span>
+                    <h2 class="section-title">Powerful Query Syntax—Without Heavyweight Indexing</h2>
+                    <p class="section-subtitle">Probe supports advanced, search-engine style queries and runs fast on large repos without requiring an external indexing service.</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3>Familiar Query Operators</h3>
+                        <p>Boolean operators, phrase matching, and fuzzy search—a query syntax you already know.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Code + Markdown</h3>
+                        <p>Works across source files and documentation with structural awareness for both.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Local / On-Prem Ready</h3>
+                        <p>Designed for use in real enterprise repos. Retrieval runs locally; you control what context is sent to the model.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>50+ Languages</h3>
+                        <p>Support for all major programming languages with accurate AST parsing.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>MCP + SDK</h3>
+                        <p>Built-in MCP server for Claude and Cursor. Node.js SDK for custom integrations.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Open Source</h3>
+                        <p>Apache 2.0 licensed. Run it, modify it, embed it in your workflows.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Docs Section -->
+        <section class="docs-section">
+            <div class="section-container">
+                <div class="section-header">
+                    <span class="hero-badge-new" style="margin: 0 auto 1rem; background: rgba(22, 163, 74, 0.1); color: #16a34a; border-color: rgba(22, 163, 74, 0.2);"><span class="badge-dot" style="background: #16a34a;"></span> Resources</span>
+                    <h2 class="section-title">Documentation</h2>
+                </div>
+                <div class="docs-grid">
+                    <a href="/quick-start" class="doc-card">
+                        <h3>Quick Start</h3>
+                        <p>Get up and running in minutes</p>
+                        <span class="doc-link">Read guide <svg width="12" height="12" viewBox="0 0 12 12"><path d="M2.5 6h7M6.5 3l3 3-3 3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    </a>
+                    <a href="/features" class="doc-card">
+                        <h3>Features</h3>
+                        <p>Explore all capabilities</p>
+                        <span class="doc-link">Learn more <svg width="12" height="12" viewBox="0 0 12 12"><path d="M2.5 6h7M6.5 3l3 3-3 3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    </a>
+                    <a href="/mcp-server" class="doc-card">
+                        <h3>MCP Server</h3>
+                        <p>Integrate with AI editors</p>
+                        <span class="doc-link">View docs <svg width="12" height="12" viewBox="0 0 12 12"><path d="M2.5 6h7M6.5 3l3 3-3 3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    </a>
+                    <a href="/cli-mode" class="doc-card">
+                        <h3>CLI Reference</h3>
+                        <p>Command line usage</p>
+                        <span class="doc-link">See commands <svg width="12" height="12" viewBox="0 0 12 12"><path d="M2.5 6h7M6.5 3l3 3-3 3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="section-container">
+                <div class="cta-card-new">
+                    <p class="cta-power">Probe makes context retrieval deterministic: scoped, ranked, expandable.</p>
+                    <h2>Turn Your Repo Into a Queryable Knowledge System</h2>
+                    <p>Open source and free to use. Single binary, no dependencies.</p>
+                    <div class="cta-buttons">
+                        <a href="/quick-start" class="btn-primary">
+                            Get Started
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </a>
+                        <a href="https://cal.com/leonid-bugaev/30min" class="btn-secondary">Book a Demo</a>
+                        <a href="https://github.com/probelabs/probe" class="btn-ghost" target="_blank">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer - matching home page -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand-col">
+                    <span class="footer-brand-name">ProbeLabs</span>
+                    <p class="footer-tagline">The Operating System for Agentic Engineering</p>
+                    <div class="footer-social">
+                        <a href="https://github.com/probelabs" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                                <path d="M9 18c-4.51 2-5-2-7-2"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <a href="mailto:hello@probelabs.com" class="footer-email">hello@probelabs.com</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Products</h4>
+                    <ul>
+                        <li><a href="/probe">Probe</a></li>
+                        <li><a href="/visor">Visor</a></li>
+                        <li><a href="/maid">Maid</a></li>
+                        <li><a href="/big-brain">Big Brain</a></li>
+                        <li><a href="/afk">AFK</a></li>
+                        <li><a href="/vow">Vow</a></li>
+                        <li><a href="/memaris">Memaris</a></li>
+                        <li><a href="/logoscope">Logoscope</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Solutions</h4>
+                    <ul>
+                        <li><a href="/solutions/engineering-leadership">Engineering Leadership</a></li>
+                        <li><a href="/solutions/platform-teams">Platform Teams</a></li>
+                        <li><a href="/solutions/agencies">Agencies</a></li>
+                        <li><a href="/solutions/enterprise">Enterprise</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="/quick-start">Quick Start</a></li>
+                        <li><a href="/docs">Documentation</a></li>
+                        <li><a href="https://github.com/probelabs/visor/tree/main/examples" target="_blank" rel="noopener">Workflow Examples</a></li>
+                        <li><a href="https://github.com/probelabs/probe" target="_blank" rel="noopener">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="/company/about">About</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-copy">&copy; 2026 ProbeLabs Inc. All rights reserved.</div>
+                <div class="footer-legal">
+                    <a href="/privacy">Privacy</a>
+                    <a href="/terms">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.classList.toggle('active');
+        }
+
+        // Navigation scroll effect
+        (function() {
+            const nav = document.getElementById('mainNav');
+            if (!nav) return;
+
+            function handleScroll() {
+                if (window.scrollY > 50) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            }
+
+            window.addEventListener('scroll', handleScroll);
+            handleScroll(); // Check initial state
+        })();
+
+        // Stars Animation
+        (function() {
+            const canvas = document.getElementById('starsCanvas');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return;
+
+            // Set canvas dimensions
+            function setCanvasSize() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+            setCanvasSize();
+
+            // Star properties
+            const stars = [];
+            const numStars = 150;
+            const trailLength = 4;
+
+            // Space travel simulation properties
+            let currentAngle = Math.PI;
+            let targetAngle = currentAngle;
+            let angleChangeSpeed = 0.0005;
+            let baseSpeed = 1.5;
+            let targetSpeed = baseSpeed;
+
+            // Function to smoothly change travel direction
+            function updateTravelDirection() {
+                if (Math.random() < 0.0005) {
+                    targetAngle = Math.random() * Math.PI * 2;
+                    targetSpeed = baseSpeed * (0.8 + Math.random() * 0.4);
+                }
+
+                const angleDiff = targetAngle - currentAngle;
+                if (Math.abs(angleDiff) > 0.01) {
+                    currentAngle += angleDiff * angleChangeSpeed;
+                }
+            }
+
+            // Create stars with varied properties - matching original StarsBackground.vue
+            for (let i = 0; i < numStars; i++) {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * canvas.height;
+                const baseSize = 2.5 + Math.random() * 3;
+
+                // Original uses near-white RGBA colors
+                const r = 230 + Math.random() * 20;
+                const g = 230 + Math.random() * 20;
+                const b = 240 + Math.random() * 15;
+
+                stars.push({
+                    x: x,
+                    y: y,
+                    z: Math.random() * 1.5,
+                    size: baseSize,
+                    baseSize: baseSize,
+                    color: `rgba(${r}, ${g}, ${b}, 1)`,
+                    trail: Array(trailLength).fill().map(() => ({ x, y })),
+                    blinkSpeed: 0.01 + Math.random() * 0.015,
+                    blinkOffset: Math.random() * Math.PI * 2,
+                    shouldBlink: Math.random() < 0.4
+                });
+            }
+
+            // Function to draw a star shape
+            function drawStar(x, y, size, color) {
+                const spikes = 4;
+                const outerRadius = size;
+                const innerRadius = size * 0.4;
+
+                ctx.beginPath();
+                ctx.fillStyle = color;
+
+                for (let i = 0; i < spikes * 2; i++) {
+                    const radius = i % 2 === 0 ? outerRadius : innerRadius;
+                    const angle = (Math.PI * 2 * i) / (spikes * 2) - Math.PI / 2;
+
+                    if (i === 0) {
+                        ctx.moveTo(x + radius * Math.cos(angle), y + radius * Math.sin(angle));
+                    } else {
+                        ctx.lineTo(x + radius * Math.cos(angle), y + radius * Math.sin(angle));
+                    }
+                }
+
+                ctx.closePath();
+                ctx.fill();
+            }
+
+            // Function to draw trail
+            function drawTrail(trail, color, size) {
+                for (let i = 0; i < trail.length; i++) {
+                    const opacity = 0.25 * ((trail.length - i) / trail.length);
+                    const trailSize = size * 0.8 * ((trail.length - i) / trail.length);
+                    const trailColor = color.replace('1)', `${opacity})`);
+
+                    ctx.beginPath();
+                    ctx.fillStyle = trailColor;
+                    ctx.arc(trail[i].x, trail[i].y, trailSize, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            // Animation function
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                const time = performance.now() / 1000;
+                updateTravelDirection();
+
+                stars.forEach(star => {
+                    // Update trail
+                    star.trail.pop();
+                    star.trail.unshift({ x: star.x, y: star.y });
+
+                    // Calculate star movement based on current travel direction and star's depth
+                    const speed = targetSpeed * (1 + star.z);
+                    star.x += Math.cos(currentAngle) * speed;
+                    star.y += Math.sin(currentAngle) * speed;
+
+                    // Adjust star size based on speed to create depth effect
+                    star.size = star.baseSize * (1 + (speed - baseSpeed) * 0.1);
+
+                    // Calculate opacity with blinking effect (matching original)
+                    let opacity = 1;
+                    if (star.shouldBlink) {
+                        opacity = 0.85 + (Math.sin(time * star.blinkSpeed + star.blinkOffset) + 1) * 0.15;
+                    }
+
+                    const currentColor = star.color.replace('1)', `${opacity})`);
+
+                    // Draw star and trail
+                    drawTrail(star.trail, currentColor, star.size);
+                    drawStar(star.x, star.y, star.size, currentColor);
+
+                    // Wrap stars around screen
+                    if (star.x < -star.size * 2) star.x = canvas.width + star.size;
+                    if (star.x > canvas.width + star.size * 2) star.x = -star.size;
+                    if (star.y < -star.size * 2) star.y = canvas.height + star.size;
+                    if (star.y > canvas.height + star.size * 2) star.y = -star.size;
+                });
+
+                requestAnimationFrame(animate);
+            }
+
+            window.addEventListener('resize', setCanvasSize);
+            animate();
+        })();
+
+        // Floating Planets Animation
+        (function() {
+            const planets = [
+                {
+                    element: document.getElementById('moon'),
+                    type: 'moon',
+                    baseScale: 0.35,
+                    scale: 0.35,
+                    position: { x: 0, y: 0 },
+                    opacity: 0.15,
+                    speed: { x: 0.02, y: 0.015 },
+                    direction: { x: 1, y: 1 }
+                },
+                {
+                    element: document.getElementById('saturn'),
+                    type: 'saturn',
+                    baseScale: 0.55,
+                    scale: 0.55,
+                    position: { x: 0, y: 0 },
+                    opacity: 0.15,
+                    speed: { x: 0.025, y: 0.02 },
+                    direction: { x: 1, y: 1 }
+                },
+                {
+                    element: document.getElementById('sun'),
+                    type: 'sun',
+                    baseScale: 0.75,
+                    scale: 0.75,
+                    position: { x: 0, y: 0 },
+                    opacity: 0.15,
+                    speed: { x: 0.03, y: 0.018 },
+                    direction: { x: 1, y: 1 }
+                }
+            ];
+
+            // Get a position within the visible area (for initial load)
+            // Randomly distributed across the visible area
+            function getVisibleStartPosition() {
+                // Random position across the visible area (15-85%)
+                const x = Math.random() * 70 + 15;
+                const y = Math.random() * 70 + 15;
+
+                // Random direction
+                const angle = Math.random() * Math.PI * 2;
+                const dirX = Math.cos(angle);
+                const dirY = Math.sin(angle);
+
+                return {
+                    pos: { x, y },
+                    dir: { x: dirX, y: dirY }
+                };
+            }
+
+            // Get a position starting from off-screen (for respawning)
+            function getRandomStartPosition() {
+                const side = Math.floor(Math.random() * 4);
+                let x, y, dirX, dirY;
+
+                switch(side) {
+                    case 0: // top
+                        x = Math.random() * 80 + 10;
+                        y = -10;
+                        dirX = Math.random() * 2 - 1;
+                        dirY = 0.5 + Math.random() * 0.5;
+                        break;
+                    case 1: // right
+                        x = 110;
+                        y = Math.random() * 80 + 10;
+                        dirX = -0.5 - Math.random() * 0.5;
+                        dirY = Math.random() * 2 - 1;
+                        break;
+                    case 2: // bottom
+                        x = Math.random() * 80 + 10;
+                        y = 110;
+                        dirX = Math.random() * 2 - 1;
+                        dirY = -0.5 - Math.random() * 0.5;
+                        break;
+                    case 3: // left
+                        x = -10;
+                        y = Math.random() * 80 + 10;
+                        dirX = 0.5 + Math.random() * 0.5;
+                        dirY = Math.random() * 2 - 1;
+                        break;
+                }
+
+                const length = Math.sqrt(dirX * dirX + dirY * dirY);
+                return {
+                    pos: { x, y },
+                    dir: { x: dirX / length, y: dirY / length }
+                };
+            }
+
+            function updatePlanetScale(planet) {
+                // Very subtle scale change (5% total range) to avoid noticeable shrinking
+                const dx = planet.position.x - 50;
+                const dy = planet.position.y - 50;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                const maxDistance = Math.sqrt(50 * 50 + 50 * 50);
+                // Scale ranges from 1.025 (center) to 0.975 (edges) - barely noticeable
+                const scaleFactor = 1.025 - (0.05 * distance / maxDistance);
+                planet.scale = planet.baseScale * scaleFactor;
+            }
+
+            function resetPlanetPosition(planet) {
+                const { pos, dir } = getRandomStartPosition();
+                planet.position = pos;
+                planet.direction = {
+                    x: dir.x / Math.sqrt(dir.x * dir.x + dir.y * dir.y),
+                    y: dir.y / Math.sqrt(dir.x * dir.x + dir.y * dir.y)
+                };
+                updatePlanetScale(planet);
+            }
+
+            // Helper to apply planet styles to DOM
+            function applyPlanetStyles(planet) {
+                if (planet.element) {
+                    planet.element.style.transform = `translate(-50%, -50%) scale(${planet.scale})`;
+                    planet.element.style.top = `${planet.position.y}%`;
+                    planet.element.style.left = `${planet.position.x}%`;
+                    planet.element.style.opacity = planet.opacity;
+                }
+            }
+
+            // Initialize planet positions - first 2 visible, last one off-screen
+            planets.forEach((planet, index) => {
+                // First 2 planets start visible, last one starts off-screen
+                if (index < 2) {
+                    const { pos, dir } = getVisibleStartPosition();
+                    planet.position = pos;
+                    planet.direction = {
+                        x: dir.x / Math.sqrt(dir.x * dir.x + dir.y * dir.y),
+                        y: dir.y / Math.sqrt(dir.x * dir.x + dir.y * dir.y)
+                    };
+                    updatePlanetScale(planet);
+                } else {
+                    resetPlanetPosition(planet);
+                }
+                applyPlanetStyles(planet);
+            });
+
+            // Enable transitions after initial positioning is painted
+            // Use double requestAnimationFrame to ensure the initial state is rendered first
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    planets.forEach(planet => {
+                        if (planet.element) {
+                            planet.element.classList.remove('no-transition');
+                        }
+                    });
+                });
+            });
+
+            function updatePlanets() {
+                planets.forEach(planet => {
+                    // Update positions
+                    planet.position.x += planet.speed.x * planet.direction.x;
+                    planet.position.y += planet.speed.y * planet.direction.y;
+
+                    // Update scale based on position
+                    updatePlanetScale(planet);
+
+                    // Wrap around screen edges
+                    if (planet.position.x < -15) {
+                        planet.position.x = 115;
+                    } else if (planet.position.x > 115) {
+                        planet.position.x = -15;
+                    }
+
+                    if (planet.position.y < -15) {
+                        planet.position.y = 115;
+                    } else if (planet.position.y > 115) {
+                        planet.position.y = -15;
+                    }
+
+                    // Apply styles
+                    applyPlanetStyles(planet);
+                });
+
+                requestAnimationFrame(updatePlanets);
+            }
+
+            updatePlanets();
+        })();
+    </script>
+</body>
+</html>

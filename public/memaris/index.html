@@ -1,0 +1,2137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memaris - Stop re-teaching your AI</title>
+    <meta name="description" content="Turn past Claude Code sessions into persistent memory. Extracts patterns, preferences, and guardrails from your conversation history.">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3Y0Z9SZLF2"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-3Y0Z9SZLF2");</script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none;
+        }
+        
+        /* Prevent layout shifts on load */
+        body {
+            visibility: hidden;
+            cursor: none;
+        }
+
+        :root {
+            --bg: #0a0a0a;
+            --text: #ffffff;
+            --accent: #00ff88;
+            --error: #ff0066;
+            --warning: #ffaa00;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        html, body {
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100%;
+            cursor: none;
+        }
+        
+        a, button, input, textarea, select, .terminal-dot, .evolution-node, .compat-card {
+            cursor: none;
+        }
+
+
+        /* Custom Cursor */
+        .cursor-dot {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            will-change: left, top;
+            left: -50px;
+            top: -50px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor-dot.visible {
+            opacity: 1;
+        }
+
+        .cursor-ring {
+            position: fixed;
+            width: 30px;
+            height: 30px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            will-change: left, top, width, height;
+            left: -50px;
+            top: -50px;
+            opacity: 0;
+            transition: opacity 0.3s, width 0.2s, height 0.2s, border-color 0.2s;
+            transform: translate(-50%, -50%);
+        }
+
+        .cursor-ring.visible {
+            opacity: 1;
+        }
+
+        .cursor-ring.hover {
+            width: 40px;
+            height: 40px;
+            border-color: var(--error);
+        }
+
+        /* Memory Field Background */
+        .memory-field {
+            position: fixed;
+            width: 100%;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+        }
+
+        .memory-particle {
+            position: absolute;
+            font-size: 11px;
+            color: var(--accent);
+            opacity: 0.25;
+            animation: float 30s infinite linear;
+            font-family: monospace;
+            white-space: nowrap;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+        }
+
+        .memory-particle.dim {
+            opacity: 0.15;
+            text-shadow: none;
+        }
+
+        .memory-particle.bright {
+            opacity: 0.35;
+            text-shadow: 0 0 12px rgba(0, 255, 136, 0.4);
+            animation-duration: 25s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0vh) translateX(0) rotate(-5deg);
+            }
+            100% {
+                transform: translateY(-120vh) translateX(50px) rotate(5deg);
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+            padding: 3rem 2rem 0;
+        }
+        
+        /* Combined Hero-Terminal wrapper */
+        .hero-terminal-wrapper {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 2rem 0;
+        }
+
+        .glitch-container {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            text-align: center;
+            position: relative;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, var(--accent), var(--text));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h1::before,
+        h1::after {
+            content: 'MEMARIS';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h1::before {
+            animation: glitch-1 0.5s infinite;
+            color: var(--error);
+            z-index: -1;
+            -webkit-text-fill-color: var(--error);
+        }
+
+        h1::after {
+            animation: glitch-2 0.5s infinite;
+            color: var(--accent);
+            z-index: -1;
+            -webkit-text-fill-color: var(--accent);
+        }
+
+        @keyframes glitch-1 {
+            0%, 100% {
+                clip-path: inset(0 0 0 0);
+                transform: translate(0);
+            }
+            20% {
+                clip-path: polygon(0 20%, 100% 20%, 100% 40%, 0 40%);
+                transform: translate(-3px, 2px);
+            }
+        }
+
+        @keyframes glitch-2 {
+            0%, 100% {
+                clip-path: inset(0 0 0 0);
+                transform: translate(0);
+            }
+            20% {
+                clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%);
+                transform: translate(3px, -2px);
+            }
+        }
+
+        .tagline {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            text-align: center;
+            margin-bottom: 0;
+            font-weight: 300;
+            opacity: 0.9;
+            letter-spacing: 0.1em;
+            max-width: 700px;
+        }
+
+        .tagline .highlight {
+            color: var(--accent);
+            font-weight: 700;
+            animation: pulse 2s infinite;
+            text-transform: uppercase;
+        }
+
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            color: var(--text);
+            text-decoration: none;
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .github-link:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
+        }
+
+        .github-link svg {
+            transition: transform 0.3s;
+        }
+
+        .github-link:hover svg {
+            transform: scale(1.1);
+        }
+
+        /* GitHub CTA Section */
+        .github-cta {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            text-align: center;
+            background: linear-gradient(180deg, transparent, rgba(0, 255, 136, 0.03), transparent);
+            position: relative;
+            z-index: 10;
+        }
+
+        .github-cta-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .github-cta-content h3 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            color: var(--text);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        .github-cta-content p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.8;
+            letter-spacing: 0.05em;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .github-cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.3s;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .github-cta-button.primary {
+            background: var(--accent);
+            color: var(--bg);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+        }
+
+        .github-cta-button.primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 255, 136, 0.5);
+            background: rgba(0, 255, 136, 0.9);
+        }
+
+        .github-cta-button.secondary {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--border);
+        }
+
+        .github-cta-button.secondary:hover {
+            transform: translateY(-3px);
+            border-color: #7289da;
+            box-shadow: 0 10px 30px rgba(114, 137, 218, 0.3);
+            background: rgba(114, 137, 218, 0.1);
+            color: #7289da;
+        }
+
+        .github-cta-button svg {
+            transition: transform 0.3s;
+        }
+
+        .github-cta-button:hover svg {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        @media (max-width: 600px) {
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .github-cta-button {
+                width: 200px;
+                justify-content: center;
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        /* CTA Buttons */
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+
+        .btn {
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        .micro-assurance {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        /* Terminal Demo */
+        .terminal-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 3rem auto 0;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .terminal {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            backdrop-filter: blur(20px);
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 255, 136, 0.1);
+        }
+
+        .terminal-header {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.8rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .terminal-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            transition: transform 0.2s;
+        }
+
+        .terminal-dot:hover {
+            transform: scale(1.2);
+        }
+
+        .terminal-dot.red { background: var(--error); }
+        .terminal-dot.yellow { background: var(--warning); }
+        .terminal-dot.green { background: var(--accent); }
+
+        .terminal-body {
+            padding: 1.5rem;
+            font-family: monospace;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            min-height: 200px;
+        }
+
+        .terminal-line {
+            margin-bottom: 0.8rem;
+            opacity: 0;
+            animation: fadeInLine 0.3s forwards;
+        }
+
+        .terminal-line:nth-child(1) { animation-delay: 0.2s; }
+        .terminal-line:nth-child(2) { animation-delay: 0.4s; }
+        .terminal-line:nth-child(3) { animation-delay: 0.6s; }
+        .terminal-line:nth-child(4) { animation-delay: 0.8s; }
+        .terminal-line:nth-child(5) { animation-delay: 1s; }
+        .terminal-line:nth-child(6) { animation-delay: 1.2s; }
+        .terminal-line:nth-child(7) { animation-delay: 1.4s; }
+        .terminal-line:nth-child(8) { animation-delay: 1.6s; }
+        .terminal-line:nth-child(9) { animation-delay: 1.8s; }
+
+        @keyframes fadeInLine {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .terminal-prompt {
+            color: var(--accent);
+            margin-right: 0.5rem;
+        }
+
+        .terminal-output {
+            color: rgba(255, 255, 255, 0.7);
+            margin-left: 1.5rem;
+        }
+
+        .terminal-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 16px;
+            background: var(--accent);
+            animation: blink 1s infinite;
+            vertical-align: text-bottom;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        /* Story Section */
+        .story {
+            padding: 4rem 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .story h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .story-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .story-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .story-highlight {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        /* How it Works */
+        .how-it-works {
+            padding: 4rem 2rem;
+            background: linear-gradient(180deg, transparent, rgba(0, 255, 136, 0.02), transparent);
+        }
+
+        .stream-title {
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        .process-flow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .process-step {
+            flex: 1;
+            padding: 2rem;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .process-step:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 15px 40px rgba(0, 255, 136, 0.2);
+        }
+
+        .step-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .process-step h3 {
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        .process-step p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            line-height: 1.5;
+        }
+
+        .process-arrow {
+            font-size: 2rem;
+            color: var(--accent);
+            opacity: 0.5;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 768px) {
+            .process-flow {
+                flex-direction: column;
+            }
+            
+            .process-arrow {
+                transform: rotate(90deg);
+                margin: 1rem 0;
+            }
+        }
+
+        /* Probe Ecosystem Section */
+        .probe-ecosystem {
+            padding: 4rem 2rem;
+            text-align: center;
+            background: linear-gradient(180deg, transparent, rgba(0, 255, 136, 0.02), transparent);
+        }
+        
+        .probe-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .probe-gradient {
+            background: linear-gradient(45deg, var(--accent), var(--text));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .probe-content {
+            margin: 3rem 0;
+            padding: 3rem;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+        }
+        
+        .probe-logo-section {
+            margin-bottom: 2rem;
+        }
+        
+        .probe-logo {
+            max-width: 120px;
+            height: auto;
+            opacity: 0.9;
+            transition: transform 0.3s;
+        }
+        
+        .probe-logo:hover {
+            transform: scale(1.1);
+        }
+        
+        .probe-description {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .probe-description p {
+            font-size: 1rem;
+            line-height: 1.7;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+        }
+        
+        .probe-description a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        
+        .probe-description a:hover {
+            opacity: 0.7;
+            text-decoration: underline;
+        }
+        
+        .probe-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            padding: 0.8rem 1.5rem;
+            background: var(--bg);
+            color: var(--accent);
+            border: 2px solid var(--accent);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .probe-link:hover {
+            background: var(--accent);
+            color: var(--bg);
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+        }
+        
+        .probe-footer {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        .probe-footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        .probe-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Compatibility Section */
+        .compatibility {
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .compat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto 3rem;
+        }
+
+        .compat-card {
+            padding: 2rem;
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .compat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 15px 40px rgba(0, 255, 136, 0.2);
+        }
+
+        .compat-status {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .compat-status.live {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        .compat-status.coming {
+            background: var(--warning);
+            color: var(--bg);
+        }
+
+        .compat-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .compat-desc {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            line-height: 1.4;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .cta-box {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2.5rem;
+            background: var(--glass);
+            border: 2px solid var(--accent);
+            border-radius: 20px;
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 136, 0.1) 0%, transparent 70%);
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .cta-title {
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-subtitle {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text);
+            opacity: 0.7;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--accent);
+        }
+        
+        footer p {
+            color: var(--text);
+            opacity: 0.6;
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            * {
+                cursor: auto !important;
+            }
+
+            .cursor-dot, .cursor-ring {
+                display: none !important;
+            }
+
+
+            .cta-group {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                min-width: 250px;
+            }
+        }
+
+        /* Navigation Bar Styles */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: transparent;
+        }
+
+        .nav-container {
+            position: relative;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .nav-title {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown-trigger {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .nav-dropdown-trigger:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-dropdown-arrow {
+            transition: transform 0.2s ease;
+        }
+
+        .nav-dropdown-trigger.is-open .nav-dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .nav-mega-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding-top: 12px;
+            display: none;
+            z-index: 100;
+        }
+
+        .nav-mega-menu.open {
+            display: block;
+        }
+
+        .nav-mega-menu--wide {
+            left: 0;
+            transform: translateX(-25%);
+        }
+
+        .mega-menu-content {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.15);
+            padding: 1.5rem;
+            min-width: 520px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .nav-mega-menu--wide .mega-menu-content {
+            min-width: 680px;
+        }
+
+        .mega-menu-label {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #64748b;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+        }
+
+        .mega-menu-divider {
+            height: 1px;
+            background: #e2e8f0;
+            margin: 1rem 0;
+        }
+
+        .mega-menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+        }
+
+        .mega-menu-grid--3col {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .mega-menu-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.875rem;
+            padding: 1rem;
+            border-radius: 0.625rem;
+            text-decoration: none;
+            transition: background 0.15s, transform 0.15s;
+            border: 1px solid transparent;
+        }
+
+        .mega-menu-card:hover {
+            background: #f8fafc;
+            border-color: #e2e8f0;
+            transform: translateY(-1px);
+        }
+
+        .mega-menu-card--active {
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+        }
+
+        .mega-card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 0.625rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .mega-card-icon svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .mega-card-icon--probe { background: linear-gradient(135deg, #dbeafe, #bfdbfe); color: #2563eb; }
+        .mega-card-icon--visor { background: linear-gradient(135deg, #dcfce7, #bbf7d0); color: #16a34a; }
+        .mega-card-icon--mermaid { background: linear-gradient(135deg, #fef3c7, #fde68a); color: #d97706; }
+        .mega-card-icon--memory { background: linear-gradient(135deg, #f3e8ff, #e9d5ff); color: #9333ea; }
+        .mega-card-icon--bigbrain { background: linear-gradient(135deg, #f3e8ff, #e9d5ff); color: #7c3aed; }
+        .mega-card-icon--afk { background: linear-gradient(135deg, #e0e7ff, #c7d2fe); color: #4f46e5; }
+        .mega-card-icon--vow { background: linear-gradient(135deg, #fee2e2, #fecaca); color: #dc2626; }
+        .mega-card-icon--memaris { background: linear-gradient(135deg, #dcfce7, #bbf7d0); color: #16a34a; }
+        .mega-card-icon--logoscope { background: linear-gradient(135deg, #ccfbf1, #99f6e4); color: #0d9488; }
+        .mega-card-icon--leadership { background: linear-gradient(135deg, #dbeafe, #bfdbfe); color: #2563eb; }
+        .mega-card-icon--platform { background: linear-gradient(135deg, #dcfce7, #bbf7d0); color: #16a34a; }
+        .mega-card-icon--engineers { background: linear-gradient(135deg, #e0e7ff, #c7d2fe); color: #4f46e5; }
+        .mega-card-icon--support { background: linear-gradient(135deg, #fce7f3, #fbcfe8); color: #db2777; }
+        .mega-card-icon--agencies { background: linear-gradient(135deg, #fef3c7, #fde68a); color: #d97706; }
+        .mega-card-icon--enterprise { background: linear-gradient(135deg, #fee2e2, #fecaca); color: #dc2626; }
+
+        .mega-card-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .mega-card-title {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 0.25rem;
+        }
+
+        .mega-card-desc {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 0.8125rem;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-github {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.5rem;
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.2s ease;
+            text-decoration: none;
+        }
+
+        .nav-github:hover {
+            color: #ffffff;
+        }
+
+        .nav-github svg {
+            display: block;
+        }
+
+        .nav-btn {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            background: #0f172a;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .nav-btn:hover {
+            background: #1e293b;
+        }
+
+        .nav-btn-mobile {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+
+        .mobile-menu.open {
+            display: flex;
+        }
+
+        .mobile-section {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .mobile-section-label {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #64748b;
+            padding: 0.5rem 0 0.25rem;
+        }
+
+        .mobile-sublink {
+            display: block;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 0.875rem;
+            color: #64748b;
+            text-decoration: none;
+            padding: 0.375rem 0 0.375rem 0.75rem;
+            font-weight: 500;
+            border-left: 2px solid #e2e8f0;
+            transition: all 0.2s ease;
+        }
+
+        .mobile-sublink:hover {
+            color: #3b82f6;
+            border-left-color: #3b82f6;
+        }
+
+        .mobile-sublink--active {
+            color: #3b82f6;
+            border-left-color: #3b82f6;
+            font-weight: 600;
+        }
+
+        .mobile-link {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 1rem;
+            color: #64748b;
+            text-decoration: none;
+            padding: 0.5rem 0;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .mobile-link:hover {
+            color: #3b82f6;
+        }
+
+        .mobile-cta {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 0.75rem;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            text-align: center;
+            width: 100%;
+            transition: all 0.2s ease;
+        }
+
+        .mobile-cta:hover {
+            background: #2563eb;
+        }
+
+        /* Responsive Navigation */
+        @media (max-width: 968px) {
+            .nav-links {
+                display: none;
+            }
+
+            .nav-btn-mobile {
+                display: flex;
+            }
+
+            .nav-actions .nav-btn {
+                display: none;
+            }
+        }
+
+        /* ProbeLabs Footer Styles */
+        .probelabs-footer {
+            background: #0f172a;
+            padding: 4rem 2rem 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            max-width: 280px;
+        }
+
+        .footer-brand-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.02em;
+        }
+
+        .footer-tagline {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-social {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-social a {
+            color: var(--text);
+            opacity: 0.7;
+            transition: all 0.3s;
+        }
+
+        .footer-social a:hover {
+            opacity: 1;
+            color: var(--accent);
+        }
+
+        .footer-email {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        .footer-email a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-email a:hover {
+            color: var(--accent);
+        }
+
+        .footer-column h4 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 1.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-column ul li a {
+            color: var(--text);
+            opacity: 0.7;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            opacity: 1;
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-copyright {
+            font-size: 0.85rem;
+            opacity: 0.6;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-legal a {
+            color: var(--text);
+            opacity: 0.6;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .footer-legal a:hover {
+            opacity: 1;
+            color: var(--accent);
+        }
+
+        @media (max-width: 900px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+
+            .footer-brand {
+                grid-column: 1 / -1;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-legal {
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="nav" id="mainNav">
+        <div class="nav-container">
+            <a href="/" class="nav-brand">
+                <span class="nav-title">ProbeLabs</span>
+            </a>
+            <div class="nav-links">
+                <!-- Products Dropdown -->
+                <div class="nav-dropdown">
+                    <button class="nav-link nav-dropdown-trigger" onclick="toggleDropdown('products')">
+                        Products
+                        <svg class="nav-dropdown-arrow" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <div class="nav-mega-menu" id="dropdown-products">
+                        <div class="mega-menu-content">
+                            <div class="mega-menu-section">
+                                <div class="mega-menu-label">Core Products</div>
+                                <div class="mega-menu-grid">
+                                    <a href="/probe" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--probe">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Probe</div>
+                                            <div class="mega-card-desc">AI-native code search across enterprise codebases</div>
+                                        </div>
+                                    </a>
+                                    <a href="/visor" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--visor">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Visor</div>
+                                            <div class="mega-card-desc">Deterministic workflow engine for agent automation</div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="mega-menu-divider"></div>
+                                <div class="mega-menu-label">Labs</div>
+                                <div class="mega-menu-grid">
+                                    <a href="/maid" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--mermaid">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Maid</div>
+                                            <div class="mega-card-desc">Fast Mermaid linter with auto-fix</div>
+                                        </div>
+                                    </a>
+                                    <a href="/big-brain" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--bigbrain">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a9 9 0 0 1 9 9c0 3.1-1.5 5.7-4 7.4V20a2 2 0 0 1-2 2h-6a2 2 0 0 1-2-2v-1.6C4.5 16.7 3 14.1 3 11a9 9 0 0 1 9-9z"/><path d="M9 22v-4M15 22v-4M12 2v6"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Big Brain</div>
+                                            <div class="mega-card-desc">Hand off stuck problems to smarter models</div>
+                                        </div>
+                                    </a>
+                                    <a href="/afk" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--afk">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">AFK</div>
+                                            <div class="mega-card-desc">Control Claude Code from your phone</div>
+                                        </div>
+                                    </a>
+                                    <a href="/vow" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--vow">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Vow</div>
+                                            <div class="mega-card-desc">AI accountability gates for commits</div>
+                                        </div>
+                                    </a>
+                                    <a href="/memaris" class="mega-menu-card mega-menu-card--active">
+                                        <div class="mega-card-icon mega-card-icon--memaris">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Memaris</div>
+                                            <div class="mega-card-desc">Persistent memory from past AI sessions</div>
+                                        </div>
+                                    </a>
+                                    <a href="/logoscope" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--logoscope">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Logoscope</div>
+                                            <div class="mega-card-desc">AI-powered log analysis and insights</div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Solutions Dropdown -->
+                <div class="nav-dropdown">
+                    <button class="nav-link nav-dropdown-trigger" onclick="toggleDropdown('solutions')">
+                        Solutions
+                        <svg class="nav-dropdown-arrow" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <div class="nav-mega-menu nav-mega-menu--wide" id="dropdown-solutions">
+                        <div class="mega-menu-content">
+                            <div class="mega-menu-section">
+                                <div class="mega-menu-label">By Role</div>
+                                <div class="mega-menu-grid mega-menu-grid--3col">
+                                    <a href="/solutions/engineering-leadership" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--leadership">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Engineering Leadership</div>
+                                            <div class="mega-card-desc">Org-wide automation with predictability</div>
+                                        </div>
+                                    </a>
+                                    <a href="/solutions/platform-teams" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--platform">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Platform Teams</div>
+                                            <div class="mega-card-desc">Build once, run everywhere</div>
+                                        </div>
+                                    </a>
+                                    <a href="/solutions/engineers" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--engineers">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Engineers</div>
+                                            <div class="mega-card-desc">Full context, any codebase</div>
+                                        </div>
+                                    </a>
+                                    <a href="/solutions/non-technical" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--support">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Product & Support</div>
+                                            <div class="mega-card-desc">Engineering-grade context without the bottleneck</div>
+                                        </div>
+                                    </a>
+                                    <a href="/solutions/agencies" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--agencies">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Agencies</div>
+                                            <div class="mega-card-desc">Repeatable delivery on client codebases</div>
+                                        </div>
+                                    </a>
+                                    <a href="/solutions/enterprise" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--enterprise">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Enterprise</div>
+                                            <div class="mega-card-desc">Transform legacy codebases at scale</div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="/docs" class="nav-link">Docs</a>
+            </div>
+            <div class="nav-actions">
+                <a href="https://github.com/probelabs/memaris" target="_blank" rel="noopener noreferrer" class="nav-github" aria-label="GitHub">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                        <path d="M9 18c-4.51 2-5-2-7-2"/>
+                    </svg>
+                </a>
+                <button class="nav-btn-mobile" aria-label="Menu" onclick="toggleMobileMenu()">
+                    <svg class="menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/>
+                    </svg>
+                    <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                        <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+                    </svg>
+                </button>
+                <a href="/get-started" class="nav-btn">Get Started</a>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-section">
+                <div class="mobile-section-label">Core Products</div>
+                <a href="/probe" class="mobile-sublink">Probe</a>
+                <a href="/visor" class="mobile-sublink">Visor</a>
+            </div>
+            <div class="mobile-section">
+                <div class="mobile-section-label">Labs</div>
+                <a href="/maid" class="mobile-sublink">Maid</a>
+                <a href="/big-brain" class="mobile-sublink">Big Brain</a>
+                <a href="/afk" class="mobile-sublink">AFK</a>
+                <a href="/vow" class="mobile-sublink">Vow</a>
+                <a href="/memaris" class="mobile-sublink mobile-sublink--active">Memaris</a>
+                <a href="/logoscope" class="mobile-sublink">Logoscope</a>
+            </div>
+            <div class="mobile-section">
+                <div class="mobile-section-label">Solutions</div>
+                <a href="/solutions/engineering-leadership" class="mobile-sublink">Engineering Leadership</a>
+                <a href="/solutions/platform-teams" class="mobile-sublink">Platform Teams</a>
+                <a href="/solutions/engineers" class="mobile-sublink">Engineers</a>
+                <a href="/solutions/non-technical" class="mobile-sublink">Product & Support</a>
+                <a href="/solutions/agencies" class="mobile-sublink">Agencies</a>
+                <a href="/solutions/enterprise" class="mobile-sublink">Enterprise</a>
+            </div>
+            <a href="/docs" class="mobile-link">Docs</a>
+            <a href="https://github.com/probelabs/memaris" class="mobile-link" target="_blank">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;margin-right:0.5rem;">
+                    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                    <path d="M9 18c-4.51 2-5-2-7-2"/>
+                </svg>
+                GitHub
+            </a>
+            <a href="/get-started" class="mobile-cta">Get Started</a>
+        </div>
+    </nav>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- Memory Field Background -->
+    <div class="memory-field" id="memoryField"></div>
+
+    <!-- Hero and Terminal Combined -->
+    <div class="hero-terminal-wrapper">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="glitch-container">
+                <h1>MEMARIS</h1>
+            </div>
+            <p class="tagline">
+                Stop re‑teaching your AI. Turn past sessions into <span class="highlight">persistent memory</span> your agents actually follow.
+            </p>
+        </section>
+        
+        <!-- Terminal Demo -->
+        <div class="terminal-container">
+        <div class="terminal">
+            <div class="terminal-header">
+                <div class="terminal-dot red"></div>
+                <div class="terminal-dot yellow"></div>
+                <div class="terminal-dot green"></div>
+            </div>
+            <div class="terminal-body">
+                <div class="terminal-line">
+                    <span class="terminal-prompt">$</span>
+                    <span class="terminal-command">npx -y @probelabs/memaris</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="terminal-output">🧠 Analyzing conversation patterns...</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="terminal-output">✓ Found 12 user preferences</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="terminal-output">✓ Identified 8 rejected approaches</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="terminal-output">📄 Preview of CLAUDE.md changes ready</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="terminal-prompt">$</span>
+                    <span class="terminal-command">npx -y @probelabs/memaris --update</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="terminal-output">✅ CLAUDE.md updated with AI insights</span>
+                    <span class="terminal-cursor"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    
+    <!-- GitHub CTA Section -->
+    <section class="github-cta">
+        <div class="github-cta-container">
+            <div class="github-cta-content">
+                <h3>Like the project?</h3>
+                <p>⭐ Start the project on GitHub and join the community</p>
+                <div class="cta-buttons">
+                    <a href="https://github.com/probelabs/memaris" class="github-cta-button primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        <span>View on GitHub</span>
+                    </a>
+                    <a href="https://discord.gg/hBN4UsTZ" class="github-cta-button secondary">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419-.0001 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1568 2.4189Z"/>
+                        </svg>
+                        <span>Join Discord</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Story Section -->
+    <section class="story">
+        <h2>Every session is a story</h2>
+        <div class="story-content">
+            <p>You open a session. The agent tries something bold; you ask it to roll back. It suggests restarting a service; you remind it not to kill system processes in prod. By Wednesday, you've typed the same guardrails three times.</p>
+            
+            <p>Those corrections are hard‑won lessons—and they vanish when the chat ends.</p>
+            
+            <p><span class="story-highlight">Memaris makes them stick.</span></p>
+            
+            <p>It reads your session history (messages, visible steps, outcomes), spots what you reject, what you accept, and the safer path you prefer. Then it drafts clear, specific instructions so the next session starts aligned.</p>
+            
+            <p><strong>Result: fewer detours, more momentum—the same you, just remembered.</strong></p>
+        </div>
+    </section>
+    
+    <!-- How it Works -->
+    <section class="how-it-works">
+        <h2 class="stream-title">How it Works</h2>
+        <div class="process-flow">
+            <div class="process-step">
+                <div class="step-icon">📝</div>
+                <h3>Your Conversations</h3>
+                <p>Every correction, preference, and rejected approach in your Claude Code sessions</p>
+            </div>
+            
+            <div class="process-arrow">→</div>
+            
+            <div class="process-step">
+                <div class="step-icon">🤖</div>
+                <h3>Our AI Analyzer</h3>
+                <p>Extracts patterns, identifies mistakes to avoid, and learns your coding style</p>
+            </div>
+            
+            <div class="process-arrow">→</div>
+            
+            <div class="process-step">
+                <div class="step-icon">✨</div>
+                <h3>Optimized CLAUDE.md</h3>
+                <p>Personalized instructions that make every future session start smarter</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Compatibility -->
+    <section class="compatibility">
+        <h2 class="stream-title">Platform Support</h2>
+        
+        <div class="compat-grid">
+            <div class="compat-card">
+                <div class="compat-status live">Live Now</div>
+                <div class="compat-title">Claude Code</div>
+                <div class="compat-desc">
+                    Writes/updates CLAUDE.md or runs read‑only. Full analysis of your conversation history.
+                </div>
+            </div>
+            
+            <div class="compat-card">
+                <div class="compat-status coming">Starting Soon</div>
+                <div class="compat-title">OpenAI Codex</div>
+                <div class="compat-desc">
+                    Memory extraction + adapter for OpenAI's code generation models.
+                </div>
+            </div>
+            
+            <div class="compat-card">
+                <div class="compat-status coming">Starting Soon</div>
+                <div class="compat-title">Google Gemini CLI</div>
+                <div class="compat-desc">
+                    Memory extraction + adapter for Google's Gemini assistant.
+                </div>
+            </div>
+        </div>
+        
+        <p style="opacity: 0.7; margin-bottom: 2rem;">
+            <strong>Approach:</strong> a memory extraction core + lightweight adapters, so your patterns travel across tools.
+        </p>
+        
+        <a href="https://github.com/probelabs/memaris" class="btn btn-secondary">
+            View on GitHub →
+        </a>
+    </section>
+    
+    
+    <!-- Probe Ecosystem -->
+    <section class="probe-ecosystem">
+        <div class="probe-container">
+            <h2 class="stream-title"><span class="probe-gradient">Probe Ecosystem</span></h2>
+            
+            <div class="probe-content">
+                <div class="probe-logo-section">
+                    <img src="https://probelabs.com/logo.png" alt="Probe Labs" class="probe-logo" />
+                </div>
+                
+                <div class="probe-description">
+                    <p>
+                        Memaris is part of the <a href="https://probelabs.com" target="_blank">Probe ecosystem</a>—tools dedicated to improving human and AI collaboration in development.
+                    </p>
+                    <p>
+                        While <a href="https://probelabs.com" target="_blank">Probe</a> helps AI understand code context, 
+                        Memaris preserves your hard-won lessons, turning every correction and preference into permanent memory that follows you across sessions.
+                    </p>
+                    <a href="https://probelabs.com" class="probe-link">
+                        Explore the Ecosystem
+                        <span>→</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="probe-footer">
+                Questions or feedback? Reach out at <a href="mailto:hello@probelabs.com">hello@probelabs.com</a>
+            </div>
+        </div>
+    </section>
+    
+    <footer class="probelabs-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-brand-name">ProbeLabs</div>
+                    <p class="footer-tagline">The Operating System for Agentic Engineering</p>
+                    <div class="footer-social">
+                        <a href="https://github.com/probelabs" target="_blank" rel="noopener" aria-label="GitHub">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="footer-email">
+                        <a href="mailto:hello@probelabs.com">hello@probelabs.com</a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Products</h4>
+                    <ul>
+                        <li><a href="/probe">Probe</a></li>
+                        <li><a href="/visor">Visor</a></li>
+                        <li><a href="/maid">Maid</a></li>
+                        <li><a href="/big-brain">Big Brain</a></li>
+                        <li><a href="/afk">AFK</a></li>
+                        <li><a href="/vow">Vow</a></li>
+                        <li><a href="/memaris">Memaris</a></li>
+                        <li><a href="/logoscope">Logoscope</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Solutions</h4>
+                    <ul>
+                        <li><a href="/solutions/engineering-leadership">Engineering Leadership</a></li>
+                        <li><a href="/solutions/platform-teams">Platform Teams</a></li>
+                        <li><a href="/solutions/agencies">Agencies</a></li>
+                        <li><a href="/solutions/enterprise">Enterprise</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="/docs/quick-start">Quick Start</a></li>
+                        <li><a href="/docs">Documentation</a></li>
+                        <li><a href="/docs/workflow-examples">Workflow Examples</a></li>
+                        <li><a href="https://github.com/probelabs" target="_blank" rel="noopener">GitHub</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="/about">About</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-copyright">&copy; 2026 ProbeLabs Inc. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="/privacy">Privacy</a>
+                    <a href="/terms">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Initialize custom cursor
+        const cursorDot = document.getElementById('cursorDot');
+        const cursorRing = document.getElementById('cursorRing');
+        let cursorVisible = false;
+        
+        // Update cursor position
+        function updateCursor(e) {
+            const x = e.clientX;
+            const y = e.clientY;
+            
+            // Both elements use the same positioning
+            if (!cursorVisible) {
+                cursorDot.style.left = x + 'px';
+                cursorDot.style.top = y + 'px';
+                cursorRing.style.left = x + 'px';
+                cursorRing.style.top = y + 'px';
+                
+                // Make visible after initial positioning
+                setTimeout(() => {
+                    cursorDot.classList.add('visible');
+                    cursorRing.classList.add('visible');
+                    cursorVisible = true;
+                }, 10);
+            } else {
+                cursorDot.style.left = x + 'px';
+                cursorDot.style.top = y + 'px';
+                cursorRing.style.left = x + 'px';
+                cursorRing.style.top = y + 'px';
+            }
+        }
+        
+        // Track mouse movement
+        document.addEventListener('mousemove', updateCursor);
+        
+        // Hide cursor when leaving window
+        document.addEventListener('mouseleave', () => {
+            cursorDot.classList.remove('visible');
+            cursorRing.classList.remove('visible');
+            cursorVisible = false;
+        });
+        
+        document.addEventListener('mouseenter', () => {
+            if (cursorVisible) {
+                cursorDot.classList.add('visible');
+                cursorRing.classList.add('visible');
+            }
+        });
+        
+        // Add hover effect for interactive elements
+        const interactiveElements = 'a, button, .terminal-dot, .evolution-node, .compat-card, .github-link, .github-cta-button';
+        document.addEventListener('mouseover', (e) => {
+            if (e.target.matches(interactiveElements) || e.target.closest(interactiveElements)) {
+                cursorRing.classList.add('hover');
+            }
+        });
+        
+        document.addEventListener('mouseout', (e) => {
+            if (e.target.matches(interactiveElements) || e.target.closest(interactiveElements)) {
+                cursorRing.classList.remove('hover');
+            }
+        });
+        
+        // Generate memory particles
+        const memoryField = document.getElementById('memoryField');
+        // Set initial height after content loads to prevent shifts
+        window.addEventListener('load', () => {
+            memoryField.style.height = document.body.scrollHeight + 'px';
+        });
+        
+        const memories = [
+            '"Stop re-teaching your AI"',
+            '"Never kill system processes"',
+            '"Prefer diagnostics first"',
+            '"Be concise; end with Next actions"',
+            '"No sudo with npm"',
+            '"Always use async/await"',
+            '"Error boundaries ALWAYS"',
+            '"No force push, ever"',
+            '"TypeScript strict mode"',
+            '"const not var"',
+            '"No semicolons"',
+            '"Tabs not spaces"',
+            '"ESM only, no CommonJS"',
+            '"Dark mode by default"',
+            '"Mobile-first CSS"',
+            '→ Pattern saved permanently',
+            '→ Preference recorded',
+            '→ Updating CLAUDE.md',
+            '→ Never suggesting again',
+            '→ Context understood'
+        ];
+        
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            const memory = memories[Math.floor(Math.random() * memories.length)];
+            
+            if (memory.startsWith('→')) {
+                particle.className = 'memory-particle bright';
+            } else if (i % 3 === 0) {
+                particle.className = 'memory-particle dim';
+            } else {
+                particle.className = 'memory-particle';
+            }
+            
+            particle.textContent = memory;
+            
+            const zone = i % 4;
+            const zoneWidth = 25;
+            const baseX = zone * zoneWidth + Math.random() * (zoneWidth - 5);
+            particle.style.left = baseX + '%';
+            
+            const startY = Math.random() * 120;
+            particle.style.top = startY + 'vh';
+            
+            const offset = Math.random() * 30;
+            particle.style.animationDelay = `-${offset}s`;
+            
+            const duration = 25 + Math.random() * 10;
+            particle.style.animationDuration = duration + 's';
+            
+            memoryField.appendChild(particle);
+        }
+        
+        // Prevent any animations from starting until page is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            document.body.style.visibility = 'visible';
+        });
+        
+        window.addEventListener('resize', () => {
+            requestAnimationFrame(() => {
+                memoryField.style.height = document.body.scrollHeight + 'px';
+            });
+        });
+
+        // Navigation functions for mega-menu
+        function toggleDropdown(name) {
+            const dropdown = document.getElementById('dropdown-' + name);
+            const trigger = dropdown.previousElementSibling;
+            const allDropdowns = document.querySelectorAll('.nav-mega-menu');
+            const allTriggers = document.querySelectorAll('.nav-dropdown-trigger');
+
+            // Close other dropdowns
+            allDropdowns.forEach(d => {
+                if (d !== dropdown) d.classList.remove('open');
+            });
+            allTriggers.forEach(t => {
+                if (t !== trigger) t.classList.remove('is-open');
+            });
+
+            // Toggle current dropdown
+            dropdown.classList.toggle('open');
+            trigger.classList.toggle('is-open');
+        }
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuIcon = document.querySelector('.menu-icon');
+            const closeIcon = document.querySelector('.close-icon');
+
+            mobileMenu.classList.toggle('open');
+
+            if (mobileMenu.classList.contains('open')) {
+                menuIcon.style.display = 'none';
+                closeIcon.style.display = 'block';
+            } else {
+                menuIcon.style.display = 'block';
+                closeIcon.style.display = 'none';
+            }
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.nav-dropdown')) {
+                document.querySelectorAll('.nav-mega-menu').forEach(d => d.classList.remove('open'));
+                document.querySelectorAll('.nav-dropdown-trigger').forEach(t => t.classList.remove('is-open'));
+            }
+        });
+    </script>
+</body>
+</html>

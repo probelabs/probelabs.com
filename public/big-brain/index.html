@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Big Brain - When your AI needs a bigger brain</title>
+    <meta name="description" content="Big Brain is an MCP server that packages precise code context into a clean, paste‑ready prompt so you can hand stuck problems to premium models (ChatGPT 5 Pro, Grok Heavy, Claude Opus) - or any model - without session noise.">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3Y0Z9SZLF2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-3Y0Z9SZLF2');
+    </script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Navigation Styles */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(13, 17, 23, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .nav-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown-trigger {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .nav-dropdown-arrow {
+            transition: transform 0.2s ease;
+        }
+
+        .nav-dropdown-trigger.is-open .nav-dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .nav-mega-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding-top: 12px;
+            display: none;
+            z-index: 100;
+        }
+
+        .nav-mega-menu.open {
+            display: block;
+        }
+
+        .nav-mega-menu--wide {
+            left: 0;
+            transform: translateX(-25%);
+        }
+
+        .mega-menu-content {
+            background: #0d1117;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            padding: 24px;
+            min-width: 480px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-mega-menu--wide .mega-menu-content {
+            min-width: 720px;
+        }
+
+        .mega-menu-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #a78bfa;
+            margin-bottom: 16px;
+        }
+
+        .mega-menu-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 1rem 0;
+        }
+
+        .mega-menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .mega-menu-grid--3col {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .mega-menu-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .mega-menu-card:hover {
+            background: rgba(167, 139, 250, 0.1);
+        }
+
+        .mega-menu-card--active {
+            background: rgba(167, 139, 250, 0.2);
+            border: 1px solid rgba(167, 139, 250, 0.3);
+        }
+
+        .mega-card-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .mega-card-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .mega-card-icon--probe { background: linear-gradient(135deg, #1e3a5f, #2563eb); color: #60a5fa; }
+        .mega-card-icon--visor { background: linear-gradient(135deg, #1e3a3f, #059669); color: #34d399; }
+        .mega-card-icon--mermaid { background: linear-gradient(135deg, #3f1e3a, #db2777); color: #f472b6; }
+        .mega-card-icon--memory { background: linear-gradient(135deg, #2e1e5f, #6366f1); color: #a5b4fc; }
+        .mega-card-icon--bigbrain { background: linear-gradient(135deg, #3f2e1e, #a78bfa); color: #c4b5fd; }
+        .mega-card-icon--afk { background: linear-gradient(135deg, #1e2e3f, #6366f1); color: #818cf8; }
+        .mega-card-icon--vow { background: linear-gradient(135deg, #2e3f1e, #65a30d); color: #a3e635; }
+        .mega-card-icon--memaris { background: linear-gradient(135deg, #1e3f2e, #10b981); color: #34d399; }
+        .mega-card-icon--logoscope { background: linear-gradient(135deg, #1e3f3f, #14b8a6); color: #2dd4bf; }
+        .mega-card-icon--leadership { background: linear-gradient(135deg, #3f2e1e, #d97706); color: #fbbf24; }
+        .mega-card-icon--platform { background: linear-gradient(135deg, #1e3f3f, #0891b2); color: #22d3ee; }
+        .mega-card-icon--engineers { background: linear-gradient(135deg, #2e1e4f, #7c3aed); color: #a78bfa; }
+        .mega-card-icon--support { background: linear-gradient(135deg, #3f1e3a, #db2777); color: #f472b6; }
+        .mega-card-icon--agencies { background: linear-gradient(135deg, #3f1e1e, #dc2626); color: #f87171; }
+        .mega-card-icon--enterprise { background: linear-gradient(135deg, #2e2e3f, #6b7280); color: #9ca3af; }
+
+        .mega-card-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .mega-card-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 2px;
+        }
+
+        .mega-card-desc {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.4;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-github {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.2s ease;
+        }
+
+        .nav-github:hover {
+            color: #a78bfa;
+        }
+
+        .nav-btn {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(167, 139, 250, 0.3);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(167, 139, 250, 0.4);
+        }
+
+        .nav-btn-mobile {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            padding: 16px 24px;
+            background: rgba(13, 17, 23, 0.98);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-menu.open {
+            display: flex;
+        }
+
+        .mobile-section {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .mobile-section-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #a78bfa;
+            margin-bottom: 8px;
+        }
+
+        .mobile-sublink {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            padding: 8px 0;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .mobile-sublink:hover {
+            color: #a78bfa;
+        }
+
+        .mobile-sublink--active {
+            color: #a78bfa;
+            font-weight: 600;
+        }
+
+        .mobile-link {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .mobile-link:hover {
+            color: #a78bfa;
+        }
+
+        .mobile-cta {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            text-align: center;
+            margin-top: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-cta:hover {
+            box-shadow: 0 6px 16px rgba(167, 139, 250, 0.4);
+        }
+
+        /* Responsive Navigation */
+        @media (max-width: 968px) {
+            .nav-links {
+                display: none;
+            }
+
+            .nav-btn-mobile {
+                display: flex;
+            }
+
+            .nav-actions .nav-btn {
+                display: none;
+            }
+        }
+
+        /* Footer Styles */
+        .probelabs-footer {
+            background: #0f172a;
+            padding: 64px 0 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+            gap: 48px;
+            padding-bottom: 48px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 0 0 12px;
+        }
+
+        .footer-brand .tagline {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.875rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .footer-social {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .footer-social a {
+            color: rgba(255, 255, 255, 0.6);
+            transition: color 0.2s ease;
+        }
+
+        .footer-social a:hover {
+            color: #a78bfa;
+        }
+
+        .footer-social svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .footer-email {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.875rem;
+        }
+
+        .footer-email a {
+            color: #a78bfa;
+            text-decoration: none;
+        }
+
+        .footer-email a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-column h4 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #fff;
+            margin: 0 0 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-column li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-column a:hover {
+            color: #a78bfa;
+        }
+
+        .footer-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px 0;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-copyright {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-legal a {
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-legal a:hover {
+            color: #a78bfa;
+        }
+
+        @media (max-width: 900px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
+            }
+
+            .footer-brand {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav" id="mainNav">
+        <div class="nav-container">
+            <a href="/" class="nav-brand">
+                <span class="nav-title">ProbeLabs</span>
+            </a>
+            <div class="nav-links">
+                <!-- Products Dropdown -->
+                <div class="nav-dropdown">
+                    <button class="nav-link nav-dropdown-trigger" onclick="toggleDropdown('products')">
+                        Products
+                        <svg class="nav-dropdown-arrow" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <div class="nav-mega-menu" id="dropdown-products">
+                        <div class="mega-menu-content">
+                            <div class="mega-menu-section">
+                                <div class="mega-menu-label">Core Products</div>
+                                <div class="mega-menu-grid">
+                                    <a href="/probe" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--probe">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Probe</div>
+                                            <div class="mega-card-desc">AI-native code search across enterprise codebases</div>
+                                        </div>
+                                    </a>
+                                    <a href="/visor" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--visor">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Visor</div>
+                                            <div class="mega-card-desc">Deterministic workflow engine for agent automation</div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="mega-menu-divider"></div>
+                                <div class="mega-menu-label">Labs</div>
+                                <div class="mega-menu-grid">
+                                    <a href="/maid" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--mermaid">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Maid</div>
+                                            <div class="mega-card-desc">Fast Mermaid linter with auto-fix</div>
+                                        </div>
+                                    </a>
+                                    <a href="/big-brain" class="mega-menu-card mega-menu-card--active">
+                                        <div class="mega-card-icon mega-card-icon--bigbrain">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a9 9 0 0 1 9 9c0 3.1-1.5 5.7-4 7.4V20a2 2 0 0 1-2 2h-6a2 2 0 0 1-2-2v-1.6C4.5 16.7 3 14.1 3 11a9 9 0 0 1 9-9z"/><path d="M9 22v-4M15 22v-4M12 2v6"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Big Brain</div>
+                                            <div class="mega-card-desc">Hand off stuck problems to smarter models</div>
+                                        </div>
+                                    </a>
+                                    <a href="/afk" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--afk">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">AFK</div>
+                                            <div class="mega-card-desc">Control Claude Code from your phone</div>
+                                        </div>
+                                    </a>
+                                    <a href="/vow" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--vow">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Vow</div>
+                                            <div class="mega-card-desc">AI accountability gates for commits</div>
+                                        </div>
+                                    </a>
+                                    <a href="/memaris" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--memaris">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Memaris</div>
+                                            <div class="mega-card-desc">Persistent memory from past AI sessions</div>
+                                        </div>
+                                    </a>
+                                    <a href="/logoscope" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--logoscope">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Logoscope</div>
+                                            <div class="mega-card-desc">AI-powered log analysis and insights</div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Solutions Dropdown -->
+                <div class="nav-dropdown">
+                    <button class="nav-link nav-dropdown-trigger" onclick="toggleDropdown('solutions')">
+                        Solutions
+                        <svg class="nav-dropdown-arrow" width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <div class="nav-mega-menu nav-mega-menu--wide" id="dropdown-solutions">
+                        <div class="mega-menu-content">
+                            <div class="mega-menu-section">
+                                <div class="mega-menu-label">By Role</div>
+                                <div class="mega-menu-grid mega-menu-grid--3col">
+                                    <a href="/solutions/engineering-leadership" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--leadership">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Engineering Leadership</div>
+                                            <div class="mega-card-desc">Org-wide automation with predictability</div>
+                                        </div>
+                                    </a>
+                                    <a href="/solutions/platform-teams" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--platform">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Platform Teams</div>
+                                            <div class="mega-card-desc">Build once, run everywhere</div>
+                                        </div>
+                                    </a>
+                                    <a href="/solutions/engineers" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--engineers">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Engineers</div>
+                                            <div class="mega-card-desc">Full context, any codebase</div>
+                                        </div>
+                                    </a>
+                                    <a href="/solutions/non-technical" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--support">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Product & Support</div>
+                                            <div class="mega-card-desc">Engineering-grade context without the bottleneck</div>
+                                        </div>
+                                    </a>
+                                    <a href="/solutions/agencies" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--agencies">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Agencies</div>
+                                            <div class="mega-card-desc">Repeatable delivery on client codebases</div>
+                                        </div>
+                                    </a>
+                                    <a href="/solutions/enterprise" class="mega-menu-card">
+                                        <div class="mega-card-icon mega-card-icon--enterprise">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                                        </div>
+                                        <div class="mega-card-content">
+                                            <div class="mega-card-title">Enterprise</div>
+                                            <div class="mega-card-desc">Transform legacy codebases at scale</div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="/docs" class="nav-link">Docs</a>
+            </div>
+            <div class="nav-actions">
+                <a href="https://github.com/probelabs/big-brain" target="_blank" rel="noopener noreferrer" class="nav-github" aria-label="GitHub">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                        <path d="M9 18c-4.51 2-5-2-7-2"/>
+                    </svg>
+                </a>
+                <button class="nav-btn-mobile" aria-label="Menu" onclick="toggleMobileMenu()">
+                    <svg class="menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/>
+                    </svg>
+                    <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                        <path d="M18 6 6 18"/><path d="m6 6 12 12"/>
+                    </svg>
+                </button>
+                <a href="/quick-start" class="nav-btn">Get Started</a>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-section">
+                <div class="mobile-section-label">Core Products</div>
+                <a href="/probe" class="mobile-sublink">Probe</a>
+                <a href="/visor" class="mobile-sublink">Visor</a>
+            </div>
+            <div class="mobile-section">
+                <div class="mobile-section-label">Labs</div>
+                <a href="/maid" class="mobile-sublink">Maid</a>
+                <a href="/big-brain" class="mobile-sublink mobile-sublink--active">Big Brain</a>
+                <a href="/afk" class="mobile-sublink">AFK</a>
+                <a href="/vow" class="mobile-sublink">Vow</a>
+                <a href="/memaris" class="mobile-sublink">Memaris</a>
+                <a href="/logoscope" class="mobile-sublink">Logoscope</a>
+            </div>
+            <div class="mobile-section">
+                <div class="mobile-section-label">Solutions</div>
+                <a href="/solutions/engineering-leadership" class="mobile-sublink">Engineering Leadership</a>
+                <a href="/solutions/platform-teams" class="mobile-sublink">Platform Teams</a>
+                <a href="/solutions/engineers" class="mobile-sublink">Engineers</a>
+                <a href="/solutions/non-technical" class="mobile-sublink">Product & Support</a>
+                <a href="/solutions/agencies" class="mobile-sublink">Agencies</a>
+                <a href="/solutions/enterprise" class="mobile-sublink">Enterprise</a>
+            </div>
+            <a href="/docs" class="mobile-link">Docs</a>
+            <a href="https://github.com/probelabs/big-brain" class="mobile-link" target="_blank">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;margin-right:0.5rem;">
+                    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                    <path d="M9 18c-4.51 2-5-2-7-2"/>
+                </svg>
+                GitHub
+            </a>
+            <a href="/quick-start" class="mobile-cta">Get Started</a>
+        </div>
+    </nav>
+
+    <!-- Neural network background -->
+    <div class="neural-background">
+        <canvas id="neural-canvas"></canvas>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="brain-animation">
+                    <div class="brain-core"></div>
+                    <div class="neural-pulse pulse-1"></div>
+                    <div class="neural-pulse pulse-2"></div>
+                    <div class="neural-pulse pulse-3"></div>
+                </div>
+                <h1 class="hero-title">
+                    When your AI needs a <span class="gradient-text">bigger brain</span>
+                </h1>
+                <p class="hero-subtitle">
+                    When AI stalls or loops, give it an elegant exit. BigBrain extracts the necessary context for your current task and offloads the heavy thinking to another model.
+                </p>
+                <div class="model-info" aria-label="Compatible models">
+                    <p class="model-text">Works with any model but shines with ChatGPT 5 Pro, Grok Heavy, and Claude Opus</p>
+                </div>
+                
+                <div class="hero-links">
+                    <a href="https://github.com/probelabs/big-brain" target="_blank" class="github-link">
+                        <svg class="github-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        View on GitHub
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Start: Install → First Use → Results -->
+    <section id="quickstart" class="quickstart-section">
+        <div class="container">
+            <!-- Mode Selection -->
+            <div class="mode-selection">
+                <h2 class="section-title">Choose Your Workflow</h2>
+                <div class="mode-tabs">
+                    <button class="mode-btn active" onclick="switchMode('external', this)">
+                        <div class="mode-icon">👤</div>
+                        <div class="mode-info">
+                            <h3>Human-in-the-Loop Mode</h3>
+                            <p>Manual consultation with advanced AI models</p>
+                        </div>
+                    </button>
+                    <button class="mode-btn" onclick="switchMode('multiagent', this)">
+                        <div class="mode-icon">🤖</div>
+                        <div class="mode-info">
+                            <h3>Multi-Agent Mode</h3>
+                            <p>Automated AI-to-AI communication</p>
+                        </div>
+                    </button>
+                    <button class="mode-btn" onclick="switchMode('chatgpt', this)">
+                        <div class="mode-icon">🚀</div>
+                        <div class="mode-info">
+                            <h3>ChatGPT Desktop Agent</h3>
+                            <p>Agent-to-Agent with ChatGPT Desktop (Experimental, macOS)</p>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Human-in-the-Loop Mode Steps -->
+            <div id="external-mode-steps" class="steps-container mode-content active">
+                <!-- What is Human-in-the-Loop Mode -->
+                <div class="step-card usage-guide">
+                    <div class="step-header">
+                        <div class="usage-icon">👤</div>
+                        <h3>Human-in-the-Loop Mode</h3>
+                    </div>
+                    <div class="mode-explanation">
+                        <p><strong>What it is:</strong> A manual workflow where you consult external AI models (ChatGPT 5 Pro, Grok Heavy, Claude Opus) for fresh insights when your current AI gets stuck.</p>
+                        <p><strong>How it works:</strong> BigBrain extracts relevant code → Copies to clipboard → You paste into external AI → Get solution → Return to original chat.</p>
+                    </div>
+                    <div class="usage-list">
+                        <div class="usage-item">
+                            <span class="usage-bullet">✓</span>
+                            <span><strong>Best for:</strong> Complex debugging that needs a fresh perspective</span>
+                        </div>
+                        <div class="usage-item">
+                            <span class="usage-bullet">✓</span>
+                            <span><strong>Advantage:</strong> Choose the right AI model for each specific problem</span>
+                        </div>
+                        <div class="usage-item">
+                            <span class="usage-bullet">✓</span>
+                            <span><strong>Control:</strong> You decide what to share and which AI to consult</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <h3>Install BigBrain</h3>
+                    </div>
+                    <p class="step-description">Select your setup method and copy the command to add BigBrain as an MCP server.</p>
+                    <div class="install-tabs">
+                        <button class="tab-btn active" onclick="switchTab('ext-claude', this)">Claude Code</button>
+                        <button class="tab-btn" onclick="switchTab('ext-cursor', this)">Cursor & Others</button>
+                    </div>
+                    <div class="tab-content active" id="tab-ext-claude">
+                        <div class="command-box">
+                            <pre><code id="qs-claude-cmd">claude mcp add -- npx -y @probelabs/big-brain@latest</code></pre>
+                            <button class="copy-btn" onclick="copyFrom('qs-claude-cmd', this)">
+                                <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="tab-ext-cursor">
+                        <div class="command-box">
+<pre><code id="qs-cursor-cmd">{
+  "mcpServers": {
+    "big-brain": {
+      "command": "npx",
+      "args": [
+        "-y", 
+        "@probelabs/big-brain@latest"
+      ]
+    }
+  }
+}</code></pre>
+                            <button class="copy-btn" onclick="copyFrom('qs-cursor-cmd', this)">
+                                <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <h3>Ask AI to use BigBrain</h3>
+                    </div>
+                    <p class="step-description">When your AI gets stuck, loops, or loses context - ask it to use BigBrain to extract relevant code and context.</p>
+                    <div class="instruction-box">
+                        <p><strong>Example:</strong></p>
+                        <p>"Ask BigBrain to help me with this React component issue"</p>
+                    </div>
+                    <div class="optional-automation">
+                        <h4>💡 Optional: Automate this step</h4>
+                        <p>Add this to your <code>CLAUDE.md</code> file so your AI automatically knows when to use BigBrain:</p>
+                        <div class="command-box">
+<pre><code id="claude-md-instruction"># BigBrain Integration
+Whenever you get stuck and can't find a solution - just ask BigBrain MCP for advice.</code></pre>
+                            <button class="copy-btn" onclick="copyFrom('claude-md-instruction', this)">
+                                <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">3</div>
+                        <h3>Get External Advice</h3>
+                    </div>
+                    <p class="step-description">Your AI prepares the question with context. BigBrain extracts code and copies everything to clipboard. Open fresh AI chat, paste, and get the solution.</p>
+                    <div class="pro-tip">
+                        <strong>💡 Pro Tip:</strong> Use advanced models like <strong>ChatGPT 5 Pro</strong>, <strong>Grok Heavy</strong>, or <strong>Claude Opus</strong> for best results with complex analysis.
+                    </div>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">4</div>
+                        <h3>Return with Solution</h3>
+                    </div>
+                    <p class="step-description">Copy the external AI's response and return to your original chat. Paste the solution to continue with fresh insights.</p>
+                </div>
+            </div>
+
+            <!-- Multi-Agent Mode Steps -->
+            <div id="multiagent-mode-steps" class="steps-container mode-content">
+                <!-- What is Multi-Agent Mode -->
+                <div class="step-card usage-guide">
+                    <div class="step-header">
+                        <div class="usage-icon">🤖</div>
+                        <h3>Multi-Agent Mode</h3>
+                    </div>
+                    <div class="mode-explanation">
+                        <p><strong>What it is:</strong> Automated AI-to-AI communication for systems like Claude Code where multiple agents collaborate without human intervention.</p>
+                        <p><strong>How it works:</strong> Configure with --loop flag → AI calls BigBrain → Context saved to file → Next agent reads file → Continues processing automatically.</p>
+                    </div>
+                    <div class="usage-list">
+                        <div class="usage-item">
+                            <span class="usage-bullet">✓</span>
+                            <span><strong>Best for:</strong> Claude Code and other multi-agent environments</span>
+                        </div>
+                        <div class="usage-item">
+                            <span class="usage-bullet">✓</span>
+                            <span><strong>Automation:</strong> No clipboard, no manual steps, pure AI collaboration</span>
+                        </div>
+                        <div class="usage-item">
+                            <span class="usage-bullet">✓</span>
+                            <span><strong>Efficiency:</strong> Direct file-based handoffs between AI agents</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <h3>Configure Loop Mode</h3>
+                    </div>
+                    <p class="step-description">Set up BigBrain with the --loop flag for automated agent communication.</p>
+                    <div class="install-tabs">
+                        <button class="tab-btn active" onclick="switchTab('ma-claude', this)">Claude Code</button>
+                        <button class="tab-btn" onclick="switchTab('ma-cursor', this)">Cursor & Others</button>
+                    </div>
+                    <div class="tab-content active" id="tab-ma-claude">
+                        <div class="command-box">
+                            <pre><code id="ma-claude-cmd">claude mcp add -- npx -y @probelabs/big-brain@latest --loop "Now call @agent-general-purpose to investigate this issue"</code></pre>
+                            <button class="copy-btn" onclick="copyFrom('ma-claude-cmd', this)">
+                                <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="tab-ma-cursor">
+                        <div class="command-box">
+                            <pre><code id="ma-cursor-cmd">{
+  "mcpServers": {
+    "big-brain": {
+      "command": "npx",
+      "args": [
+        "-y", 
+        "@probelabs/big-brain@latest",
+        "--loop", 
+        "Now call @agent-general-purpose to investigate this issue"
+      ]
+    }
+  }
+}</code></pre>
+                            <button class="copy-btn" onclick="copyFrom('ma-cursor-cmd', this)">
+                                <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="pro-tip">
+                        <strong>💡 Best Practice:</strong> For optimal results, create a specialized agent configured with <a href="https://probeai.dev" target="_blank">Probe MCP</a> for intelligent code search. This gives your agent powerful code discovery capabilities beyond basic file reading. <a href="https://docs.anthropic.com/en/docs/claude-code/sub-agents#quick-start" target="_blank">Learn about Claude Code subagents →</a>
+                    </div>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <h3>AI Agent Communication</h3>
+                    </div>
+                    <p class="step-description">Your AI system automatically calls BigBrain with loop mode when stuck. BigBrain extracts code and provides instructions for the next agent.</p>
+                    <div class="instruction-box">
+                        <p><strong>Automated Flow:</strong></p>
+                        <p>AI → BigBrain (--loop) → File + Agent Instructions → Next Agent</p>
+                    </div>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">3</div>
+                        <h3>Direct Agent Handoff</h3>
+                    </div>
+                    <p class="step-description">The designated agent reads the context file and continues processing automatically. No human intervention required.</p>
+                    <div class="pro-tip">
+                        <strong>🤖 Perfect for:</strong> Claude Code environments with multiple AI agents working together seamlessly.
+                    </div>
+                </div>
+            </div>
+
+            <!-- ChatGPT Desktop Mode Steps -->
+            <div id="chatgpt-mode-steps" class="steps-container mode-content">
+                <!-- What is ChatGPT Desktop Mode -->
+                <div class="step-card usage-guide">
+                    <div class="step-header">
+                        <div class="usage-icon">🚀</div>
+                        <h3>Native ChatGPT Desktop Mode <span class="experimental-badge">Experimental</span></h3>
+                    </div>
+                    <div class="mode-explanation">
+                        <p><strong>What it is:</strong> Agent-to-Agent communication using ChatGPT Desktop app for fully automated AI collaboration, leveraging the full power of the world's best model.</p>
+                        <p><strong>How it works:</strong> Configure with --chatgpt flag → Your AI agent calls BigBrain → Automatically opens ChatGPT Desktop → Gets response → Returns to your agent.</p>
+                        <p class="warning-note"><strong>⚠️ macOS only:</strong> Requires ChatGPT Desktop app and accessibility permissions for Terminal.</p>
+                    </div>
+                    <div class="usage-list">
+                        <div class="usage-item">
+                            <span class="usage-bullet">✓</span>
+                            <span><strong>Best for:</strong> Complex reasoning tasks requiring ChatGPT 5 Pro's thinking capabilities</span>
+                        </div>
+                        <div class="usage-item">
+                            <span class="usage-bullet">✓</span>
+                            <span><strong>Agent-to-Agent:</strong> Fully automated communication between your AI and ChatGPT</span>
+                        </div>
+                        <div class="usage-item">
+                            <span class="usage-bullet">✓</span>
+                            <span><strong>Thinking Models:</strong> Optimized for ChatGPT 5 Pro's advanced thinking capabilities</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">1</div>
+                        <h3>Setup Requirements</h3>
+                    </div>
+                    <p class="step-description">Install ChatGPT Desktop and grant Terminal accessibility permissions on macOS.</p>
+                    <div class="instruction-box">
+                        <p><strong>Prerequisites:</strong></p>
+                        <ul style="list-style: none; padding: 0;">
+                            <li>✅ ChatGPT Desktop app: <a href="https://chatgpt.com/desktop" target="_blank">Download here</a></li>
+                            <li>✅ macOS 11.0 or later</li>
+                            <li>✅ Terminal accessibility permissions enabled</li>
+                        </ul>
+                    </div>
+                    <div class="pro-tip">
+                        <strong>🔧 Setup Tip:</strong> Grant Terminal permissions in System Settings → Privacy & Security → Accessibility → Terminal
+                    </div>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">2</div>
+                        <h3>Configure ChatGPT Mode</h3>
+                    </div>
+                    <p class="step-description">Set up BigBrain with the --chatgpt flag for automatic ChatGPT Desktop integration.</p>
+                    <div class="install-tabs">
+                        <button class="tab-btn active" onclick="switchTab('gpt-claude', this)">Claude Code</button>
+                        <button class="tab-btn" onclick="switchTab('gpt-cursor', this)">Cursor & Others</button>
+                    </div>
+                    <div class="tab-content active" id="tab-gpt-claude">
+                        <div class="command-box">
+                            <pre><code id="gpt-claude-cmd">claude mcp add -- npx -y @probelabs/big-brain@latest --chatgpt</code></pre>
+                            <button class="copy-btn" onclick="copyFrom('gpt-claude-cmd', this)">
+                                <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="tab-gpt-cursor">
+                        <div class="command-box">
+                            <pre><code id="gpt-cursor-cmd">{
+  "mcpServers": {
+    "big-brain": {
+      "command": "npx",
+      "args": [
+        "-y", 
+        "@probelabs/big-brain@latest",
+        "--chatgpt"
+      ]
+    }
+  }
+}</code></pre>
+                            <button class="copy-btn" onclick="copyFrom('gpt-cursor-cmd', this)">
+                                <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">3</div>
+                        <h3>Automatic AI Consultation</h3>
+                    </div>
+                    <p class="step-description">Your AI agent automatically opens ChatGPT Desktop, sends the query, and waits for the response. Everything happens seamlessly in the background.</p>
+                    <div class="instruction-box">
+                        <p><strong>Agent-to-Agent Flow:</strong></p>
+                        <p>Your Agent → BigBrain → ChatGPT Desktop Agent → Response → Back to Your Agent</p>
+                        <p style="margin-top: 10px; color: var(--text-secondary);">Response time: 30 seconds to 20 minutes (ChatGPT Pro thinking can take time)</p>
+                    </div>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-number">4</div>
+                        <h3>Seamless Integration</h3>
+                    </div>
+                    <p class="step-description">ChatGPT's response is automatically returned to your AI agent. The entire process is hands-free and fully automated.</p>
+                    <div class="pro-tip">
+                        <strong>🚀 Experimental Feature:</strong> This mode is actively being improved. Report issues on <a href="https://github.com/probelabs/big-brain/issues" target="_blank">GitHub</a>.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why BigBrain Section -->
+    <section id="why" class="why-section">
+        <div class="container">
+            <div class="why-content">
+                <div class="problem-solution">
+                    <div class="problem-text">
+                        <h2>The Problem</h2>
+                        <p>Your AI hits the same error 5 times. It keeps suggesting code that doesn't compile. It loses track of what it was doing 10 messages ago. You know the fix, but explaining it through the existing conversation is like teaching through a broken telephone. You need a fresh start without losing context.</p>
+                    </div>
+                    <div class="solution-text">
+                        <h2>The Solution</h2>
+                        <p>BigBrain lets your AI call for backup. It packages the exact code context, your specific problem, and nothing else. Copy to clipboard, paste into a fresh chat with a stronger model (<strong>ChatGPT&nbsp;5&nbsp;Pro</strong>, <strong>Grok&nbsp;Heavy</strong>, <strong>Claude&nbsp;Opus</strong>, or any "thinking" model), get the answer, paste it back. Or in multi-agent setups, it hands off directly to another agent. No manual file hunting, no context reconstruction.</p>
+                    </div>
+                </div>
+                
+                <div class="how-it-works">
+                    <h3>How it works:</h3>
+                    <ol class="simple-steps">
+                        <li><strong>Request:</strong> Ask your AI to use BigBrain when it gets stuck or needs fresh context.</li>
+                        <li><strong>Extract:</strong> BigBrain automatically finds relevant code using Probe and formats it perfectly.</li>
+                        <li><strong>Transfer:</strong> Get a notification with the context pack ready to paste into any AI model.</li>
+                    </ol>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Probe Ecosystem Section -->
+    <section class="ecosystem-section">
+        <div class="container">
+            <h2 class="section-title">Part of the <span class="gradient-text">Probe Ecosystem</span></h2>
+            <div class="ecosystem-content">
+                <div class="ecosystem-info">
+                    <h3>Built on Probe's Foundation</h3>
+                    <p>BigBrain uses <a href="https://probeai.dev/" target="_blank">Probe</a> to intelligently extract relevant code. When your AI mentions specific files or functions in its BigBrain request, Probe automatically discovers and includes all related dependencies, types, and context.</p>
+                    
+                    <p>This smart extraction means the AI doesn't need to manually specify every related file. It just describes what it's analyzing, and Probe ensures it gets all the code context needed to provide accurate solutions.</p>
+                    
+                    <p><strong>Questions or feedback?</strong> Reach out to us at <span style="color: var(--accent-color); font-weight: 600;">hello@probeai.dev</span></p>
+                </div>
+                <div class="probe-attribution">
+                    <div class="probe-logo">
+                        <img src="https://probeai.dev/logo.png" alt="Probe" class="probe-icon">
+                    </div>
+                    <a href="https://probeai.dev/" target="_blank" class="probe-link">Explore Probe →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="probelabs-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- Brand Column -->
+                <div class="footer-brand">
+                    <h3>ProbeLabs</h3>
+                    <p class="tagline">The Operating System for Agentic Engineering</p>
+                    <div class="footer-social">
+                        <a href="https://github.com/probelabs" target="_blank" aria-label="GitHub">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <p class="footer-email"><a href="mailto:hello@probelabs.com">hello@probelabs.com</a></p>
+                </div>
+
+                <!-- Products Column -->
+                <div class="footer-column">
+                    <h4>Products</h4>
+                    <ul>
+                        <li><a href="/probe">Probe</a></li>
+                        <li><a href="/visor">Visor</a></li>
+                        <li><a href="/maid">Maid</a></li>
+                        <li><a href="/big-brain">Big Brain</a></li>
+                        <li><a href="/afk">AFK</a></li>
+                        <li><a href="/vow">Vow</a></li>
+                        <li><a href="/memaris">Memaris</a></li>
+                        <li><a href="/logoscope">Logoscope</a></li>
+                    </ul>
+                </div>
+
+                <!-- Solutions Column -->
+                <div class="footer-column">
+                    <h4>Solutions</h4>
+                    <ul>
+                        <li><a href="/solutions/engineering-leadership">Engineering Leadership</a></li>
+                        <li><a href="/solutions/platform-teams">Platform Teams</a></li>
+                        <li><a href="/solutions/agencies">Agencies</a></li>
+                        <li><a href="/solutions/enterprise">Enterprise</a></li>
+                    </ul>
+                </div>
+
+                <!-- Resources Column -->
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="/docs/getting-started">Quick Start</a></li>
+                        <li><a href="/docs">Documentation</a></li>
+                        <li><a href="/docs/workflow-examples">Workflow Examples</a></li>
+                        <li><a href="https://github.com/probelabs/big-brain" target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+
+                <!-- Company Column -->
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="/about">About</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-copyright">&copy; 2026 ProbeLabs Inc. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="/privacy">Privacy</a>
+                    <a href="/terms">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+    // Navigation functions for mega-menu
+    function toggleDropdown(name) {
+        const dropdown = document.getElementById('dropdown-' + name);
+        const trigger = dropdown.previousElementSibling;
+        const allDropdowns = document.querySelectorAll('.nav-mega-menu');
+        const allTriggers = document.querySelectorAll('.nav-dropdown-trigger');
+
+        // Close other dropdowns
+        allDropdowns.forEach(d => {
+            if (d !== dropdown) d.classList.remove('open');
+        });
+        allTriggers.forEach(t => {
+            if (t !== trigger) t.classList.remove('is-open');
+        });
+
+        // Toggle current dropdown
+        dropdown.classList.toggle('open');
+        trigger.classList.toggle('is-open');
+    }
+
+    function toggleMobileMenu() {
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIcon = document.querySelector('.menu-icon');
+        const closeIcon = document.querySelector('.close-icon');
+
+        mobileMenu.classList.toggle('open');
+
+        if (mobileMenu.classList.contains('open')) {
+            menuIcon.style.display = 'none';
+            closeIcon.style.display = 'block';
+        } else {
+            menuIcon.style.display = 'block';
+            closeIcon.style.display = 'none';
+        }
+    }
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!event.target.closest('.nav-dropdown')) {
+            document.querySelectorAll('.nav-mega-menu').forEach(d => d.classList.remove('open'));
+            document.querySelectorAll('.nav-dropdown-trigger').forEach(t => t.classList.remove('is-open'));
+        }
+    });
+
+    // Simple copy functionality
+    function copyToClipboard(text) {
+        if (navigator.clipboard && window.isSecureContext) {
+            return navigator.clipboard.writeText(text);
+        } else {
+            // Fallback for older browsers
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.left = "-999999px";
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+            } catch (err) {
+                console.error('Copy failed:', err);
+            }
+            document.body.removeChild(textArea);
+        }
+    }
+
+    // Generic helper for copy buttons (Quick Start)
+    function copyFrom(elementId, btn) {
+        const el = document.getElementById(elementId);
+        if (!el) return;
+        const text = el.textContent.trim();
+        copyToClipboard(text);
+        if (btn) {
+            btn.classList.add('copied');
+            setTimeout(() => {
+                btn.classList.remove('copied');
+            }, 2000);
+        }
+    }
+
+    // Missing earlier: copy function for Cursor JSON in hero (kept for backward compatibility)
+    function copyHeroCursorCommand() {
+        const el = document.getElementById('hero-cursor-cmd');
+        if (!el) return;
+        const command = el.textContent.trim();
+        copyToClipboard(command);
+        const button = document.querySelector('#tab-cursor .copy-btn');
+        if (button) {
+            const label = button.querySelector('.copy-text');
+            if (label) {
+                const originalText = label.textContent;
+                label.textContent = 'Copied!';
+                button.classList.add('copied');
+                setTimeout(() => { label.textContent = originalText; button.classList.remove('copied'); }, 2000);
+            }
+        }
+    }
+
+    function copyHeroCommand() {
+        const command = document.getElementById('hero-install-cmd').textContent.trim();
+        copyToClipboard(command);
+        
+        const button = document.querySelector('.hero-command .copy-btn');
+        const originalText = button.querySelector('.copy-text').textContent;
+        button.querySelector('.copy-text').textContent = 'Copied!';
+        button.classList.add('copied');
+        
+        setTimeout(() => {
+            button.querySelector('.copy-text').textContent = originalText;
+            button.classList.remove('copied');
+        }, 2000);
+    }
+
+    function copyInstallCommand() {
+        const command = document.getElementById('install-cmd').textContent.trim();
+        copyToClipboard(command);
+        
+        const button = document.querySelector('#install .copy-btn');
+        const originalText = button.querySelector('.copy-text').textContent;
+        button.querySelector('.copy-text').textContent = 'Copied!';
+        button.classList.add('copied');
+        
+        setTimeout(() => {
+            button.querySelector('.copy-text').textContent = originalText;
+            button.classList.remove('copied');
+        }, 2000);
+    }
+    </script>
+</body>
+</html>
