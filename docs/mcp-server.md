@@ -32,6 +32,16 @@ Probe can run as an MCP server so AI editors and agents can fetch grounded code 
 
 > Run MCP from the **repo root** you want to analyze so Probe can see the full codebase.
 
+## Agent guidance files
+
+When using **agent mode** (`agent --mcp`), Probe loads repository guidance if present:
+
+- `AGENTS.md` for agent instructions
+- `ARCHITECTURE.md` for architecture notes
+- [AgentSkills](https://agentskills.io/) standard (if your repo follows it)
+
+Raw MCP (`probe mcp`) does not apply these guidance files.
+
 ## Notes
 
 - The MCP server exposes search/extract tools only; no code leaves your machine unless you send it to an LLM.

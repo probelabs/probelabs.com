@@ -77,6 +77,7 @@ Use Probe MCP directly for raw context access (no agent layer), or run the Probe
 
 - **Direct MCP** exposes low-level tools (`search`, `query`, `extract`) for precise, programmatic control.
 - **Agent MCP** adds reasoning + orchestration on top of those tools, useful for complex, multi-step tasks.
+- **Agent MCP** also reads repo guidance (`AGENTS.md`, `ARCHITECTURE.md`, and the [AgentSkills](https://agentskills.io/) standard) when present.
 
 Example MCP config:
 

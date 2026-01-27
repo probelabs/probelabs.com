@@ -28,6 +28,17 @@ npx -y @probelabs/probe@latest agent --acp
 
 **Migrating from @probelabs/probe-mcp?** This is a drop-in replacement for raw MCP access: replace `npx @probelabs/probe-mcp` with `npx @probelabs/probe mcp`.
 
+### Repository guidance
+
+When you run **agent mode** (`agent --mcp` / `agent --acp`), Probe loads repo guidance files if present:
+
+- `AGENTS.md` for agent-specific instructions
+- `ARCHITECTURE.md` for architecture context and constraints
+- [AgentSkills](https://agentskills.io/) standard (if your repo follows it)
+
+Place these files in the **repo root** so the agent can pick them up automatically.  
+Raw MCP (`probe mcp`) exposes tools only and does **not** apply guidance files.
+
 ### Configuring Your AI Editor (MCP)
 
 #### For Cline

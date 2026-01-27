@@ -1,6 +1,7 @@
 # Probe Quick Start
 
 Run these commands from the **root folder of the repo** you want to analyze.
+This lets the Probe agent pick up repo guidance like `AGENTS.md` and `ARCHITECTURE.md`.
 
 ## Install
 

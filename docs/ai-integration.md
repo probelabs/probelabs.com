@@ -16,6 +16,7 @@ This page is the **hub** for Probe’s AI integrations. Pick the path that match
 - **Probe** supplies grounded code context.
 - **Visor** orchestrates deterministic workflows.
 - **LLMs** are optional — you can plug in any provider.
+- **Agent mode** can bootstrap from repo guidance (`AGENTS.md`, `ARCHITECTURE.md`, AgentSkills).
 
 ## Providers & auth
 

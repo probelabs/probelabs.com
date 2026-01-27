@@ -97,6 +97,7 @@ title: Probe - Code Intelligence for AI
         <ul class="pillar-bullets">
           <li>Understands functions, variables, and scopes (not just matching lines)</li>
           <li>Markdown-aware: respects headers, sections, and document structure</li>
+          <li>Agent mode respects repo guidance (AGENTS.md, ARCHITECTURE.md, AgentSkills)</li>
           <li>Returns results with file paths + line numbers + clear boundaries</li>
         </ul>
       </div>

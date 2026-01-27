@@ -17,6 +17,12 @@ Probe combines fast text scanning with structure-aware parsing to return grounde
 - **Deterministic ranking**: consistent ordering across runs.
 - **Local-first processing**: your code stays in your environment.
 
+## Agent bootstrap (optional)
+
+If you run Probe in **agent mode** (MCP/ACP), it will also load repo guidance files when present:
+`AGENTS.md`, `ARCHITECTURE.md`, and the [AgentSkills](https://agentskills.io/) standard.  
+Raw CLI/MCP usage stays unchanged and only exposes retrieval tools.
+
 ## Where it runs
 
 - **CLI** in local dev or CI

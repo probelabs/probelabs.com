@@ -4,6 +4,9 @@ This guide moved to **Integrations**:
 
 - [AI Code Editors (MCP/ACP)](/docs/integrations/ai-code-editors)
 
+Note: Agent mode loads repo guidance (`AGENTS.md`, `ARCHITECTURE.md`, AgentSkills).  
+See [Repository Guidance](/docs/integrations/ai-code-editors#repository-guidance).
+
 ## Example Workflows
 
 ### Exploring a New Codebase
