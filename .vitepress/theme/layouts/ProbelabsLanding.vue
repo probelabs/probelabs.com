@@ -240,6 +240,7 @@
               </div>
             </div>
           </div>
+          <a href="/pricing" class="nav-link">Pricing</a>
           <a href="/docs" class="nav-link">Docs</a>
         </div>
         <div class="nav-actions">
@@ -297,6 +298,7 @@
           <a href="/docs/use-cases/visor-workflows" class="mobile-sublink">Engineering Process Automation</a>
           <a href="/docs/use-cases/building-ai-tools" class="mobile-sublink">Developers &amp; SDK</a>
         </div>
+        <a href="/pricing" class="mobile-link">Pricing</a>
         <a href="/docs" class="mobile-link">Docs</a>
         <a href="https://github.com/probelabs" class="mobile-link">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;margin-right:0.5rem;">

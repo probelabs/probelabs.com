@@ -16,6 +16,7 @@ const currentYear = computed(() => new Date().getFullYear())
         </a>
         <nav class="nav">
           <a href="/" class="nav-link">Home</a>
+          <a href="/pricing" class="nav-link">Pricing</a>
           <a href="/quick-start" class="nav-link">Docs</a>
           <a href="/blog/" class="nav-link active">Blog</a>
           <a href="https://github.com/probelabs/probe" class="nav-link" target="_blank">GitHub</a>

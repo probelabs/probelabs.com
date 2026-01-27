@@ -2,6 +2,7 @@
   <div class="portfolio-layout">
     <!-- Custom minimal navigation -->
     <nav class="portfolio-nav">
+      <a href="/pricing" class="nav-link">Pricing</a>
       <a href="/probe" class="nav-link">Probe Docs</a>
       <a href="https://github.com/buger" target="_blank" class="nav-link">GitHub</a>
       <a href="https://x.com/buger" target="_blank" class="nav-link">Twitter</a>
