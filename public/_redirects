@@ -3,22 +3,11 @@
 # Redirect www to main domain
 https://www.probelabs.com/* https://probelabs.com/:splat 301
 
-# Clean URLs for VitePress pages (serve .html for extensionless paths)
-/docs /docs/index.html 200
-/docs/* /docs/:splat.html 200
-/products/* /products/:splat.html 200
-/solutions/* /solutions/:splat.html 200
-/company/* /company/:splat.html 200
-/blog /blog/index.html 200
-/blog/* /blog/:splat.html 200
+# Cloudflare Pages already serves clean URLs for .html files.
+# Avoid rewrite rules here to prevent redirect loops.
 
 # Legacy shortcuts
 /quick-start /docs/quick-start 301
-
-# Root pages
-/pricing /pricing.html 200
-/privacy /privacy.html 200
-/terms /terms.html 200
 
 # Fallback for any 404s to custom 404 page
 /* /404.html 404
