@@ -30,7 +30,7 @@
           <ul>
             <li><a href="/solutions/engineering-leadership">Engineering Leadership</a></li>
             <li><a href="/solutions/platform-teams">Platform Teams</a></li>
-            <li><a href="/solutions/agencies">Agencies</a></li>
+            <li><a href="/solutions/agencies-v2">Agencies</a></li>
             <li><a href="/solutions/enterprise">Enterprise</a></li>
           </ul>
         </div>
