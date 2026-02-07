@@ -18,6 +18,7 @@ import BlogPostLayout from './components/BlogPostLayout.vue'
 import BlogLayout from './layouts/BlogLayout.vue'
 import ProbelabsLanding from './layouts/ProbelabsLanding.vue'
 import DocsLayout from './layouts/DocsLayout.vue'
+import NewHomepageLayout from './layouts/NewHomepageLayout.vue'
 import SiteFooter from './components/SiteFooter.vue'
 import FeatureSection from '../components/FeatureSection.vue'
 import SimpleFeatureSection from '../components/SimpleFeatureSection.vue'
@@ -67,6 +68,10 @@ const ThemeSwitcher = {
       // Use probelabs landing theme for homepage
       if (frontmatter.value?.theme === 'probelabs') {
         return h(ProbelabsLanding)
+      }
+      // Use new homepage theme if specified
+      if (frontmatter.value?.theme === 'new-homepage') {
+        return h(NewHomepageLayout)
       }
       // Use portfolio theme if specified
       if (frontmatter.value?.theme === 'portfolio') {
