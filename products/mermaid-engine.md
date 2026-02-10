@@ -226,25 +226,28 @@ title: Mermaid Engine - System Visualization
 
 .mermaid-page {
   /* Colors */
-  --c-bg: #000000;
-  --c-bg-subtle: #0a0a0a;
-  --c-bg-muted: #141414;
-  --c-border: rgba(255, 255, 255, 0.08);
-  --c-border-hover: rgba(255, 255, 255, 0.15);
-  --c-text: #ededed;
-  --c-text-muted: #888888;
-  --c-text-subtle: #666666;
-  --c-primary: #7c3aed;
-  --c-primary-light: #a78bfa;
+  --c-bg: transparent;
+  --c-bg-subtle: #eeece6;
+  --c-bg-muted: #e8e5df;
+  --c-border: rgba(0,0,0,0.12);
+  --c-border-hover: rgba(0,0,0,0.2);
+  --c-text: #111111;
+  --c-text-muted: #666666;
+  --c-text-subtle: #999999;
+  --c-primary: #111111;
+  --c-primary-light: #333333;
+  --c-primary-bg: #eeece6;
+  --c-primary-border: rgba(0,0,0,0.12);
   --c-accent: #06b6d4;
   --c-green: #22c55e;
 
   /* Gradients */
-  --g-primary: linear-gradient(135deg, #7c3aed 0%, #06b6d4 100%);
+  --g-primary: linear-gradient(135deg, #111 0%, #444 100%);
 
   /* Typography */
-  --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+  --font-display: 'Space Mono', monospace;
+  --font-body: 'IBM Plex Mono', monospace;
+  --font-mono: 'IBM Plex Mono', monospace;
 
   /* Spacing */
   --space-xs: 0.25rem;
@@ -257,19 +260,19 @@ title: Mermaid Engine - System Visualization
   --space-4xl: 6rem;
 
   /* Radius */
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
+  --radius-sm: 2px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --radius-xl: 2px;
 
   /* Shadows */
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.4);
-  --shadow-glow: 0 0 60px rgba(124, 58, 237, 0.3);
+  --shadow-glow: none;
 
   /* Base */
-  font-family: var(--font);
-  background: var(--c-bg);
+  font-family: 'IBM Plex Mono', monospace;
+  background: transparent;
   color: var(--c-text);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
@@ -298,7 +301,7 @@ title: Mermaid Engine - System Visualization
   transform: translateX(-50%);
   width: 150%;
   height: 100%;
-  background: radial-gradient(ellipse at center, rgba(124, 58, 237, 0.15) 0%, transparent 60%);
+  background: transparent;
 }
 
 .mermaid-page .hero-grid {
@@ -318,17 +321,17 @@ title: Mermaid Engine - System Visualization
   font-size: 0.8125rem;
   font-weight: 500;
   color: var(--c-text-muted);
-  background: var(--c-bg-muted);
+  background: transparent;
   border: 1px solid var(--c-border);
   padding: var(--space-sm) var(--space-md);
-  border-radius: 100px;
+  border-radius: 2px;
   margin-bottom: var(--space-xl);
 }
 
 .mermaid-page .badge-dot {
   width: 6px;
   height: 6px;
-  background: var(--c-primary);
+  background: #111111;
   border-radius: 50%;
   animation: pulse 2s ease-in-out infinite;
 }
@@ -343,10 +346,10 @@ title: Mermaid Engine - System Visualization
 }
 
 .mermaid-page .gradient-text {
-  background: var(--g-primary);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  background: none;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: #111111;
+  background-clip: unset;
 }
 
 .mermaid-page .hero-tagline {
@@ -389,14 +392,14 @@ title: Mermaid Engine - System Visualization
 
 .mermaid-page .btn-primary {
   color: #fff;
-  background: var(--c-primary);
-  box-shadow: 0 0 0 1px rgba(124, 58, 237, 0.5), var(--shadow-sm);
+  background: #111111;
+  box-shadow: none;
 }
 
 .mermaid-page .btn-primary:hover {
-  background: #6d28d9;
-  box-shadow: 0 0 0 1px rgba(124, 58, 237, 0.7), var(--shadow-md), var(--shadow-glow);
-  transform: translateY(-1px);
+  background: #333333;
+  box-shadow: none;
+  transform: none;
 }
 
 .mermaid-page .btn-secondary {
@@ -419,7 +422,7 @@ title: Mermaid Engine - System Visualization
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--c-primary-light);
+  color: #333333;
   margin-bottom: var(--space-md);
 }
 
@@ -432,12 +435,12 @@ title: Mermaid Engine - System Visualization
 }
 
 /* Pain Section */
-.mermaid-page .section-pain { background: var(--c-bg-subtle); }
+.mermaid-page .section-pain { background: transparent; }
 .mermaid-page .pain-content { max-width: 700px; margin: 0 auto; text-align: center; }
 .mermaid-page .pain-content p { font-size: 1.125rem; color: var(--c-text-muted); line-height: 1.7; margin: 0; }
 
 /* Solution Cards */
-.mermaid-page .section-solution { background: var(--c-bg); }
+.mermaid-page .section-solution { background: transparent; }
 .mermaid-page .solution-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-lg); }
 
 .mermaid-page .solution-card {
@@ -456,18 +459,18 @@ title: Mermaid Engine - System Visualization
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
-  border: 1px solid rgba(124, 58, 237, 0.2);
+  background: transparent;
+  border: 1px solid rgba(0,0,0,0.12);
   border-radius: var(--radius-md);
   margin-bottom: var(--space-lg);
 }
 
-.mermaid-page .card-icon svg { width: 24px; height: 24px; color: var(--c-primary-light); }
+.mermaid-page .card-icon svg { width: 24px; height: 24px; color: #333333; }
 .mermaid-page .solution-card h3 { font-size: 1.125rem; font-weight: 600; margin: 0 0 var(--space-sm); color: var(--c-text); }
 .mermaid-page .solution-card p { font-size: 0.9375rem; color: var(--c-text-muted); margin: 0; line-height: 1.6; }
 
 /* Demo Section */
-.mermaid-page .section-demo { background: var(--c-bg-subtle); }
+.mermaid-page .section-demo { background: transparent; }
 
 .mermaid-page .demo-card {
   max-width: 900px;
@@ -513,7 +516,7 @@ title: Mermaid Engine - System Visualization
 .mermaid-page .demo-arrow svg { width: 32px; height: 32px; }
 
 .mermaid-page .demo-output {
-  background: var(--c-bg);
+  background: transparent;
   border: 1px solid var(--c-border);
   border-radius: var(--radius-lg);
   padding: var(--space-3xl);
@@ -531,7 +534,7 @@ title: Mermaid Engine - System Visualization
 .mermaid-page .demo-btn { display: inline-flex; }
 
 /* Features Section */
-.mermaid-page .section-features { background: var(--c-bg); }
+.mermaid-page .section-features { background: transparent; }
 .mermaid-page .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-lg); }
 
 .mermaid-page .feature-card {
@@ -547,13 +550,13 @@ title: Mermaid Engine - System Visualization
 .mermaid-page .feature-card p { font-size: 0.875rem; color: var(--c-text-muted); margin: 0; }
 
 /* CTA Section */
-.mermaid-page .section-cta { background: var(--c-bg-subtle); padding: var(--space-4xl) 0; }
+.mermaid-page .section-cta { background: transparent; padding: var(--space-4xl) 0; }
 
 .mermaid-page .cta-card {
   text-align: center;
   padding: var(--space-3xl);
-  background: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(6, 182, 212, 0.05) 100%);
-  border: 1px solid rgba(124, 58, 237, 0.2);
+  background: transparent;
+  border: 1px solid rgba(0,0,0,0.12);
   border-radius: var(--radius-xl);
 }
 
@@ -581,20 +584,20 @@ title: Mermaid Engine - System Visualization
 
 /* Light Mode */
 html:not(.dark) .mermaid-page {
-  --c-bg: #ffffff;
-  --c-bg-subtle: #fafafa;
-  --c-bg-muted: #f4f4f5;
-  --c-border: rgba(0, 0, 0, 0.08);
-  --c-border-hover: rgba(0, 0, 0, 0.15);
-  --c-text: #18181b;
-  --c-text-muted: #52525b;
-  --c-text-subtle: #71717a;
+  --c-bg: transparent;
+  --c-bg-subtle: #eeece6;
+  --c-bg-muted: #e8e5df;
+  --c-border: rgba(0, 0, 0, 0.12);
+  --c-border-hover: rgba(0, 0, 0, 0.2);
+  --c-text: #111111;
+  --c-text-muted: #666666;
+  --c-text-subtle: #999999;
 }
 
-html:not(.dark) .mermaid-page .hero-gradient { background: radial-gradient(ellipse at center, rgba(124, 58, 237, 0.08) 0%, transparent 60%); }
+html:not(.dark) .mermaid-page .hero-gradient { background: transparent; }
 html:not(.dark) .mermaid-page .hero-grid { background-image: linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px); }
-html:not(.dark) .mermaid-page .btn-primary { box-shadow: 0 0 0 1px rgba(124, 58, 237, 0.3), var(--shadow-sm); }
-html:not(.dark) .mermaid-page .card-icon { background: linear-gradient(135deg, rgba(124, 58, 237, 0.08) 0%, rgba(6, 182, 212, 0.08) 100%); border-color: rgba(124, 58, 237, 0.15); }
-html:not(.dark) .mermaid-page .cta-card { background: linear-gradient(135deg, rgba(124, 58, 237, 0.05) 0%, rgba(6, 182, 212, 0.02) 100%); border-color: rgba(124, 58, 237, 0.1); }
-html:not(.dark) .mermaid-page .demo-output { background: var(--c-bg-muted); }
+html:not(.dark) .mermaid-page .btn-primary { box-shadow: none; }
+html:not(.dark) .mermaid-page .card-icon { background: transparent; border-color: rgba(0,0,0,0.12); }
+html:not(.dark) .mermaid-page .cta-card { background: transparent; border-color: rgba(0,0,0,0.12); }
+html:not(.dark) .mermaid-page .demo-output { background: transparent; }
 </style>

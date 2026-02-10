@@ -578,8 +578,6 @@ title: Visor - Predictable Agent Workflows
   </div>
 </section>
 
-<SiteFooter />
-
 </div>
 
 <style>

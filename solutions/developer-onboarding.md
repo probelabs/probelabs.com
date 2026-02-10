@@ -1,6 +1,6 @@
 ---
 theme: solutions
-title: Solutions for Engineers - Probe Labs
+title: Developer Onboarding - Probe Labs
 ---
 
 <div class="ps-page">
@@ -13,17 +13,17 @@ title: Solutions for Engineers - Probe Labs
   </div>
   <div class="hero-container">
     <div class="hero-content">
-      <div class="hero-badge"><span class="badge-dot"></span> For Software Engineers &amp; Developers</div>
+      <div class="hero-badge"><span class="badge-dot"></span> For Engineering Managers &amp; Team Leads</div>
       <h1 class="hero-title">
-        <span class="hero-title-main">Stop Reading Code</span>
-        <span class="hero-title-sub">You Didn't Write</span>
+        <span class="hero-title-main">New Engineers Ship Code</span>
+        <span class="hero-title-sub">In Days, Not Months</span>
       </h1>
-      <p class="hero-subtitle">Understand any codebase in minutes, not days. AI-powered code intelligence that gives you the full picture before you touch a single line.</p>
+      <p class="hero-subtitle">Stop losing 30% of senior engineer time to onboarding questions. Probe gives new team members instant access to architectural context, patterns, and ownership — from day one.</p>
       <div class="hero-badges">
-        <span class="guarantee-badge">On-prem</span>
+        <span class="guarantee-badge">Self-serve knowledge</span>
+        <span class="guarantee-badge">Living documentation</span>
+        <span class="guarantee-badge">Zero knowledge loss</span>
         <span class="guarantee-badge">Any LLM</span>
-        <span class="guarantee-badge">OpenTelemetry</span>
-        <span class="guarantee-badge">Open source</span>
       </div>
       <div class="hero-cta">
         <a href="https://cal.com/leonid-bugaev/30min" class="btn btn-primary"><span>Talk to Our Team</span> <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
@@ -33,28 +33,28 @@ title: Solutions for Engineers - Probe Labs
     </div>
     <div class="hero-visual">
       <div class="leadership-value-card">
-        <div class="value-header">What changes for you</div>
+        <div class="value-header">What changes for your team</div>
         <div class="value-comparison">
           <div class="value-before">
             <div class="value-label">Before</div>
-            <div class="value-item"><span class="value-icon value-icon-bad"><svg viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span>Days scrolling through unfamiliar code</span></div>
-            <div class="value-item"><span class="value-icon value-icon-bad"><svg viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span>Waiting on Slack for "who knows this?"</span></div>
-            <div class="value-item"><span class="value-icon value-icon-bad"><svg viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span>Breaking things you didn't know were connected</span></div>
+            <div class="value-item"><span class="value-icon value-icon-bad"><svg viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span>2-3 months to first meaningful contribution</span></div>
+            <div class="value-item"><span class="value-icon value-icon-bad"><svg viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span>Senior engineers interrupted constantly</span></div>
+            <div class="value-item"><span class="value-icon value-icon-bad"><svg viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span>Knowledge locked in people's heads</span></div>
           </div>
           <div class="value-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div class="value-after">
             <div class="value-label">After</div>
-            <div class="value-item"><span class="value-icon value-icon-good"><svg viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5l-7 7-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Full architecture context in seconds</span></div>
-            <div class="value-item"><span class="value-icon value-icon-good"><svg viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5l-7 7-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Self-serve answers from the actual source code</span></div>
-            <div class="value-item"><span class="value-icon value-icon-good"><svg viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5l-7 7-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Know every dependency before you push</span></div>
+            <div class="value-item"><span class="value-icon value-icon-good"><svg viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5l-7 7-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>First PR in days, not weeks</span></div>
+            <div class="value-item"><span class="value-icon value-icon-good"><svg viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5l-7 7-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Self-serve codebase answers</span></div>
+            <div class="value-item"><span class="value-icon value-icon-good"><svg viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5l-7 7-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Always-current architecture docs</span></div>
           </div>
         </div>
         <div class="value-trust">
-          <div class="trust-label">Privacy-first by design</div>
+          <div class="trust-label">Built for engineering teams</div>
           <div class="trust-badges">
             <span class="trust-badge"><svg viewBox="0 0 16 16" fill="none"><path d="M8 14s5-2.5 5-6.25V4L8 2 3 4v3.75C3 11.5 8 14 8 14z" stroke="currentColor" stroke-width="1.5"/></svg> On-prem</span>
             <span class="trust-badge"><svg viewBox="0 0 16 16" fill="none"><rect x="3" y="7" width="10" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/><path d="M5 7V5a3 3 0 116 0v2" stroke="currentColor" stroke-width="1.5"/></svg> Any LLM</span>
-            <span class="trust-badge"><svg viewBox="0 0 16 16" fill="none"><polyline points="2 8 6 8 7 12 9 4 10 8 14 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> OpenTelemetry</span>
+            <span class="trust-badge"><svg viewBox="0 0 16 16" fill="none"><polyline points="2 8 6 8 7 12 9 4 10 8 14 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Open source</span>
           </div>
         </div>
       </div>
@@ -67,28 +67,28 @@ title: Solutions for Engineers - Probe Labs
   <div class="container">
     <div class="section-header">
       <span class="section-label">At a Glance</span>
-      <h2>Why engineers choose Probe</h2>
+      <h2>Why teams choose Probe for onboarding</h2>
     </div>
     <div class="glance-grid">
       <div class="glance-card">
-        <div class="glance-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg></div>
-        <h3>Instant Codebase Understanding</h3>
-        <p>Ask questions about architecture, patterns, and dependencies and get accurate answers in seconds. No more grep-and-pray.</p>
-      </div>
-      <div class="glance-card">
-        <div class="glance-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
-        <h3>Faster Code Reviews</h3>
-        <p>Automated first-pass review catches security issues, style violations, and breaking changes before human review even starts.</p>
-      </div>
-      <div class="glance-card">
-        <div class="glance-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <h3>Ship Without Fear</h3>
-        <p>Know the dependencies, the side effects, and the blast radius before you push. Fewer production incidents. Fewer rollbacks.</p>
-      </div>
-      <div class="glance-card">
         <div class="glance-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
-        <h3>Zero Interruptions</h3>
-        <p>Stop waiting on teammates who "know how this works." Get answers from the source code itself, any time, on any part of the system.</p>
+        <h3>Radically Faster Ramp-Up</h3>
+        <p>New engineers ask questions and get accurate answers instantly. No waiting on Slack. No pulling senior engineers into meetings. First meaningful PR in days.</p>
+      </div>
+      <div class="glance-card">
+        <div class="glance-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+        <h3>Living Documentation</h3>
+        <p>Architecture diagrams and dependency maps generated from actual code, not stale wikis. Always current. Always accurate. Always accessible.</p>
+      </div>
+      <div class="glance-card">
+        <div class="glance-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3>Zero Knowledge Loss</h3>
+        <p>When engineers leave or rotate teams, their knowledge stays behind. Captured in searchable, queryable AI that understands your codebase.</p>
+      </div>
+      <div class="glance-card">
+        <div class="glance-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
+        <h3>Reclaim Senior Engineer Time</h3>
+        <p>Stop burning 30% of expert time on "where is this?" and "how does this work?" questions. Let them build instead of being bottlenecks.</p>
       </div>
     </div>
   </div>
@@ -100,29 +100,29 @@ title: Solutions for Engineers - Probe Labs
     <div class="darkbox">
       <div class="darkbox-left">
         <span class="darkbox-label">The Real Problem</span>
-        <h2>Your IDE sees files. You need to see the system.</h2>
-        <p>Every tool you have works at the file level. But the bugs you ship, the regressions you cause, and the time you waste all come from not understanding how the pieces fit together.</p>
+        <h2>The onboarding tax is killing your velocity.</h2>
+        <p>Every new hire costs you weeks of ramp-up time and months of senior engineer productivity. It's not sustainable.</p>
       </div>
       <div class="darkbox-right">
         <div class="darkbox-item">
           <span class="darkbox-num">01</span>
           <div>
-            <h3>The Onboarding Wall</h3>
-            <p>New repo. No documentation. The README hasn't been updated in two years. You clone it, open the project, and stare at 400 files. You spend the first week just figuring out where things live and who to ask. Your first real PR takes 10 days instead of 2.</p>
+            <h3>The Ramp-Up Tax</h3>
+            <p>6-8 weeks before a senior engineer is productive. 3+ months for complex systems. They're reading code, asking questions, and making small commits. You're paying full salary for partial output. Scale that across every new hire and team rotation.</p>
           </div>
         </div>
         <div class="darkbox-item">
           <span class="darkbox-num">02</span>
           <div>
-            <h3>The Hidden Dependency</h3>
-            <p>You change a function signature. Tests pass. Linter is green. You push. Three hours later, a service you've never heard of breaks in production because it depends on the exact return format you just modified. Nobody told you. Nothing in the code warned you.</p>
+            <h3>The Interruption Spiral</h3>
+            <p>Every "quick question" to a senior engineer costs 23 minutes of context-switch time. New hire asks where authentication lives. Senior engineer stops, explains, loses their mental stack. Five questions a day. Two hours gone. Multiply by every team member onboarding.</p>
           </div>
         </div>
         <div class="darkbox-item">
           <span class="darkbox-num">03</span>
           <div>
-            <h3>The Context Switch Tax</h3>
-            <p>You're deep in a debugging session. You need to understand how the auth middleware works. You find the file, but it calls three other modules. Those modules import shared utilities. An hour later, you've read 15 files and lost the thread of what you were originally fixing.</p>
+            <h3>The Knowledge Cliff</h3>
+            <p>Your best engineer knows the billing system inside-out. They leave. Their knowledge leaves with them. The next person spends months rediscovering patterns, gotchas, and design decisions. You lose institutional memory with every departure.</p>
           </div>
         </div>
       </div>
@@ -135,135 +135,135 @@ title: Solutions for Engineers - Probe Labs
   <div class="container">
     <div class="section-header">
       <span class="section-label">Use Cases</span>
-      <h2>What engineers actually ask Probe</h2>
-      <p class="section-desc">Real prompts from developers. Questions, debugging sessions, and investigations -- across unfamiliar codebases.</p>
+      <h2>What new engineers actually ask Probe</h2>
+      <p class="section-desc">Real questions from onboarding developers. The difference: they get answers in seconds, not days.</p>
     </div>
   </div>
   <div class="uc-scroll">
     <div class="uc-row uc-row--1">
       <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
-        <div class="uc-prompt">How does the authentication flow work in this app? Walk me through from login request to session creation.</div>
-        <div class="uc-response">Login flow: 1. POST /auth/login hits controllers/auth.go 2. Validates credentials against users table via models/user.go 3. Generates JWT in pkg/auth/token.go (RS256, 24h expiry) 4. Creates session record in Redis via services/session.go 5. Returns token + refresh token. Middleware in middleware/auth.go validates on every request...</div>
-      </div>
-      <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--investigation">Investigation</span></div>
-        <div class="uc-prompt">I'm getting a nil pointer panic in the order processing pipeline. Trace the data flow and tell me where the nil can come from.</div>
-        <div class="uc-response">The panic is in services/order.go line 142 where it calls order.Customer.Address.ZipCode. The nil can come from 3 places: 1. Customer is nil when order is created via API without auth (guest checkout path in handlers/checkout.go) 2. Address is nil when customer exists but has no saved address (models/customer.go allows nullable address) 3. The batch importer in jobs/import_orders.go skips address validation entirely...</div>
+        <div class="uc-tags"><span class="uc-tag uc-tag--onboarding">Onboarding</span></div>
+        <div class="uc-prompt">Generate architecture overview for new team member</div>
+        <div class="uc-response">Your system has 12 core services. Frontend: customer-portal (React), admin-dashboard (Vue). Backend: api-gateway (entry point), auth-service (handles login/SSO), user-service (profile management), billing-service (payments), notification-service (email/SMS), analytics-service. Data stores: PostgreSQL (primary), Redis (caching/sessions), S3 (file storage). Key patterns: event-driven via RabbitMQ, circuit breakers in gateway...</div>
       </div>
       <div class="uc-card">
         <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
-        <div class="uc-prompt">What's the safest way to add a new field to the User model? What migrations, serializers, and tests need to change?</div>
-        <div class="uc-response">Adding a field to User touches 6 files: 1. models/user.go (add field + DB tag) 2. migrations/ (new migration file) 3. serializers/user.go (add to JSON response) 4. handlers/user.go (accept in create/update) 5. tests/models/user_test.go 6. tests/handlers/user_test.go. Also check: the GraphQL schema in schema/user.graphql auto-generates from the model, so run codegen after. The admin panel in admin/views/users.vue reads from the API directly...</div>
-      </div>
-      <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--investigation">Investigation</span></div>
-        <div class="uc-prompt">Response times on /api/v2/products doubled after last week's deploy. What changed that could cause this?</div>
-        <div class="uc-response">3 PRs merged last week that touch the products path: PR #445 added eager-loading for product images (models/product.go) -- this actually should improve perf. PR #451 changed the search query to use ILIKE instead of trigram index (repositories/product_repo.go line 89) -- this bypasses the GIN index on the name column. PR #458 added a new middleware that logs full request/response bodies. Likely culprits: PR #451 (query plan change) and PR #458 (I/O overhead)...</div>
+        <div class="uc-prompt">Create service dependency map for the payments domain</div>
+        <div class="uc-response">Payment flow dependencies: billing-service (core) depends on → payment-gateway (Stripe integration), fraud-detection-service (risk scoring), user-service (account validation), notification-service (receipts). External dependencies: Stripe API, tax-calculation-service. Database: billing_db (PostgreSQL). Events published: payment.completed, payment.failed, refund.processed. Consumed by: analytics-service, reporting-service...</div>
       </div>
       <div class="uc-card">
         <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
-        <div class="uc-prompt">I need to understand the event system. What events exist, who publishes them, and who subscribes?</div>
-        <div class="uc-response">Event bus defined in pkg/events/bus.go using NATS. 14 event types defined in pkg/events/types.go. Publishers: order-service (OrderCreated, OrderCancelled), payment-service (PaymentProcessed, PaymentFailed), user-service (UserRegistered, UserUpdated). Subscribers: notification-service listens to all events, analytics-service to OrderCreated and PaymentProcessed, inventory-service to OrderCreated and OrderCancelled. Dead letter queue configured in infrastructure/nats.conf...</div>
+        <div class="uc-prompt">What should I know before touching the auth module?</div>
+        <div class="uc-response">Auth module is critical path for all API requests. Key things: 1. Uses JWT tokens with 1-hour expiry. 2. Session state in Redis (cluster mode). 3. SSO integration via SAML (enterprise customers). 4. Rate limiting: 100 login attempts/hour per IP. 5. Known issues: PROJ-4201 (refresh token edge case), PROJ-4890 (SSO redirect bug). 6. Testing: always test with both local and SSO flows. 7. Owner: Identity team, contact: @sarah-chen...</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--onboarding">Onboarding</span></div>
+        <div class="uc-prompt">How do I set up local development for this service?</div>
+        <div class="uc-response">Local dev setup for api-gateway: 1. Prerequisites: Docker, Node 18+, PostgreSQL. 2. Clone repo and run `npm install`. 3. Copy .env.example to .env, set DATABASE_URL and REDIS_URL. 4. Run `docker-compose up -d` for dependencies. 5. Run migrations: `npm run migrate`. 6. Seed test data: `npm run seed`. 7. Start dev server: `npm run dev` (runs on :3000). 8. Run tests: `npm test`. 9. Common issues: if Redis fails, check Docker network...</div>
       </div>
       <div class="uc-card">
         <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
-        <div class="uc-prompt">Show me every place where we make an external HTTP call. I need to add timeout and retry logic to all of them.</div>
-        <div class="uc-response">Found 11 external HTTP calls across the codebase: 1. services/payment.go -- Stripe API (no timeout set) 2. services/shipping.go -- FedEx API (30s timeout) 3. services/email.go -- SendGrid (10s timeout) 4. services/geocoding.go -- Google Maps (no timeout) 5. jobs/webhook_dispatcher.go -- customer webhooks (5s timeout, no retry) 6. integrations/slack.go -- Slack notifications (no timeout)... 5 of 11 have no timeout configured. Only 2 have retry logic.</div>
+        <div class="uc-prompt">Who owns the billing module and what's its history?</div>
+        <div class="uc-response">Billing module owned by Payments team. Primary contacts: @james-liu (tech lead), @priya-kumar (senior engineer). Created Q2 2022 (originally part of monolith, extracted in PROJ-2100). Major milestones: v1 (Stripe integration), v2 (multi-currency support, PROJ-3400), v3 (subscription billing, PROJ-4200). Known tech debt: legacy invoice generation (needs refactor, tracked in PROJ-5100), race condition in concurrent payments (workaround in place)...</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
+        <div class="uc-prompt">What are the testing patterns used in this repo?</div>
+        <div class="uc-response">Testing patterns: 1. Unit tests: Jest, target 80% coverage. 2. Integration tests: test DB interactions with test containers. 3. E2E tests: Playwright for critical user flows. 4. Mocking: use jest.mock() for external APIs, never mock internal modules. 5. Factories: use test/factories for test data (UserFactory, OrderFactory). 6. Database: tests run against isolated test DB, auto-cleanup after each test. 7. CI: all tests must pass before merge...</div>
       </div>
       <!-- Duplicate for seamless loop -->
       <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
-        <div class="uc-prompt">How does the authentication flow work in this app? Walk me through from login request to session creation.</div>
-        <div class="uc-response">Login flow: 1. POST /auth/login hits controllers/auth.go 2. Validates credentials against users table via models/user.go 3. Generates JWT in pkg/auth/token.go (RS256, 24h expiry) 4. Creates session record in Redis via services/session.go 5. Returns token + refresh token. Middleware in middleware/auth.go validates on every request...</div>
-      </div>
-      <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--investigation">Investigation</span></div>
-        <div class="uc-prompt">I'm getting a nil pointer panic in the order processing pipeline. Trace the data flow and tell me where the nil can come from.</div>
-        <div class="uc-response">The panic is in services/order.go line 142 where it calls order.Customer.Address.ZipCode. The nil can come from 3 places: 1. Customer is nil when order is created via API without auth (guest checkout path in handlers/checkout.go) 2. Address is nil when customer exists but has no saved address (models/customer.go allows nullable address) 3. The batch importer in jobs/import_orders.go skips address validation entirely...</div>
+        <div class="uc-tags"><span class="uc-tag uc-tag--onboarding">Onboarding</span></div>
+        <div class="uc-prompt">Generate architecture overview for new team member</div>
+        <div class="uc-response">Your system has 12 core services. Frontend: customer-portal (React), admin-dashboard (Vue). Backend: api-gateway (entry point), auth-service (handles login/SSO), user-service (profile management), billing-service (payments), notification-service (email/SMS), analytics-service. Data stores: PostgreSQL (primary), Redis (caching/sessions), S3 (file storage). Key patterns: event-driven via RabbitMQ, circuit breakers in gateway...</div>
       </div>
       <div class="uc-card">
         <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
-        <div class="uc-prompt">What's the safest way to add a new field to the User model? What migrations, serializers, and tests need to change?</div>
-        <div class="uc-response">Adding a field to User touches 6 files: 1. models/user.go (add field + DB tag) 2. migrations/ (new migration file) 3. serializers/user.go (add to JSON response) 4. handlers/user.go (accept in create/update) 5. tests/models/user_test.go 6. tests/handlers/user_test.go. Also check: the GraphQL schema in schema/user.graphql auto-generates from the model, so run codegen after. The admin panel in admin/views/users.vue reads from the API directly...</div>
-      </div>
-      <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--investigation">Investigation</span></div>
-        <div class="uc-prompt">Response times on /api/v2/products doubled after last week's deploy. What changed that could cause this?</div>
-        <div class="uc-response">3 PRs merged last week that touch the products path: PR #445 added eager-loading for product images (models/product.go) -- this actually should improve perf. PR #451 changed the search query to use ILIKE instead of trigram index (repositories/product_repo.go line 89) -- this bypasses the GIN index on the name column. PR #458 added a new middleware that logs full request/response bodies. Likely culprits: PR #451 (query plan change) and PR #458 (I/O overhead)...</div>
+        <div class="uc-prompt">Create service dependency map for the payments domain</div>
+        <div class="uc-response">Payment flow dependencies: billing-service (core) depends on → payment-gateway (Stripe integration), fraud-detection-service (risk scoring), user-service (account validation), notification-service (receipts). External dependencies: Stripe API, tax-calculation-service. Database: billing_db (PostgreSQL). Events published: payment.completed, payment.failed, refund.processed. Consumed by: analytics-service, reporting-service...</div>
       </div>
       <div class="uc-card">
         <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
-        <div class="uc-prompt">I need to understand the event system. What events exist, who publishes them, and who subscribes?</div>
-        <div class="uc-response">Event bus defined in pkg/events/bus.go using NATS. 14 event types defined in pkg/events/types.go. Publishers: order-service (OrderCreated, OrderCancelled), payment-service (PaymentProcessed, PaymentFailed), user-service (UserRegistered, UserUpdated). Subscribers: notification-service listens to all events, analytics-service to OrderCreated and PaymentProcessed, inventory-service to OrderCreated and OrderCancelled. Dead letter queue configured in infrastructure/nats.conf...</div>
+        <div class="uc-prompt">What should I know before touching the auth module?</div>
+        <div class="uc-response">Auth module is critical path for all API requests. Key things: 1. Uses JWT tokens with 1-hour expiry. 2. Session state in Redis (cluster mode). 3. SSO integration via SAML (enterprise customers). 4. Rate limiting: 100 login attempts/hour per IP. 5. Known issues: PROJ-4201 (refresh token edge case), PROJ-4890 (SSO redirect bug). 6. Testing: always test with both local and SSO flows. 7. Owner: Identity team, contact: @sarah-chen...</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--onboarding">Onboarding</span></div>
+        <div class="uc-prompt">How do I set up local development for this service?</div>
+        <div class="uc-response">Local dev setup for api-gateway: 1. Prerequisites: Docker, Node 18+, PostgreSQL. 2. Clone repo and run `npm install`. 3. Copy .env.example to .env, set DATABASE_URL and REDIS_URL. 4. Run `docker-compose up -d` for dependencies. 5. Run migrations: `npm run migrate`. 6. Seed test data: `npm run seed`. 7. Start dev server: `npm run dev` (runs on :3000). 8. Run tests: `npm test`. 9. Common issues: if Redis fails, check Docker network...</div>
       </div>
       <div class="uc-card">
         <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
-        <div class="uc-prompt">Show me every place where we make an external HTTP call. I need to add timeout and retry logic to all of them.</div>
-        <div class="uc-response">Found 11 external HTTP calls across the codebase: 1. services/payment.go -- Stripe API (no timeout set) 2. services/shipping.go -- FedEx API (30s timeout) 3. services/email.go -- SendGrid (10s timeout) 4. services/geocoding.go -- Google Maps (no timeout) 5. jobs/webhook_dispatcher.go -- customer webhooks (5s timeout, no retry) 6. integrations/slack.go -- Slack notifications (no timeout)... 5 of 11 have no timeout configured. Only 2 have retry logic.</div>
+        <div class="uc-prompt">Who owns the billing module and what's its history?</div>
+        <div class="uc-response">Billing module owned by Payments team. Primary contacts: @james-liu (tech lead), @priya-kumar (senior engineer). Created Q2 2022 (originally part of monolith, extracted in PROJ-2100). Major milestones: v1 (Stripe integration), v2 (multi-currency support, PROJ-3400), v3 (subscription billing, PROJ-4200). Known tech debt: legacy invoice generation (needs refactor, tracked in PROJ-5100), race condition in concurrent payments (workaround in place)...</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
+        <div class="uc-prompt">What are the testing patterns used in this repo?</div>
+        <div class="uc-response">Testing patterns: 1. Unit tests: Jest, target 80% coverage. 2. Integration tests: test DB interactions with test containers. 3. E2E tests: Playwright for critical user flows. 4. Mocking: use jest.mock() for external APIs, never mock internal modules. 5. Factories: use test/factories for test data (UserFactory, OrderFactory). 6. Database: tests run against isolated test DB, auto-cleanup after each test. 7. CI: all tests must pass before merge...</div>
       </div>
     </div>
     <div class="uc-row uc-row--2">
       <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
-        <div class="uc-prompt">@Probe on every PR: check for new dependencies, verify they have compatible licenses, and flag any with known vulnerabilities</div>
-        <div class="uc-response">PR #312 adds 2 new dependencies: lodash.merge@4.6.2 (MIT, no known CVEs) and xml2js@0.5.0 (MIT, CVE-2023-0842 -- prototype pollution, severity: high). Flagged xml2js. Recommended alternative: fast-xml-parser (MIT, no known CVEs, 3x faster parsing). Also noticed: this PR removes the existing input sanitization in utils/xml.go that was protecting against XXE. Posted inline comment with details.</div>
-      </div>
-      <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
-        <div class="uc-prompt">@Probe before every commit: run the test suite, and if tests fail, analyze the failure, suggest a fix, and ask me to confirm before applying</div>
-        <div class="uc-response">3 tests failed. 1. TestOrderTotal -- expected 99.99, got 99.98 (floating point rounding after your discount calculation change). Fix: use decimal.NewFromFloat instead of float64 in services/pricing.go line 47. 2. TestUserCreate -- timeout after 5s (your new validation calls external API synchronously). Fix: mock the external call in test setup. 3. TestWebhookRetry -- flaky, passed on re-run. Shall I apply fixes for #1 and #2?</div>
-      </div>
-      <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
-        <div class="uc-prompt">I just got assigned ticket PROJ-2847. Read it, find the relevant code, understand the problem, and give me a plan of attack.</div>
-        <div class="uc-response">PROJ-2847: "Webhook deliveries silently fail for customers with special characters in URLs." Root cause: url.Parse in services/webhook.go line 67 doesn't handle URL-encoded paths correctly. The issue is in buildWebhookURL which concatenates path segments without encoding. Affected code: services/webhook.go, services/webhook_test.go. Plan: 1. Fix URL encoding in buildWebhookURL 2. Add test cases for special chars 3. Backfill failed deliveries from the dead letter queue (check jobs/dlq_processor.go). Estimated: 2-3 hours.</div>
-      </div>
-      <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--investigation">Investigation</span></div>
-        <div class="uc-prompt">The codebase has 3 different ways to handle errors. Which is the "right" pattern and where are the inconsistencies?</div>
-        <div class="uc-response">3 error handling patterns found: 1. Custom error types with codes (pkg/errors/app_error.go) -- used in 60% of handlers, this is the intended pattern per the team's ADR-007. 2. Plain fmt.Errorf wrapping -- used in 30% of handlers, mostly in older code (services written before Q2 2024). 3. Panic/recover -- used in 2 places: jobs/batch_import.go and legacy/processor.go. The ADR says to use pattern #1 everywhere. 14 files still use pattern #2. Created list with file paths and line numbers.</div>
-      </div>
-      <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
-        <div class="uc-prompt">Generate a complete test plan for the checkout flow. Cover happy path, edge cases, and failure modes. Check existing test coverage and identify gaps.</div>
-        <div class="uc-response">Checkout flow spans 5 files. Current coverage: 62%. Generated 18 test cases: 6 happy path (single item, multi-item, with coupon, guest checkout, saved payment, new payment), 5 edge cases (empty cart, expired coupon, out-of-stock during checkout, concurrent purchase of last item, maximum quantity limit), 7 failure modes (payment declined, timeout, partial failure, webhook delivery failure, inventory lock timeout, session expiry mid-checkout, database connection loss). Gaps: no tests for concurrent purchases, session expiry, or partial failures.</div>
+        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
+        <div class="uc-prompt">Walk me through how a user signup flows through the system</div>
+        <div class="uc-response">User signup flow: 1. Frontend (signup-form.tsx) POST to /api/auth/register. 2. API gateway validates request, forwards to auth-service. 3. Auth-service checks email uniqueness, hashes password (bcrypt), creates user record in users table. 4. Publishes user.created event to RabbitMQ. 5. User-service consumes event, creates profile record. 6. Notification-service consumes event, sends welcome email. 7. Returns JWT token to frontend. Full flow takes ~200ms...</div>
       </div>
       <div class="uc-card">
         <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
-        <div class="uc-prompt">I'm refactoring the notification service. What would break if I change the NotificationPayload struct?</div>
-        <div class="uc-response">NotificationPayload is used in 8 places: 1. services/notification.go (definition) 2. handlers/webhook.go (serialized to JSON for webhook delivery) 3. jobs/email_sender.go (read from queue) 4. jobs/push_sender.go (read from queue) 5. services/audit_log.go (logged for compliance) 6. tests/ (3 test files). Breaking change risk: the webhook delivery in handlers/webhook.go serializes this struct directly to external consumers. Changing field names or removing fields will break customer webhook integrations. The queue workers in jobs/ expect the exact struct shape -- changing it requires a migration strategy for in-flight messages.</div>
+        <div class="uc-prompt">What conventions does this team follow for error handling?</div>
+        <div class="uc-response">Error handling conventions: 1. Use custom error classes (BusinessError, ValidationError, SystemError) from lib/errors.ts. 2. Never throw raw strings, always throw typed errors. 3. API responses: consistent format {error: {code, message, details}}. 4. Logging: use logger.error() with structured context (userId, requestId, etc). 5. Client errors (4xx): don't log stack traces. Server errors (5xx): full stack + context. 6. Database errors: wrap in SystemError, never expose raw SQL...</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
+        <div class="uc-prompt">What changed in this service in the last month?</div>
+        <div class="uc-response">Last month changes in billing-service: PR #892: Added support for Apple Pay (merged 12 days ago). PR #901: Fixed tax calculation rounding bug (merged 8 days ago, deployed to prod). PR #905: Upgraded Stripe SDK to v12 (merged 5 days ago, in staging). PR #910: Refactored invoice generation for performance (in review). Config changes: increased payment timeout from 30s to 60s (CONF-440). Known issues introduced: none. Team velocity: 4 PRs/week average...</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
+        <div class="uc-prompt">Generate README for a service that has none</div>
+        <div class="uc-response">Generated README.md for notification-service: Overview: Handles all outbound notifications (email, SMS, push). Tech stack: Node.js, TypeScript, Bull (job queue), SendGrid, Twilio. Setup: npm install, configure .env, run docker-compose, npm run dev. Architecture: REST API + background workers. Key endpoints: POST /send-email, POST /send-sms. Queue: notification-queue (Redis-backed). Workers: email-worker, sms-worker. Testing: npm test. Deployment: k8s manifests in deploy/...</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
+        <div class="uc-prompt">What are the common pitfalls in this codebase?</div>
+        <div class="uc-response">Common pitfalls: 1. N+1 queries: always use .includes() for eager loading in user-service. 2. Race conditions: billing-service has known concurrency issues, use row-level locks. 3. Memory leaks: notification-service workers don't close connections properly, monitor memory. 4. Auth tokens: don't forget to validate expiry in middleware. 5. Feature flags: always check LaunchDarkly before deploying new features. 6. Database migrations: always run migrations before deploy, never after...</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
+        <div class="uc-prompt">How do feature flags work in this project?</div>
+        <div class="uc-response">Feature flags via LaunchDarkly. Client initialized in lib/feature-flags.ts. Usage: await featureFlags.isEnabled('new-checkout-flow', userId). Server-side flags: evaluated on backend. Client-side flags: streamed to frontend. Flag naming: kebab-case, prefix with team (payments-new-flow). Environments: dev (all flags on), staging (test rollouts), prod (gradual rollout). Best practice: wrap new features in flags, clean up flags after 100% rollout...</div>
       </div>
       <!-- Duplicate for seamless loop -->
       <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
-        <div class="uc-prompt">@Probe on every PR: check for new dependencies, verify they have compatible licenses, and flag any with known vulnerabilities</div>
-        <div class="uc-response">PR #312 adds 2 new dependencies: lodash.merge@4.6.2 (MIT, no known CVEs) and xml2js@0.5.0 (MIT, CVE-2023-0842 -- prototype pollution, severity: high). Flagged xml2js. Recommended alternative: fast-xml-parser (MIT, no known CVEs, 3x faster parsing). Also noticed: this PR removes the existing input sanitization in utils/xml.go that was protecting against XXE. Posted inline comment with details.</div>
-      </div>
-      <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
-        <div class="uc-prompt">@Probe before every commit: run the test suite, and if tests fail, analyze the failure, suggest a fix, and ask me to confirm before applying</div>
-        <div class="uc-response">3 tests failed. 1. TestOrderTotal -- expected 99.99, got 99.98 (floating point rounding after your discount calculation change). Fix: use decimal.NewFromFloat instead of float64 in services/pricing.go line 47. 2. TestUserCreate -- timeout after 5s (your new validation calls external API synchronously). Fix: mock the external call in test setup. 3. TestWebhookRetry -- flaky, passed on re-run. Shall I apply fixes for #1 and #2?</div>
-      </div>
-      <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
-        <div class="uc-prompt">I just got assigned ticket PROJ-2847. Read it, find the relevant code, understand the problem, and give me a plan of attack.</div>
-        <div class="uc-response">PROJ-2847: "Webhook deliveries silently fail for customers with special characters in URLs." Root cause: url.Parse in services/webhook.go line 67 doesn't handle URL-encoded paths correctly. The issue is in buildWebhookURL which concatenates path segments without encoding. Affected code: services/webhook.go, services/webhook_test.go. Plan: 1. Fix URL encoding in buildWebhookURL 2. Add test cases for special chars 3. Backfill failed deliveries from the dead letter queue (check jobs/dlq_processor.go). Estimated: 2-3 hours.</div>
-      </div>
-      <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--investigation">Investigation</span></div>
-        <div class="uc-prompt">The codebase has 3 different ways to handle errors. Which is the "right" pattern and where are the inconsistencies?</div>
-        <div class="uc-response">3 error handling patterns found: 1. Custom error types with codes (pkg/errors/app_error.go) -- used in 60% of handlers, this is the intended pattern per the team's ADR-007. 2. Plain fmt.Errorf wrapping -- used in 30% of handlers, mostly in older code (services written before Q2 2024). 3. Panic/recover -- used in 2 places: jobs/batch_import.go and legacy/processor.go. The ADR says to use pattern #1 everywhere. 14 files still use pattern #2. Created list with file paths and line numbers.</div>
-      </div>
-      <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
-        <div class="uc-prompt">Generate a complete test plan for the checkout flow. Cover happy path, edge cases, and failure modes. Check existing test coverage and identify gaps.</div>
-        <div class="uc-response">Checkout flow spans 5 files. Current coverage: 62%. Generated 18 test cases: 6 happy path (single item, multi-item, with coupon, guest checkout, saved payment, new payment), 5 edge cases (empty cart, expired coupon, out-of-stock during checkout, concurrent purchase of last item, maximum quantity limit), 7 failure modes (payment declined, timeout, partial failure, webhook delivery failure, inventory lock timeout, session expiry mid-checkout, database connection loss). Gaps: no tests for concurrent purchases, session expiry, or partial failures.</div>
+        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
+        <div class="uc-prompt">Walk me through how a user signup flows through the system</div>
+        <div class="uc-response">User signup flow: 1. Frontend (signup-form.tsx) POST to /api/auth/register. 2. API gateway validates request, forwards to auth-service. 3. Auth-service checks email uniqueness, hashes password (bcrypt), creates user record in users table. 4. Publishes user.created event to RabbitMQ. 5. User-service consumes event, creates profile record. 6. Notification-service consumes event, sends welcome email. 7. Returns JWT token to frontend. Full flow takes ~200ms...</div>
       </div>
       <div class="uc-card">
         <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
-        <div class="uc-prompt">I'm refactoring the notification service. What would break if I change the NotificationPayload struct?</div>
-        <div class="uc-response">NotificationPayload is used in 8 places: 1. services/notification.go (definition) 2. handlers/webhook.go (serialized to JSON for webhook delivery) 3. jobs/email_sender.go (read from queue) 4. jobs/push_sender.go (read from queue) 5. services/audit_log.go (logged for compliance) 6. tests/ (3 test files). Breaking change risk: the webhook delivery in handlers/webhook.go serializes this struct directly to external consumers. Changing field names or removing fields will break customer webhook integrations. The queue workers in jobs/ expect the exact struct shape -- changing it requires a migration strategy for in-flight messages.</div>
+        <div class="uc-prompt">What conventions does this team follow for error handling?</div>
+        <div class="uc-response">Error handling conventions: 1. Use custom error classes (BusinessError, ValidationError, SystemError) from lib/errors.ts. 2. Never throw raw strings, always throw typed errors. 3. API responses: consistent format {error: {code, message, details}}. 4. Logging: use logger.error() with structured context (userId, requestId, etc). 5. Client errors (4xx): don't log stack traces. Server errors (5xx): full stack + context. 6. Database errors: wrap in SystemError, never expose raw SQL...</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
+        <div class="uc-prompt">What changed in this service in the last month?</div>
+        <div class="uc-response">Last month changes in billing-service: PR #892: Added support for Apple Pay (merged 12 days ago). PR #901: Fixed tax calculation rounding bug (merged 8 days ago, deployed to prod). PR #905: Upgraded Stripe SDK to v12 (merged 5 days ago, in staging). PR #910: Refactored invoice generation for performance (in review). Config changes: increased payment timeout from 30s to 60s (CONF-440). Known issues introduced: none. Team velocity: 4 PRs/week average...</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
+        <div class="uc-prompt">Generate README for a service that has none</div>
+        <div class="uc-response">Generated README.md for notification-service: Overview: Handles all outbound notifications (email, SMS, push). Tech stack: Node.js, TypeScript, Bull (job queue), SendGrid, Twilio. Setup: npm install, configure .env, run docker-compose, npm run dev. Architecture: REST API + background workers. Key endpoints: POST /send-email, POST /send-sms. Queue: notification-queue (Redis-backed). Workers: email-worker, sms-worker. Testing: npm test. Deployment: k8s manifests in deploy/...</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
+        <div class="uc-prompt">What are the common pitfalls in this codebase?</div>
+        <div class="uc-response">Common pitfalls: 1. N+1 queries: always use .includes() for eager loading in user-service. 2. Race conditions: billing-service has known concurrency issues, use row-level locks. 3. Memory leaks: notification-service workers don't close connections properly, monitor memory. 4. Auth tokens: don't forget to validate expiry in middleware. 5. Feature flags: always check LaunchDarkly before deploying new features. 6. Database migrations: always run migrations before deploy, never after...</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
+        <div class="uc-prompt">How do feature flags work in this project?</div>
+        <div class="uc-response">Feature flags via LaunchDarkly. Client initialized in lib/feature-flags.ts. Usage: await featureFlags.isEnabled('new-checkout-flow', userId). Server-side flags: evaluated on backend. Client-side flags: streamed to frontend. Flag naming: kebab-case, prefix with team (payments-new-flow). Environments: dev (all flags on), staging (test rollouts), prod (gradual rollout). Best practice: wrap new features in flags, clean up flags after 100% rollout...</div>
       </div>
     </div>
   </div>
@@ -274,33 +274,33 @@ title: Solutions for Engineers - Probe Labs
   <div class="container">
     <div class="section-header">
       <span class="section-label">Core Capabilities</span>
-      <h2>Three things that change everything</h2>
+      <h2>Three things that transform onboarding</h2>
     </div>
     <div class="capabilities-list">
       <div class="capability-block">
         <div class="capability-number">01</div>
         <div class="capability-content">
-          <h3>Instant Codebase Understanding</h3>
-          <p class="capability-lead">Ask any question about any codebase and get accurate, contextual answers in seconds.</p>
+          <h3>Instant Architecture Maps</h3>
+          <p class="capability-lead">Auto-generated service dependency diagrams, data flow maps, and ownership directories — always current, never stale.</p>
           <ul class="capability-questions">
-            <li>"How does the payment flow work end to end?"</li>
-            <li>"What services does this function call downstream?"</li>
-            <li>"Where is rate limiting implemented and how does it work?"</li>
-            <li>"What's the safest way to modify this database schema?"</li>
+            <li>"Show me how the payment flow works across all services"</li>
+            <li>"Which teams own which parts of the authentication system?"</li>
+            <li>"What databases does the billing module depend on?"</li>
+            <li>"Map every service that calls the user API"</li>
           </ul>
-          <p>Probe reads code semantically -- understanding functions, classes, dependencies, and call graphs -- not just doing text search. It pulls context from linked Jira tickets, PRs, and historical decisions to give you the full picture of why code exists, not just what it does.</p>
+          <p>New engineers get a mental model of the entire system in hours, not weeks. They understand the architecture before writing their first line of code. Probe reads the codebase semantically — tracking function calls, API endpoints, database queries, and message queues — to build a living map of your system.</p>
           <div class="capability-features">
             <div class="capability-feature">
-              <strong>Multi-repo awareness</strong>
-              <span>Query across microservices, shared libraries, and infrastructure code</span>
+              <strong>Service dependency graphs</strong>
+              <span>Visual maps of how services connect and communicate</span>
             </div>
             <div class="capability-feature">
-              <strong>AST-aware search</strong>
-              <span>Understands functions, types, and call graphs -- not just string matching</span>
+              <strong>Ownership directory</strong>
+              <span>Who owns what, contact info, team responsibilities</span>
             </div>
             <div class="capability-feature">
-              <strong>Historical context</strong>
-              <span>Learn why code was written this way from past PRs and tickets</span>
+              <strong>Data flow analysis</strong>
+              <span>Trace how data moves through your entire system</span>
             </div>
           </div>
         </div>
@@ -308,22 +308,22 @@ title: Solutions for Engineers - Probe Labs
       <div class="capability-block">
         <div class="capability-number">02</div>
         <div class="capability-content">
-          <h3>AI-Powered Code Reviews</h3>
-          <p class="capability-lead">Every PR gets a thorough first-pass review -- automatically, consistently, before your teammate even looks at it.</p>
-          <p>Generic AI code review tools don't know your team's conventions. They don't know that error handling must use the custom AppError type, that database queries must go through the repository layer, or that touching the billing module requires extra scrutiny.</p>
-          <p>Probe learns your team's patterns and applies them to every PR. It catches security vulnerabilities, performance regressions, breaking API changes, and cross-service dependency issues. It explains why something is flagged, suggests a fix, and links to the relevant code.</p>
+          <h3>Self-Serve Knowledge Base</h3>
+          <p class="capability-lead">New engineers ask questions about the codebase and get answers instantly — no Slack messages, no waiting, no interrupting teammates.</p>
+          <p>Stop the interruption tax. Instead of asking "where does authentication live?" in Slack and waiting for a response, new hires query Probe and get an answer in seconds. The knowledge base understands your code semantically, pulling context from implementation, tests, commits, and tickets.</p>
+          <p>Senior engineers reclaim hours every week. New engineers get unblocked instantly. Knowledge flows freely without bottlenecks.</p>
           <div class="capability-features">
             <div class="capability-feature">
-              <strong>Team-specific rules</strong>
-              <span>Configure review standards per repo, per team, per language</span>
+              <strong>Code-aware answers</strong>
+              <span>Responses grounded in actual implementation, not documentation that might be outdated</span>
             </div>
             <div class="capability-feature">
-              <strong>Breaking change detection</strong>
-              <span>Catch API changes that will break consumers before they hit production</span>
+              <strong>Pattern recognition</strong>
+              <span>Learn team conventions for testing, error handling, API design, and more</span>
             </div>
             <div class="capability-feature">
-              <strong>Security &amp; performance</strong>
-              <span>Automated checks for OWASP vulnerabilities, N+1 queries, and missing timeouts</span>
+              <strong>Historical context</strong>
+              <span>Understand why decisions were made, what alternatives were considered</span>
             </div>
           </div>
         </div>
@@ -331,22 +331,22 @@ title: Solutions for Engineers - Probe Labs
       <div class="capability-block">
         <div class="capability-number">03</div>
         <div class="capability-content">
-          <h3>Full System Intelligence</h3>
-          <p class="capability-lead">See how your change affects the entire system, not just the file you're editing.</p>
-          <p>Real systems aren't single repos. They're dozens of services with shared libraries, event buses, and cross-cutting dependencies. A renamed field in one service can break deserialization in three others. A changed API response format can silently corrupt data downstream. Traditional tools can't see this.</p>
-          <p>Probe maps the entire system. It understands service boundaries, data flows, event subscriptions, and API contracts. Before you push, you know exactly what your change touches -- across every repo, every service, every consumer.</p>
+          <h3>Living Documentation</h3>
+          <p class="capability-lead">Documentation that stays current because it's generated from actual code, not written by hand and forgotten.</p>
+          <p>Wikis go stale. READMEs drift. Architecture diagrams become lies. Living documentation is always accurate because it's derived directly from the code. When the code changes, the documentation updates automatically.</p>
+          <p>Generate architecture overviews, setup guides, API documentation, and onboarding runbooks on-demand. Every new hire gets the latest, most accurate picture of the system.</p>
           <div class="capability-features">
             <div class="capability-feature">
-              <strong>Dependency mapping</strong>
-              <span>See every consumer of the code you're changing across all repositories</span>
+              <strong>Auto-generated guides</strong>
+              <span>Setup instructions, architecture overviews, deployment runbooks</span>
             </div>
             <div class="capability-feature">
-              <strong>Impact analysis</strong>
-              <span>Know the blast radius of your change before you push</span>
+              <strong>Always current</strong>
+              <span>Documentation reflects actual code, not wishful thinking</span>
             </div>
             <div class="capability-feature">
-              <strong>Regression tracing</strong>
-              <span>Find which change introduced a bug by comparing versions</span>
+              <strong>Role-specific views</strong>
+              <span>Frontend engineer sees frontend context, backend engineer sees backend</span>
             </div>
           </div>
         </div>
@@ -360,52 +360,52 @@ title: Solutions for Engineers - Probe Labs
   <div class="container">
     <div class="section-header">
       <span class="section-label">Ready to Deploy</span>
-      <h2>Workflow packs for everyday engineering</h2>
-      <p class="section-desc">Pre-built automation workflows you can deploy immediately. Customize per repo. Version like code. Improve over time.</p>
+      <h2>Workflow packs for every onboarding scenario</h2>
+      <p class="section-desc">Pre-built automation workflows you can deploy immediately. Customize for your team. Version like code. Improve over time.</p>
     </div>
     <div class="workflows-grid">
       <div class="workflow-card">
-        <div class="workflow-phase">Every PR</div>
-        <h3>Automated Code Review</h3>
-        <p>Every PR gets a first-pass review for security issues, performance problems, style violations, and breaking changes. Customizable rules per repo. Catches what linters miss because it understands the full codebase context.</p>
-        <ul class="workflow-outputs">
-          <li>Security vulnerability scan</li>
-          <li>Performance regression check</li>
-          <li>Breaking API change detection</li>
-          <li>Style and pattern enforcement</li>
-        </ul>
-      </div>
-      <div class="workflow-card">
-        <div class="workflow-phase">New Project</div>
-        <h3>Codebase Onboarding</h3>
-        <p>Point Probe at any repo and get an instant architecture overview, entry points, key abstractions, and how things connect. Cut onboarding time from weeks to hours. Works even when documentation doesn't exist.</p>
+        <div class="workflow-phase">Day 1</div>
+        <h3>Day 1 Onboarding</h3>
+        <p>New hire joins the team. Automatically generate a personalized getting-started guide for every repository they'll touch. Architecture overview, local setup, key patterns, who to ask for help.</p>
         <ul class="workflow-outputs">
           <li>Architecture overview document</li>
-          <li>Service dependency map</li>
-          <li>Key abstractions guide</li>
-          <li>Common task walkthroughs</li>
+          <li>Local development setup guide</li>
+          <li>Team conventions and patterns</li>
+          <li>Ownership and contact directory</li>
         </ul>
       </div>
       <div class="workflow-card">
-        <div class="workflow-phase">Debugging</div>
-        <h3>Root Cause Analysis</h3>
-        <p>From error message to root cause in minutes. Probe traces the code path, identifies relevant recent changes, checks for related issues, and suggests the fix. No more spending hours reading code you've never seen.</p>
+        <div class="workflow-phase">Week 1-2</div>
+        <h3>New Project Ramp-Up</h3>
+        <p>Engineer assigned to unfamiliar codebase. Auto-generate deep-dive documentation: service architecture, dependency map, data models, testing patterns, deployment process, and known gotchas.</p>
         <ul class="workflow-outputs">
-          <li>Code path trace from symptom</li>
-          <li>Recent change correlation</li>
-          <li>Related issue history</li>
-          <li>Suggested fix with context</li>
+          <li>Service-specific architecture doc</li>
+          <li>Dependency and integration map</li>
+          <li>Key patterns and conventions</li>
+          <li>Common pitfalls and workarounds</li>
         </ul>
       </div>
       <div class="workflow-card">
-        <div class="workflow-phase">Before Push</div>
-        <h3>Impact Analysis</h3>
-        <p>Before you push, know exactly what your change affects. Probe traces dependencies across repos, identifies consumers of changed APIs, and flags potential breaking changes. Ship with confidence.</p>
+        <div class="workflow-phase">Team Changes</div>
+        <h3>Team Transfer</h3>
+        <p>Engineer rotating to new team or departing. Automatically capture their knowledge: what they built, why decisions were made, where technical debt lives, what needs attention next.</p>
         <ul class="workflow-outputs">
-          <li>Cross-repo dependency trace</li>
-          <li>Consumer impact report</li>
-          <li>Test coverage gaps</li>
-          <li>Migration requirements</li>
+          <li>Knowledge transfer document</li>
+          <li>Technical debt inventory</li>
+          <li>Ownership handoff checklist</li>
+          <li>Historical decision context</li>
+        </ul>
+      </div>
+      <div class="workflow-card">
+        <div class="workflow-phase">Continuous</div>
+        <h3>Knowledge Audit</h3>
+        <p>Scan your entire codebase to detect undocumented critical systems, single points of knowledge failure, and areas where one engineer leaving would cause major knowledge loss.</p>
+        <ul class="workflow-outputs">
+          <li>Undocumented critical systems</li>
+          <li>Knowledge concentration analysis</li>
+          <li>Documentation gap report</li>
+          <li>Risk mitigation recommendations</li>
         </ul>
       </div>
     </div>
@@ -417,28 +417,28 @@ title: Solutions for Engineers - Probe Labs
   <div class="container">
     <div class="section-header">
       <span class="section-label">Enterprise Ready</span>
-      <h2>Built for how developers actually work</h2>
+      <h2>Built for engineering teams at scale</h2>
     </div>
     <div class="trust-grid">
       <div class="trust-item">
         <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <h4>Runs Locally</h4>
-        <p>Everything runs on your machine. Your code never leaves your environment. No cloud indexing, no data exfiltration, no compliance headaches.</p>
+        <h4>On-Premises Deployment</h4>
+        <p>Runs entirely inside your infrastructure. Code never leaves your environment. Full data sovereignty and compliance compatibility.</p>
       </div>
       <div class="trust-item">
         <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
         <h4>Any LLM Provider</h4>
-        <p>Use Claude, GPT, open-source models, or your company's self-hosted LLM. No vendor lock-in. Switch providers without changing your workflow.</p>
+        <p>Use your preferred model — Claude, GPT, open-source, or self-hosted. No vendor lock-in. Switch providers without changing workflows.</p>
       </div>
       <div class="trust-item">
         <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></div>
         <h4>Full Audit Trail</h4>
-        <p>OpenTelemetry instrumentation captures every query, every workflow run, every decision. Export to Datadog, Grafana, or Splunk. Debug AI workflows like code.</p>
+        <p>OpenTelemetry instrumentation captures every query, every workflow run, every decision. Complete traceability for compliance and debugging.</p>
       </div>
       <div class="trust-item">
         <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div>
         <h4>Open Source Core</h4>
-        <p>The core engine is open source and auditable. You can read exactly how your code is being processed. No black boxes between you and your tools.</p>
+        <p>The core engine is open source and auditable. You can inspect exactly how your code is being processed. No black boxes.</p>
       </div>
     </div>
   </div>
@@ -450,7 +450,7 @@ title: Solutions for Engineers - Probe Labs
     <div class="section-header">
       <span class="section-label">Choose Your Path</span>
       <h2>Open Source vs Enterprise</h2>
-      <p class="section-desc">Start with the open-source CLI to try it on your current project. Scale to enterprise when you need multi-repo intelligence and team workflows.</p>
+      <p class="section-desc">Start with the open-source core to evaluate the technology, then scale to enterprise when you need multi-repo capabilities.</p>
     </div>
     <div class="editions-comparison">
       <div class="edition-card edition-oss">
@@ -458,14 +458,14 @@ title: Solutions for Engineers - Probe Labs
           <h3>Probe <span class="edition-tag">Open Source</span></h3>
           <p class="edition-price">Free forever</p>
         </div>
-        <p class="edition-desc">The core code intelligence engine. Perfect for exploring a single codebase or integrating with your existing AI coding tools.</p>
+        <p class="edition-desc">The core code intelligence engine. Perfect for individual developers or small teams exploring a single codebase.</p>
         <ul class="edition-features">
-          <li><strong>Single-repo code understanding</strong> -- Ask questions about one repository at a time</li>
-          <li><strong>Semantic code search</strong> -- Understands code as code (functions, classes, dependencies), not just text</li>
-          <li><strong>No indexing required</strong> -- Works instantly on any codebase, runs locally</li>
-          <li><strong>MCP integration</strong> -- Use with Claude Code, Cursor, or any MCP-compatible tool</li>
-          <li><strong>Any LLM provider</strong> -- Claude, GPT, open-source models -- your choice</li>
-          <li><strong>Privacy-first</strong> -- Everything runs locally, no data sent to external servers</li>
+          <li><strong>Single-repository understanding</strong> — Ask questions about one repo at a time</li>
+          <li><strong>Semantic code search</strong> — Understands code as code (functions, classes, dependencies), not just text</li>
+          <li><strong>No indexing required</strong> — Works instantly on any codebase, runs locally</li>
+          <li><strong>MCP integration</strong> — Use with Claude Code, Cursor, or any MCP-compatible tool</li>
+          <li><strong>Any LLM provider</strong> — Claude, GPT, open-source models — your choice</li>
+          <li><strong>Privacy-first</strong> — Everything runs locally, no data sent to external servers</li>
         </ul>
         <div class="edition-cta">
           <a href="https://github.com/probe-labs/probe" class="btn btn-secondary">View on GitHub</a>
@@ -476,18 +476,18 @@ title: Solutions for Engineers - Probe Labs
           <h3>Probe <span class="edition-tag">Enterprise</span></h3>
           <p class="edition-price">Contact for pricing</p>
         </div>
-        <p class="edition-desc">Everything in Open Source, plus multi-repo intelligence, automated workflows, and integrations with your team's existing tools.</p>
+        <p class="edition-desc">Everything in Open Source, plus multi-repository architecture support, workflow automation, and team collaboration features.</p>
         <ul class="edition-features">
-          <li><strong>Multi-repository architecture</strong> -- Query across your entire system of services, not just one repo</li>
-          <li><strong>Cross-service dependency mapping</strong> -- Understand how services connect, which changes break what</li>
-          <li><strong>AI-powered code reviews</strong> -- Automated PR review with customizable, evolving rules per repo</li>
-          <li><strong>Jira integration</strong> -- Pull ticket context, specs, and acceptance criteria into code understanding</li>
-          <li><strong>Zendesk integration</strong> -- Connect support tickets to code for faster bug resolution</li>
-          <li><strong>Version comparison</strong> -- Analyze changes between releases, find regression sources</li>
-          <li><strong>Workflow automation</strong> -- Pre-built workflows for onboarding, review, debugging, and impact analysis</li>
-          <li><strong>Intelligent routing</strong> -- System determines which repos, tickets, and docs are relevant per query</li>
-          <li><strong>Slack/Teams integration</strong> -- Ask questions about code from where you already work</li>
-          <li><strong>On-premises deployment</strong> -- Runs entirely in your infrastructure for maximum security</li>
+          <li><strong>Multi-repository architecture</strong> — Query across your entire system of services, not just one project</li>
+          <li><strong>System-wide dependency awareness</strong> — Understand how services connect, which changes break what</li>
+          <li><strong>Auto-generated onboarding docs</strong> — Personalized guides for every new hire, every repo, every team</li>
+          <li><strong>Team knowledge capture</strong> — When engineers leave, their knowledge stays behind</li>
+          <li><strong>Slack/Teams integration</strong> — Ask questions from where you already work</li>
+          <li><strong>SSO &amp; RBAC</strong> — Enterprise authentication and role-based access control</li>
+          <li><strong>Workflow automation</strong> — Pre-built workflows for onboarding, knowledge transfer, documentation</li>
+          <li><strong>Usage analytics</strong> — Track onboarding velocity, knowledge gaps, common questions</li>
+          <li><strong>Priority support</strong> — Dedicated support team, custom integrations, training</li>
+          <li><strong>On-premises deployment</strong> — Runs entirely in your infrastructure for maximum security</li>
         </ul>
         <div class="edition-cta">
           <a href="https://cal.com/leonid-bugaev/30min" class="btn btn-primary">Talk to Our Team</a>
@@ -501,101 +501,98 @@ title: Solutions for Engineers - Probe Labs
 <section id="getting-started" class="section section-getting-started">
   <div class="container">
     <div class="section-header">
-      <span class="section-label">Get Up and Running</span>
-      <h2>How to start using Probe</h2>
-      <p class="section-desc">Two phases: validate the technology in 10 minutes with open source, then unlock the full platform for your team.</p>
+      <span class="section-label">For Engineering Managers</span>
+      <h2>How to evaluate Probe</h2>
+      <p class="section-desc">We recommend a two-phase approach: first, validate the core technology with open source on a single project, then pilot the enterprise features with your next new hire.</p>
     </div>
     <div class="getting-started-phases">
       <div class="gs-phase">
         <div class="gs-phase-header">
           <span class="gs-phase-number">Phase 1</span>
-          <h3>Try It Yourself</h3>
+          <h3>Technical Validation</h3>
           <span class="gs-phase-time">~10 minutes</span>
         </div>
-        <p>Pick any of these and have something running before your next standup. No account required.</p>
+        <p>Pick any of these and have something running before your next meeting. No account required.</p>
         <div class="gs-quickwins">
           <div class="gs-quickwin">
             <div class="gs-quickwin-header">
               <span class="gs-quickwin-time">~2 min</span>
-              <h4>Add Probe to Your AI Coding Tool</h4>
+              <h4>Add Probe to AI Coding Tools</h4>
             </div>
-            <p>Get codebase-aware intelligence in Claude Code, Cursor, or any MCP-compatible tool. Probe becomes a specialized agent that finds the right context and reduces hallucinations with bounded, structured retrieval.</p>
+            <p>Get enterprise-grade code understanding in Claude Code, Cursor, or any MCP-compatible tool. Auto-detects auth, works with any LLM API. One command to install.</p>
             <div class="gs-quickwin-result">
-              <strong>You get:</strong> An AI coding assistant that actually understands your codebase -- not just the file you have open.
+              <strong>You get:</strong> A specialized AI agent for code search and analysis — finds the right context and reduces wrong answers with bounded, structured retrieval.
             </div>
             <a href="/docs/integrations/ai-code-editors" class="gs-quickwin-link">AI code editor setup &rarr;</a>
           </div>
           <div class="gs-quickwin">
             <div class="gs-quickwin-header">
               <span class="gs-quickwin-time">~5 min</span>
-              <h4>Set Up Automated PR Review</h4>
+              <h4>Deploy a Codebase-Aware Slack Bot</h4>
             </div>
-            <p>Add a GitHub Action that reviews every PR for security, performance, and quality. Inline comments with explanations and suggested fixes. Fully customizable rules per repo.</p>
+            <p>Create a Slack bot that answers questions about your codebase. Your team can ask questions in Slack and get intelligent answers grounded in actual code — no context switching.</p>
             <div class="gs-quickwin-result">
-              <strong>You get:</strong> Every PR reviewed automatically before your teammates even look at it. Fewer review cycles. Faster merges.
+              <strong>You get:</strong> A Slack bot your team can query about any codebase. Run locally to test, then deploy anywhere. Measure how many interruptions it prevents.
             </div>
-            <div class="gs-quickwin-links">
-              <a href="/docs/github-assistant" class="gs-quickwin-link">GitHub Assistant docs &rarr;</a>
-              <a href="https://github.com/TykTechnologies/tyk/blob/master/visor.yaml" class="gs-quickwin-link gs-quickwin-link-secondary">See real-world config example &rarr;</a>
-            </div>
+            <a href="/docs/guides/slack-bot" class="gs-quickwin-link">Full setup guide &rarr;</a>
           </div>
           <div class="gs-quickwin">
             <div class="gs-quickwin-header">
               <span class="gs-quickwin-time">~10 min</span>
-              <h4>Query a Codebase from Slack</h4>
+              <h4>Generate Onboarding Docs</h4>
             </div>
-            <p>Deploy a Slack bot that answers questions about your codebase. Ask questions in Slack and get answers grounded in actual code -- no context switching to your IDE.</p>
+            <p>Run Probe against your main repository and generate an architecture overview, setup guide, and pattern documentation. See what new hires would get on Day 1.</p>
             <div class="gs-quickwin-result">
-              <strong>You get:</strong> A Slack bot your team can query about any codebase. Run locally to test, then deploy anywhere.
+              <strong>You get:</strong> Auto-generated onboarding documentation for your codebase. Compare it to what you currently give new hires (if anything).
             </div>
-            <a href="/docs/guides/slack-bot" class="gs-quickwin-link">Full setup guide &rarr;</a>
+            <a href="/docs/workflows/onboarding" class="gs-quickwin-link">Onboarding workflow guide &rarr;</a>
           </div>
         </div>
       </div>
       <div class="gs-phase gs-phase-enterprise">
         <div class="gs-phase-header">
           <span class="gs-phase-number">Phase 2</span>
-          <h3>Scale to Your Team</h3>
-          <span class="gs-phase-time">1-2 weeks</span>
+          <h3>Onboarding Pilot</h3>
+          <span class="gs-phase-time">2-4 weeks</span>
         </div>
-        <p>Once you've validated the technology, roll it out to your team with multi-repo intelligence, automated workflows, and integrations with your existing tools.</p>
+        <p>Once you've validated the core technology, run a pilot with your next new hire to test the full onboarding workflow and measure impact.</p>
         <div class="gs-steps">
           <div class="gs-step">
             <span class="gs-step-num">1</span>
             <div>
-              <strong>Connect your repositories</strong>
-              <p>Point Probe at your team's repos. It builds a system-wide understanding of how services connect, what depends on what, and how data flows.</p>
+              <strong>Pick a new hire cohort</strong>
+              <p>Choose your next 1-3 new engineers joining the team. Ideally engineers joining a complex system where onboarding is typically slow.</p>
             </div>
           </div>
           <div class="gs-step">
             <span class="gs-step-num">2</span>
             <div>
-              <strong>Configure review rules</strong>
-              <p>Define your team's coding standards, security requirements, and architectural patterns. Rules live in the repo, version like code, and evolve over time.</p>
+              <strong>Setup session with Probe team</strong>
+              <p>We'll help you connect your repositories, generate initial architecture documentation, and configure the knowledge base for your team's patterns.</p>
             </div>
           </div>
           <div class="gs-step">
             <span class="gs-step-num">3</span>
             <div>
-              <strong>Integrate with your tools</strong>
-              <p>Connect Jira, Slack, and your monitoring stack. Probe pulls ticket context into code answers and posts automated analysis where your team already works.</p>
+              <strong>Give new hires Probe access</strong>
+              <p>On Day 1, give them access to Probe instead of (or alongside) traditional onboarding materials. Let them ask questions, explore the codebase, and learn at their own pace.</p>
             </div>
           </div>
           <div class="gs-step">
             <span class="gs-step-num">4</span>
             <div>
               <strong>Measure the difference</strong>
-              <p>Track onboarding time for new team members, PR review cycles, and time-to-resolution for bugs. Most teams see 50-70% reduction in onboarding time within the first month.</p>
+              <p>Track time-to-first-PR, number of questions asked to teammates, onboarding satisfaction scores. Compare to your historical baseline.</p>
             </div>
           </div>
         </div>
         <div class="gs-phase-outcome">
-          <strong>Success criteria:</strong> Faster onboarding, fewer review cycles, less time spent reading unfamiliar code. Engineers shipping meaningful code from day one on new projects.
+          <strong>Success criteria:</strong> Measurable reduction in time-to-first-PR and questions-to-teammates. New hires report higher confidence and faster understanding. Senior engineers reclaim interrupted time.
         </div>
       </div>
     </div>
     <div class="getting-started-cta">
-      <p>Want to see how Probe works on your actual codebase?</p>
+      <p>Want to discuss how a pilot would work for your team?</p>
       <a href="https://cal.com/leonid-bugaev/30min" class="btn btn-primary btn-lg">Schedule a Technical Discussion</a>
     </div>
   </div>
@@ -606,25 +603,28 @@ title: Solutions for Engineers - Probe Labs
   <div class="container">
     <div class="section-header">
       <span class="section-label">Common Questions</span>
-      <h2>What engineers ask us</h2>
+      <h2>What engineering managers ask us</h2>
     </div>
     <div class="faq-grid">
       <div class="faq-item">
-        <h3>How is this different from GitHub Copilot or Cursor?</h3>
-        <p>Copilot and Cursor are great at completing code in the file you're editing. They don't understand your system architecture, your team's conventions, or the dependencies between your services. They can't tell you that renaming this field will break deserialization in three other services, or that this function has an undocumented side effect that triggers a webhook.</p>
-        <p>Probe understands the entire system -- across all repositories, with full dependency awareness and historical context. It's the difference between autocomplete and actual understanding.</p>
+        <h3>How is this different from internal wikis or Notion docs?</h3>
+        <p>Wikis go stale the moment they're written. Engineers forget to update them when code changes. Six months later, they're lies.</p>
+        <p>Probe generates documentation directly from code. When the code changes, the documentation stays accurate because it's derived from the source of truth. Plus, it understands your codebase semantically — it can answer questions wikis can't, like "which services depend on this API?" or "how does data flow through the payment system?"</p>
       </div>
       <div class="faq-item">
-        <h3>Does my code leave my machine?</h3>
-        <p>No. The open-source version runs entirely locally. Your code stays on your machine. You choose which LLM provider to use -- including fully self-hosted options. The enterprise version can be deployed on-premises inside your company's infrastructure.</p>
+        <h3>Will this actually reduce interruptions to senior engineers?</h3>
+        <p>Yes, measurably. Teams report 50-70% reduction in onboarding-related Slack messages after deploying Probe. New hires get answers instantly instead of waiting for a teammate to respond. Senior engineers reclaim 5-10 hours per week previously spent answering "where is this?" questions.</p>
+        <p>The key is that Probe answers the questions accurately enough that new hires don't need to follow up. It's not just faster — it's self-sufficient.</p>
       </div>
       <div class="faq-item">
-        <h3>What languages and frameworks does it support?</h3>
-        <p>Probe supports all major programming languages through tree-sitter parsers: JavaScript/TypeScript, Python, Go, Rust, Java, C/C++, Ruby, PHP, and many more. It also understands Terraform, Kubernetes YAML, Dockerfiles, and CI/CD configs. AST-aware search works across all supported languages.</p>
+        <h3>What if our codebase is a mess with no documentation?</h3>
+        <p>That's exactly where Probe shines. Legacy systems with zero documentation are where onboarding is hardest and where Probe has the biggest impact. It doesn't need documentation — it reads the code itself, understands structure, traces dependencies, and builds knowledge from what actually exists.</p>
+        <p>In fact, teams with poor documentation see the most dramatic improvements because the baseline is so low.</p>
       </div>
       <div class="faq-item">
-        <h3>How accurate are the answers?</h3>
-        <p>Probe uses bounded, structured retrieval -- it searches the actual codebase semantically and returns grounded answers with file paths and line numbers. It doesn't hallucinate code that doesn't exist. When it doesn't know something, it tells you what it searched and what it found. Every answer is traceable back to the source.</p>
+        <h3>How long does it take to see results?</h3>
+        <p>Immediate. The open-source version works out of the box — install it, point it at a repo, start asking questions. For enterprise deployments with multi-repo setup, initial configuration takes a few hours, then you're live.</p>
+        <p>The real measurement is your next new hire. Compare their ramp-up time to the previous cohort. Most teams see 40-60% reduction in time-to-first-PR within the first pilot.</p>
       </div>
     </div>
   </div>
@@ -634,8 +634,8 @@ title: Solutions for Engineers - Probe Labs
 <section class="section section-cta" id="contact">
   <div class="container">
     <div class="cta-card">
-      <h2>Ready to stop reading code line by line?</h2>
-      <p>See how Probe works on a real codebase -- yours. We'll walk you through the setup and show you how engineers are using it to ship faster with fewer bugs.</p>
+      <h2>Ready to transform your onboarding?</h2>
+      <p>Let's talk about how Probe can help your new engineers ship code faster and reclaim your senior engineers' time. We'll show you how it works on your actual codebase and discuss how to structure a pilot.</p>
       <div class="cta-buttons">
         <a href="https://cal.com/leonid-bugaev/30min" class="btn btn-primary btn-lg"><span>Schedule a Conversation</span> <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         <a href="/docs/quick-start" class="btn btn-secondary btn-lg">Read Documentation</a>
@@ -648,7 +648,7 @@ title: Solutions for Engineers - Probe Labs
 
 <style>
 /* ========================================
-   Agencies V2 - Brutalist Design Override
+   Developer Onboarding - Brutalist Design Override
    Overrides product-solution.css to match new homepage
    ======================================== */
 

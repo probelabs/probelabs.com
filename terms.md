@@ -177,27 +177,25 @@ Legal
 </div>
 </section>
 
-<SiteFooter />
-
 </div>
 
 <style>
 .terms-page {
-  --c-bg: #ffffff;
-  --c-bg-subtle: #fafafa;
-  --c-bg-muted: #f4f4f5;
-  --c-bg-dark: #0f172a;
-  --c-bg-white: #ffffff;
-  --c-border: rgba(0, 0, 0, 0.08);
-  --c-border-hover: rgba(0, 0, 0, 0.15);
-  --c-text: #18181b;
-  --c-text-muted: #52525b;
-  --c-text-subtle: #71717a;
-  --c-brand-500: #7c3aed;
-  --c-brand-600: #6d28d9;
+  --c-bg: transparent;
+  --c-bg-subtle: #eeece6;
+  --c-bg-muted: #e8e5df;
+  --c-bg-dark: #111111;
+  --c-bg-white: #f7f5f0;
+  --c-border: rgba(0, 0, 0, 0.12);
+  --c-border-hover: rgba(0, 0, 0, 0.2);
+  --c-text: #111111;
+  --c-text-muted: #666666;
+  --c-text-subtle: #999999;
+  --c-brand-500: #111111;
+  --c-brand-600: #333333;
 
-  --font-display: 'Space Grotesk', system-ui, sans-serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Space Mono', monospace;
+  --font-body: 'IBM Plex Mono', monospace;
 
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
@@ -208,15 +206,15 @@ Legal
   --space-3xl: 4rem;
   --space-4xl: 6rem;
 
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
+  --radius-sm: 2px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --radius-xl: 2px;
 
   font-family: var(--font-body);
   color: var(--c-text);
   line-height: 1.6;
-  background: var(--c-bg);
+  background: transparent;
 }
 
 .terms-page .container {
@@ -234,7 +232,7 @@ Legal
   position: relative;
   padding: var(--space-4xl) 0 var(--space-2xl);
   overflow: hidden;
-  background: linear-gradient(180deg, var(--c-bg-subtle) 0%, var(--c-bg) 100%);
+  background: transparent;
 }
 
 .terms-page .hero-bg {
@@ -250,7 +248,7 @@ Legal
   transform: translateX(-50%);
   width: 150%;
   height: 100%;
-  background: radial-gradient(ellipse at center, rgba(124, 58, 237, 0.06) 0%, transparent 60%);
+  background: none;
 }
 
 .terms-page .hero-content {
@@ -268,10 +266,10 @@ Legal
   font-size: 0.8125rem;
   font-weight: 500;
   color: var(--c-text-muted);
-  background: var(--c-bg-white);
+  background: transparent;
   border: 1px solid var(--c-border);
   padding: var(--space-sm) var(--space-md);
-  border-radius: 100px;
+  border-radius: 2px;
   margin-bottom: var(--space-xl);
 }
 
@@ -386,13 +384,12 @@ Legal
 }
 
 .terms-page .contact-info a {
-  color: var(--c-brand-500);
-  text-decoration: none;
+  color: var(--c-text);
+  text-decoration: underline;
 }
 
 .terms-page .contact-info a:hover {
-  color: var(--c-brand-600);
-  text-decoration: underline;
+  opacity: 0.7;
 }
 
 /* Responsive */
