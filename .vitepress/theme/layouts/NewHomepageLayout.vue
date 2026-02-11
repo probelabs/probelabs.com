@@ -1,113 +1,19 @@
 <template>
   <div class="new-homepage">
-    <!-- Navigation -->
-    <nav class="nh-nav" :class="{ scrolled: isScrolled }">
-      <div class="nh-nav-inner">
-        <a href="/" class="nh-logo">
-          <img src="/probe/logo.png" alt="Probe" class="nh-logo-img">
-          <span class="nh-logo-text">Probe</span>
-        </a>
-        <div class="nh-nav-links">
-          <!-- Platform Dropdown -->
-          <div class="nh-dropdown" @mouseenter="openDropdown = 'platform'" @mouseleave="openDropdown = null">
-            <button class="nh-nav-link" :class="{ active: openDropdown === 'platform' }">
-              Platform
-              <svg class="nh-dropdown-arrow" width="10" height="10" viewBox="0 0 10 10"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
-            </button>
-            <div class="nh-dropdown-menu" v-show="openDropdown === 'platform'">
-              <div class="nh-dropdown-section">
-                <div class="nh-dropdown-label">Engine</div>
-                <a href="/probe" class="nh-dropdown-item">
-                  <strong>Probe</strong>
-                  <span>AI-native code search across enterprise codebases</span>
-                </a>
-                <a href="/visor" class="nh-dropdown-item">
-                  <strong>Visor</strong>
-                  <span>Deterministic workflow engine for agent automation</span>
-                </a>
-              </div>
-              <div class="nh-dropdown-section">
-                <div class="nh-dropdown-label">Tools</div>
-                <a href="/maid" class="nh-dropdown-item">
-                  <strong>Maid</strong>
-                  <span>Fast Mermaid linter with auto-fix</span>
-                </a>
-                <a href="https://goreplay.org" class="nh-dropdown-item">
-                  <strong>GoReplay</strong>
-                  <span>Open-source traffic replay for testing</span>
-                </a>
-                <a href="/big-brain" class="nh-dropdown-item">
-                  <strong>Big Brain</strong>
-                  <span>Hand off stuck problems to smarter models</span>
-                </a>
-                <a href="/afk" class="nh-dropdown-item">
-                  <strong>AFK</strong>
-                  <span>Control Claude Code from your phone</span>
-                </a>
-                <a href="/vow" class="nh-dropdown-item">
-                  <strong>Vow</strong>
-                  <span>AI accountability gates for commits</span>
-                </a>
-                <a href="/memaris" class="nh-dropdown-item">
-                  <strong>Memaris</strong>
-                  <span>Persistent memory from past AI sessions</span>
-                </a>
-                <a href="/logoscope" class="nh-dropdown-item">
-                  <strong>Logoscope</strong>
-                  <span>AI-powered log analysis and insights</span>
-                </a>
-              </div>
-            </div>
-          </div>
-          <!-- Solutions Dropdown -->
-          <div class="nh-dropdown" @mouseenter="openDropdown = 'solutions'" @mouseleave="openDropdown = null">
-            <button class="nh-nav-link" :class="{ active: openDropdown === 'solutions' }">
-              Solutions
-              <svg class="nh-dropdown-arrow" width="10" height="10" viewBox="0 0 10 10"><path d="M2 4l3 3 3-3" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
-            </button>
-            <div class="nh-dropdown-menu nh-dropdown-menu--wide" v-show="openDropdown === 'solutions'">
-              <div class="nh-dropdown-cols">
-                <div class="nh-dropdown-section">
-                  <div class="nh-dropdown-label">By Role</div>
-                  <a href="/solutions/engineering-leadership" class="nh-dropdown-item">Engineering Leadership</a>
-                  <a href="/solutions/platform-teams" class="nh-dropdown-item">Platform Teams</a>
-                  <a href="/solutions/engineers" class="nh-dropdown-item">Engineers</a>
-                  <a href="/solutions/non-technical" class="nh-dropdown-item">Product & Support</a>
-                  <a href="/solutions/agencies" class="nh-dropdown-item">Agencies</a>
-                  <a href="/solutions/enterprise" class="nh-dropdown-item">Enterprise</a>
-                </div>
-                <div class="nh-dropdown-section">
-                  <div class="nh-dropdown-label">By Solution</div>
-                  <a href="/docs/chat-with-code" class="nh-dropdown-item">Chat with Code</a>
-                  <a href="/docs/code-review" class="nh-dropdown-item">Intelligent Code Review</a>
-                  <a href="/docs/github-assistant" class="nh-dropdown-item">GitHub Assistant</a>
-                  <a href="/docs/use-cases/visor-workflows" class="nh-dropdown-item">Workflow Automation</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <a href="/pricing" class="nh-nav-link">Pricing</a>
-          <a href="/docs" class="nh-nav-link">Docs</a>
-        </div>
-        <div class="nh-nav-actions">
-          <a href="/docs/quick-start" class="nh-nav-link nh-nav-link--highlight">Quick Start</a>
-          <a href="#demo-booking" class="nh-nav-btn">Book Demo</a>
-        </div>
-      </div>
-    </nav>
+    <NewNav bookDemoHref="#demo-booking" />
 
     <!-- Hero Section -->
     <div class="nh-hero-wrapper">
     <section class="nh-hero">
       <div class="nh-hero-left">
-        <h1>AI agent for your product</h1>
+        <h1>AI agent for product teams</h1>
         <p class="nh-hero-sub">
-          Your product lives across code, tickets, docs, and a dozen tools.
-          Too much context for any one person.
+          Half your team's time goes to finding things that already exist.
+          In code, in tickets, in docs, in someone's head.
         </p>
         <p class="nh-hero-sub nh-hero-punch">
-          Probe holds the full picture.
-          <span class="nh-hero-verbs">Chat. Debug. Plan. Review. Automate.</span>
+          Probe knows your entire product. Ask it anything.<br>Let it handle the rest.
+          <span class="nh-hero-verbs">Learn. Debug. Plan. Review. Automate.</span>
         </p>
         <div class="nh-hero-ctas">
           <a href="#how" class="nh-btn filled">Why Probe &rarr;</a>
@@ -144,7 +50,7 @@
         </div>
       </div>
       <!-- Marquee mode (no filter) -->
-      <div class="nh-chats-scroll" v-if="!activeChatFilter">
+      <div class="nh-chats-scroll" :class="{ 'nh-chats-scroll--stopped': marqueeStoppedByTouch }" v-if="!activeChatFilter" @touchstart="onMarqueeTouchStart">
         <div class="nh-chats-row nh-chats-row--1">
           <div class="nh-chat-card" v-for="chat in chatExamplesRow1" :key="chat.prompt">
             <div class="nh-chat-tags">
@@ -223,20 +129,20 @@
       <div class="nh-demo-booking-wrapper">
         <div class="nh-demo-booking-content">
           <div class="nh-demo-booking-left">
-            <h2>Book a technical demo</h2>
-            <p>30 minutes, engineer-to-engineer. No sales fluff.</p>
+            <h2>Book a demo</h2>
+            <p>30 minutes. Real questions, real answers. No slideware.</p>
             <ol class="nh-demo-agenda">
               <li>
-                <strong>Live on your codebase</strong>
-                <span>We'll run Probe against your actual repos—so you see real results, not canned demos.</span>
+                <strong>See it on a real codebase</strong>
+                <span>We'll walk through Probe on a production-scale environment — multi-repo, real integrations, real complexity.</span>
               </li>
               <li>
-                <strong>Integration fit</strong>
-                <span>MCP for AI editors, GitHub Actions, Slack bots, Web UI—we'll show what fits your stack.</span>
+                <strong>Map it to your stack</strong>
+                <span>AI editors, GitHub Actions, Slack, Web UI — we'll figure out what fits your team and workflow.</span>
               </li>
               <li>
-                <strong>Your setup path</strong>
-                <span>Get a tailored plan to have Probe running in your org within 10 minutes of the call.</span>
+                <strong>Walk away with a plan</strong>
+                <span>A clear path to getting Probe running in your org. Most teams are live within a day.</span>
               </li>
             </ol>
           </div>
@@ -285,7 +191,7 @@
       <div class="nh-why-wrapper">
         <div class="nh-why-header">
           <h2>Why Probe feels different</h2>
-          <p>Probe isn't a finished product in the classical sense. It's an agent you co-own with your team — backed by process, not promises. Think OpenClaw, except built on enterprise-grade security standards and designed to scale across your whole org.</p>
+          <p>Probe isn't a finished product in the classical sense. It's an agent you co-own with your team — backed by process, not promises. You can even think about it as OpenClaw, except built on enterprise-grade security standards and designed to scale across your whole org.</p>
         </div>
         <div class="nh-why-principles">
           <div class="nh-why-principle">
@@ -299,7 +205,7 @@
             <span class="nh-why-num">02</span>
             <div class="nh-why-content">
               <h3>Process over trust</h3>
-              <p>You can't trust AI. You can't trust humans either. So you turn everything into a process. Every process starts with accurate data and the right question. Probe helps with both.</p>
+              <p>You can't trust AI. You can't trust humans either. So you turn everything into a process with quality gates. Every process starts with accurate data and the right question. Probe helps with both.</p>
             </div>
           </div>
           <div class="nh-why-principle">
@@ -336,6 +242,7 @@
             <span class="nh-why-tag">Open source foundation</span>
             <span class="nh-why-tag">Any LLM provider</span>
             <span class="nh-why-tag">No vendor lock-in</span>
+            <span class="nh-why-tag">Scheduled jobs & reminders</span>
             <span class="nh-why-tag">Multi-team with boundaries</span>
             <span class="nh-why-tag">Audit trails & governance</span>
             <span class="nh-why-tag">On-prem deployment</span>
@@ -362,6 +269,11 @@
             <span class="nh-role-title">{{ role.title }}</span>
             <span class="nh-role-subtitle">{{ role.subtitle }}</span>
           </button>
+        </div>
+        <div class="nh-workbench-dropdown">
+          <select :value="activeRole" @change="activeRole = $event.target.value">
+            <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.title }} — {{ role.subtitle }}</option>
+          </select>
         </div>
         <div class="nh-workbench-panel">
           <div class="nh-panel-header">
@@ -426,6 +338,11 @@
           <a href="/docs/use-cases/visor-workflows" class="nh-usecase-tile">
             <h3>Workflow Automation</h3>
             <p>Visor workflows for real processes — review, triage, and release pipelines.</p>
+            <span class="nh-usecase-link">Learn more &rarr;</span>
+          </a>
+          <a href="/docs/guides/slack-bot" class="nh-usecase-tile">
+            <h3>Scheduled Jobs & Reminders</h3>
+            <p>Daily digests, thread follow-ups, recurring checks, and Jira→Zendesk enrichment — from Slack or YAML.</p>
             <span class="nh-usecase-link">Learn more &rarr;</span>
           </a>
           <a href="/docs/use-cases/building-ai-tools" class="nh-usecase-tile">
@@ -542,79 +459,14 @@
       </section>
     </div>
 
-    <!-- Footer -->
-    <footer class="nh-footer">
-      <div class="nh-footer-grid">
-        <!-- Brand Column -->
-        <div class="nh-footer-brand">
-          <span class="nh-footer-brand-name">ProbeLabs</span>
-          <p class="nh-footer-tagline">The Operating System for Agentic Engineering</p>
-          <div class="nh-footer-social">
-            <a href="https://github.com/probelabs" target="_blank" aria-label="GitHub">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
-            </a>
-          </div>
-          <a href="mailto:hello@probelabs.com" class="nh-footer-email">hello@probelabs.com</a>
-        </div>
-        <!-- Platform Column -->
-        <div class="nh-footer-col">
-          <h4>Platform</h4>
-          <ul>
-            <li><a href="/probe">Probe</a></li>
-            <li><a href="/visor">Visor</a></li>
-            <li><a href="/maid">Maid</a></li>
-            <li><a href="https://goreplay.org">GoReplay</a></li>
-            <li><a href="/big-brain">Big Brain</a></li>
-            <li><a href="/afk">AFK</a></li>
-            <li><a href="/vow">Vow</a></li>
-            <li><a href="/memaris">Memaris</a></li>
-            <li><a href="/logoscope">Logoscope</a></li>
-          </ul>
-        </div>
-        <!-- Solutions Column -->
-        <div class="nh-footer-col">
-          <h4>Solutions</h4>
-          <ul>
-            <li><a href="/solutions/engineering-leadership">Engineering Leadership</a></li>
-            <li><a href="/solutions/platform-teams">Platform Teams</a></li>
-            <li><a href="/solutions/engineers">Engineers</a></li>
-            <li><a href="/solutions/agencies">Agencies</a></li>
-            <li><a href="/solutions/enterprise">Enterprise</a></li>
-          </ul>
-        </div>
-        <!-- Resources Column -->
-        <div class="nh-footer-col">
-          <h4>Resources</h4>
-          <ul>
-            <li><a href="/docs/quick-start">Quick Start</a></li>
-            <li><a href="/docs">Documentation</a></li>
-            <li><a href="https://github.com/probelabs/visor/tree/main/examples" target="_blank">Workflow Examples</a></li>
-            <li><a href="https://github.com/probelabs/probe" target="_blank">GitHub</a></li>
-          </ul>
-        </div>
-        <!-- Company Column -->
-        <div class="nh-footer-col">
-          <h4>Company</h4>
-          <ul>
-            <li><a href="/company/about">About</a></li>
-            <li><a href="/pricing">Pricing</a></li>
-          </ul>
-        </div>
-      </div>
-      <!-- Footer Bottom -->
-      <div class="nh-footer-bottom">
-        <div class="nh-footer-copy">&copy; {{ currentYear }} ProbeLabs Inc. All rights reserved.</div>
-        <div class="nh-footer-legal">
-          <a href="/privacy">Privacy</a>
-          <a href="/terms">Terms</a>
-        </div>
-      </div>
-    </footer>
+    <NewFooter />
   </div>
 </template>
 
 <script setup>
 import { onMounted, ref, onUnmounted, computed } from 'vue'
+import NewNav from '../components/NewNav.vue'
+import NewFooter from '../components/NewFooter.vue'
 
 const heroCanvas = ref(null)
 const finalCanvas = ref(null)
@@ -625,11 +477,6 @@ let finalAnimation = null
 let observer = null
 let termObserver = null
 
-// Navigation state
-const isScrolled = ref(false)
-const openDropdown = ref(null)
-const currentYear = new Date().getFullYear()
-
 // Interactive state
 const activeRole = ref('cto')
 const activeQuickWin = ref('probe')
@@ -637,12 +484,19 @@ const codeCopied = ref(false)
 
 // Chat filter state
 const activeChatFilter = ref(null)
+const marqueeStoppedByTouch = ref(false)
+
+const onMarqueeTouchStart = () => {
+  if (!marqueeStoppedByTouch.value) {
+    marqueeStoppedByTouch.value = true
+  }
+}
 
 const allChatTags = computed(() => {
   const tags = new Set()
   const exclude = new Set(['All', 'Anyone'])
   ;[...chatExamplesRow1, ...chatExamplesRow2].forEach(c => c.tags.forEach(t => { if (!exclude.has(t)) tags.add(t) }))
-  const first = ['Engineering', 'Product', 'QA', 'Platform']
+  const first = ['Engineering', 'Product', 'QA', 'Platform', 'Automation', 'Business Ops']
   const rest = [...tags].filter(t => !first.includes(t)).sort()
   return [...first.filter(t => tags.has(t)), ...rest]
 })
@@ -720,7 +574,7 @@ const chatExamplesRow1 = [
     response: 'The bug can be fixed by ensuring that cacheThisRequest is explicitly set to false when upstream cache control is enabled and the required header is missing. Change the logic in gateway/res_cache.go:\n  cacheThisRequest = res.Header.Get(upstreamCacheHeader) != ""'
   },
   {
-    tags: ['Sales', 'Legal'],
+    tags: ['Business Ops'],
     prompt: 'Answer this 47-question RFP security questionnaire — search Confluence, docs, and code for evidence',
     response: 'Systematically searching Confluence, docs, and codebase. Compiled answers for 43/47 questions with source references. 4 questions flagged for manual review. Estimated 12 hours of work reduced to 20 minutes...'
   },
@@ -728,6 +582,16 @@ const chatExamplesRow1 = [
     tags: ['Engineering', 'QA'],
     prompt: 'Assess our test coverage for certificate filtering by comparing open bugs to existing tests',
     response: 'CRITICAL: No acceptance criteria defined for certificate statuses. CRITICAL: Available filter states not documented. ERROR: Non-functional requirements like performance not specified. WARNING: Edge cases for expired certificates not covered...'
+  },
+  {
+    tags: ['UX', 'Engineering'],
+    prompt: 'I\'m designing a real-time collaborative editor for the dashboard — is that technically feasible with our current architecture?',
+    response: 'Short answer: not without significant changes. The dashboard uses REST polling on a 30s interval (dashboard/api/poller.ts). There\'s no WebSocket infrastructure — the backend has no pub/sub layer. Real-time collab would require: 1. Adding a WebSocket gateway (estimate: 3-5 weeks). 2. Conflict resolution (OT or CRDT). 3. Redis pub/sub for state sync. Alternative: you could do near-real-time with optimistic UI + 2s polling, which works within current architecture. That\'s a 1-week effort.'
+  },
+  {
+    tags: ['UX'],
+    prompt: 'Can the settings page support drag-and-drop reordering? The design assumes it but I want to check before we finalize mocks.',
+    response: 'The settings page renders items from a static config object in settings/config.ts — there\'s no sort order field in the database. Drag-and-drop would require: 1. Adding a "position" column to the settings table. 2. A new API endpoint for reorder (PATCH /settings/reorder). 3. Frontend: the current list uses v-for with no key tracking — needs refactoring. Estimated effort: 2-3 days backend, 1-2 days frontend. The simpler option: alphabetical or category-based sorting, which needs zero backend changes.'
   },
   {
     tags: ['Engineering'],
@@ -750,6 +614,21 @@ const chatExamplesRow1 = [
     response: 'Build #4721 failed at 03:12 UTC. Root cause: integration test test_api_gateway_timeout depends on external sandbox endpoint that returned 503. Not a code regression — infrastructure issue. Posted to #engineering: "Nightly build failed — external sandbox was down. Tests are green when sandbox is healthy. Recommend: add retry logic to integration suite or mock the external dependency. Created INFRA-892 for the sandbox team."'
   },
   {
+    tags: ['QA', 'Engineering'],
+    prompt: '@Probe analyze ticket PROJ-16554 and compare its acceptance criteria with PR #7745. Provide a list of test cases and edge cases.',
+    response: 'Analyzed PROJ-16554 (rate limit policy per API key) and PR #7745 (38 files changed). AC comparison: 3/7 acceptance criteria fully covered by PR. Missing: per-key quota reset behavior, concurrent request handling under burst, and error response format for 429s. Generated 18 test cases: 8 positive (basic rate limiting, quota tracking, key rotation), 6 negative (expired keys, malformed headers, zero-quota edge), 4 edge (burst at quota boundary, clock skew between nodes, race condition on counter increment).'
+  },
+  {
+    tags: ['Product', 'Engineering'],
+    prompt: '@Probe quantify the cost to deliver PROJ-15859 — time in each kanban state, time on PRs and tests in GitHub, number of people involved and for how long',
+    response: 'PROJ-15859 (SSO integration): Total cycle time: 34 days. Breakdown: Backlog → In Dev: 8 days (waited for sprint). In Dev: 14 days across 3 engineers (2 PRs: #6201 primary, #6240 hotfix). PR review time: 6.2 days avg (first review comment after 2.1 days). QA: 4 days (failed first pass, 2 days to fix, 1 day re-test). Done: deployed day 34. GitHub effort: 847 lines added, 312 removed, 23 review comments. People: 3 engineers (1 primary, 2 reviewers), 1 QA, 1 PM. Estimated cost at blended rate: ~$18,400.'
+  },
+  {
+    tags: ['Product'],
+    prompt: '@Probe for PROJ-15859 — focus on refinement. What was missed in the original spec, what was added during dev, what AC would you recommend, and how did this influence coding time?',
+    response: 'Refinement gaps: Original spec had 4 AC — missing: session timeout handling, multi-IdP fallback, SAML vs OIDC toggle behavior, and error states for expired assertions. During dev: 3 unplanned items added (SCIM provisioning hook, group mapping, audit log entries) — these added ~6 days. Recommended AC that would have caught this: 1. Define supported IdP protocols upfront. 2. Specify session lifecycle (creation, refresh, timeout, revocation). 3. Include admin UI states for config errors. 4. Define audit log schema for SSO events. Impact: ~40% of coding time was spent on requirements discovered mid-development.'
+  },
+  {
     tags: ['Product'],
     prompt: 'Review the proposed architecture in epic PROJ-220 — give me your honest opinion on feasibility, risks, and what\'s missing from the spec',
     response: 'Epic PROJ-220 (event-driven notification system): Feasibility: 7/10. The proposed Kafka-based architecture is sound but over-engineered for current throughput (200 events/sec). Risks: 1. No fallback if Kafka goes down. 2. Schema evolution strategy is undefined. 3. Consumer lag monitoring not addressed. Missing: SLA requirements, capacity planning, rollback strategy, data retention policy. Recommendation: start with Redis Streams, migrate to Kafka when you hit 10k events/sec.'
@@ -758,6 +637,31 @@ const chatExamplesRow1 = [
     tags: ['Platform'],
     prompt: 'Our deploy workflow in GitHub Actions started failing intermittently — find the pattern and root cause across recent runs',
     response: 'Analyzed last 40 runs of deploy.yml. Failures correlate with runs triggered between 02:00-04:00 UTC — the container registry rate-limits pulls during that window. 12/15 failures show "429 Too Many Requests" in the docker pull step. Fix: add registry mirror as fallback, or switch to pre-cached base images. Created OPS-1847 with details.'
+  },
+  {
+    tags: ['Automation', 'Product'],
+    prompt: '@Probe remind me every Monday 9am: check Zendesk tickets tagged "churn-risk" and cross-reference with open Jira bugs for those accounts',
+    response: 'Scheduled. Every Monday at 9:00 AM I\'ll pull Zendesk tickets tagged "churn-risk," match them to customer accounts in Jira, and DM you a summary: which accounts have open bugs, severity, and how long they\'ve been waiting. First report arrives this Monday.'
+  },
+  {
+    tags: ['Automation', 'Engineering'],
+    prompt: '@Probe follow up on this thread tomorrow — check if the hotfix was deployed and the error rate dropped in Datadog',
+    response: 'Got it. Tomorrow at 10:00 AM I\'ll check: 1. Whether PR #1847 was merged and deployed to production. 2. The error rate for /api/checkout in Datadog over the last 24h. I\'ll reply in this thread with the status. If the error rate is still elevated, I\'ll flag it in #engineering.'
+  },
+  {
+    tags: ['Automation', 'QA'],
+    prompt: '@Probe every Friday 4pm: check all tickets moved to "Ready for QA" this week — flag any missing acceptance criteria or test cases',
+    response: 'Scheduled weekly QA gate check. Every Friday at 4:00 PM I\'ll scan all tickets moved to "Ready for QA" during the week, evaluate each for: acceptance criteria completeness, defined edge cases, and linked test cases. Tickets that fail get flagged with comments and a summary posted to #qa-team. First run this Friday.'
+  },
+  {
+    tags: ['Automation', 'Product'],
+    prompt: '@Probe every hour: check newly created Jira tickets, find related Zendesk cases, classify the issue, and add early analysis as a comment',
+    response: 'Hourly ticket enrichment active. Every hour I\'ll scan Jira for tickets created in the last 60 minutes, search Zendesk for related customer cases by keyword and account, classify each issue (bug, feature request, regression, config error), and post a comment with: related Zendesk tickets, affected customers, preliminary root cause from the codebase, and suggested priority. Already processed 4 new tickets — PROJ-4210 linked to 3 Zendesk cases from the same customer, classified as regression in the billing module.'
+  },
+  {
+    tags: ['Automation'],
+    prompt: '@Probe set up a daily standup digest for #backend-team: open PRs, blocking issues, tickets in review, and anything stale for 3+ days',
+    response: 'Daily standup digest configured for #backend-team at 9:15 AM. Each morning I\'ll post: open PRs with review status, tickets blocked or waiting on external teams, items in code review for 2+ days, and anything in "In Progress" with no activity for 3+ days. Team members can reply to the digest thread with updates.'
   },
   {
     tags: ['Platform', 'Engineering'],
@@ -808,6 +712,16 @@ const chatExamplesRow2 = [
     response: 'Week of Jan 27: 1. Platform team decided to migrate from Redis 6 to Redis 7 (thread in #platform). 2. RFC-042 approved: new circuit breaker pattern for upstream calls. 3. Decision to deprecate v1 REST API by Q3. 4. Security team flagged OpenSSL upgrade as P1...'
   },
   {
+    tags: ['UX', 'Engineering'],
+    prompt: 'The new design has inline editing for all table cells. Before I push back on scope — what does the current table component actually support?',
+    response: 'The DataTable component (components/DataTable.vue) supports: read-only rendering, column sorting, pagination, and row selection. No inline editing — cells are plain <span> elements. The component doesn\'t emit cell-level events, only row-level (row-click, row-select). Adding inline editing means: new cell renderer, per-field validation, debounced auto-save, and undo support. Easier path: an "Edit" button per row that opens a side panel — the SidePanel component already exists and handles form state.'
+  },
+  {
+    tags: ['UX', 'Product'],
+    prompt: 'Design wants to show "time since last activity" on user profiles — do we even track that? What data is available?',
+    response: 'Partially. The users table has "last_login_at" (updated on auth) and "updated_at" (updated on profile changes). But there\'s no general activity tracking — no page views, no click events, no session duration. The closest thing: audit_log table records API calls with user_id and timestamp, but it\'s write-heavy actions only (create, update, delete). For the design: you can show "Last login: 3 days ago" today. Showing "Last active" would need a new activity tracking service — that\'s a separate project.'
+  },
+  {
     tags: ['Engineering'],
     prompt: 'Run a first-pass security scan — find hardcoded secrets, deprecated crypto, and SQL injection risks',
     response: 'Found: 3 instances of hardcoded API keys in config files (config/test_fixtures.go). 7 uses of deprecated crypto/md5 for hashing (should use SHA-256). 2 instances of SQL string concatenation in reporting module. 1 use of eval() in template engine...'
@@ -823,22 +737,22 @@ const chatExamplesRow2 = [
     response: 'Key differences: Spec A requires 5+ years experience, Spec B requires 3+. Spec A includes on-call rotation, Spec B doesn\'t mention it. 4 items in Spec A missing from Spec B: security clearance requirement, travel expectations, budget ownership, team size...'
   },
   {
-    tags: ['Compliance', 'Legal'],
+    tags: ['Business Ops'],
     prompt: 'List every GPL and AGPL dependency across all repos — flag anything in production code',
     response: 'Scanning all dependency manifests and lock files across 47 repos. Found: 23 GPL-licensed dependencies (12 are test-only), 4 AGPL packages requiring legal review, 156 Apache-2.0 (no action needed). Flagged: 2 transitive AGPL deps in production code...'
   },
   {
-    tags: ['HR'],
+    tags: ['Business Ops'],
     prompt: 'I need the remote work policy and the process for requesting a new laptop — find both',
     response: 'Remote work policy: Confluence > People Ops > Remote Work Guidelines (last updated Oct 2024). Equipment requests: submit through ServiceNow portal > IT Hardware > New Equipment Request. Standard approval takes 2-3 business days, expedited available for new hires...'
   },
   {
-    tags: ['Finance'],
+    tags: ['Business Ops'],
     prompt: 'Pull engineering effort data from Jira for Project X this quarter — we need it for R&D tax credit filing',
     response: 'Project X, Q4 2024: 847 tickets completed across 12 engineers. 2,340 story points delivered. Breakdown by category: New feature development (62%), bug fixes (18%), infrastructure (12%), documentation (8%). Qualifying R&D activities: 74% of total effort...'
   },
   {
-    tags: ['IT'],
+    tags: ['Business Ops'],
     prompt: 'User can\'t access staging — check known issues, recent infra changes, and open a ticket if needed',
     response: 'Checked: 1. No active incidents in #status channel. 2. Found: VPN config was updated yesterday (Jira OPS-2341) — new certificate required. 3. Resolution: User needs to re-download VPN profile from portal. Created ticket OPS-2387 to update the onboarding docs...'
   },
@@ -863,6 +777,16 @@ const chatExamplesRow2 = [
     response: 'Generated 11 test stubs from PROJ-5500 acceptance criteria. Organized into 3 files: test_rate_limit_policy.go (4 tests: applies correct limit per tier, rejects over-quota, resets at window boundary, handles concurrent requests), test_rate_limit_api.go (4 tests: CRUD for policies, validation errors, conflict detection), test_rate_limit_integration.go (3 tests: end-to-end with Redis, failover behavior, metrics emission). All stubs have descriptive names and TODO comments mapping back to specific AC items.'
   },
   {
+    tags: ['Product', 'QA'],
+    prompt: '@Probe analyze Zendesk tickets updated this week. Summarize by severity, resolution type (product fix vs environment issue vs docs gap). For product issues — suggest test cases. For docs issues — suggest fixes. Delegate each ticket analysis individually.',
+    response: 'Analyzed 47 Zendesk tickets updated this week. Summary: 12 Critical (3 product bugs, 7 environment/config, 2 docs gaps). 19 High (5 product, 9 environment, 5 docs). 16 Medium/Low. Product bugs (8 total): ZD-29841 — race condition in webhook delivery, suggested 3 regression tests. ZD-29903 — pagination broken on filtered results, 2 test cases covering offset+filter combo. ZD-29877 — API returns 500 on empty array body, 1 negative test. Docs gaps (7): ZD-29856 — migration guide missing step for Redis 7 upgrade. ZD-29901 — rate limit headers undocumented. Created 8 Jira tickets for product fixes and 7 docs PRs drafted.'
+  },
+  {
+    tags: ['Engineering', 'Product'],
+    prompt: '@Probe check the In Dev time for PROJ-15859. What were the blockers? When was the first human PR review (ignore bot comments)? How long from In Dev to QA? How long to fix when QA failed? Show me the cycles and reaction times.',
+    response: 'PROJ-15859 flow analysis: In Dev entered: Jan 12. First commit: Jan 12 (same day). PR #6201 opened: Jan 18 (6 days coding). First human review comment: Jan 20 — 2 days wait (3 bot comments before that filtered out). Review cycles: Round 1: 4 comments, 2 blocking — fixed in 1 day. Round 2: approved Jan 22. Moved to QA: Jan 23 (11 days In Dev). QA failed: Jan 24 — edge case in group mapping. Fix PR #6240: opened Jan 25, merged Jan 26. QA re-test passed: Jan 27. Blockers: 2-day wait for first review, 1 day for QA feedback. Reaction times: avg 1 day to respond to review comments, same-day QA fix turnaround. Total QA cycle: 4 days (including 1 failure + retest).'
+  },
+  {
     tags: ['Platform'],
     prompt: 'Our GitHub Actions matrix build takes 47 minutes — analyze the workflow, find bottlenecks, and propose how to cut it in half',
     response: 'Analyzed ci.yml and last 20 runs. Bottlenecks: 1. Docker layer cache miss on every run — no cache-from configured (adds 8min). 2. Integration tests run sequentially across 3 DBs — can parallelize with matrix strategy (saves 12min). 3. Linting runs after build instead of concurrently (wastes 4min). 4. npm ci re-downloads every time — add actions/cache for node_modules (saves 3min). Proposed workflow cuts build from 47min to ~20min. PR draft ready for review.'
@@ -876,6 +800,26 @@ const chatExamplesRow2 = [
     tags: ['Platform'],
     prompt: 'Map our Terraform infrastructure to the services that depend on it — which resources are used by which teams and repos?',
     response: 'Scanned 8 Terraform modules and cross-referenced with service configs, Dockerfiles, and env vars across all repos. Mapping: RDS cluster → used by 4 services (user-api, billing, analytics, admin). ElastiCache → 3 services (session-store, rate-limiter, user-api). SQS queues → 5 services across 2 teams. Orphaned resources found: 2 unused S3 buckets (last write 8 months ago), 1 idle NAT gateway costing $32/day. Owner gaps: 3 Lambda functions have no team tag. Created spreadsheet and PLAT-412 for cleanup.'
+  },
+  {
+    tags: ['Automation', 'Product'],
+    prompt: '@Probe every time a Zendesk ticket is tagged "feature-request" — find the related Jira epic, add customer context, and update the epic with the request',
+    response: 'Automation active. When a Zendesk ticket gets tagged "feature-request," I\'ll: 1. Extract the feature area and match it to existing Jira epics. 2. Add the customer name, plan tier, and request details as a comment on the epic. 3. If no matching epic exists, I\'ll create a new one in the Product Backlog and DM you. Already processed 3 tickets from today — linked to EPIC-142 and EPIC-89.'
+  },
+  {
+    tags: ['Automation', 'Engineering'],
+    prompt: '@Probe check this PR every 6 hours — when all reviewers approve and CI is green, merge it and post to #releases',
+    response: 'Watching PR #2104. I\'ll check every 6 hours for: all requested reviewers approved, CI pipeline passing, no merge conflicts. Once all conditions are met, I\'ll merge to main and post a summary to #releases with the changelog. If anything blocks it, I\'ll reply here with what\'s still pending.'
+  },
+  {
+    tags: ['Automation', 'Platform'],
+    prompt: '@Probe every morning: check Datadog for any service with error rate above 1% or p99 above 500ms in the last 12 hours — post findings to #on-call',
+    response: 'Morning health check scheduled for 8:00 AM daily. I\'ll query Datadog for services exceeding thresholds, correlate any anomalies with recent deploys from GitHub, and post a summary to #on-call. If everything is healthy, I\'ll post a green status. If issues are found, I\'ll include: affected service, metric values, likely cause, and link to the relevant deploy or config change.'
+  },
+  {
+    tags: ['Automation'],
+    prompt: '@Probe personal digest every morning: my open PRs, tickets assigned to me, any threads I was mentioned in yesterday, and upcoming deadlines this week',
+    response: 'Personal daily digest configured. Every morning at 8:30 AM I\'ll DM you: 1. Your open PRs — review status and CI results. 2. Assigned tickets — any status changes or new comments overnight. 3. Slack mentions from yesterday you haven\'t responded to. 4. Tickets with due dates this week. Digest arrives as a single message you can scan in 30 seconds.'
   }
 ]
 
@@ -885,20 +829,20 @@ const roles = [
     id: 'cto',
     title: 'Engineering Leadership',
     subtitle: 'CTOs & VPs',
-    oneLiner: 'Org-wide AI with predictability, governance, and full visibility.',
+    oneLiner: 'Stop being the bottleneck. Give every team self-serve access to engineering context.',
     youGet: [
       { title: 'One source of truth for everyone', desc: 'Engineers, PMs, support, legal — all query the same codebase. No more "ask engineering" loops.' },
-      { title: 'Architecture oversight at scale', desc: 'Review proposed designs for feasibility and risks. Catch missing SLA requirements and capacity plans before they ship.' },
-      { title: 'Automated governance', desc: 'License audits, security scans, RFP questionnaires answered in minutes with evidence from code and docs.' }
+      { title: 'Problems get handled when they arise', desc: 'Issues triaged, context gathered, first response drafted — automatically, the moment something breaks. Your response times shrink without adding headcount.' },
+      { title: 'Repeatable processes without the overhead', desc: 'Build workflows once — compliance checks, release gates, onboarding — and they run every time. No chasing people.' }
     ],
-    replaces: ['Tribal knowledge silos', 'Manual compliance questionnaires', 'Blind spots across teams'],
+    replaces: ['Tribal knowledge locked in senior engineers\' heads', '"Can someone from engineering answer this?" in Slack', 'Processes that only work when the right person remembers'],
     workflows: [
-      'Review architecture epics for feasibility and risks',
-      'Answer RFP security questionnaires from code evidence',
-      'Audit GPL/AGPL dependencies across all repos',
-      'Weekly technical decision digests from Slack and RFCs',
-      'Release readiness gates with automated checks',
-      'R&D effort tracking for tax credit filings'
+      'Automate issue triage — categorize, assign, and add context before a human touches it',
+      'Enforce release readiness gates across all teams before every deploy',
+      'Schedule hourly Jira→Zendesk enrichment — new tickets get customer context and classification automatically',
+      'Surface cross-team risks and blockers in a weekly digest from Slack and RFCs',
+      'Onboard new hires faster with self-serve codebase walkthroughs',
+      'Set up recurring compliance checks — license audits, security scans, R&D tracking — that run on schedule'
     ],
     solutionLink: '/solutions/engineering-leadership',
     solutionText: 'Engineering Leadership'
@@ -907,20 +851,20 @@ const roles = [
     id: 'platform',
     title: 'Platform / DevEx',
     subtitle: 'Infra & CI/CD',
-    oneLiner: 'Debug pipelines, trace infrastructure, and give every team self-serve tooling.',
+    oneLiner: 'Stop being the human router. Give every team answers about builds, deploys, and infra without filing a ticket.',
     youGet: [
-      { title: 'CI/CD debugging', desc: 'Analyze GitHub Actions failures, find intermittent patterns across runs, and propose fixes — not just surface the error.' },
-      { title: 'Observability meets code', desc: 'Correlate Datadog spikes, Grafana charts, and Loki logs with the exact PR and code change that caused them.' },
-      { title: 'Infrastructure auditing', desc: 'Map Terraform resources to services, find orphaned infra, audit all repos for health checks and structured logging.' }
+      { title: 'You stop being the bottleneck', desc: 'Teams get answers about failed builds, deploy status, and infra questions themselves. Your Slack DMs go quiet.' },
+      { title: 'Institutional knowledge that doesn\'t quit', desc: 'Every runbook, post-mortem, and tribal fix lives in one place that actually responds when asked. On-call rotations stop being hazing rituals.' },
+      { title: 'Observability you can interrogate', desc: 'Metrics, logs, traces, and git history wired together. Ask "why is latency up" and get the PR, not a dashboard.' }
     ],
-    replaces: ['Manually reading CI logs', 'Guessing which deploy broke metrics', 'Spreadsheets tracking service ownership'],
+    replaces: ['Being the human router for every broken build', 'Grep-ing through CI logs at 11pm', '"Hey do you know why staging is down" in your DMs'],
     workflows: [
-      'Debug intermittent GitHub Actions failures across runs',
-      'Correlate latency spikes with recent deploys and config changes',
-      'Trace memory leaks through metrics, logs, and git history',
-      'Audit microservices for health checks and graceful shutdown',
-      'Map Terraform resources to dependent services and teams',
-      'Optimize CI matrix builds — find bottlenecks, propose caching'
+      'Debug intermittent GitHub Actions failures across runs — find the pattern, not just the error',
+      'Correlate a Datadog latency spike to the exact deploy and config change that caused it',
+      'Schedule daily health checks — error rates, p99 latency, OOM events — posted to #on-call every morning',
+      'Map Terraform resources to owning teams and flag orphaned infra',
+      'Trace a memory leak through metrics, logs, and git history without context-switching between tools',
+      'Set up thread follow-ups: "check if the hotfix deployed and error rate dropped by tomorrow"'
     ],
     solutionLink: '/solutions/platform-teams',
     solutionText: 'Platform Teams'
@@ -929,20 +873,20 @@ const roles = [
     id: 'engineers',
     title: 'Engineers',
     subtitle: 'ICs & Leads',
-    oneLiner: 'Full codebase context. Trace bugs, understand systems, ship faster.',
+    oneLiner: 'Stop reading code you didn\'t write. Start shipping code that works.',
     youGet: [
-      { title: 'Deep code understanding', desc: 'Trace request lifecycles across services. Understand auth flows, caching logic, rate limiters — in minutes, not hours.' },
-      { title: 'Root-cause analysis', desc: 'Find exactly which PR broke CI, which code change caused the memory leak, why the rate limiter returns 429 for authenticated users.' },
-      { title: 'Sprint intelligence', desc: 'Check your sprint tickets, pending PRs, and review comments — get a standup-ready summary with action items.' }
+      { title: 'Instant codebase fluency', desc: 'Any repo, any service, any team\'s code — understand it in minutes. No more half-day ramp-ups just to review a PR in an unfamiliar service.' },
+      { title: 'Fewer interruptions, both ways', desc: 'Stop pinging other teams to explain their code. Stop getting pinged to explain yours. Probe answers the "how does this work?" questions for everyone.' },
+      { title: 'Debugging without the archeology', desc: 'Go from symptom to root cause without manually tracing through 15 files across 4 repos. Get the full picture — what broke, when, and why.' }
     ],
-    replaces: ['Grep + guesswork', 'Hours reading unfamiliar code', 'Constant "who knows how this works?" interruptions'],
+    replaces: ['Jumping between repos, tabs, and Slack threads trying to connect the dots', '"Does anyone know how this works?" in Slack', 'Context-switching between debugging and actual feature work'],
     workflows: [
-      'Trace API authentication lifecycle across the codebase',
-      'Find which PR broke CI and when was the last green build',
-      'Pinpoint root cause of caching bugs with exact code fix',
-      'Deduplicate related tickets by tracing shared code paths',
-      'Pre-standup sprint review: tickets, PRs, blockers',
-      'Save deployment runbooks to team knowledge base'
+      'Trace a request lifecycle across services — auth, caching, error handling',
+      'Find which commit introduced a regression and what it broke downstream',
+      'Get up to speed on an unfamiliar service before a PR review',
+      'Pinpoint why a flaky test fails — exact conditions, exact code path',
+      'Get a personal morning digest: open PRs, assigned tickets, Slack mentions, deadlines',
+      'Draft a PR description with full context on what changed and why'
     ],
     solutionLink: '/solutions/engineers',
     solutionText: 'Engineers'
@@ -951,20 +895,20 @@ const roles = [
     id: 'qa',
     title: 'QA & Testing',
     subtitle: 'Quality Engineers',
-    oneLiner: 'Generate test cases from specs. Find coverage gaps. Validate tickets before they reach engineering.',
+    oneLiner: 'Full codebase context for every test you write. Catch gaps before they become bugs.',
     youGet: [
-      { title: 'Spec-to-test generation', desc: 'Read a ticket, trace the original spec, and generate positive, negative, and edge case tests mapped to acceptance criteria.' },
-      { title: 'Coverage gap analysis', desc: 'Compare open bugs against existing tests. Find what\'s missing in automated coverage, across unit and integration.' },
-      { title: 'Ticket completeness validation', desc: 'Evaluate tickets for missing acceptance criteria, error handling specs, and non-functional requirements before work starts.' }
+      { title: 'Test with full system understanding', desc: 'Know how the code actually works — data flows, edge cases, failure modes — before writing a single test. No more guessing.' },
+      { title: 'Shift quality left, permanently', desc: 'Catch missing AC, untested paths, and spec gaps before engineering starts. QA stops being the last line of defense.' },
+      { title: 'Coverage confidence at scale', desc: 'See exactly where your test suite has blind spots — mapped to real bugs, recent changes, and risk areas across the whole codebase.' }
     ],
-    replaces: ['Writing tests without context', 'Manually checking ticket quality', 'Finding gaps only after bugs ship'],
+    replaces: ['Writing tests blind to how the code actually works', 'Reviewing tickets too late to fix bad specs', 'Tracking coverage in spreadsheets and gut feel'],
     workflows: [
-      'Evaluate ticket completeness — flag missing AC and edge cases',
-      'Generate TDD test stubs from acceptance criteria',
-      'Trace ticket to original spec, then generate full test cases',
-      'Assess test coverage by comparing bugs to existing tests',
-      'Write unit and integration tests that prove AC for a ticket',
-      'Verify bug fix with suggested regression tests'
+      'Generate test cases from a ticket — positive, negative, and edge cases mapped to AC',
+      'Schedule weekly QA gates — auto-flag tickets moved to "Ready for QA" with missing AC or test cases',
+      'Compare open bugs against existing tests to find coverage gaps',
+      'Trace a bug fix through the codebase and suggest targeted regression tests',
+      'Write unit and integration test stubs grounded in actual code paths',
+      'Audit a feature area for untested branches and boundary conditions'
     ],
     solutionLink: '/solutions/engineers',
     solutionText: 'QA & Testing'
@@ -973,20 +917,20 @@ const roles = [
     id: 'product',
     title: 'Product & Support',
     subtitle: 'PMs, CS & Writers',
-    oneLiner: 'Engineering-grade answers without the engineering bottleneck.',
+    oneLiner: 'Stop waiting on engineers. Get answers from the source.',
     youGet: [
-      { title: 'Understand your product deeply', desc: 'Ask about edge cases, architecture, and real behavior — validated against code, not just docs.' },
-      { title: 'Ticket refinement at scale', desc: 'Break epics into tasks with story points, generate solution designs and functional AC, estimate complexity from codebase analysis.' },
-      { title: 'Cross-source intelligence', desc: 'Pull insights from Zendesk, Jira, Confluence, Slack, and code — all in one query. RFPs, release notes, customer research.' }
+      { title: 'Self-serve technical answers', desc: 'Ask how anything works — edge cases, real behavior, why it was built that way — and get answers validated against code, not tribal knowledge.' },
+      { title: 'Ship decisions faster', desc: 'Scope work, estimate effort, and write specs grounded in what the codebase actually looks like. No more back-and-forth with engineering just to plan.' },
+      { title: 'One query across everything', desc: 'Pull from code, tickets, docs, Slack, and support history in a single question. No more tab-switching and manual synthesis.' }
     ],
-    replaces: ['Waiting days for engineering answers', 'Guessing at effort estimates', 'Manual release notes compilation'],
+    replaces: ['Pinging engineers and waiting days for context', 'Writing specs based on outdated docs and assumptions', 'Manually stitching together info from six different tools'],
     workflows: [
-      'Break refined tickets into engineering tasks with story points',
-      'Estimate tasks using Fibonacci points from codebase complexity',
-      'Generate solution design with functional and non-functional AC',
-      'Build release notes from merged PRs and Jira tickets',
-      'Pull customer interest data from Zendesk, Jira, and docs',
-      'Diff job specs or design docs — find gaps and differences'
+      'Ask "how does X actually work?" and get a code-backed answer in seconds',
+      'Break epics into engineering tasks with story points based on codebase complexity',
+      'Generate release notes from merged PRs and linked tickets',
+      'Auto-enrich new Jira tickets with related Zendesk cases and customer context',
+      'Draft solution designs with acceptance criteria grounded in existing architecture',
+      'Compare design docs or job specs — surface gaps and contradictions'
     ],
     solutionLink: '/solutions/non-technical',
     solutionText: 'Product & Support'
@@ -1034,9 +978,9 @@ jobs:
     tabTitle: 'Slack Bot',
     time: '~5 min',
     title: 'Deploy a Code-Aware Slack Bot',
-    desc: 'Answer codebase questions directly in Slack. Teams can query architecture, debug issues, and get grounded answers without leaving their workflow.',
-    result: 'A Slack bot that answers questions with full codebase context.',
-    link: '/docs/slack-integration',
+    desc: 'Answer codebase questions directly in Slack. Set up scheduled digests, thread follow-ups, and recurring automations — all from conversations or YAML configs.',
+    result: 'A Slack bot that answers questions, runs scheduled jobs, and follows up on action items.',
+    link: '/docs/guides/slack-bot',
     linkText: 'Slack integration docs',
     codeLabel: 'Deploy with Docker',
     code: `docker run -d \\
@@ -1051,7 +995,7 @@ jobs:
     title: 'Run the Web Chat UI',
     desc: 'Spin up a local web interface to chat with your codebase. Great for exploration, onboarding, and sharing context with non-technical teammates.',
     result: 'A browser-based chat interface connected to your local codebase.',
-    link: '/docs/web-chat',
+    link: '/docs/chat-with-code',
     linkText: 'Web chat docs',
     codeLabel: 'Run locally',
     code: 'npx -y @probelabs/probe-chat@latest --web'
@@ -1062,7 +1006,7 @@ const currentQuickWin = computed(() => quickWins.find(qw => qw.id === activeQuic
 
 // FAQ data
 const faqItems = [
-  { q: 'What is Probe exactly?', a: 'Probe is an AI agent that connects to your codebase, tickets, docs, Slack, and other tools — then answers questions, automates workflows, and takes actions like opening PRs or updating tickets. Think of it as a team member that holds the full context of your product.' },
+  { q: 'What is Probe exactly?', a: 'Probe is an AI agent that connects to your codebase, tickets, docs, Slack, and other tools — then answers questions, automates workflows, and takes actions like opening PRs or updating tickets. It also runs scheduled jobs: daily digests, thread follow-ups, recurring checks, and cross-tool automations like enriching Jira tickets with Zendesk context. Think of it as a team member that holds the full context of your product — and never forgets to follow up.' },
   { q: 'Does my code stay private?', a: 'Yes. Code indexing and retrieval run locally or on your own infrastructure. You control what context is sent to the LLM. Full on-prem deployment is available — bring any LLM provider, no vendor lock-in.' },
   { q: 'Who uses Probe?', a: 'Engineers, platform teams, QA, product managers, support, legal, HR, and finance. Anyone who needs answers from your codebase or connected tools. It\'s deployed across entire orgs, not just engineering.' },
   { q: 'How is this different from ChatGPT or Copilot?', a: 'ChatGPT and Copilot work with what you paste in. Probe connects to your actual systems — code repos, Jira, Zendesk, Confluence, Slack — and reasons across all of them. It also takes actions: opens PRs, updates tickets, posts summaries.' },
@@ -1611,16 +1555,7 @@ function initFinalCanvas(canvas) {
   }
 }
 
-// Scroll handler
-const handleScroll = () => {
-  isScrolled.value = window.scrollY > 50
-}
-
 onMounted(() => {
-  // Scroll listener for nav
-  window.addEventListener('scroll', handleScroll)
-  handleScroll()
-
   // Initialize Hero orrery
   if (heroCanvas.value) {
     heroEngine = new OrreryEngine(heroCanvas.value, {
@@ -1677,7 +1612,6 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll)
   if (heroEngine) heroEngine.destroy()
   if (finalAnimation) finalAnimation.destroy()
   if (observer) observer.disconnect()

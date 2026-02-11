@@ -110,27 +110,25 @@ An agentic-first world where every business process becomes code — and every o
 </div>
 </section>
 
-<SiteFooter />
-
 </div>
 
 <style>
 .company-page {
-  --c-bg: #ffffff;
-  --c-bg-subtle: #fafafa;
-  --c-bg-muted: #f4f4f5;
-  --c-bg-dark: #0f172a;
-  --c-bg-white: #ffffff;
-  --c-border: rgba(0, 0, 0, 0.08);
-  --c-border-hover: rgba(0, 0, 0, 0.15);
-  --c-text: #18181b;
-  --c-text-muted: #52525b;
-  --c-text-subtle: #71717a;
-  --c-brand-500: #7c3aed;
-  --c-brand-600: #6d28d9;
+  --c-bg: transparent;
+  --c-bg-subtle: #eeece6;
+  --c-bg-muted: #e8e5df;
+  --c-bg-dark: #111111;
+  --c-bg-white: #f7f5f0;
+  --c-border: rgba(0, 0, 0, 0.12);
+  --c-border-hover: rgba(0, 0, 0, 0.2);
+  --c-text: #111111;
+  --c-text-muted: #666666;
+  --c-text-subtle: #999999;
+  --c-brand-500: #111111;
+  --c-brand-600: #333333;
 
-  --font-display: 'Space Grotesk', system-ui, sans-serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Space Mono', monospace;
+  --font-body: 'IBM Plex Mono', monospace;
 
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
@@ -141,15 +139,15 @@ An agentic-first world where every business process becomes code — and every o
   --space-3xl: 4rem;
   --space-4xl: 6rem;
 
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
+  --radius-sm: 2px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --radius-xl: 2px;
 
   font-family: var(--font-body);
   color: var(--c-text);
   line-height: 1.6;
-  background: var(--c-bg);
+  background: transparent;
 }
 
 .company-page .container {
@@ -191,7 +189,7 @@ An agentic-first world where every business process becomes code — and every o
   position: relative;
   padding: var(--space-4xl) 0 var(--space-3xl);
   overflow: hidden;
-  background: linear-gradient(180deg, var(--c-bg-subtle) 0%, var(--c-bg) 100%);
+  background: transparent;
 }
 
 .company-page .hero-bg {
@@ -207,7 +205,7 @@ An agentic-first world where every business process becomes code — and every o
   transform: translateX(-50%);
   width: 150%;
   height: 100%;
-  background: radial-gradient(ellipse at center, rgba(124, 58, 237, 0.06) 0%, transparent 60%);
+  background: none;
 }
 
 .company-page .hero-content {
@@ -225,10 +223,10 @@ An agentic-first world where every business process becomes code — and every o
   font-size: 0.8125rem;
   font-weight: 500;
   color: var(--c-text-muted);
-  background: var(--c-bg-white);
+  background: transparent;
   border: 1px solid var(--c-border);
   padding: var(--space-sm) var(--space-md);
-  border-radius: 100px;
+  border-radius: 2px;
   margin-bottom: var(--space-xl);
 }
 
@@ -258,7 +256,7 @@ An agentic-first world where every business process becomes code — and every o
 
 /* Vision */
 .company-page .section-vision {
-  background: var(--c-bg);
+  background: transparent;
 }
 
 .company-page .vision-content {
@@ -290,7 +288,7 @@ An agentic-first world where every business process becomes code — and every o
 
 /* Principles */
 .company-page .section-principles {
-  background: var(--c-bg-subtle);
+  background: transparent;
 }
 
 .company-page .principles-grid {
@@ -323,7 +321,7 @@ An agentic-first world where every business process becomes code — and every o
 
 /* Team */
 .company-page .section-team {
-  background: var(--c-bg);
+  background: transparent;
 }
 
 .company-page .team-content {
@@ -344,10 +342,10 @@ An agentic-first world where every business process becomes code — and every o
 .company-page .founder-photo img {
   width: 140px;
   height: 140px;
-  border-radius: 50%;
+  border-radius: 2px;
   object-fit: cover;
-  border: 3px solid var(--c-bg-subtle);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 2px solid rgba(0, 0, 0, 0.12);
+  box-shadow: none;
 }
 
 .company-page .founder-info h3 {
@@ -403,7 +401,7 @@ An agentic-first world where every business process becomes code — and every o
 
 /* CTA */
 .company-page .section-cta {
-  background: var(--c-bg-subtle);
+  background: transparent;
 }
 
 .company-page .cta-card {
@@ -454,14 +452,14 @@ An agentic-first world where every business process becomes code — and every o
 
 .company-page .btn-primary {
   color: #fff;
-  background: var(--c-brand-500);
-  box-shadow: 0 1px 3px rgba(124, 58, 237, 0.3);
+  background: #111111;
+  box-shadow: none;
 }
 
 .company-page .btn-primary:hover {
-  background: var(--c-brand-600);
-  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
-  transform: translateY(-1px);
+  background: #333333;
+  box-shadow: none;
+  transform: none;
 }
 
 .company-page .btn-secondary {

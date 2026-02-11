@@ -1,0 +1,73 @@
+<template>
+  <footer class="nh-footer">
+    <div class="nh-footer-grid">
+      <div class="nh-footer-brand">
+        <span class="nh-footer-brand-name">ProbeLabs</span>
+        <p class="nh-footer-tagline">The Operating System for Agentic Engineering</p>
+        <div class="nh-footer-social">
+          <a href="https://github.com/probelabs" target="_blank" aria-label="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+          </a>
+        </div>
+        <a href="mailto:hello@probelabs.com" class="nh-footer-email">hello@probelabs.com</a>
+      </div>
+      <div class="nh-footer-col">
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="/probe">Probe</a></li>
+          <li><a href="/visor">Visor</a></li>
+          <li><a href="/maid">Maid</a></li>
+          <li><a href="https://goreplay.org">GoReplay</a></li>
+          <li><a href="/big-brain">Big Brain</a></li>
+          <li><a href="/afk">AFK</a></li>
+          <li><a href="/vow">Vow</a></li>
+          <li><a href="/memaris">Memaris</a></li>
+          <li><a href="/logoscope">Logoscope</a></li>
+        </ul>
+      </div>
+      <div class="nh-footer-col">
+        <h4>By Role</h4>
+        <ul>
+          <li><a href="/solutions/engineering-leadership">Engineering Leadership</a></li>
+          <li><a href="/solutions/platform-teams">Platform Teams</a></li>
+          <li><a href="/solutions/engineers">Engineers</a></li>
+          <li><a href="/solutions/agencies">Agencies</a></li>
+          <li><a href="/solutions/enterprise">Enterprise</a></li>
+          <li><a href="/solutions/non-technical">Product & Support</a></li>
+        </ul>
+      </div>
+      <div class="nh-footer-col">
+        <h4>By Solution</h4>
+        <ul>
+          <li><a href="/solutions/code-review">AI Code Review</a></li>
+          <li><a href="/solutions/codebase-understanding">Codebase Understanding</a></li>
+          <li><a href="/solutions/workflow-automation">Workflow Automation</a></li>
+          <li><a href="/solutions/developer-onboarding">Developer Onboarding</a></li>
+          <li><a href="/solutions/support-operations">Support Operations</a></li>
+        </ul>
+      </div>
+      <div class="nh-footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="/docs/quick-start">Quick Start</a></li>
+          <li><a href="/docs">Documentation</a></li>
+          <li><a href="https://github.com/probelabs/visor/tree/main/examples" target="_blank">Workflow Examples</a></li>
+          <li><a href="https://github.com/probelabs/probe" target="_blank">GitHub</a></li>
+          <li><a href="/company/about">About</a></li>
+          <li><a href="/pricing">Pricing</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="nh-footer-bottom">
+      <div class="nh-footer-copy">&copy; {{ currentYear }} GoReplay LLC. All rights reserved.</div>
+      <div class="nh-footer-legal">
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+      </div>
+    </div>
+  </footer>
+</template>
+
+<script setup>
+const currentYear = new Date().getFullYear()
+</script>

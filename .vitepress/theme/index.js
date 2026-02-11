@@ -19,6 +19,8 @@ import BlogLayout from './layouts/BlogLayout.vue'
 import ProbelabsLanding from './layouts/ProbelabsLanding.vue'
 import DocsLayout from './layouts/DocsLayout.vue'
 import NewHomepageLayout from './layouts/NewHomepageLayout.vue'
+import PricingLayout from './layouts/PricingLayout.vue'
+import SolutionsLayout from './layouts/SolutionsLayout.vue'
 import SiteFooter from './components/SiteFooter.vue'
 import FeatureSection from '../components/FeatureSection.vue'
 import SimpleFeatureSection from '../components/SimpleFeatureSection.vue'
@@ -73,41 +75,32 @@ const ThemeSwitcher = {
       if (frontmatter.value?.theme === 'new-homepage') {
         return h(NewHomepageLayout)
       }
+      // Use pricing theme
+      if (frontmatter.value?.theme === 'pricing') {
+        return h(PricingLayout)
+      }
+      // Use solutions theme (new design)
+      if (frontmatter.value?.theme === 'solutions') {
+        return h(SolutionsLayout)
+      }
       // Use portfolio theme if specified
       if (frontmatter.value?.theme === 'portfolio') {
         return h(PortfolioTheme.Layout)
       }
 
-      // Check if this is a custom page with its own footer embedded
-      const path = page.value?.relativePath || ''
-      const hasOwnFooter = path.startsWith('products/') || path.startsWith('solutions/') || path.startsWith('company/') || path === 'terms.md' || path === 'privacy.md'
-
       // Use custom DocsLayout for pages that are in the sidebar (documentation pages)
+      const path = page.value?.relativePath || ''
       const currentPath = '/' + path.replace(/\.md$/, '')
       const isDocPage = !frontmatter.value?.layout &&
-                       !hasOwnFooter &&
                        isPathInSidebar(currentPath, theme.value?.sidebar)
 
       if (isDocPage) {
         return h(DocsLayout)
       }
 
-      // Otherwise use default VitePress theme with custom nav
-      // Skip layout-bottom footer for pages that have their own
-      if (hasOwnFooter) {
-        return h(DefaultTheme.Layout, null, {
-          'layout-top': () => h(SiteNav),
-          'sidebar-nav-before': () => h(SidebarSearch),
-          'home-features-after': () => h(FeatureList)
-        })
-      }
-
-      return h(DefaultTheme.Layout, null, {
-        'layout-top': () => h(SiteNav),
-        'sidebar-nav-before': () => h(SidebarSearch),
-        'home-features-after': () => h(FeatureList),
-        'layout-bottom': () => h(SiteFooter)
-      })
+      // All other pages (company, products, privacy, terms, blog, etc.)
+      // use SolutionsLayout for consistent new design with nav + footer
+      return h(SolutionsLayout)
     }
   }
 }

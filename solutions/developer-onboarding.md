@@ -1,6 +1,6 @@
 ---
 theme: solutions
-title: Solutions for Enterprise - Probe Labs
+title: Developer Onboarding - Probe Labs
 ---
 
 <div class="ps-page">
@@ -13,48 +13,48 @@ title: Solutions for Enterprise - Probe Labs
   </div>
   <div class="hero-container">
     <div class="hero-content">
-      <div class="hero-badge"><span class="badge-dot"></span> For Enterprise Organizations</div>
+      <div class="hero-badge"><span class="badge-dot"></span> For Engineering Managers &amp; Team Leads</div>
       <h1 class="hero-title">
-        <span class="hero-title-main" style="white-space: nowrap;">Knowledge Silos</span>
-        <span class="hero-title-sub">Kill Enterprise Velocity</span>
+        <span class="hero-title-main">New Engineers Ship Code</span>
+        <span class="hero-title-sub">In Days, Not Months</span>
       </h1>
-      <p class="hero-subtitle">100+ engineers. Dozens of services. One source of truth. Probe gives enterprise teams unified code intelligence across your entire organization — at scale.</p>
+      <p class="hero-subtitle">Stop losing 30% of senior engineer time to onboarding questions. Probe gives new team members instant access to architectural context, patterns, and ownership — from day one.</p>
       <div class="hero-badges">
-        <span class="guarantee-badge">Enterprise scale</span>
-        <span class="guarantee-badge">SOC 2 compliant</span>
-        <span class="guarantee-badge">On-prem</span>
-        <span class="guarantee-badge">SSO &amp; RBAC</span>
+        <span class="guarantee-badge">Self-serve knowledge</span>
+        <span class="guarantee-badge">Living documentation</span>
+        <span class="guarantee-badge">Zero knowledge loss</span>
+        <span class="guarantee-badge">Any LLM</span>
       </div>
       <div class="hero-cta">
         <a href="https://cal.com/leonid-bugaev/30min" class="btn btn-primary"><span>Talk to Our Team</span> <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        <a href="#getting-started" class="btn btn-secondary">See deployment options</a>
+        <a href="#getting-started" class="btn btn-secondary">Get started in 10 minutes</a>
       </div>
-      <p class="hero-pricing-signal">Trusted by engineering teams managing 10M+ lines of code.</p>
+      <p class="hero-pricing-signal">Free and open source. Business and Enterprise plans available.</p>
     </div>
     <div class="hero-visual">
       <div class="leadership-value-card">
-        <div class="value-header">What changes for your organization</div>
+        <div class="value-header">What changes for your team</div>
         <div class="value-comparison">
           <div class="value-before">
             <div class="value-label">Before</div>
-            <div class="value-item"><span class="value-icon value-icon-bad"><svg viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span>6-8 weeks to onboard senior engineers</span></div>
-            <div class="value-item"><span class="value-icon value-icon-bad"><svg viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span>Knowledge trapped in 3-5 key people</span></div>
-            <div class="value-item"><span class="value-icon value-icon-bad"><svg viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span>Cross-team dependencies block releases</span></div>
+            <div class="value-item"><span class="value-icon value-icon-bad"><svg viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span>2-3 months to first meaningful contribution</span></div>
+            <div class="value-item"><span class="value-icon value-icon-bad"><svg viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span>Senior engineers interrupted constantly</span></div>
+            <div class="value-item"><span class="value-icon value-icon-bad"><svg viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span>Knowledge locked in people's heads</span></div>
           </div>
           <div class="value-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div class="value-after">
             <div class="value-label">After</div>
-            <div class="value-item"><span class="value-icon value-icon-good"><svg viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5l-7 7-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>First meaningful commit in 1-2 weeks</span></div>
-            <div class="value-item"><span class="value-icon value-icon-good"><svg viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5l-7 7-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Institutional knowledge in searchable AI</span></div>
-            <div class="value-item"><span class="value-icon value-icon-good"><svg viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5l-7 7-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Impact analysis before every change</span></div>
+            <div class="value-item"><span class="value-icon value-icon-good"><svg viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5l-7 7-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>First PR in days, not weeks</span></div>
+            <div class="value-item"><span class="value-icon value-icon-good"><svg viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5l-7 7-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Self-serve codebase answers</span></div>
+            <div class="value-item"><span class="value-icon value-icon-good"><svg viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5l-7 7-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Always-current architecture docs</span></div>
           </div>
         </div>
         <div class="value-trust">
-          <div class="trust-label">Enterprise-ready by design</div>
+          <div class="trust-label">Built for engineering teams</div>
           <div class="trust-badges">
-            <span class="trust-badge"><svg viewBox="0 0 16 16" fill="none"><path d="M8 14s5-2.5 5-6.25V4L8 2 3 4v3.75C3 11.5 8 14 8 14z" stroke="currentColor" stroke-width="1.5"/></svg> SOC 2</span>
-            <span class="trust-badge"><svg viewBox="0 0 16 16" fill="none"><rect x="3" y="7" width="10" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/><path d="M5 7V5a3 3 0 116 0v2" stroke="currentColor" stroke-width="1.5"/></svg> SSO &amp; RBAC</span>
-            <span class="trust-badge"><svg viewBox="0 0 16 16" fill="none"><polyline points="2 8 6 8 7 12 9 4 10 8 14 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> On-prem</span>
+            <span class="trust-badge"><svg viewBox="0 0 16 16" fill="none"><path d="M8 14s5-2.5 5-6.25V4L8 2 3 4v3.75C3 11.5 8 14 8 14z" stroke="currentColor" stroke-width="1.5"/></svg> On-prem</span>
+            <span class="trust-badge"><svg viewBox="0 0 16 16" fill="none"><rect x="3" y="7" width="10" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/><path d="M5 7V5a3 3 0 116 0v2" stroke="currentColor" stroke-width="1.5"/></svg> Any LLM</span>
+            <span class="trust-badge"><svg viewBox="0 0 16 16" fill="none"><polyline points="2 8 6 8 7 12 9 4 10 8 14 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Open source</span>
           </div>
         </div>
       </div>
@@ -67,28 +67,28 @@ title: Solutions for Enterprise - Probe Labs
   <div class="container">
     <div class="section-header">
       <span class="section-label">At a Glance</span>
-      <h2>Why enterprises choose Probe</h2>
+      <h2>Why teams choose Probe for onboarding</h2>
     </div>
     <div class="glance-grid">
       <div class="glance-card">
-        <div class="glance-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
-        <h3>System-Wide Understanding</h3>
-        <p>Query across every service, every team, every repository. One unified view of your entire architecture and how it all connects.</p>
+        <div class="glance-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+        <h3>Radically Faster Ramp-Up</h3>
+        <p>New engineers ask questions and get accurate answers instantly. No waiting on Slack. No pulling senior engineers into meetings. First meaningful PR in days.</p>
       </div>
       <div class="glance-card">
-        <div class="glance-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <h3>Enterprise Security</h3>
-        <p>SOC 2 compliant, SSO integration, role-based access control, full audit trails. Deploy on-prem or in your private cloud.</p>
+        <div class="glance-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+        <h3>Living Documentation</h3>
+        <p>Architecture diagrams and dependency maps generated from actual code, not stale wikis. Always current. Always accurate. Always accessible.</p>
       </div>
       <div class="glance-card">
         <div class="glance-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-        <h3>Accelerate Onboarding</h3>
-        <p>New hires productive in weeks, not months. Self-serve access to architectural context, ownership, and historical decisions.</p>
+        <h3>Zero Knowledge Loss</h3>
+        <p>When engineers leave or rotate teams, their knowledge stays behind. Captured in searchable, queryable AI that understands your codebase.</p>
       </div>
       <div class="glance-card">
-        <div class="glance-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-        <h3>De-Risk Changes</h3>
-        <p>Understand blast radius before deploying. Cross-team dependency analysis prevents cascading failures and production incidents.</p>
+        <div class="glance-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
+        <h3>Reclaim Senior Engineer Time</h3>
+        <p>Stop burning 30% of expert time on "where is this?" and "how does this work?" questions. Let them build instead of being bottlenecks.</p>
       </div>
     </div>
   </div>
@@ -100,29 +100,29 @@ title: Solutions for Enterprise - Probe Labs
     <div class="darkbox">
       <div class="darkbox-left">
         <span class="darkbox-label">The Real Problem</span>
-        <h2>Your codebase grew faster than your ability to understand it.</h2>
-        <p>At enterprise scale, knowledge fragmentation isn't a nuisance. It's a strategic liability that compounds every quarter.</p>
+        <h2>The onboarding tax is killing your velocity.</h2>
+        <p>Every new hire costs you weeks of ramp-up time and months of senior engineer productivity. It's not sustainable.</p>
       </div>
       <div class="darkbox-right">
         <div class="darkbox-item">
           <span class="darkbox-num">01</span>
           <div>
-            <h3>The Talent Trap</h3>
-            <p>Three senior engineers hold the keys to critical systems. They answer questions all day instead of building. When one leaves, you lose years of institutional knowledge overnight. You can't scale expertise fast enough to match headcount growth.</p>
+            <h3>The Ramp-Up Tax</h3>
+            <p>6-8 weeks before a senior engineer is productive. 3+ months for complex systems. They're reading code, asking questions, and making small commits. You're paying full salary for partial output. Scale that across every new hire and team rotation.</p>
           </div>
         </div>
         <div class="darkbox-item">
           <span class="darkbox-num">02</span>
           <div>
-            <h3>The Coordination Tax</h3>
-            <p>Payment team wants to refactor the billing service. Needs sign-off from Platform, Security, and three other teams who depend on it. Two weeks of Slack messages and meetings to understand blast radius. The actual change takes 3 days. The coordination took 20.</p>
+            <h3>The Interruption Spiral</h3>
+            <p>Every "quick question" to a senior engineer costs 23 minutes of context-switch time. New hire asks where authentication lives. Senior engineer stops, explains, loses their mental stack. Five questions a day. Two hours gone. Multiply by every team member onboarding.</p>
           </div>
         </div>
         <div class="darkbox-item">
           <span class="darkbox-num">03</span>
           <div>
-            <h3>The Compliance Nightmare</h3>
-            <p>Auditor asks: "Show me every place customer PII is stored and how it's encrypted." You know it's in 12+ services across 40+ repositories. Finding every instance takes a team 2 weeks. The actual audit question took 10 minutes. Your inability to answer it cost you a quarter's worth of engineering time.</p>
+            <h3>The Knowledge Cliff</h3>
+            <p>Your best engineer knows the billing system inside-out. They leave. Their knowledge leaves with them. The next person spends months rediscovering patterns, gotchas, and design decisions. You lose institutional memory with every departure.</p>
           </div>
         </div>
       </div>
@@ -135,135 +135,135 @@ title: Solutions for Enterprise - Probe Labs
   <div class="container">
     <div class="section-header">
       <span class="section-label">Use Cases</span>
-      <h2>What enterprise teams actually ask Probe</h2>
-      <p class="section-desc">Real questions from CTOs, VPs of Engineering, and senior technical leaders running 100+ person engineering orgs.</p>
+      <h2>What new engineers actually ask Probe</h2>
+      <p class="section-desc">Real questions from onboarding developers. The difference: they get answers in seconds, not days.</p>
     </div>
   </div>
   <div class="uc-scroll">
     <div class="uc-row uc-row--1">
       <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
-        <div class="uc-prompt">Map every service that touches customer PII, how it's encrypted at rest, and which teams own each one</div>
-        <div class="uc-response">Found 14 services handling PII across 6 teams. Encrypted at rest: billing-service (AES-256, owned by Payments), user-profile-service (AES-256, owned by Identity), analytics-warehouse (not encrypted, owned by Data — flagged for remediation). Full breakdown: auth-service encrypts SSNs via KMS in auth/models/user.go, order-history stores addresses encrypted...</div>
-      </div>
-      <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--investigation">Investigation</span></div>
-        <div class="uc-prompt">We're planning to deprecate the legacy-payments API. Which internal services and external partners still depend on it?</div>
-        <div class="uc-response">Legacy-payments API has 8 internal consumers and 3 external partner integrations. Internal: billing-service (critical path), subscription-manager (can migrate), invoice-generator (low volume). External partners: Acme Corp (contract until Q3), Beta Systems (deprecated integration, can remove), Gamma Inc (active, needs 6-week migration notice per contract). Migration blockers: billing-service needs refactor first, estimated 4 weeks...</div>
+        <div class="uc-tags"><span class="uc-tag uc-tag--onboarding">Onboarding</span></div>
+        <div class="uc-prompt">Generate architecture overview for new team member</div>
+        <div class="uc-response">Your system has 12 core services. Frontend: customer-portal (React), admin-dashboard (Vue). Backend: api-gateway (entry point), auth-service (handles login/SSO), user-service (profile management), billing-service (payments), notification-service (email/SMS), analytics-service. Data stores: PostgreSQL (primary), Redis (caching/sessions), S3 (file storage). Key patterns: event-driven via RabbitMQ, circuit breakers in gateway...</div>
       </div>
       <div class="uc-card">
         <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
-        <div class="uc-prompt">Show me architectural patterns that the Platform team recommends vs what teams are actually implementing</div>
-        <div class="uc-response">Platform team standard (docs/architecture/service-template.md): circuit breakers via Resilience4j, structured logging with correlation IDs, health checks at /actuator/health. Reality: 12/18 services follow the standard. Deviations: legacy-api uses raw HttpClient (no circuit breaker), analytics-worker uses println debugging (no structured logging), notification-service has no health check endpoint...</div>
+        <div class="uc-prompt">Create service dependency map for the payments domain</div>
+        <div class="uc-response">Payment flow dependencies: billing-service (core) depends on → payment-gateway (Stripe integration), fraud-detection-service (risk scoring), user-service (account validation), notification-service (receipts). External dependencies: Stripe API, tax-calculation-service. Database: billing_db (PostgreSQL). Events published: payment.completed, payment.failed, refund.processed. Consumed by: analytics-service, reporting-service...</div>
       </div>
       <div class="uc-card">
         <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
-        <div class="uc-prompt">If the Redis cluster goes down, which services fail immediately vs gracefully degrade?</div>
-        <div class="uc-response">Redis outage impact analysis: Immediate failure (no fallback): session-manager, rate-limiter, feature-flags-service (6 services). Graceful degradation (with fallback): cart-service (falls back to DB), recommendation-engine (serves stale cache). Unknown behavior (needs code review): legacy-api, analytics-ingest. Blast radius: ~40% of API endpoints would return 503...</div>
+        <div class="uc-prompt">What should I know before touching the auth module?</div>
+        <div class="uc-response">Auth module is critical path for all API requests. Key things: 1. Uses JWT tokens with 1-hour expiry. 2. Session state in Redis (cluster mode). 3. SSO integration via SAML (enterprise customers). 4. Rate limiting: 100 login attempts/hour per IP. 5. Known issues: PROJ-4201 (refresh token edge case), PROJ-4890 (SSO redirect bug). 6. Testing: always test with both local and SSO flows. 7. Owner: Identity team, contact: @sarah-chen...</div>
       </div>
       <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--investigation">Investigation</span></div>
-        <div class="uc-prompt">Compliance needs a report: every place we call external APIs, what data we send, and whether we log request/response payloads</div>
-        <div class="uc-response">Found 23 external API calls across 11 services. Data sent includes: customer emails (4 services), payment tokens (2 services), order details (3 services). Logging behavior: 8 services log full request/response (PII risk), 7 services log headers only (compliant), 8 services have no logging (audit gap). High risk: payment-processor logs full CC tokens in payment-processor/lib/stripe.go line 47...</div>
+        <div class="uc-tags"><span class="uc-tag uc-tag--onboarding">Onboarding</span></div>
+        <div class="uc-prompt">How do I set up local development for this service?</div>
+        <div class="uc-response">Local dev setup for api-gateway: 1. Prerequisites: Docker, Node 18+, PostgreSQL. 2. Clone repo and run `npm install`. 3. Copy .env.example to .env, set DATABASE_URL and REDIS_URL. 4. Run `docker-compose up -d` for dependencies. 5. Run migrations: `npm run migrate`. 6. Seed test data: `npm run seed`. 7. Start dev server: `npm run dev` (runs on :3000). 8. Run tests: `npm test`. 9. Common issues: if Redis fails, check Docker network...</div>
       </div>
       <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--digest">Digest</span></div>
-        <div class="uc-prompt">Which teams have the most cross-team dependencies? Who should be in our architecture review meetings?</div>
-        <div class="uc-response">Cross-team dependency analysis: Platform team (18 downstream consumers, highest impact). Payments team (12 consumers, second highest). Identity team (9 consumers). Recommendation: Platform and Payments should have standing seats in architecture reviews. Identity team should join for auth/user-related changes. Data team has fewest dependencies (mostly consumers, not providers)...</div>
+        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
+        <div class="uc-prompt">Who owns the billing module and what's its history?</div>
+        <div class="uc-response">Billing module owned by Payments team. Primary contacts: @james-liu (tech lead), @priya-kumar (senior engineer). Created Q2 2022 (originally part of monolith, extracted in PROJ-2100). Major milestones: v1 (Stripe integration), v2 (multi-currency support, PROJ-3400), v3 (subscription billing, PROJ-4200). Known tech debt: legacy invoice generation (needs refactor, tracked in PROJ-5100), race condition in concurrent payments (workaround in place)...</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
+        <div class="uc-prompt">What are the testing patterns used in this repo?</div>
+        <div class="uc-response">Testing patterns: 1. Unit tests: Jest, target 80% coverage. 2. Integration tests: test DB interactions with test containers. 3. E2E tests: Playwright for critical user flows. 4. Mocking: use jest.mock() for external APIs, never mock internal modules. 5. Factories: use test/factories for test data (UserFactory, OrderFactory). 6. Database: tests run against isolated test DB, auto-cleanup after each test. 7. CI: all tests must pass before merge...</div>
       </div>
       <!-- Duplicate for seamless loop -->
       <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
-        <div class="uc-prompt">Map every service that touches customer PII, how it's encrypted at rest, and which teams own each one</div>
-        <div class="uc-response">Found 14 services handling PII across 6 teams. Encrypted at rest: billing-service (AES-256, owned by Payments), user-profile-service (AES-256, owned by Identity), analytics-warehouse (not encrypted, owned by Data — flagged for remediation). Full breakdown: auth-service encrypts SSNs via KMS in auth/models/user.go, order-history stores addresses encrypted...</div>
-      </div>
-      <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--investigation">Investigation</span></div>
-        <div class="uc-prompt">We're planning to deprecate the legacy-payments API. Which internal services and external partners still depend on it?</div>
-        <div class="uc-response">Legacy-payments API has 8 internal consumers and 3 external partner integrations. Internal: billing-service (critical path), subscription-manager (can migrate), invoice-generator (low volume). External partners: Acme Corp (contract until Q3), Beta Systems (deprecated integration, can remove), Gamma Inc (active, needs 6-week migration notice per contract). Migration blockers: billing-service needs refactor first, estimated 4 weeks...</div>
+        <div class="uc-tags"><span class="uc-tag uc-tag--onboarding">Onboarding</span></div>
+        <div class="uc-prompt">Generate architecture overview for new team member</div>
+        <div class="uc-response">Your system has 12 core services. Frontend: customer-portal (React), admin-dashboard (Vue). Backend: api-gateway (entry point), auth-service (handles login/SSO), user-service (profile management), billing-service (payments), notification-service (email/SMS), analytics-service. Data stores: PostgreSQL (primary), Redis (caching/sessions), S3 (file storage). Key patterns: event-driven via RabbitMQ, circuit breakers in gateway...</div>
       </div>
       <div class="uc-card">
         <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
-        <div class="uc-prompt">Show me architectural patterns that the Platform team recommends vs what teams are actually implementing</div>
-        <div class="uc-response">Platform team standard (docs/architecture/service-template.md): circuit breakers via Resilience4j, structured logging with correlation IDs, health checks at /actuator/health. Reality: 12/18 services follow the standard. Deviations: legacy-api uses raw HttpClient (no circuit breaker), analytics-worker uses println debugging (no structured logging), notification-service has no health check endpoint...</div>
+        <div class="uc-prompt">Create service dependency map for the payments domain</div>
+        <div class="uc-response">Payment flow dependencies: billing-service (core) depends on → payment-gateway (Stripe integration), fraud-detection-service (risk scoring), user-service (account validation), notification-service (receipts). External dependencies: Stripe API, tax-calculation-service. Database: billing_db (PostgreSQL). Events published: payment.completed, payment.failed, refund.processed. Consumed by: analytics-service, reporting-service...</div>
       </div>
       <div class="uc-card">
         <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
-        <div class="uc-prompt">If the Redis cluster goes down, which services fail immediately vs gracefully degrade?</div>
-        <div class="uc-response">Redis outage impact analysis: Immediate failure (no fallback): session-manager, rate-limiter, feature-flags-service (6 services). Graceful degradation (with fallback): cart-service (falls back to DB), recommendation-engine (serves stale cache). Unknown behavior (needs code review): legacy-api, analytics-ingest. Blast radius: ~40% of API endpoints would return 503...</div>
+        <div class="uc-prompt">What should I know before touching the auth module?</div>
+        <div class="uc-response">Auth module is critical path for all API requests. Key things: 1. Uses JWT tokens with 1-hour expiry. 2. Session state in Redis (cluster mode). 3. SSO integration via SAML (enterprise customers). 4. Rate limiting: 100 login attempts/hour per IP. 5. Known issues: PROJ-4201 (refresh token edge case), PROJ-4890 (SSO redirect bug). 6. Testing: always test with both local and SSO flows. 7. Owner: Identity team, contact: @sarah-chen...</div>
       </div>
       <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--investigation">Investigation</span></div>
-        <div class="uc-prompt">Compliance needs a report: every place we call external APIs, what data we send, and whether we log request/response payloads</div>
-        <div class="uc-response">Found 23 external API calls across 11 services. Data sent includes: customer emails (4 services), payment tokens (2 services), order details (3 services). Logging behavior: 8 services log full request/response (PII risk), 7 services log headers only (compliant), 8 services have no logging (audit gap). High risk: payment-processor logs full CC tokens in payment-processor/lib/stripe.go line 47...</div>
+        <div class="uc-tags"><span class="uc-tag uc-tag--onboarding">Onboarding</span></div>
+        <div class="uc-prompt">How do I set up local development for this service?</div>
+        <div class="uc-response">Local dev setup for api-gateway: 1. Prerequisites: Docker, Node 18+, PostgreSQL. 2. Clone repo and run `npm install`. 3. Copy .env.example to .env, set DATABASE_URL and REDIS_URL. 4. Run `docker-compose up -d` for dependencies. 5. Run migrations: `npm run migrate`. 6. Seed test data: `npm run seed`. 7. Start dev server: `npm run dev` (runs on :3000). 8. Run tests: `npm test`. 9. Common issues: if Redis fails, check Docker network...</div>
       </div>
       <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--digest">Digest</span></div>
-        <div class="uc-prompt">Which teams have the most cross-team dependencies? Who should be in our architecture review meetings?</div>
-        <div class="uc-response">Cross-team dependency analysis: Platform team (18 downstream consumers, highest impact). Payments team (12 consumers, second highest). Identity team (9 consumers). Recommendation: Platform and Payments should have standing seats in architecture reviews. Identity team should join for auth/user-related changes. Data team has fewest dependencies (mostly consumers, not providers)...</div>
+        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
+        <div class="uc-prompt">Who owns the billing module and what's its history?</div>
+        <div class="uc-response">Billing module owned by Payments team. Primary contacts: @james-liu (tech lead), @priya-kumar (senior engineer). Created Q2 2022 (originally part of monolith, extracted in PROJ-2100). Major milestones: v1 (Stripe integration), v2 (multi-currency support, PROJ-3400), v3 (subscription billing, PROJ-4200). Known tech debt: legacy invoice generation (needs refactor, tracked in PROJ-5100), race condition in concurrent payments (workaround in place)...</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
+        <div class="uc-prompt">What are the testing patterns used in this repo?</div>
+        <div class="uc-response">Testing patterns: 1. Unit tests: Jest, target 80% coverage. 2. Integration tests: test DB interactions with test containers. 3. E2E tests: Playwright for critical user flows. 4. Mocking: use jest.mock() for external APIs, never mock internal modules. 5. Factories: use test/factories for test data (UserFactory, OrderFactory). 6. Database: tests run against isolated test DB, auto-cleanup after each test. 7. CI: all tests must pass before merge...</div>
       </div>
     </div>
     <div class="uc-row uc-row--2">
       <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
-        <div class="uc-prompt">@Probe weekly: generate a report of services with security vulnerabilities, who owns them, and which have been open longer than 30 days. Post to #security-alerts.</div>
-        <div class="uc-response">Weekly security scan complete. 7 services with CVEs: auth-gateway (CVE-2024-1234, owned by Platform team, open 45 days — escalate), billing-service (CVE-2024-5678, owned by Payments, open 12 days — on track), user-api (CVE-2024-9012, owned by Identity, open 67 days — SLA breach). Full report with remediation links posted to #security-alerts. Created Jira tickets for SLA breaches.</div>
+        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
+        <div class="uc-prompt">Walk me through how a user signup flows through the system</div>
+        <div class="uc-response">User signup flow: 1. Frontend (signup-form.tsx) POST to /api/auth/register. 2. API gateway validates request, forwards to auth-service. 3. Auth-service checks email uniqueness, hashes password (bcrypt), creates user record in users table. 4. Publishes user.created event to RabbitMQ. 5. User-service consumes event, creates profile record. 6. Notification-service consumes event, sends welcome email. 7. Returns JWT token to frontend. Full flow takes ~200ms...</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
+        <div class="uc-prompt">What conventions does this team follow for error handling?</div>
+        <div class="uc-response">Error handling conventions: 1. Use custom error classes (BusinessError, ValidationError, SystemError) from lib/errors.ts. 2. Never throw raw strings, always throw typed errors. 3. API responses: consistent format {error: {code, message, details}}. 4. Logging: use logger.error() with structured context (userId, requestId, etc). 5. Client errors (4xx): don't log stack traces. Server errors (5xx): full stack + context. 6. Database errors: wrap in SystemError, never expose raw SQL...</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
+        <div class="uc-prompt">What changed in this service in the last month?</div>
+        <div class="uc-response">Last month changes in billing-service: PR #892: Added support for Apple Pay (merged 12 days ago). PR #901: Fixed tax calculation rounding bug (merged 8 days ago, deployed to prod). PR #905: Upgraded Stripe SDK to v12 (merged 5 days ago, in staging). PR #910: Refactored invoice generation for performance (in review). Config changes: increased payment timeout from 30s to 60s (CONF-440). Known issues introduced: none. Team velocity: 4 PRs/week average...</div>
       </div>
       <div class="uc-card">
         <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
-        <div class="uc-prompt">@Probe on every cross-team PR: identify which teams need to review based on service dependencies and ownership. Auto-tag them.</div>
-        <div class="uc-response">PR #1847 from @alice (Payments team) modifies billing-service API contract. Dependency analysis: cart-service (Shopping team), subscription-manager (Growth team), invoice-generator (Finance team) all call this API. Auto-tagged: @shopping-team-lead @growth-team-lead @finance-team-lead for required review. Breaking changes detected in billing/api/v2/charge.go — flagged as HIGH PRIORITY review needed.</div>
+        <div class="uc-prompt">Generate README for a service that has none</div>
+        <div class="uc-response">Generated README.md for notification-service: Overview: Handles all outbound notifications (email, SMS, push). Tech stack: Node.js, TypeScript, Bull (job queue), SendGrid, Twilio. Setup: npm install, configure .env, run docker-compose, npm run dev. Architecture: REST API + background workers. Key endpoints: POST /send-email, POST /send-sms. Queue: notification-queue (Redis-backed). Workers: email-worker, sms-worker. Testing: npm test. Deployment: k8s manifests in deploy/...</div>
       </div>
       <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
-        <div class="uc-prompt">When an engineer leaves, audit which services they were the primary owner of and which need new owners assigned</div>
-        <div class="uc-response">@bob left the organization. Primary owner of: legacy-api (last commit 3 months ago, low activity), auth-gateway (actively developed, NEEDS URGENT REASSIGNMENT), feature-flags-service (shared ownership with @charlie, covered). Secondary contributor to: billing-service, user-profile-service. Created PLAT-1203: Reassign auth-gateway ownership. Notified @eng-leadership via Slack.</div>
+        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
+        <div class="uc-prompt">What are the common pitfalls in this codebase?</div>
+        <div class="uc-response">Common pitfalls: 1. N+1 queries: always use .includes() for eager loading in user-service. 2. Race conditions: billing-service has known concurrency issues, use row-level locks. 3. Memory leaks: notification-service workers don't close connections properly, monitor memory. 4. Auth tokens: don't forget to validate expiry in middleware. 5. Feature flags: always check LaunchDarkly before deploying new features. 6. Database migrations: always run migrations before deploy, never after...</div>
       </div>
       <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
-        <div class="uc-prompt">Before every quarterly planning cycle: generate technical debt report by team — how many TODOs, deprecated dependencies, and missing tests</div>
-        <div class="uc-response">Q2 2024 Technical Debt Report: Platform team (34 TODOs, 2 deprecated deps, 78% test coverage). Payments team (67 TODOs, 5 deprecated deps, 65% test coverage — below target). Identity team (12 TODOs, 0 deprecated deps, 92% coverage — best in class). Highest priority: Payments team using Spring Boot 2.x (EOL April 2024). Full report with cost estimates posted to #eng-leadership.</div>
-      </div>
-      <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--investigation">Investigation</span></div>
-        <div class="uc-prompt">Incident post-mortem: payment processing was down for 37 minutes. Trace the blast radius and find every impacted customer-facing feature.</div>
-        <div class="uc-response">Payment processing outage (14:23 to 15:00 UTC). Direct impact: checkout flow, subscription renewals, invoice generation (all blocked). Indirect impact: order history (read-only degraded), recommendation engine (payment-based recommendations failed silently). Customer-facing features affected: 8 web pages, 4 API endpoints, 2 mobile app screens. Estimated user impact: ~12,000 attempted transactions failed. Root cause: billing-service DB connection pool exhausted...</div>
-      </div>
-      <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
-        <div class="uc-prompt">Nightly: scan for hardcoded secrets, API keys, and credentials across all repositories. Alert security team immediately if found.</div>
-        <div class="uc-response">Nightly secrets scan complete. ALERT: found AWS access key in analytics-pipeline/config/prod.yml committed by @dave 14 hours ago (commit abc123). Slack DM sent to @dave and @security-team. Created incident INC-8821. Recommended actions: rotate key immediately, add to .gitignore, move to secrets manager. Also found: 3 localhost connection strings (low risk), 1 test API key (safe).</div>
+        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
+        <div class="uc-prompt">How do feature flags work in this project?</div>
+        <div class="uc-response">Feature flags via LaunchDarkly. Client initialized in lib/feature-flags.ts. Usage: await featureFlags.isEnabled('new-checkout-flow', userId). Server-side flags: evaluated on backend. Client-side flags: streamed to frontend. Flag naming: kebab-case, prefix with team (payments-new-flow). Environments: dev (all flags on), staging (test rollouts), prod (gradual rollout). Best practice: wrap new features in flags, clean up flags after 100% rollout...</div>
       </div>
       <!-- Duplicate for seamless loop -->
       <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
-        <div class="uc-prompt">@Probe weekly: generate a report of services with security vulnerabilities, who owns them, and which have been open longer than 30 days. Post to #security-alerts.</div>
-        <div class="uc-response">Weekly security scan complete. 7 services with CVEs: auth-gateway (CVE-2024-1234, owned by Platform team, open 45 days — escalate), billing-service (CVE-2024-5678, owned by Payments, open 12 days — on track), user-api (CVE-2024-9012, owned by Identity, open 67 days — SLA breach). Full report with remediation links posted to #security-alerts. Created Jira tickets for SLA breaches.</div>
+        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
+        <div class="uc-prompt">Walk me through how a user signup flows through the system</div>
+        <div class="uc-response">User signup flow: 1. Frontend (signup-form.tsx) POST to /api/auth/register. 2. API gateway validates request, forwards to auth-service. 3. Auth-service checks email uniqueness, hashes password (bcrypt), creates user record in users table. 4. Publishes user.created event to RabbitMQ. 5. User-service consumes event, creates profile record. 6. Notification-service consumes event, sends welcome email. 7. Returns JWT token to frontend. Full flow takes ~200ms...</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
+        <div class="uc-prompt">What conventions does this team follow for error handling?</div>
+        <div class="uc-response">Error handling conventions: 1. Use custom error classes (BusinessError, ValidationError, SystemError) from lib/errors.ts. 2. Never throw raw strings, always throw typed errors. 3. API responses: consistent format {error: {code, message, details}}. 4. Logging: use logger.error() with structured context (userId, requestId, etc). 5. Client errors (4xx): don't log stack traces. Server errors (5xx): full stack + context. 6. Database errors: wrap in SystemError, never expose raw SQL...</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
+        <div class="uc-prompt">What changed in this service in the last month?</div>
+        <div class="uc-response">Last month changes in billing-service: PR #892: Added support for Apple Pay (merged 12 days ago). PR #901: Fixed tax calculation rounding bug (merged 8 days ago, deployed to prod). PR #905: Upgraded Stripe SDK to v12 (merged 5 days ago, in staging). PR #910: Refactored invoice generation for performance (in review). Config changes: increased payment timeout from 30s to 60s (CONF-440). Known issues introduced: none. Team velocity: 4 PRs/week average...</div>
       </div>
       <div class="uc-card">
         <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
-        <div class="uc-prompt">@Probe on every cross-team PR: identify which teams need to review based on service dependencies and ownership. Auto-tag them.</div>
-        <div class="uc-response">PR #1847 from @alice (Payments team) modifies billing-service API contract. Dependency analysis: cart-service (Shopping team), subscription-manager (Growth team), invoice-generator (Finance team) all call this API. Auto-tagged: @shopping-team-lead @growth-team-lead @finance-team-lead for required review. Breaking changes detected in billing/api/v2/charge.go — flagged as HIGH PRIORITY review needed.</div>
+        <div class="uc-prompt">Generate README for a service that has none</div>
+        <div class="uc-response">Generated README.md for notification-service: Overview: Handles all outbound notifications (email, SMS, push). Tech stack: Node.js, TypeScript, Bull (job queue), SendGrid, Twilio. Setup: npm install, configure .env, run docker-compose, npm run dev. Architecture: REST API + background workers. Key endpoints: POST /send-email, POST /send-sms. Queue: notification-queue (Redis-backed). Workers: email-worker, sms-worker. Testing: npm test. Deployment: k8s manifests in deploy/...</div>
       </div>
       <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
-        <div class="uc-prompt">When an engineer leaves, audit which services they were the primary owner of and which need new owners assigned</div>
-        <div class="uc-response">@bob left the organization. Primary owner of: legacy-api (last commit 3 months ago, low activity), auth-gateway (actively developed, NEEDS URGENT REASSIGNMENT), feature-flags-service (shared ownership with @charlie, covered). Secondary contributor to: billing-service, user-profile-service. Created PLAT-1203: Reassign auth-gateway ownership. Notified @eng-leadership via Slack.</div>
+        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
+        <div class="uc-prompt">What are the common pitfalls in this codebase?</div>
+        <div class="uc-response">Common pitfalls: 1. N+1 queries: always use .includes() for eager loading in user-service. 2. Race conditions: billing-service has known concurrency issues, use row-level locks. 3. Memory leaks: notification-service workers don't close connections properly, monitor memory. 4. Auth tokens: don't forget to validate expiry in middleware. 5. Feature flags: always check LaunchDarkly before deploying new features. 6. Database migrations: always run migrations before deploy, never after...</div>
       </div>
       <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
-        <div class="uc-prompt">Before every quarterly planning cycle: generate technical debt report by team — how many TODOs, deprecated dependencies, and missing tests</div>
-        <div class="uc-response">Q2 2024 Technical Debt Report: Platform team (34 TODOs, 2 deprecated deps, 78% test coverage). Payments team (67 TODOs, 5 deprecated deps, 65% test coverage — below target). Identity team (12 TODOs, 0 deprecated deps, 92% coverage — best in class). Highest priority: Payments team using Spring Boot 2.x (EOL April 2024). Full report with cost estimates posted to #eng-leadership.</div>
-      </div>
-      <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--investigation">Investigation</span></div>
-        <div class="uc-prompt">Incident post-mortem: payment processing was down for 37 minutes. Trace the blast radius and find every impacted customer-facing feature.</div>
-        <div class="uc-response">Payment processing outage (14:23 to 15:00 UTC). Direct impact: checkout flow, subscription renewals, invoice generation (all blocked). Indirect impact: order history (read-only degraded), recommendation engine (payment-based recommendations failed silently). Customer-facing features affected: 8 web pages, 4 API endpoints, 2 mobile app screens. Estimated user impact: ~12,000 attempted transactions failed. Root cause: billing-service DB connection pool exhausted...</div>
-      </div>
-      <div class="uc-card">
-        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
-        <div class="uc-prompt">Nightly: scan for hardcoded secrets, API keys, and credentials across all repositories. Alert security team immediately if found.</div>
-        <div class="uc-response">Nightly secrets scan complete. ALERT: found AWS access key in analytics-pipeline/config/prod.yml committed by @dave 14 hours ago (commit abc123). Slack DM sent to @dave and @security-team. Created incident INC-8821. Recommended actions: rotate key immediately, add to .gitignore, move to secrets manager. Also found: 3 localhost connection strings (low risk), 1 test API key (safe).</div>
+        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
+        <div class="uc-prompt">How do feature flags work in this project?</div>
+        <div class="uc-response">Feature flags via LaunchDarkly. Client initialized in lib/feature-flags.ts. Usage: await featureFlags.isEnabled('new-checkout-flow', userId). Server-side flags: evaluated on backend. Client-side flags: streamed to frontend. Flag naming: kebab-case, prefix with team (payments-new-flow). Environments: dev (all flags on), staging (test rollouts), prod (gradual rollout). Best practice: wrap new features in flags, clean up flags after 100% rollout...</div>
       </div>
     </div>
   </div>
@@ -274,33 +274,33 @@ title: Solutions for Enterprise - Probe Labs
   <div class="container">
     <div class="section-header">
       <span class="section-label">Core Capabilities</span>
-      <h2>Three things that change everything</h2>
+      <h2>Three things that transform onboarding</h2>
     </div>
     <div class="capabilities-list">
       <div class="capability-block">
         <div class="capability-number">01</div>
         <div class="capability-content">
-          <h3>Unified Code Intelligence Across All Teams</h3>
-          <p class="capability-lead">Query your entire codebase — every service, every team, every repository — as if it were one system.</p>
+          <h3>Instant Architecture Maps</h3>
+          <p class="capability-lead">Auto-generated service dependency diagrams, data flow maps, and ownership directories — always current, never stale.</p>
           <ul class="capability-questions">
-            <li>"Which services handle customer payment data and how is it encrypted?"</li>
-            <li>"Show me every API endpoint that depends on the auth-service"</li>
-            <li>"What's the blast radius if we take down the Redis cluster?"</li>
-            <li>"Map the full request path from API gateway to database for /checkout"</li>
+            <li>"Show me how the payment flow works across all services"</li>
+            <li>"Which teams own which parts of the authentication system?"</li>
+            <li>"What databases does the billing module depend on?"</li>
+            <li>"Map every service that calls the user API"</li>
           </ul>
-          <p>Most enterprises have knowledge fragmented across teams, Confluence pages that are 6 months stale, and Slack channels where context gets lost. Probe treats your entire codebase as the single source of truth. It reads code semantically across all repositories, understands cross-service dependencies, and connects dots between teams that don't even know they depend on each other.</p>
+          <p>New engineers get a mental model of the entire system in hours, not weeks. They understand the architecture before writing their first line of code. Probe reads the codebase semantically — tracking function calls, API endpoints, database queries, and message queues — to build a living map of your system.</p>
           <div class="capability-features">
             <div class="capability-feature">
-              <strong>Multi-team architecture</strong>
-              <span>Query across all teams and services in one question, no manual stitching</span>
+              <strong>Service dependency graphs</strong>
+              <span>Visual maps of how services connect and communicate</span>
             </div>
             <div class="capability-feature">
-              <strong>Cross-org dependency mapping</strong>
-              <span>Understand which teams depend on which services before you make changes</span>
+              <strong>Ownership directory</strong>
+              <span>Who owns what, contact info, team responsibilities</span>
             </div>
             <div class="capability-feature">
-              <strong>Historical context</strong>
-              <span>See why decisions were made, who made them, and what constraints existed</span>
+              <strong>Data flow analysis</strong>
+              <span>Trace how data moves through your entire system</span>
             </div>
           </div>
         </div>
@@ -308,22 +308,22 @@ title: Solutions for Enterprise - Probe Labs
       <div class="capability-block">
         <div class="capability-number">02</div>
         <div class="capability-content">
-          <h3>Enterprise-Grade Compliance & Security</h3>
-          <p class="capability-lead">Know where sensitive data lives, how it's protected, and prove it to auditors in minutes instead of weeks.</p>
-          <p>Compliance at enterprise scale is a nightmare because the answers live in code that's scattered across 50 repositories and 10 teams. When the auditor asks "show me everywhere you store PII," you can't grep your way to an answer. You need semantic understanding of data flow across your entire architecture.</p>
-          <p>Probe maps data lineage across your system. It finds every service that touches customer PII, traces how it moves between teams, identifies where encryption is missing, and generates compliance reports automatically. When regulatory requirements change, you know exactly what code needs to be updated and which teams own it.</p>
+          <h3>Self-Serve Knowledge Base</h3>
+          <p class="capability-lead">New engineers ask questions about the codebase and get answers instantly — no Slack messages, no waiting, no interrupting teammates.</p>
+          <p>Stop the interruption tax. Instead of asking "where does authentication live?" in Slack and waiting for a response, new hires query Probe and get an answer in seconds. The knowledge base understands your code semantically, pulling context from implementation, tests, commits, and tickets.</p>
+          <p>Senior engineers reclaim hours every week. New engineers get unblocked instantly. Knowledge flows freely without bottlenecks.</p>
           <div class="capability-features">
             <div class="capability-feature">
-              <strong>Data lineage tracking</strong>
-              <span>Trace PII, payment data, and sensitive information across all services</span>
+              <strong>Code-aware answers</strong>
+              <span>Responses grounded in actual implementation, not documentation that might be outdated</span>
             </div>
             <div class="capability-feature">
-              <strong>Security policy enforcement</strong>
-              <span>Detect unencrypted data, missing access controls, and security anti-patterns</span>
+              <strong>Pattern recognition</strong>
+              <span>Learn team conventions for testing, error handling, API design, and more</span>
             </div>
             <div class="capability-feature">
-              <strong>Audit trail generation</strong>
-              <span>Automatic reports for SOC 2, HIPAA, PCI-DSS, and custom compliance frameworks</span>
+              <strong>Historical context</strong>
+              <span>Understand why decisions were made, what alternatives were considered</span>
             </div>
           </div>
         </div>
@@ -331,22 +331,22 @@ title: Solutions for Enterprise - Probe Labs
       <div class="capability-block">
         <div class="capability-number">03</div>
         <div class="capability-content">
-          <h3>Accelerated Onboarding at Scale</h3>
-          <p class="capability-lead">New engineers productive in weeks, not months. Self-serve access to institutional knowledge without pulling senior engineers into endless meetings.</p>
-          <p>At 100+ engineers, onboarding isn't a people problem, it's a knowledge distribution problem. Your senior engineers spend 30% of their time answering architecture questions instead of building. New hires take 8 weeks to make their first meaningful contribution because understanding the system requires tribal knowledge that isn't written down.</p>
-          <p>Probe gives every engineer — new or experienced — the same level of system understanding. It answers architectural questions instantly, shows historical context for why decisions were made, and guides engineers to the right code without waiting on Slack responses. Senior engineers stop being human documentation. New hires ramp up 3x faster.</p>
+          <h3>Living Documentation</h3>
+          <p class="capability-lead">Documentation that stays current because it's generated from actual code, not written by hand and forgotten.</p>
+          <p>Wikis go stale. READMEs drift. Architecture diagrams become lies. Living documentation is always accurate because it's derived directly from the code. When the code changes, the documentation updates automatically.</p>
+          <p>Generate architecture overviews, setup guides, API documentation, and onboarding runbooks on-demand. Every new hire gets the latest, most accurate picture of the system.</p>
           <div class="capability-features">
             <div class="capability-feature">
-              <strong>Self-serve architecture exploration</strong>
-              <span>Engineers get answers from code, not from interrupting senior staff</span>
+              <strong>Auto-generated guides</strong>
+              <span>Setup instructions, architecture overviews, deployment runbooks</span>
             </div>
             <div class="capability-feature">
-              <strong>Automated onboarding guides</strong>
-              <span>Generate team-specific, role-specific context from actual codebase reality</span>
+              <strong>Always current</strong>
+              <span>Documentation reflects actual code, not wishful thinking</span>
             </div>
             <div class="capability-feature">
-              <strong>Institutional knowledge capture</strong>
-              <span>Preserve why decisions were made and what constraints existed at the time</span>
+              <strong>Role-specific views</strong>
+              <span>Frontend engineer sees frontend context, backend engineer sees backend</span>
             </div>
           </div>
         </div>
@@ -360,52 +360,52 @@ title: Solutions for Enterprise - Probe Labs
   <div class="container">
     <div class="section-header">
       <span class="section-label">Ready to Deploy</span>
-      <h2>Workflow packs for enterprise operations</h2>
-      <p class="section-desc">Production-tested workflows designed for large engineering organizations. Deploy immediately, customize to your org structure, evolve over time.</p>
+      <h2>Workflow packs for every onboarding scenario</h2>
+      <p class="section-desc">Pre-built automation workflows you can deploy immediately. Customize for your team. Version like code. Improve over time.</p>
     </div>
     <div class="workflows-grid">
       <div class="workflow-card">
-        <div class="workflow-phase">Onboarding</div>
-        <h3>New Hire Acceleration</h3>
-        <p>Automatically generate personalized onboarding guides based on the engineer's role, team, and service ownership. Include architecture context, key dependencies, and historical decisions without pulling senior engineers into meetings.</p>
+        <div class="workflow-phase">Day 1</div>
+        <h3>Day 1 Onboarding</h3>
+        <p>New hire joins the team. Automatically generate a personalized getting-started guide for every repository they'll touch. Architecture overview, local setup, key patterns, who to ask for help.</p>
         <ul class="workflow-outputs">
-          <li>Role-specific architecture overview</li>
-          <li>Team service ownership map</li>
-          <li>Key dependencies and integration points</li>
+          <li>Architecture overview document</li>
+          <li>Local development setup guide</li>
+          <li>Team conventions and patterns</li>
+          <li>Ownership and contact directory</li>
+        </ul>
+      </div>
+      <div class="workflow-card">
+        <div class="workflow-phase">Week 1-2</div>
+        <h3>New Project Ramp-Up</h3>
+        <p>Engineer assigned to unfamiliar codebase. Auto-generate deep-dive documentation: service architecture, dependency map, data models, testing patterns, deployment process, and known gotchas.</p>
+        <ul class="workflow-outputs">
+          <li>Service-specific architecture doc</li>
+          <li>Dependency and integration map</li>
+          <li>Key patterns and conventions</li>
+          <li>Common pitfalls and workarounds</li>
+        </ul>
+      </div>
+      <div class="workflow-card">
+        <div class="workflow-phase">Team Changes</div>
+        <h3>Team Transfer</h3>
+        <p>Engineer rotating to new team or departing. Automatically capture their knowledge: what they built, why decisions were made, where technical debt lives, what needs attention next.</p>
+        <ul class="workflow-outputs">
+          <li>Knowledge transfer document</li>
+          <li>Technical debt inventory</li>
+          <li>Ownership handoff checklist</li>
           <li>Historical decision context</li>
         </ul>
       </div>
       <div class="workflow-card">
-        <div class="workflow-phase">Compliance</div>
-        <h3>Automated Audit Preparation</h3>
-        <p>Generate compliance reports on demand: where PII lives, how it's encrypted, which teams own it, and which controls are in place. Answer auditor questions in minutes instead of assigning a team for 2 weeks.</p>
+        <div class="workflow-phase">Continuous</div>
+        <h3>Knowledge Audit</h3>
+        <p>Scan your entire codebase to detect undocumented critical systems, single points of knowledge failure, and areas where one engineer leaving would cause major knowledge loss.</p>
         <ul class="workflow-outputs">
-          <li>PII and sensitive data mapping</li>
-          <li>Encryption status report</li>
-          <li>Access control audit</li>
-          <li>Team ownership and SLA tracking</li>
-        </ul>
-      </div>
-      <div class="workflow-card">
-        <div class="workflow-phase">Cross-Team</div>
-        <h3>Dependency Impact Analysis</h3>
-        <p>Before any major change, understand blast radius automatically. See which teams depend on your service, what will break, and who needs to approve. Turn 2-week coordination cycles into automated pre-flight checks.</p>
-        <ul class="workflow-outputs">
-          <li>Downstream consumer identification</li>
-          <li>Breaking change detection</li>
-          <li>Auto-tag impacted team leads</li>
-          <li>Migration path recommendation</li>
-        </ul>
-      </div>
-      <div class="workflow-card">
-        <div class="workflow-phase">Operational</div>
-        <h3>Incident Context Assembly</h3>
-        <p>When production breaks, give on-call engineers full context immediately: what changed recently, which teams are affected, what the blast radius is, and what similar incidents looked like. Cut MTTR by eliminating context-gathering overhead.</p>
-        <ul class="workflow-outputs">
-          <li>Recent change timeline</li>
-          <li>Blast radius analysis</li>
-          <li>Related past incidents</li>
-          <li>Team escalation paths</li>
+          <li>Undocumented critical systems</li>
+          <li>Knowledge concentration analysis</li>
+          <li>Documentation gap report</li>
+          <li>Risk mitigation recommendations</li>
         </ul>
       </div>
     </div>
@@ -417,28 +417,28 @@ title: Solutions for Enterprise - Probe Labs
   <div class="container">
     <div class="section-header">
       <span class="section-label">Enterprise Ready</span>
-      <h2>Built for enterprise security and compliance</h2>
+      <h2>Built for engineering teams at scale</h2>
     </div>
     <div class="trust-grid">
       <div class="trust-item">
         <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <h4>SOC 2 Type II Compliant</h4>
-        <p>Full SOC 2 Type II compliance. Annual audits, penetration testing, and security certifications maintained continuously. Meet your enterprise security requirements out of the box.</p>
+        <h4>On-Premises Deployment</h4>
+        <p>Runs entirely inside your infrastructure. Code never leaves your environment. Full data sovereignty and compliance compatibility.</p>
       </div>
       <div class="trust-item">
         <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
-        <h4>On-Premises Deployment</h4>
-        <p>Deploy entirely on-prem or in your private cloud. Code never leaves your infrastructure. Air-gapped deployment capable. Full data sovereignty and compliance with regional data residency requirements.</p>
-      </div>
-      <div class="trust-item">
-        <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v6M12 17v6M4.22 4.22l4.24 4.24M15.54 15.54l4.24 4.24M1 12h6M17 12h6M4.22 19.78l4.24-4.24M15.54 8.46l4.24-4.24"/></svg></div>
-        <h4>SSO &amp; RBAC</h4>
-        <p>Enterprise SSO integration (Okta, Azure AD, Google Workspace). Role-based access control at team and repository level. Audit logs for every query and action. Meets enterprise identity requirements.</p>
+        <h4>Any LLM Provider</h4>
+        <p>Use your preferred model — Claude, GPT, open-source, or self-hosted. No vendor lock-in. Switch providers without changing workflows.</p>
       </div>
       <div class="trust-item">
         <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></div>
-        <h4>OpenTelemetry Observability</h4>
-        <p>Full OpenTelemetry instrumentation on every workflow, query, and AI interaction. Export to your existing Datadog, Splunk, or Grafana stack. Debug AI workflows like any other production system.</p>
+        <h4>Full Audit Trail</h4>
+        <p>OpenTelemetry instrumentation captures every query, every workflow run, every decision. Complete traceability for compliance and debugging.</p>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></div>
+        <h4>Open Source Core</h4>
+        <p>The core engine is open source and auditable. You can inspect exactly how your code is being processed. No black boxes.</p>
       </div>
     </div>
   </div>
@@ -450,7 +450,7 @@ title: Solutions for Enterprise - Probe Labs
     <div class="section-header">
       <span class="section-label">Choose Your Path</span>
       <h2>Open Source vs Enterprise</h2>
-      <p class="section-desc">Start with the open-source core to validate the technology on a single team. Scale to enterprise when you need multi-team coordination and compliance features.</p>
+      <p class="section-desc">Start with the open-source core to evaluate the technology, then scale to enterprise when you need multi-repo capabilities.</p>
     </div>
     <div class="editions-comparison">
       <div class="edition-card edition-oss">
@@ -458,10 +458,10 @@ title: Solutions for Enterprise - Probe Labs
           <h3>Probe <span class="edition-tag">Open Source</span></h3>
           <p class="edition-price">Free forever</p>
         </div>
-        <p class="edition-desc">The core code intelligence engine. Perfect for individual teams evaluating the technology on their own repositories before rolling out org-wide.</p>
+        <p class="edition-desc">The core code intelligence engine. Perfect for individual developers or small teams exploring a single codebase.</p>
         <ul class="edition-features">
-          <li><strong>Single-team code understanding</strong> — Query one team's repositories at a time</li>
-          <li><strong>Semantic code search</strong> — Understands code structure, not just text matching</li>
+          <li><strong>Single-repository understanding</strong> — Ask questions about one repo at a time</li>
+          <li><strong>Semantic code search</strong> — Understands code as code (functions, classes, dependencies), not just text</li>
           <li><strong>No indexing required</strong> — Works instantly on any codebase, runs locally</li>
           <li><strong>MCP integration</strong> — Use with Claude Code, Cursor, or any MCP-compatible tool</li>
           <li><strong>Any LLM provider</strong> — Claude, GPT, open-source models — your choice</li>
@@ -476,18 +476,18 @@ title: Solutions for Enterprise - Probe Labs
           <h3>Probe <span class="edition-tag">Enterprise</span></h3>
           <p class="edition-price">Contact for pricing</p>
         </div>
-        <p class="edition-desc">Everything in Open Source, plus multi-team coordination, compliance automation, and enterprise security features for organizations with 100+ engineers.</p>
+        <p class="edition-desc">Everything in Open Source, plus multi-repository architecture support, workflow automation, and team collaboration features.</p>
         <ul class="edition-features">
-          <li><strong>Multi-team architecture</strong> — Query across all teams, services, and repositories in your organization</li>
-          <li><strong>Cross-org dependency mapping</strong> — Understand how teams and services depend on each other</li>
-          <li><strong>Compliance automation</strong> — PII mapping, encryption audits, access control reports for SOC 2, HIPAA, PCI-DSS</li>
-          <li><strong>SSO &amp; RBAC</strong> — Enterprise identity integration with team-level and repo-level permissions</li>
-          <li><strong>Jira &amp; Confluence integration</strong> — Connect code context with project management and documentation</li>
-          <li><strong>Workflow automation</strong> — Pre-built workflows for onboarding, compliance, incident response</li>
-          <li><strong>Blast radius analysis</strong> — Understand impact before you make cross-team changes</li>
-          <li><strong>Security scanning</strong> — Detect hardcoded secrets, unencrypted PII, and policy violations</li>
-          <li><strong>Slack/Teams integration</strong> — Enterprise-wide access to code intelligence where teams already work</li>
-          <li><strong>On-premises deployment</strong> — Air-gapped capable, full data sovereignty, SOC 2 Type II compliant</li>
+          <li><strong>Multi-repository architecture</strong> — Query across your entire system of services, not just one project</li>
+          <li><strong>System-wide dependency awareness</strong> — Understand how services connect, which changes break what</li>
+          <li><strong>Auto-generated onboarding docs</strong> — Personalized guides for every new hire, every repo, every team</li>
+          <li><strong>Team knowledge capture</strong> — When engineers leave, their knowledge stays behind</li>
+          <li><strong>Slack/Teams integration</strong> — Ask questions from where you already work</li>
+          <li><strong>SSO &amp; RBAC</strong> — Enterprise authentication and role-based access control</li>
+          <li><strong>Workflow automation</strong> — Pre-built workflows for onboarding, knowledge transfer, documentation</li>
+          <li><strong>Usage analytics</strong> — Track onboarding velocity, knowledge gaps, common questions</li>
+          <li><strong>Priority support</strong> — Dedicated support team, custom integrations, training</li>
+          <li><strong>On-premises deployment</strong> — Runs entirely in your infrastructure for maximum security</li>
         </ul>
         <div class="edition-cta">
           <a href="https://cal.com/leonid-bugaev/30min" class="btn btn-primary">Talk to Our Team</a>
@@ -501,9 +501,9 @@ title: Solutions for Enterprise - Probe Labs
 <section id="getting-started" class="section section-getting-started">
   <div class="container">
     <div class="section-header">
-      <span class="section-label">For Your Engineering Leadership</span>
-      <h2>How to evaluate Probe at enterprise scale</h2>
-      <p class="section-desc">We recommend starting with a single team pilot to validate ROI, then rolling out org-wide once you see measurable impact on velocity and compliance overhead.</p>
+      <span class="section-label">For Engineering Managers</span>
+      <h2>How to evaluate Probe</h2>
+      <p class="section-desc">We recommend a two-phase approach: first, validate the core technology with open source on a single project, then pilot the enterprise features with your next new hire.</p>
     </div>
     <div class="getting-started-phases">
       <div class="gs-phase">
@@ -512,91 +512,88 @@ title: Solutions for Enterprise - Probe Labs
           <h3>Technical Validation</h3>
           <span class="gs-phase-time">~10 minutes</span>
         </div>
-        <p>Start with the open-source version. Have a single team validate the core technology before committing to an enterprise rollout.</p>
+        <p>Pick any of these and have something running before your next meeting. No account required.</p>
         <div class="gs-quickwins">
           <div class="gs-quickwin">
             <div class="gs-quickwin-header">
               <span class="gs-quickwin-time">~2 min</span>
-              <h4>Add to AI Coding Tools</h4>
+              <h4>Add Probe to AI Coding Tools</h4>
             </div>
-            <p>Give one team's engineers code intelligence in their existing tools. Works with Claude Code, Cursor, or any MCP-compatible editor. See if it reduces the number of Slack questions to senior engineers.</p>
+            <p>Get enterprise-grade code understanding in Claude Code, Cursor, or any MCP-compatible tool. Auto-detects auth, works with any LLM API. One command to install.</p>
             <div class="gs-quickwin-result">
-              <strong>You get:</strong> A pilot team using AI that understands your actual architecture. Measure reduction in "how does this work?" Slack messages to determine if it's worth scaling.
+              <strong>You get:</strong> A specialized AI agent for code search and analysis — finds the right context and reduces wrong answers with bounded, structured retrieval.
             </div>
             <a href="/docs/integrations/ai-code-editors" class="gs-quickwin-link">AI code editor setup &rarr;</a>
           </div>
           <div class="gs-quickwin">
             <div class="gs-quickwin-header">
               <span class="gs-quickwin-time">~5 min</span>
-              <h4>Automate PR Reviews</h4>
+              <h4>Deploy a Codebase-Aware Slack Bot</h4>
             </div>
-            <p>Add a GitHub Action for one team's repo to see automated code review in action. Every PR gets security, compliance, and architectural feedback before human review.</p>
+            <p>Create a Slack bot that answers questions about your codebase. Your team can ask questions in Slack and get intelligent answers grounded in actual code — no context switching.</p>
             <div class="gs-quickwin-result">
-              <strong>You get:</strong> Data on how many issues are caught pre-review. Measure reduction in review cycles and time-to-merge to determine ROI before org-wide rollout.
+              <strong>You get:</strong> A Slack bot your team can query about any codebase. Run locally to test, then deploy anywhere. Measure how many interruptions it prevents.
             </div>
-            <div class="gs-quickwin-links">
-              <a href="/docs/github-assistant" class="gs-quickwin-link">GitHub Assistant docs &rarr;</a>
-              <a href="https://github.com/TykTechnologies/tyk/blob/master/visor.yaml" class="gs-quickwin-link gs-quickwin-link-secondary">See real-world config example &rarr;</a>
-            </div>
+            <a href="/docs/guides/slack-bot" class="gs-quickwin-link">Full setup guide &rarr;</a>
           </div>
           <div class="gs-quickwin">
             <div class="gs-quickwin-header">
               <span class="gs-quickwin-time">~10 min</span>
-              <h4>Deploy Team-Specific Slack Bot</h4>
+              <h4>Generate Onboarding Docs</h4>
             </div>
-            <p>Create a Slack bot for one team's channel. Engineers ask architectural questions and get answers grounded in actual code. Measure reduction in interruptions to senior staff.</p>
+            <p>Run Probe against your main repository and generate an architecture overview, setup guide, and pattern documentation. See what new hires would get on Day 1.</p>
             <div class="gs-quickwin-result">
-              <strong>You get:</strong> Quantifiable data on how many questions are answered self-serve vs escalated to humans. Use this to project ROI at org scale.
+              <strong>You get:</strong> Auto-generated onboarding documentation for your codebase. Compare it to what you currently give new hires (if anything).
             </div>
-            <a href="/docs/guides/slack-bot" class="gs-quickwin-link">Full setup guide &rarr;</a>
+            <a href="/docs/workflows/onboarding" class="gs-quickwin-link">Onboarding workflow guide &rarr;</a>
           </div>
         </div>
       </div>
       <div class="gs-phase gs-phase-enterprise">
         <div class="gs-phase-header">
           <span class="gs-phase-number">Phase 2</span>
-          <h3>Enterprise Pilot</h3>
-          <span class="gs-phase-time">4-6 weeks</span>
+          <h3>Onboarding Pilot</h3>
+          <span class="gs-phase-time">2-4 weeks</span>
         </div>
-        <p>Once you've validated core technology with one team, run an enterprise pilot across 3-5 teams to test multi-team coordination, compliance workflows, and cross-org dependency mapping.</p>
+        <p>Once you've validated the core technology, run a pilot with your next new hire to test the full onboarding workflow and measure impact.</p>
         <div class="gs-steps">
           <div class="gs-step">
             <span class="gs-step-num">1</span>
             <div>
-              <strong>Select pilot teams</strong>
-              <p>Choose 3-5 teams with high interdependencies and frequent cross-team coordination pain. Ideal candidates: teams that ship slowly due to cross-team approvals or struggle with onboarding new engineers.</p>
+              <strong>Pick a new hire cohort</strong>
+              <p>Choose your next 1-3 new engineers joining the team. Ideally engineers joining a complex system where onboarding is typically slow.</p>
             </div>
           </div>
           <div class="gs-step">
             <span class="gs-step-num">2</span>
             <div>
-              <strong>Map your org architecture</strong>
-              <p>We work with your architects to connect all pilot team repositories, map cross-team dependencies, and configure team-level access controls. This session usually takes 2-4 hours.</p>
+              <strong>Setup session with Probe team</strong>
+              <p>We'll help you connect your repositories, generate initial architecture documentation, and configure the knowledge base for your team's patterns.</p>
             </div>
           </div>
           <div class="gs-step">
             <span class="gs-step-num">3</span>
             <div>
-              <strong>Deploy enterprise workflows</strong>
-              <p>Set up compliance automation, dependency impact analysis, and onboarding workflows. Connect to your SSO, Jira, and Slack. Configure OpenTelemetry export to your monitoring stack.</p>
+              <strong>Give new hires Probe access</strong>
+              <p>On Day 1, give them access to Probe instead of (or alongside) traditional onboarding materials. Let them ask questions, explore the codebase, and learn at their own pace.</p>
             </div>
           </div>
           <div class="gs-step">
             <span class="gs-step-num">4</span>
             <div>
-              <strong>Measure impact</strong>
-              <p>Track onboarding time for new hires, cross-team coordination overhead, compliance report generation time, and Slack question volume to senior engineers. Compare to pre-pilot baselines.</p>
+              <strong>Measure the difference</strong>
+              <p>Track time-to-first-PR, number of questions asked to teammates, onboarding satisfaction scores. Compare to your historical baseline.</p>
             </div>
           </div>
         </div>
         <div class="gs-phase-outcome">
-          <strong>Success criteria:</strong> 50% reduction in onboarding time, 70% reduction in cross-team coordination overhead, 90% reduction in compliance report preparation time. Measurable decrease in "human search engine" load on senior staff.
+          <strong>Success criteria:</strong> Measurable reduction in time-to-first-PR and questions-to-teammates. New hires report higher confidence and faster understanding. Senior engineers reclaim interrupted time.
         </div>
       </div>
     </div>
     <div class="getting-started-cta">
-      <p>Want to discuss how an enterprise pilot would work for your organization?</p>
-      <a href="https://cal.com/leonid-bugaev/30min" class="btn btn-primary btn-lg">Schedule a Leadership Discussion</a>
+      <p>Want to discuss how a pilot would work for your team?</p>
+      <a href="https://cal.com/leonid-bugaev/30min" class="btn btn-primary btn-lg">Schedule a Technical Discussion</a>
     </div>
   </div>
 </section>
@@ -606,25 +603,28 @@ title: Solutions for Enterprise - Probe Labs
   <div class="container">
     <div class="section-header">
       <span class="section-label">Common Questions</span>
-      <h2>What enterprise leaders ask us</h2>
+      <h2>What engineering managers ask us</h2>
     </div>
     <div class="faq-grid">
       <div class="faq-item">
-        <h3>How does this differ from Copilot or other AI coding tools?</h3>
-        <p>Copilot and ChatGPT work on whatever code is in front of them. They don't understand your multi-team architecture, cross-service dependencies, or organizational context. They can't tell you which teams need to approve a change or how a service failure cascades across your system.</p>
-        <p>Probe understands your entire enterprise codebase — all teams, all services, all repositories — as a unified system. It answers questions that require cross-team knowledge and organizational context that generic AI tools can't access.</p>
+        <h3>How is this different from internal wikis or Notion docs?</h3>
+        <p>Wikis go stale the moment they're written. Engineers forget to update them when code changes. Six months later, they're lies.</p>
+        <p>Probe generates documentation directly from code. When the code changes, the documentation stays accurate because it's derived from the source of truth. Plus, it understands your codebase semantically — it can answer questions wikis can't, like "which services depend on this API?" or "how does data flow through the payment system?"</p>
       </div>
       <div class="faq-item">
-        <h3>What about data security and compliance?</h3>
-        <p>Probe is SOC 2 Type II compliant and can be deployed entirely on-premises or in your private cloud. Code never leaves your infrastructure. We support air-gapped deployments for maximum security. SSO integration with RBAC ensures only authorized users access specific repositories. Full audit trails for every query meet compliance requirements.</p>
+        <h3>Will this actually reduce interruptions to senior engineers?</h3>
+        <p>Yes, measurably. Teams report 50-70% reduction in onboarding-related Slack messages after deploying Probe. New hires get answers instantly instead of waiting for a teammate to respond. Senior engineers reclaim 5-10 hours per week previously spent answering "where is this?" questions.</p>
+        <p>The key is that Probe answers the questions accurately enough that new hires don't need to follow up. It's not just faster — it's self-sufficient.</p>
       </div>
       <div class="faq-item">
-        <h3>How long does enterprise deployment take?</h3>
-        <p>Initial pilot with 3-5 teams: 4-6 weeks including architecture mapping, SSO integration, and workflow configuration. Org-wide rollout after successful pilot: 8-12 weeks depending on number of teams and repositories. Most enterprises see ROI within the pilot phase from reduced coordination overhead alone.</p>
+        <h3>What if our codebase is a mess with no documentation?</h3>
+        <p>That's exactly where Probe shines. Legacy systems with zero documentation are where onboarding is hardest and where Probe has the biggest impact. It doesn't need documentation — it reads the code itself, understands structure, traces dependencies, and builds knowledge from what actually exists.</p>
+        <p>In fact, teams with poor documentation see the most dramatic improvements because the baseline is so low.</p>
       </div>
       <div class="faq-item">
-        <h3>What's the ROI for an enterprise our size?</h3>
-        <p>Enterprises with 100+ engineers typically see: 50% reduction in onboarding time (6-8 weeks down to 2-3 weeks), 70% reduction in cross-team coordination overhead (coordination cycles from weeks to days), 90% reduction in compliance report preparation (weeks of work down to hours), and 30% reduction in senior engineer interruptions (they build instead of answering questions). Most organizations hit positive ROI within 3-6 months.</p>
+        <h3>How long does it take to see results?</h3>
+        <p>Immediate. The open-source version works out of the box — install it, point it at a repo, start asking questions. For enterprise deployments with multi-repo setup, initial configuration takes a few hours, then you're live.</p>
+        <p>The real measurement is your next new hire. Compare their ramp-up time to the previous cohort. Most teams see 40-60% reduction in time-to-first-PR within the first pilot.</p>
       </div>
     </div>
   </div>
@@ -634,8 +634,8 @@ title: Solutions for Enterprise - Probe Labs
 <section class="section section-cta" id="contact">
   <div class="container">
     <div class="cta-card">
-      <h2>Ready to scale code intelligence across your organization?</h2>
-      <p>Let's discuss how Probe can reduce coordination overhead, accelerate onboarding, and automate compliance for your enterprise. We'll show you how it works on your architecture.</p>
+      <h2>Ready to transform your onboarding?</h2>
+      <p>Let's talk about how Probe can help your new engineers ship code faster and reclaim your senior engineers' time. We'll show you how it works on your actual codebase and discuss how to structure a pilot.</p>
       <div class="cta-buttons">
         <a href="https://cal.com/leonid-bugaev/30min" class="btn btn-primary btn-lg"><span>Schedule a Conversation</span> <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         <a href="/docs/quick-start" class="btn btn-secondary btn-lg">Read Documentation</a>
@@ -648,7 +648,7 @@ title: Solutions for Enterprise - Probe Labs
 
 <style>
 /* ========================================
-   Enterprise - Brutalist Design Override
+   Developer Onboarding - Brutalist Design Override
    Overrides product-solution.css to match new homepage
    ======================================== */
 

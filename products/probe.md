@@ -384,8 +384,6 @@ title: Probe - Code Intelligence for AI
   </div>
 </section>
 
-<SiteFooter />
-
 </div>
 
 <style>
@@ -815,8 +813,8 @@ title: Probe - Code Intelligence for AI
 
 .ps-page .doc-card:hover {
   border-color: var(--c-primary);
-  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.1), 0 0 40px rgba(22, 163, 74, 0.08);
-  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transform: none;
 }
 
 .ps-page .doc-card h3 {
@@ -844,14 +842,14 @@ title: Probe - Code Intelligence for AI
 }
 
 .ps-page .doc-card:hover .doc-link {
-  color: #15803d;
+  color: #333333;
 }
 
 /* CTA Card */
 .ps-page .cta-card {
   text-align: center;
   padding: var(--space-3xl);
-  background: linear-gradient(135deg, var(--c-primary-bg) 0%, rgba(22, 163, 74, 0.05) 100%);
+  background: transparent;
   border: 1px solid var(--c-primary-border);
   border-radius: var(--radius-xl);
 }

@@ -1,6 +1,6 @@
 ---
-layout: page
-title: Engineering Leadership - Probe Labs
+theme: solutions
+title: Engineering Leadership - ProbeLabs
 ---
 
 <div class="ps-page">
@@ -16,9 +16,9 @@ title: Engineering Leadership - Probe Labs
       <div class="hero-badge"><span class="badge-dot"></span> For Engineering Leadership</div>
       <h1 class="hero-title">
         <span class="hero-title-main">CTO / Founder</span>
-        <span class="hero-title-sub">Predictable AI Workflows</span>
+        <span class="hero-title-sub">Fewer Interruptions. More Shipping.</span>
       </h1>
-      <p class="hero-subtitle">Turn company processes into predictable, team-owned agent workflows - grounded in your systems of record, with no forced vendor lock-in.</p>
+      <p class="hero-subtitle">Give every team self-serve access to engineering context. No more "ask engineering" loops, no more processes that only work when the right person is online.</p>
       <div class="hero-badges">
         <span class="guarantee-badge">On-prem</span>
         <span class="guarantee-badge">Any LLM</span>
@@ -29,6 +29,7 @@ title: Engineering Leadership - Probe Labs
         <a href="https://cal.com/leonid-bugaev/30min" class="btn btn-primary"><span>Book a Demo</span> <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         <a href="#workflows" class="btn btn-secondary">View Example Workflows</a>
       </div>
+      <p class="hero-pricing-signal">Free and open source. Business and Enterprise plans available.</p>
     </div>
     <div class="hero-visual">
       <div class="leadership-value-card">
@@ -36,16 +37,16 @@ title: Engineering Leadership - Probe Labs
         <div class="value-comparison">
           <div class="value-before">
             <div class="value-label">Before</div>
-            <div class="value-item"><span class="value-icon value-icon-bad"><svg viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span>AI behavior unpredictable across teams</span></div>
-            <div class="value-item"><span class="value-icon value-icon-bad"><svg viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span>Central bottleneck for every workflow</span></div>
-            <div class="value-item"><span class="value-icon value-icon-bad"><svg viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span>No visibility into what agents do</span></div>
+            <div class="value-item"><span class="value-icon value-icon-bad"><svg viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span>Knowledge locked in a few heads</span></div>
+            <div class="value-item"><span class="value-icon value-icon-bad"><svg viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span>"Ask engineering" loops in Slack</span></div>
+            <div class="value-item"><span class="value-icon value-icon-bad"><svg viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span>Processes need the right person online</span></div>
           </div>
           <div class="value-arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div class="value-after">
             <div class="value-label">After</div>
-            <div class="value-item"><span class="value-icon value-icon-good"><svg viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5l-7 7-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Every workflow behaves predictably</span></div>
-            <div class="value-item"><span class="value-icon value-icon-good"><svg viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5l-7 7-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Teams own their own workflows</span></div>
-            <div class="value-item"><span class="value-icon value-icon-good"><svg viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5l-7 7-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Full traces and audit logs</span></div>
+            <div class="value-item"><span class="value-icon value-icon-good"><svg viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5l-7 7-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>One source of truth for everyone</span></div>
+            <div class="value-item"><span class="value-icon value-icon-good"><svg viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5l-7 7-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Problems get handled when they arise</span></div>
+            <div class="value-item"><span class="value-icon value-icon-good"><svg viewBox="0 0 16 16" fill="none"><path d="M13.5 4.5l-7 7-3-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Repeatable processes without the overhead</span></div>
           </div>
         </div>
         <div class="value-trust">
@@ -66,23 +67,23 @@ title: Engineering Leadership - Probe Labs
   <div class="container">
     <div class="section-header">
       <span class="section-label">At a Glance</span>
-      <h2>Why our platform</h2>
+      <h2>Why engineering leaders choose Probe</h2>
     </div>
     <div class="glance-grid">
       <div class="glance-card">
         <div class="glance-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
-        <h3>Systems of Record</h3>
-        <p>Agents grounded in your actual systems - GitHub, Jira, Slack, Confluence - reducing wrong answers with bounded, structured retrieval.</p>
-      </div>
-      <div class="glance-card">
-        <div class="glance-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-        <h3>Team Autonomy</h3>
-        <p>Each team owns their workflows. Platform provides guardrails and observability, not bottlenecks.</p>
+        <h3>One Source of Truth</h3>
+        <p>Engineers, PMs, support, legal — all query the same codebase. No more "ask engineering" loops.</p>
       </div>
       <div class="glance-card">
         <div class="glance-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
-        <h3>Full Observability</h3>
-        <p>OpenTelemetry traces for every agent action. Debug, optimize, and audit with your existing monitoring stack.</p>
+        <h3>Problems Handled Automatically</h3>
+        <p>Issues triaged, context gathered, first response drafted — the moment something breaks. Response times shrink without adding headcount.</p>
+      </div>
+      <div class="glance-card">
+        <div class="glance-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3>Repeatable Without Overhead</h3>
+        <p>Build workflows once — compliance checks, release gates, onboarding — and they run every time. No chasing people.</p>
       </div>
       <div class="glance-card">
         <div class="glance-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
@@ -93,125 +94,203 @@ title: Engineering Leadership - Probe Labs
   </div>
 </section>
 
-<!-- Three Pillars Section -->
-<section class="section section-pillars">
+<!-- What Changes Section (dark box) -->
+<section class="section section-darkbox">
   <div class="container">
-    <div class="section-header">
-      <span class="section-label">The Framework</span>
-      <h2>Three Pillars of Predictable AI Workflows</h2>
-      <p class="section-desc">Transform AI from unpredictable assistant to reliable infrastructure component.</p>
-    </div>
-    <div class="pillars-grid">
-      <div class="pillar-card">
-        <div class="pillar-number">01</div>
-        <h3>Grounded in Systems of Record</h3>
-        <p>Every agent action starts from your actual data - not cached snapshots or model hallucinations. Real-time connections to GitHub, Jira, Slack, Confluence, and your databases mean agents work with the same information your team does.</p>
-        <ul class="pillar-benefits">
-          <li>No stale context or outdated information</li>
-          <li>Actions reflect current system state</li>
-          <li>Audit trail back to source systems</li>
-        </ul>
+    <div class="darkbox">
+      <div class="darkbox-left">
+        <span class="darkbox-label">The shift</span>
+        <h2>What changes for your organization</h2>
+        <p>From bottleneck to self-serve. Three things that look different after Probe is running.</p>
       </div>
-      <div class="pillar-card">
-        <div class="pillar-number">02</div>
-        <h3>Team-Owned Autonomy</h3>
-        <p>Platform teams provide the infrastructure. Individual teams build and own their workflows. No central bottleneck, no approval queues - just guardrails that ensure consistency and security.</p>
-        <ul class="pillar-benefits">
-          <li>Self-service workflow creation</li>
-          <li>Shared templates and best practices</li>
-          <li>Team-specific customizations</li>
-        </ul>
-      </div>
-      <div class="pillar-card">
-        <div class="pillar-number">03</div>
-        <h3>Full Observability</h3>
-        <p>Every agent action produces OpenTelemetry traces. Integrate with Datadog, Grafana, or any OTEL-compatible backend. Debug failures, optimize performance, and maintain compliance with complete visibility.</p>
-        <ul class="pillar-benefits">
-          <li>End-to-end distributed tracing</li>
-          <li>Cost attribution per workflow</li>
-          <li>Compliance-ready audit logs</li>
-        </ul>
+      <div class="darkbox-right">
+        <div class="darkbox-item">
+          <span class="darkbox-num">01</span>
+          <div>
+            <h3>One source of truth for everyone</h3>
+            <p>Engineers, PMs, support, legal — all query the same codebase. No more "ask engineering" loops or tribal knowledge locked in a few heads.</p>
+          </div>
+        </div>
+        <div class="darkbox-item">
+          <span class="darkbox-num">02</span>
+          <div>
+            <h3>Problems get handled when they arise</h3>
+            <p>Issues triaged, context gathered, first response drafted — automatically, the moment something breaks. Response times shrink without adding headcount.</p>
+          </div>
+        </div>
+        <div class="darkbox-item">
+          <span class="darkbox-num">03</span>
+          <div>
+            <h3>Repeatable processes without the overhead</h3>
+            <p>Build workflows once — compliance checks, release gates, onboarding — and they run every time. No chasing people. Full OpenTelemetry traces for every action.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Starter Workflows Section -->
-<section class="section section-workflows" id="workflows">
+<!-- Use Cases Section - Marquee Cards -->
+<section class="section section-usecases" id="workflows">
   <div class="container">
     <div class="section-header">
-      <span class="section-label">Starter Workflows</span>
-      <h2>Ready-to-Deploy Agent Workflows</h2>
-      <p class="section-desc">Production-tested workflows your teams can deploy in days, not months.</p>
+      <span class="section-label">Use Cases</span>
+      <h2>What leadership teams actually ask Probe</h2>
+      <p class="section-desc">Real prompts. Questions, investigations, digests, and automations — across your entire stack.</p>
     </div>
-    <div class="workflows-grid">
-      <div class="workflow-card">
-        <div class="workflow-header">
-          <div class="workflow-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
-          <h3>PR Review Agent</h3>
-        </div>
-        <p>Automated code review that checks against your style guide, security policies, and architectural patterns. Suggests improvements, catches bugs, and learns from team feedback.</p>
-        <div class="workflow-flow">
-          <span class="flow-step">PR Opened</span>
-          <span class="flow-arrow">then</span>
-          <span class="flow-step">Analyze Code</span>
-          <span class="flow-arrow">then</span>
-          <span class="flow-step">Check Policies</span>
-          <span class="flow-arrow">then</span>
-          <span class="flow-step">Post Review</span>
-        </div>
+  </div>
+  <div class="uc-scroll">
+    <div class="uc-row uc-row--1">
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
+        <div class="uc-prompt">Show me sprint velocity across all teams for the last 6 sprints — which teams are slowing down and why?</div>
+        <div class="uc-response">6 teams analyzed. Platform velocity down 23% over 3 sprints — root cause: 40% of sprint time going to unplanned on-call work. Payments team stable. Mobile team spiking due to reduced scope, not increased output. Recommendation: rotate on-call burden, protect sprint commitments.</div>
       </div>
-      <div class="workflow-card">
-        <div class="workflow-header">
-          <div class="workflow-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
-          <h3>Support Triage Agent</h3>
-        </div>
-        <p>Automatically categorize incoming support tickets, gather relevant context from docs and code, and route to the right team with full background - or resolve directly for known issues.</p>
-        <div class="workflow-flow">
-          <span class="flow-step">Ticket Created</span>
-          <span class="flow-arrow">then</span>
-          <span class="flow-step">Classify Issue</span>
-          <span class="flow-arrow">then</span>
-          <span class="flow-step">Gather Context</span>
-          <span class="flow-arrow">then</span>
-          <span class="flow-step">Route or Resolve</span>
-        </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
+        <div class="uc-prompt">Every morning: check Datadog for error rate >1% or p99 >500ms — correlate with recent deploys, post to #on-call</div>
+        <div class="uc-response">Morning check complete. 2 alerts: payments-service error rate at 2.3% (up from 0.4% yesterday, correlated with deploy #1847 at 4pm), and search-api p99 at 620ms. Root cause candidates and rollback instructions attached. Posted to #on-call with runbook links.</div>
       </div>
-      <div class="workflow-card">
-        <div class="workflow-header">
-          <div class="workflow-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
-          <h3>Onboarding Agent</h3>
-        </div>
-        <p>Guide new engineers through codebase exploration. Answer questions with relevant code context, explain architectural decisions, and point to the right documentation.</p>
-        <div class="workflow-flow">
-          <span class="flow-step">Question Asked</span>
-          <span class="flow-arrow">then</span>
-          <span class="flow-step">Search Codebase</span>
-          <span class="flow-arrow">then</span>
-          <span class="flow-step">Find Context</span>
-          <span class="flow-arrow">then</span>
-          <span class="flow-step">Generate Answer</span>
-        </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--investigation">Investigation</span></div>
+        <div class="uc-prompt">Pull delivery metrics, support ticket trends, and open risks for my quarterly board review — summarize in 1 page</div>
+        <div class="uc-response">Q1 Summary: 94% of committed features shipped. Mean cycle time improved from 14→9 days. Support volume down 18% (docs improvements). 3 open risks: auth migration 2 weeks behind, 1 unfilled senior role blocking mobile roadmap, vendor contract renewal pending for monitoring stack. Formatted as 1-page PDF.</div>
       </div>
-      <div class="workflow-card">
-        <div class="workflow-header">
-          <div class="workflow-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
-          <h3>Release Notes Agent</h3>
-        </div>
-        <p>Generate comprehensive release notes from merged PRs, commit messages, and ticket descriptions. Maintains consistent format and automatically updates changelog.</p>
-        <div class="workflow-flow">
-          <span class="flow-step">Release Tagged</span>
-          <span class="flow-arrow">then</span>
-          <span class="flow-step">Collect Changes</span>
-          <span class="flow-arrow">then</span>
-          <span class="flow-step">Summarize</span>
-          <span class="flow-arrow">then</span>
-          <span class="flow-step">Update Docs</span>
-        </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
+        <div class="uc-prompt">When a Zendesk ticket is tagged "feature-request" — find the related Jira epic, add customer context, update the epic</div>
+        <div class="uc-response">Matched ticket ZD-8842 to epic PLAT-291 (Webhook v2). Added: Acme Corp requesting retry config, 3rd request this quarter. Updated epic priority score. Notified PM in #product-requests. Running on all new feature-request tags.</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--digest">Digest</span></div>
+        <div class="uc-prompt">Weekly leadership digest: cross-team risks, blockers, stalled RFCs, and anything that needs my attention</div>
+        <div class="uc-response">3 risks: 1) Auth migration — 2 of 5 services not started, deadline in 3 weeks. 2) Platform team blocked on vendor contract renewal. 3) RFC-47 (event bus redesign) stalled — unresolved security review. 2 items need your decision: budget approval for staging env expansion, tie-breaker on API versioning approach.</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
+        <div class="uc-prompt">Which teams have the most unresolved security vulnerabilities? What's blocking remediation?</div>
+        <div class="uc-response">Payments: 4 critical CVEs, oldest 31 days — blocked on Redis 7 upgrade (needs infra team). Platform: 2 critical, remediation PRs open but stuck in review. Mobile: clean. API team: 1 critical, fixed in staging, waiting on release train. Total: 7 critical across org, 3 blocked on cross-team dependencies.</div>
+      </div>
+      <!-- Duplicate for seamless loop -->
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
+        <div class="uc-prompt">Show me sprint velocity across all teams for the last 6 sprints — which teams are slowing down and why?</div>
+        <div class="uc-response">6 teams analyzed. Platform velocity down 23% over 3 sprints — root cause: 40% of sprint time going to unplanned on-call work. Payments team stable. Mobile team spiking due to reduced scope, not increased output. Recommendation: rotate on-call burden, protect sprint commitments.</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
+        <div class="uc-prompt">Every morning: check Datadog for error rate >1% or p99 >500ms — correlate with recent deploys, post to #on-call</div>
+        <div class="uc-response">Morning check complete. 2 alerts: payments-service error rate at 2.3% (up from 0.4% yesterday, correlated with deploy #1847 at 4pm), and search-api p99 at 620ms. Root cause candidates and rollback instructions attached. Posted to #on-call with runbook links.</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--investigation">Investigation</span></div>
+        <div class="uc-prompt">Pull delivery metrics, support ticket trends, and open risks for my quarterly board review — summarize in 1 page</div>
+        <div class="uc-response">Q1 Summary: 94% of committed features shipped. Mean cycle time improved from 14→9 days. Support volume down 18% (docs improvements). 3 open risks: auth migration 2 weeks behind, 1 unfilled senior role blocking mobile roadmap, vendor contract renewal pending for monitoring stack. Formatted as 1-page PDF.</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
+        <div class="uc-prompt">When a Zendesk ticket is tagged "feature-request" — find the related Jira epic, add customer context, update the epic</div>
+        <div class="uc-response">Matched ticket ZD-8842 to epic PLAT-291 (Webhook v2). Added: Acme Corp requesting retry config, 3rd request this quarter. Updated epic priority score. Notified PM in #product-requests. Running on all new feature-request tags.</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--digest">Digest</span></div>
+        <div class="uc-prompt">Weekly leadership digest: cross-team risks, blockers, stalled RFCs, and anything that needs my attention</div>
+        <div class="uc-response">3 risks: 1) Auth migration — 2 of 5 services not started, deadline in 3 weeks. 2) Platform team blocked on vendor contract renewal. 3) RFC-47 (event bus redesign) stalled — unresolved security review. 2 items need your decision: budget approval for staging env expansion, tie-breaker on API versioning approach.</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--question">Question</span></div>
+        <div class="uc-prompt">Which teams have the most unresolved security vulnerabilities? What's blocking remediation?</div>
+        <div class="uc-response">Payments: 4 critical CVEs, oldest 31 days — blocked on Redis 7 upgrade (needs infra team). Platform: 2 critical, remediation PRs open but stuck in review. Mobile: clean. API team: 1 critical, fixed in staging, waiting on release train. Total: 7 critical across org, 3 blocked on cross-team dependencies.</div>
       </div>
     </div>
-    <div class="workflows-cta">
-      <a href="https://github.com/probelabs/visor/tree/main/examples" class="btn btn-secondary"><span>Browse All Workflow Examples</span> <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <div class="uc-row uc-row--2">
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
+        <div class="uc-prompt">Triage every incoming issue — classify by team, attach relevant code and docs, route automatically</div>
+        <div class="uc-response">Triaged 12 new issues. 4 routed to Platform (infra-related), 3 to API team (endpoint bugs), 5 to Frontend. Attached relevant source files, related PRs, and runbook links to each. Average triage time: 8 seconds. No human intervention needed.</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
+        <div class="uc-prompt">Enforce release readiness gates — test coverage, security scans, required approvals — before every deploy</div>
+        <div class="uc-response">Release v2.14.0 gate check: Test coverage 94% (pass). Security scan: 0 critical, 2 medium (known, tracked). Approvals: 2/2 required reviewers signed off. Changelog generated. All gates green — ready to deploy.</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
+        <div class="uc-prompt">When a PR hasn't been reviewed in 48h — nudge the reviewer. If still pending after 72h, escalate to the team lead</div>
+        <div class="uc-response">Monitoring all open PRs. PR #2201 hit 48h — pinged @alex in #api-team. PR #2187 hit 72h — escalated to @sarah (team lead) with context: 3 other PRs depend on this, release train is Thursday. Current queue: 14 PRs tracked, 2 in escalation, avg review time this week: 22h.</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
+        <div class="uc-prompt">Recurring compliance checks — license audits, security scans, R&D hour tracking — on schedule, fully logged</div>
+        <div class="uc-response">Weekly compliance run complete. License audit: 2 new AGPL dependencies flagged for legal review. Security: all critical CVEs patched. R&D hours logged: 847h across 3 projects (tax credit eligible). Full audit trace in OpenTelemetry dashboard.</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
+        <div class="uc-prompt">Hourly: enrich new Jira tickets with Zendesk customer context, related code paths, and similar past issues</div>
+        <div class="uc-response">Processed 8 new tickets this cycle. PROJ-1924: linked to 3 Zendesk reports from enterprise clients, attached relevant auth service code, found similar issue fixed in PROJ-1801. PROJ-1925: first-time report, no matches. Enrichment saves ~15 min per ticket of manual triage.</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--onboarding">Onboarding</span></div>
+        <div class="uc-prompt">New hires should get self-serve codebase walkthroughs — save our architecture, service boundaries, and deploy process as runbooks</div>
+        <div class="uc-response">Created 5 runbooks: "Architecture Overview" (12 services, data flow), "Service Boundaries" (ownership, APIs, contracts), "Deploy Pipeline" (CI stages, canary, rollback), "On-call Guide", "Local Dev Setup". Referenced 47 source files, 8 Confluence pages. Available to all team members — new hires can ask follow-up questions directly.</div>
+      </div>
+      <!-- Duplicate for seamless loop -->
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
+        <div class="uc-prompt">Triage every incoming issue — classify by team, attach relevant code and docs, route automatically</div>
+        <div class="uc-response">Triaged 12 new issues. 4 routed to Platform (infra-related), 3 to API team (endpoint bugs), 5 to Frontend. Attached relevant source files, related PRs, and runbook links to each. Average triage time: 8 seconds. No human intervention needed.</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
+        <div class="uc-prompt">Enforce release readiness gates — test coverage, security scans, required approvals — before every deploy</div>
+        <div class="uc-response">Release v2.14.0 gate check: Test coverage 94% (pass). Security scan: 0 critical, 2 medium (known, tracked). Approvals: 2/2 required reviewers signed off. Changelog generated. All gates green — ready to deploy.</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
+        <div class="uc-prompt">When a PR hasn't been reviewed in 48h — nudge the reviewer. If still pending after 72h, escalate to the team lead</div>
+        <div class="uc-response">Monitoring all open PRs. PR #2201 hit 48h — pinged @alex in #api-team. PR #2187 hit 72h — escalated to @sarah (team lead) with context: 3 other PRs depend on this, release train is Thursday. Current queue: 14 PRs tracked, 2 in escalation, avg review time this week: 22h.</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
+        <div class="uc-prompt">Recurring compliance checks — license audits, security scans, R&D hour tracking — on schedule, fully logged</div>
+        <div class="uc-response">Weekly compliance run complete. License audit: 2 new AGPL dependencies flagged for legal review. Security: all critical CVEs patched. R&D hours logged: 847h across 3 projects (tax credit eligible). Full audit trace in OpenTelemetry dashboard.</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--automation">Automation</span></div>
+        <div class="uc-prompt">Hourly: enrich new Jira tickets with Zendesk customer context, related code paths, and similar past issues</div>
+        <div class="uc-response">Processed 8 new tickets this cycle. PROJ-1924: linked to 3 Zendesk reports from enterprise clients, attached relevant auth service code, found similar issue fixed in PROJ-1801. PROJ-1925: first-time report, no matches. Enrichment saves ~15 min per ticket of manual triage.</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-tags"><span class="uc-tag uc-tag--onboarding">Onboarding</span></div>
+        <div class="uc-prompt">New hires should get self-serve codebase walkthroughs — save our architecture, service boundaries, and deploy process as runbooks</div>
+        <div class="uc-response">Created 5 runbooks: "Architecture Overview" (12 services, data flow), "Service Boundaries" (ownership, APIs, contracts), "Deploy Pipeline" (CI stages, canary, rollback), "On-call Guide", "Local Dev Setup". Referenced 47 source files, 8 Confluence pages. Available to all team members — new hires can ask follow-up questions directly.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="section section-testimonials">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-label">What teams say</span>
+      <h2>Trusted in Production</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <p class="testimonial-quote">"It's the first AI tool where I actually trust the answers. Probe retrieves the real code, not hallucinated snippets, and that changes everything for how we use it across the team."</p>
+        <div class="testimonial-author">
+          <strong>Andy Ost</strong>
+          <span>Senior Product Manager at Tyk.io</span>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-quote">"Probe understands our codebase better than most new hires. I use it for code reviews, architecture decisions, and onboarding — it's become part of how our team works."</p>
+        <div class="testimonial-author">
+          <strong>Laurentiu Ghiur</strong>
+          <span>Technical Lead at Tyk.io</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -251,7 +330,7 @@ title: Engineering Leadership - Probe Labs
           <ul class="phase-outcomes">
             <li>3-5 teams using workflows</li>
             <li>Shared template library</li>
-            <li>SSO and RBAC configured</li>
+            <li>SSO and RBAC configured (Enterprise tier)</li>
           </ul>
         </div>
       </div>
@@ -284,19 +363,19 @@ title: Engineering Leadership - Probe Labs
     <div class="faq-grid">
       <div class="faq-item">
         <h3>How does this differ from just using Claude or GPT directly?</h3>
-        <p>Direct LLM usage is stateless and disconnected from your systems. Probe Labs workflows are grounded in your actual systems of record, maintain context across interactions, and produce auditable traces. The difference is between a smart assistant and reliable infrastructure.</p>
+        <p>Direct LLM usage is stateless and disconnected from your systems. Probe workflows are grounded in your actual systems of record, maintain context across interactions, and produce auditable traces. The difference is between a smart assistant and reliable infrastructure.</p>
       </div>
       <div class="faq-item">
         <h3>What about security and data privacy?</h3>
-        <p>Probe runs entirely on-prem - retrieval runs locally and you control what context is sent to the model. You choose which LLM provider to use, including self-hosted options. All agent actions are logged with OpenTelemetry for complete auditability.</p>
+        <p>Probe runs entirely on-prem — retrieval runs locally and you control what context is sent to the model. You choose which LLM provider to use, including self-hosted options. All agent actions are logged with OpenTelemetry for complete auditability.</p>
       </div>
       <div class="faq-item">
         <h3>How do teams maintain their workflows?</h3>
-        <p>Workflows are defined as code, version-controlled alongside your application code. Teams own their workflows with the same practices they use for any infrastructure - code review, testing, gradual rollout.</p>
+        <p>Workflows are defined as code, version-controlled alongside your application code. Teams own their workflows with the same practices they use for any infrastructure — code review, testing, gradual rollout.</p>
       </div>
       <div class="faq-item">
         <h3>What happens when an agent makes a mistake?</h3>
-        <p>Every agent action is traced and reversible where possible. Workflows include human-in-the-loop checkpoints for sensitive operations. The observability stack lets you identify issues quickly and roll back changes when needed.</p>
+        <p>Every agent action produces a full trace. Workflows include human-in-the-loop checkpoints for sensitive operations. The observability stack lets you identify issues and roll back changes within minutes.</p>
       </div>
     </div>
   </div>
@@ -307,24 +386,24 @@ title: Engineering Leadership - Probe Labs
   <div class="container">
     <div class="cta-card">
       <h2>Ready to Make AI Workflows Predictable?</h2>
-      <p>Talk to us about your use case.</p>
+      <p>Start with open source today, or book a 30-minute demo to see Probe running on a production-scale codebase.</p>
       <div class="cta-buttons">
         <a href="https://cal.com/leonid-bugaev/30min" class="btn btn-primary btn-lg"><span>Book a Demo</span> <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-        <a href="https://github.com/probelabs/visor/tree/main/examples" class="btn btn-secondary">View Reference Workflows</a>
+        <a href="/docs/chat-with-code#quick-start" class="btn btn-secondary">Start with Open Source</a>
       </div>
     </div>
   </div>
 </section>
 
-<SiteFooter />
-
 </div>
 
 <style>
 /* ========================================
-   Engineering Leadership - Page-Specific Styles
-   Shared styles come from product-solution.css
+   Engineering Leadership - Brutalist Design Override
+   Overrides product-solution.css to match new homepage
    ======================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap');
 
 /* VitePress Overrides */
 .VPContent.has-sidebar {
@@ -337,74 +416,210 @@ title: Engineering Leadership - Probe Labs
 }
 
 /* ========================================
-   Page-Specific: Leadership Value Card (Hero)
+   Brutalist Design Token Overrides
+   ======================================== */
+
+.ps-page {
+  --c-bg: #f7f5f0;
+  --c-bg-subtle: #f7f5f0;
+  --c-text: #111111;
+  --c-text-muted: #666666;
+  --c-text-subtle: #999999;
+  --c-border: rgba(0,0,0,0.08);
+  --c-primary: #111111;
+  --c-primary-light: #111111;
+  --c-primary-bg: rgba(17,17,17,0.04);
+  --c-primary-border: rgba(0,0,0,0.15);
+  --radius-sm: 2px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --radius-xl: 2px;
+  --font-display: 'Space Mono', monospace;
+  --font-body: 'IBM Plex Mono', monospace;
+  background: #f7f5f0 !important;
+}
+
+.ps-page,
+.ps-page p,
+.ps-page li,
+.ps-page span,
+.ps-page a {
+  font-family: 'IBM Plex Mono', monospace !important;
+}
+
+.ps-page h1,
+.ps-page h2,
+.ps-page h3 {
+  font-family: 'Space Mono', monospace !important;
+  letter-spacing: -0.02em;
+}
+
+/* Remove all box shadows */
+.ps-page .leadership-value-card,
+.ps-page .glance-card,
+.ps-page .workflow-card,
+.ps-page .pillar-card,
+.ps-page .faq-item,
+.ps-page .cta-card {
+  box-shadow: none !important;
+}
+
+/* Remove all border-radius overrides */
+.ps-page .btn,
+.ps-page .guarantee-badge,
+.ps-page .trust-badge,
+.ps-page .flow-step,
+.ps-page .phase-outcomes li,
+.ps-page .badge-dot {
+  border-radius: 2px !important;
+}
+
+/* ========================================
+   Hero Overrides
+   ======================================== */
+
+.ps-page .hero {
+  background: #f7f5f0 !important;
+}
+
+.ps-page .hero-gradient,
+.ps-page .hero-grid {
+  display: none !important;
+}
+
+.ps-page .hero-badge {
+  background: rgba(17,17,17,0.06) !important;
+  border-color: rgba(0,0,0,0.1) !important;
+  color: #111111 !important;
+  border-radius: 2px !important;
+}
+
+.ps-page .badge-dot {
+  background: #111111 !important;
+}
+
+.ps-page .hero-title-main {
+  color: #111111 !important;
+}
+
+.ps-page .hero-title-sub {
+  color: #111111 !important;
+  background: none !important;
+  -webkit-text-fill-color: #111111 !important;
+}
+
+.ps-page .hero-subtitle {
+  color: #666666 !important;
+}
+
+.ps-page .guarantee-badge {
+  background: rgba(17,17,17,0.04) !important;
+  border: 1px solid rgba(0,0,0,0.08) !important;
+  color: #666666 !important;
+}
+
+.ps-page .btn-primary {
+  background: #111111 !important;
+  color: #f7f5f0 !important;
+  border-color: #111111 !important;
+  border-radius: 0 !important;
+}
+
+.ps-page .btn-primary:hover {
+  background: transparent !important;
+  color: #111111 !important;
+  border-color: #666666 !important;
+}
+
+.ps-page .btn-secondary {
+  background: transparent !important;
+  color: #111111 !important;
+  border: 1px solid #666666 !important;
+  border-radius: 0 !important;
+}
+
+.ps-page .btn-secondary:hover {
+  background: #111111 !important;
+  color: #f7f5f0 !important;
+  border-color: #111111 !important;
+}
+
+.ps-page .hero-pricing-signal {
+  font-size: 0.78rem;
+  color: #999999;
+  font-style: italic;
+  margin-top: 1rem;
+}
+
+/* ========================================
+   Leadership Value Card (Hero)
    ======================================== */
 
 .ps-page .leadership-value-card {
-  background: var(--c-bg);
-  border: 1px solid var(--c-border);
-  border-radius: var(--radius-xl);
-  padding: var(--space-xl);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 2px;
+  padding: 1.5rem;
   max-width: 420px;
 }
 
 .ps-page .value-header {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--c-text-muted);
+  font-family: 'Space Mono', monospace !important;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #999999;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: var(--space-lg);
+  letter-spacing: 0.08em;
+  margin-bottom: 1.5rem;
   text-align: center;
 }
 
 .ps-page .value-comparison {
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
-  margin-bottom: var(--space-xl);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .ps-page .value-before,
 .ps-page .value-after {
-  padding: var(--space-md);
-  border-radius: var(--radius-md);
+  padding: 1rem;
+  border-radius: 2px;
 }
 
 .ps-page .value-before {
-  background: rgba(239, 68, 68, 0.05);
-  border: 1px solid rgba(239, 68, 68, 0.15);
+  background: rgba(0,0,0,0.03);
+  border: 1px solid rgba(0,0,0,0.08);
 }
 
 .ps-page .value-after {
-  background: var(--c-primary-bg);
-  border: 1px solid var(--c-primary-border);
+  background: rgba(17,17,17,0.04);
+  border: 1px solid rgba(0,0,0,0.15);
 }
 
 .ps-page .value-label {
   font-size: 0.6875rem;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  margin-bottom: var(--space-sm);
+  margin-bottom: 0.5rem;
 }
 
 .ps-page .value-before .value-label {
-  color: #dc2626;
+  color: #999999;
 }
 
 .ps-page .value-after .value-label {
-  color: var(--c-primary);
+  color: #111111;
 }
 
 .ps-page .value-item {
   display: flex;
   align-items: flex-start;
-  gap: var(--space-xs);
-  font-size: 0.8125rem;
-  color: var(--c-text);
-  margin-bottom: var(--space-sm);
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: #111111;
+  margin-bottom: 0.5rem;
   line-height: 1.4;
 }
 
@@ -428,11 +643,11 @@ title: Engineering Leadership - Probe Labs
 }
 
 .ps-page .value-icon-bad svg {
-  color: #dc2626;
+  color: #999999;
 }
 
 .ps-page .value-icon-good svg {
-  color: var(--c-primary);
+  color: #111111;
 }
 
 .ps-page .value-arrow {
@@ -445,29 +660,30 @@ title: Engineering Leadership - Probe Labs
 .ps-page .value-arrow svg {
   width: 24px;
   height: 24px;
-  color: var(--c-primary);
+  color: #111111;
   transform: rotate(90deg);
 }
 
 .ps-page .value-trust {
-  padding-top: var(--space-lg);
-  border-top: 1px solid var(--c-border);
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0,0,0,0.08);
 }
 
 .ps-page .trust-label {
+  font-family: 'Space Mono', monospace !important;
   font-size: 0.6875rem;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--c-text-muted);
-  margin-bottom: var(--space-sm);
+  color: #999999;
+  margin-bottom: 0.5rem;
   text-align: center;
 }
 
 .ps-page .trust-badges {
   display: flex;
   justify-content: center;
-  gap: var(--space-sm);
+  gap: 0.5rem;
   flex-wrap: wrap;
 }
 
@@ -477,46 +693,45 @@ title: Engineering Leadership - Probe Labs
   gap: 4px;
   font-size: 0.75rem;
   font-weight: 500;
-  color: var(--c-text-muted);
-  background: var(--c-bg-subtle);
-  border: 1px solid var(--c-border);
+  color: #666666;
+  background: rgba(17,17,17,0.04);
+  border: 1px solid rgba(0,0,0,0.08);
   padding: 4px 8px;
-  border-radius: 4px;
+  border-radius: 2px;
 }
 
 .ps-page .trust-badge svg {
   width: 14px;
   height: 14px;
-  color: var(--c-primary);
+  color: #111111;
 }
 
-
 /* ========================================
-   Page-Specific: At a Glance Section
+   At a Glance Section
    ======================================== */
 
 .ps-page .section-glance {
-  background: var(--c-bg);
+  background: #f7f5f0 !important;
 }
 
 .ps-page .glance-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-lg);
+  gap: 1.5rem;
 }
 
 .ps-page .glance-card {
-  padding: var(--space-xl);
-  background: var(--c-bg-subtle);
-  border: 1px solid var(--c-border);
-  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 2px;
   text-align: center;
-  transition: all 0.3s ease;
+  transition: border-color 0.3s ease;
 }
 
 .ps-page .glance-card:hover {
-  border-color: var(--c-primary-border);
-  transform: translateY(-2px);
+  border-color: rgba(0,0,0,0.2);
+  transform: none;
 }
 
 .ps-page .glance-icon {
@@ -525,163 +740,280 @@ title: Engineering Leadership - Probe Labs
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--c-primary-bg);
-  border: 1px solid var(--c-primary-border);
-  border-radius: var(--radius-md);
-  margin: 0 auto var(--space-lg);
+  background: rgba(17,17,17,0.04);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 2px;
+  margin: 0 auto 1.5rem;
 }
 
 .ps-page .glance-icon svg {
   width: 24px;
   height: 24px;
-  color: var(--c-primary);
+  color: #111111;
 }
 
 .ps-page .glance-card h3 {
-  font-size: 1rem;
-  font-weight: 600;
-  margin: 0 0 var(--space-sm);
-  color: var(--c-text);
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  color: #111111;
 }
 
 .ps-page .glance-card p {
-  font-size: 0.875rem;
-  color: var(--c-text-muted);
+  font-size: 0.8rem;
+  color: #666666;
   margin: 0;
-  line-height: 1.5;
-}
-
-/* ========================================
-   Page-Specific: Pillars Section Overrides
-   ======================================== */
-
-.ps-page .section-pillars {
-  background: var(--c-bg-subtle);
-}
-
-.ps-page .pillar-benefits {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.ps-page .pillar-benefits li {
-  font-size: 0.875rem;
-  color: var(--c-text-muted);
-  padding: var(--space-sm) 0;
-  padding-left: 1.25rem;
-  position: relative;
-}
-
-.ps-page .pillar-benefits li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 6px;
-  height: 6px;
-  background: var(--c-primary-light);
-  border-radius: 50%;
-}
-
-/* ========================================
-   Page-Specific: Workflows Section
-   ======================================== */
-
-.ps-page .section-workflows {
-  background: var(--c-bg);
-}
-
-.ps-page .workflows-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-lg);
-}
-
-.ps-page .workflow-card {
-  padding: var(--space-xl);
-  background: var(--c-bg-subtle);
-  border: 1px solid var(--c-border);
-  border-radius: var(--radius-lg);
-  transition: all 0.3s ease;
-}
-
-.ps-page .workflow-card:hover {
-  border-color: var(--c-primary-border);
-}
-
-.ps-page .workflow-header {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  margin-bottom: var(--space-md);
-}
-
-.ps-page .workflow-icon {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--c-primary);
-  border-radius: var(--radius-sm);
-}
-
-.ps-page .workflow-icon svg {
-  width: 20px;
-  height: 20px;
-  color: #fff;
-}
-
-.ps-page .workflow-header h3 {
-  font-size: 1.125rem;
-  font-weight: 600;
-  margin: 0;
-  color: var(--c-text);
-}
-
-.ps-page .workflow-card > p {
-  font-size: 0.9375rem;
-  color: var(--c-text-muted);
-  margin: 0 0 var(--space-lg);
   line-height: 1.6;
 }
 
-.ps-page .workflow-flow {
+/* ========================================
+   Dark Box Section
+   ======================================== */
+
+.ps-page .section-darkbox {
+  background: #f7f5f0 !important;
+}
+
+.ps-page .darkbox {
+  background: #111111;
+  padding: 3rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+}
+
+.ps-page .darkbox-label {
+  display: inline-block;
+  font-family: 'Space Mono', monospace !important;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #999999;
+  margin-bottom: 1rem;
+}
+
+.ps-page .darkbox-left h2 {
+  font-family: 'Space Mono', monospace !important;
+  font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+  font-weight: 700;
+  color: #f7f5f0 !important;
+  margin: 0 0 1rem;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.ps-page .darkbox-left > p {
+  font-size: 0.8rem;
+  color: #999999;
+  margin: 0;
+  line-height: 1.7;
+}
+
+.ps-page .darkbox-right {
   display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 0;
 }
 
-.ps-page .flow-step {
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--c-text);
-  background: var(--c-bg);
-  border: 1px solid var(--c-border);
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: 4px;
+.ps-page .darkbox-item {
+  display: flex;
+  gap: 1rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
-.ps-page .flow-arrow {
-  font-size: 0.6875rem;
-  color: var(--c-text-subtle);
-  font-style: italic;
+.ps-page .darkbox-item:first-child {
+  padding-top: 0;
 }
 
-.ps-page .workflows-cta {
-  text-align: center;
-  margin-top: var(--space-2xl);
+.ps-page .darkbox-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.ps-page .darkbox-num {
+  font-family: 'Space Mono', monospace !important;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #666666;
+  flex-shrink: 0;
+  padding-top: 0.15rem;
+}
+
+.ps-page .darkbox-item h3 {
+  font-family: 'Space Mono', monospace !important;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #f7f5f0 !important;
+  margin: 0 0 0.4rem;
+}
+
+.ps-page .darkbox-item p {
+  font-size: 0.78rem;
+  color: #999999;
+  margin: 0;
+  line-height: 1.6;
 }
 
 /* ========================================
-   Page-Specific: Adoption Section
+   Use Cases Section - Marquee Cards
+   ======================================== */
+
+.ps-page .section-usecases {
+  background: #f7f5f0 !important;
+  overflow: hidden;
+}
+
+.ps-page .uc-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+}
+
+.ps-page .uc-row {
+  display: flex;
+  gap: 1rem;
+  width: max-content;
+  will-change: transform;
+}
+
+.ps-page .uc-row--1 {
+  animation: uc-scroll-left 90s linear infinite;
+}
+
+.ps-page .uc-row--2 {
+  animation: uc-scroll-right 100s linear infinite;
+}
+
+@keyframes uc-scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes uc-scroll-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.ps-page .uc-row:hover {
+  animation-play-state: paused;
+}
+
+.ps-page .uc-card {
+  flex-shrink: 0;
+  width: 380px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 1.4rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.ps-page .uc-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+.ps-page .uc-tags {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.ps-page .uc-tag {
+  font-family: 'Space Mono', monospace !important;
+  font-size: 0.58rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid rgba(0,0,0,0.1);
+  color: #999999;
+}
+
+.ps-page .uc-tag--question { background: #eff6ff; border-color: #bfdbfe; color: #1d4ed8; }
+.ps-page .uc-tag--investigation { background: #faf5ff; border-color: #e9d5ff; color: #7c3aed; }
+.ps-page .uc-tag--automation { background: #fff7ed; border-color: #fdba74; color: #c2410c; }
+.ps-page .uc-tag--digest { background: #f0fdfa; border-color: #99f6e4; color: #0d9488; }
+.ps-page .uc-tag--onboarding { background: #f0fdf4; border-color: #bbf7d0; color: #16a34a; }
+
+.ps-page .uc-prompt {
+  font-family: 'Space Mono', monospace !important;
+  font-weight: 700;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  margin-bottom: 0.8rem;
+  color: #111111;
+}
+
+.ps-page .uc-response {
+  font-size: 0.72rem;
+  line-height: 1.65;
+  color: #999999;
+  font-weight: 400;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ========================================
+   Testimonials Section
+   ======================================== */
+
+.ps-page .section-testimonials {
+  background: #f7f5f0 !important;
+}
+
+.ps-page .testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.ps-page .testimonial-card {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 2rem;
+  border-radius: 2px;
+}
+
+.ps-page .testimonial-quote {
+  font-size: 0.8rem;
+  line-height: 1.75;
+  color: #111111;
+  font-style: italic;
+  margin: 0 0 1.5rem;
+}
+
+.ps-page .testimonial-author {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.ps-page .testimonial-author strong {
+  font-size: 0.8rem;
+  color: #111111;
+  font-weight: 700;
+}
+
+.ps-page .testimonial-author span {
+  font-size: 0.72rem;
+  color: #999999;
+}
+
+/* ========================================
+   Adoption Section
    ======================================== */
 
 .ps-page .section-adoption {
-  background: var(--c-bg-subtle);
+  background: #f7f5f0 !important;
 }
 
 .ps-page .adoption-timeline {
@@ -691,8 +1023,8 @@ title: Engineering Leadership - Probe Labs
 
 .ps-page .adoption-phase {
   display: flex;
-  gap: var(--space-xl);
-  padding-bottom: var(--space-2xl);
+  gap: 1.5rem;
+  padding-bottom: 2rem;
 }
 
 .ps-page .adoption-phase:last-child {
@@ -712,17 +1044,17 @@ title: Engineering Leadership - Probe Labs
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--c-primary);
-  color: #fff;
-  font-weight: 600;
-  border-radius: 50%;
+  background: #111111;
+  color: #f7f5f0;
+  font-weight: 700;
+  border-radius: 2px;
 }
 
 .ps-page .phase-line {
   width: 2px;
   flex-grow: 1;
-  background: var(--c-border);
-  margin-top: var(--space-md);
+  background: rgba(0,0,0,0.08);
+  margin-top: 1rem;
 }
 
 .ps-page .adoption-phase:last-child .phase-line {
@@ -731,21 +1063,21 @@ title: Engineering Leadership - Probe Labs
 
 .ps-page .phase-content {
   flex-grow: 1;
-  padding-top: var(--space-sm);
+  padding-top: 0.5rem;
 }
 
 .ps-page .phase-content h3 {
-  font-size: 1.125rem;
-  font-weight: 600;
-  margin: 0 0 var(--space-sm);
-  color: var(--c-text);
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem;
+  color: #111111;
 }
 
 .ps-page .phase-content > p {
-  font-size: 0.9375rem;
-  color: var(--c-text-muted);
-  margin: 0 0 var(--space-md);
-  line-height: 1.6;
+  font-size: 0.8rem;
+  color: #666666;
+  margin: 0 0 1rem;
+  line-height: 1.7;
 }
 
 .ps-page .phase-outcomes {
@@ -754,62 +1086,114 @@ title: Engineering Leadership - Probe Labs
   margin: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-sm);
+  gap: 0.5rem;
 }
 
 .ps-page .phase-outcomes li {
-  font-size: 0.8125rem;
-  color: var(--c-text-muted);
-  background: var(--c-bg);
-  border: 1px solid var(--c-border);
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: 4px;
+  font-size: 0.75rem;
+  color: #666666;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 0.3rem 0.6rem;
+  border-radius: 2px;
 }
 
 /* ========================================
-   Page-Specific: FAQ Section Overrides
+   FAQ Section
    ======================================== */
 
 .ps-page .section-faq {
-  background: var(--c-bg);
+  background: #f7f5f0 !important;
 }
 
 .ps-page .faq-item {
-  background: var(--c-bg-subtle);
+  background: #fff !important;
+  border: 1px solid rgba(0,0,0,0.08) !important;
+  border-radius: 2px !important;
+}
+
+.ps-page .faq-item h3 {
+  color: #111111 !important;
+}
+
+.ps-page .faq-item p {
+  color: #666666 !important;
 }
 
 /* ========================================
-   Page-Specific: CTA Section
+   CTA Section
    ======================================== */
 
 .ps-page .section-cta {
-  background: var(--c-bg-subtle);
+  background: #f7f5f0 !important;
 }
 
 .ps-page .cta-card {
   text-align: center;
-  padding: var(--space-3xl);
-  background: var(--c-primary-bg);
-  border: 1px solid var(--c-primary-border);
-  border-radius: var(--radius-xl);
+  padding: 3rem;
+  background: #111111 !important;
+  border: none !important;
+  border-radius: 2px !important;
 }
 
 .ps-page .cta-card h2 {
-  font-family: var(--font-display);
+  font-family: 'Space Mono', monospace !important;
   font-size: 1.75rem;
   font-weight: 700;
-  margin: 0 0 var(--space-md);
-  color: var(--c-text);
+  margin: 0 0 1rem;
+  color: #f7f5f0 !important;
 }
 
 .ps-page .cta-card > p {
-  font-size: 1.125rem;
-  color: var(--c-text-muted);
-  margin: 0 0 var(--space-xl);
+  font-size: 0.85rem;
+  color: #999999 !important;
+  margin: 0 0 1.5rem;
+  line-height: 1.7;
+}
+
+.ps-page .cta-card .btn-primary {
+  background: #f7f5f0 !important;
+  color: #111111 !important;
+  border-color: #f7f5f0 !important;
+}
+
+.ps-page .cta-card .btn-primary:hover {
+  background: transparent !important;
+  color: #f7f5f0 !important;
+  border-color: #666666 !important;
+}
+
+.ps-page .cta-card .btn-secondary {
+  color: #f7f5f0 !important;
+  border-color: rgba(255,255,255,0.2) !important;
+}
+
+.ps-page .cta-card .btn-secondary:hover {
+  background: #f7f5f0 !important;
+  color: #111111 !important;
+  border-color: #f7f5f0 !important;
 }
 
 /* ========================================
-   Page-Specific: Responsive
+   Section Label Overrides
+   ======================================== */
+
+.ps-page .section-label {
+  color: #999999 !important;
+  border-color: rgba(0,0,0,0.08) !important;
+  background: transparent !important;
+}
+
+.ps-page .section-header h2 {
+  color: #111111 !important;
+}
+
+.ps-page .section-desc {
+  color: #666666 !important;
+}
+
+/* ========================================
+   Responsive
    ======================================== */
 
 @media (max-width: 1024px) {
@@ -817,32 +1201,45 @@ title: Engineering Leadership - Probe Labs
     order: -1;
   }
 
-  .ps-page .workflow-diagram {
-    max-width: 360px;
-  }
-
   .ps-page .glance-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ps-page .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ps-page .uc-card {
+    width: 320px;
   }
 }
 
 @media (max-width: 768px) {
-  .ps-page .diagram-metrics {
-    flex-direction: column;
-    gap: var(--space-sm);
-  }
-
-  .ps-page .glance-grid,
-  .ps-page .workflows-grid {
+  .ps-page .glance-grid {
     grid-template-columns: 1fr;
   }
 
+  .ps-page .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ps-page .darkbox {
+    grid-template-columns: 1fr;
+    padding: 2rem;
+    gap: 2rem;
+  }
+
+  .ps-page .uc-card {
+    width: 280px;
+    padding: 1.2rem;
+  }
+
   .ps-page .cta-card {
-    padding: var(--space-xl);
+    padding: 1.5rem;
   }
 
   .ps-page .adoption-phase {
-    gap: var(--space-md);
+    gap: 1rem;
   }
 }
 </style>
