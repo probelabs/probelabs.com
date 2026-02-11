@@ -15,7 +15,7 @@ title: Solutions for Enterprise - Probe Labs
     <div class="hero-content">
       <div class="hero-badge"><span class="badge-dot"></span> For Enterprise Organizations</div>
       <h1 class="hero-title">
-        <span class="hero-title-main">Knowledge Silos</span>
+        <span class="hero-title-main" style="white-space: nowrap;">Knowledge Silos</span>
         <span class="hero-title-sub">Kill Enterprise Velocity</span>
       </h1>
       <p class="hero-subtitle">100+ engineers. Dozens of services. One source of truth. Probe gives enterprise teams unified code intelligence across your entire organization — at scale.</p>
@@ -745,7 +745,6 @@ title: Solutions for Enterprise - Probe Labs
   border-color: rgba(0,0,0,0.1) !important;
   color: #111111 !important;
   border-radius: 2px !important;
-  white-space: nowrap;
 }
 
 .ps-page .badge-dot {
@@ -754,7 +753,6 @@ title: Solutions for Enterprise - Probe Labs
 
 .ps-page .hero-title-main {
   color: #111111 !important;
-  white-space: nowrap;
 }
 
 .ps-page .hero-title-sub {
