@@ -103,15 +103,38 @@ checks:
       question: "{{ conversation.current.text }}"
       system_prompt: "You are a helpful assistant."
       intents:
-        - name: chat
+        - id: chat
           description: "General conversation"
-        - name: code_help
+        - id: code_help
           description: "Questions about code"
       skills:
-        - name: jira
-          description: "Jira ticket lookup"
-        - name: code-explorer
+        - id: jira
+          description: "Jira ticket lookup and management"
+          tools:
+            jira:
+              command: uvx
+              args: ["mcp-atlassian"]
+              env:
+                JIRA_URL: "${JIRA_URL}"
+                JIRA_USERNAME: "${JIRA_USERNAME}"
+                JIRA_API_TOKEN: "${JIRA_API_TOKEN}"
+              allowedMethods:
+                - jira_get_issue
+                - jira_search
+
+        - id: code-explorer
           description: "Code search and exploration"
+          tools:
+            code-explorer:
+              workflow: code-talk
+              inputs:
+                projects:
+                  - id: my-app
+                    repo: myorg/my-app
+                    description: "Main application code"
+                  - id: shared-lib
+                    repo: myorg/shared-lib
+                    description: "Shared libraries"
 ```
 
 **The pain:**
