@@ -1401,6 +1401,151 @@
   padding: 5rem 0;
 }
 
+/* Billing toggle */
+.new-homepage-pricing .nhp-billing-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--gray);
+}
+
+.new-homepage-pricing .nhp-billing-toggle span.active {
+  color: var(--black);
+  font-weight: 700;
+}
+
+.new-homepage-pricing .nhp-toggle-save {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #16a34a;
+  margin-left: 0.25rem;
+}
+
+.new-homepage-pricing .nhp-toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.new-homepage-pricing .nhp-toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.new-homepage-pricing .nhp-toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #ccc;
+  border-radius: 24px;
+  transition: background-color 0.2s;
+}
+
+.new-homepage-pricing .nhp-toggle-slider::before {
+  content: "";
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+.new-homepage-pricing .nhp-toggle-switch input:checked + .nhp-toggle-slider {
+  background-color: var(--black);
+}
+
+.new-homepage-pricing .nhp-toggle-switch input:checked + .nhp-toggle-slider::before {
+  transform: translateX(20px);
+}
+
+/* Price with tooltip */
+.new-homepage-pricing .nhp-price {
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.new-homepage-pricing .nhp-price-period {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--gray);
+}
+
+/* Seat info tooltip */
+.new-homepage-pricing .nhp-seat-info {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: help;
+  margin-left: 0.25rem;
+}
+
+.new-homepage-pricing .nhp-info-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--gray);
+  transition: color 0.15s;
+  flex-shrink: 0;
+}
+
+.new-homepage-pricing .nhp-seat-info:hover .nhp-info-icon,
+.new-homepage-pricing .nhp-seat-info:focus .nhp-info-icon {
+  color: var(--black);
+}
+
+.new-homepage-pricing .nhp-seat-tooltip {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--black);
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity 0.15s, visibility 0.15s;
+  z-index: 10;
+}
+
+.new-homepage-pricing .nhp-seat-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--black);
+}
+
+.new-homepage-pricing .nhp-seat-info:hover .nhp-seat-tooltip,
+.new-homepage-pricing .nhp-seat-info:focus .nhp-seat-tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
 /* Card grid */
 .new-homepage-pricing .nhp-grid {
   display: grid;
@@ -1428,13 +1573,6 @@
   font-family: 'Space Mono', monospace;
   font-weight: 700;
   font-size: 1.1rem;
-  margin-bottom: 0.5rem;
-}
-
-.new-homepage-pricing .nhp-price {
-  font-family: 'Space Mono', monospace;
-  font-weight: 700;
-  font-size: 1.5rem;
   margin-bottom: 0.5rem;
 }
 

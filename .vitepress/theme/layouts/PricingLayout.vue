@@ -32,6 +32,14 @@
           <h2>Start free. Scale when you're ready.</h2>
           <p>The open source gives you the full engine. Paid plans give you a partner — high availability, hands-on support, and enterprise governance.</p>
         </div>
+        <div class="nhp-billing-toggle">
+          <span :class="{ active: !isAnnual }">Monthly</span>
+          <label class="nhp-toggle-switch">
+            <input type="checkbox" v-model="isAnnual">
+            <span class="nhp-toggle-slider"></span>
+          </label>
+          <span :class="{ active: isAnnual }">Annual <span class="nhp-toggle-save">Save 20%</span></span>
+        </div>
         <div class="nhp-grid">
           <!-- Open Source -->
           <div class="nhp-card">
@@ -66,13 +74,21 @@
           <div class="nhp-card nhp-card--featured">
             <div class="nhp-card-header">
               <h3>Business</h3>
-              <div class="nhp-price">$20,000 / year</div>
-              <p class="nhp-best">HA deployment, hands-on support. Most teams live within a day.</p>
+              <div class="nhp-price">
+                <span v-if="isAnnual">$40</span>
+                <span v-else>$50</span>
+                <span class="nhp-price-period">/ seat / month</span>
+                <span class="nhp-seat-info" tabindex="0">
+                  <svg class="nhp-info-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M8 7v4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="4.5" r="0.75" fill="currentColor"/></svg>
+                  <span class="nhp-seat-tooltip">A seat is an active user of Probe in the last 30 days.</span>
+                </span>
+              </div>
+              <p class="nhp-best" v-if="isAnnual">Billed annually. HA deployment, hands-on support. Most teams live within a day.</p>
+              <p class="nhp-best" v-else>Billed monthly. HA deployment, hands-on support. Most teams live within a day.</p>
             </div>
             <div class="nhp-card-section">
               <div class="nhp-card-section-title">What you get</div>
               <ul class="nhp-list">
-                <li>Up to 10 repos, up to 50 people</li>
                 <li>Multi-node deployment with high availability</li>
                 <li>An assistant tuned for your stack — repos, services, Jira, GitHub, Zendesk, Slack, and any tools your team uses</li>
                 <li>Dozens of pre-built templates and working solutions to get you running fast</li>
@@ -81,7 +97,6 @@
                 <li>Ongoing support from first deploy to daily operations</li>
               </ul>
             </div>
-            <p class="nhp-note">Annual contract. Fixed scope. Predictable cost.</p>
             <div class="nhp-card-cta">
               <a href="https://cal.com/leonid-bugaev/30min" class="nh-btn filled">Book a demo</a>
             </div>
@@ -162,8 +177,8 @@
         <h2>Common questions</h2>
         <div class="nhp-faq-grid">
           <div class="nhp-faq-item">
-            <h3>What happens if I exceed 10 repos or 50 people?</h3>
-            <p>We'll work with you to expand your license. Probe keeps running with a 3-month grace period — no disruption while we sort it out.</p>
+            <h3>How are seats counted?</h3>
+            <p>A seat is any user who actively uses Probe in the last 30 days. Inactive users don't count toward your bill. If your team size fluctuates, you only pay for who's actually using it.</p>
           </div>
           <div class="nhp-faq-item">
             <h3>Is there a trial?</h3>
@@ -202,6 +217,9 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import NewNav from '../components/NewNav.vue'
 import NewFooter from '../components/NewFooter.vue'
+
+const isAnnual = ref(true)
 </script>
