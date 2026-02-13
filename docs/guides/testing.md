@@ -94,15 +94,17 @@ Let me tell you how we evolved our testing strategy, step by step.
 We started like everyone else - manually testing in Slack, hoping things worked:
 
 ```yaml
-# Our first workflow - zero tests
-steps:
-  classify:
-    type: ai
-    prompt: "Classify this question: {{ question }}"
-
-  respond:
-    type: ai
-    prompt: "Answer based on: {{ outputs.classify }}"
+# Our first assistant - zero tests
+checks:
+  chat:
+    type: workflow
+    workflow: assistant
+    args:
+      question: "{{ conversation.current.text }}"
+      intents:
+        expression: "loadConfig('config/intents.yaml')"
+      skills:
+        expression: "loadConfig('config/skills.yaml')"
 ```
 
 **Problems:**
@@ -117,17 +119,21 @@ We added simple mocked tests (see [Fixtures and Mocks documentation](https://git
 ```yaml
 tests:
   cases:
-    - name: basic-classification
-      mocks:
-        classify:
-          intent: "question"
-          skills: ["jira"]
-        respond:
-          text: "Here's your ticket info"
-      expect:
-        calls:
-          - step: classify
-            exactly: 1
+    - name: basic-jira-routing
+      flow:
+        - name: test-flow
+          execution_context:
+            conversation:
+              current: { text: "Get ticket TT-123" }
+          mocks:
+            chat[]:
+              - text: "Here is ticket TT-123."
+              - intent: chat
+              - skills: [jira]
+          expect:
+            calls:
+              - step: chat
+                exactly: 1
 ```
 
 **What we gained:**
@@ -243,21 +249,29 @@ Before writing any workflow code, define what you're testing:
 
 ```yaml
 tests:
+  defaults:
+    strict: true
+    ai_provider: mock
+
   cases:
     # Use case 1: Jira ticket queries
     - name: jira-ticket-query
       description: User asks about a specific Jira ticket
       flow:
         - name: test-jira-routing
+          event: manual
+          fixture: local.minimal
+          routing:
+            max_loops: 1
           execution_context:
             conversation:
-              current:
-                text: "Get ticket TT-9234"
-          # No mocks yet - we'll generate them
+              transport: slack
+              thread: { id: "test-1" }
+              messages: [{ role: user, text: "Get ticket TT-9234", timestamp: "2024-01-01T00:00:00Z" }]
+              current: { role: user, text: "Get ticket TT-9234", timestamp: "2024-01-01T00:00:00Z" }
+              attributes: { channel: "C123", user: "U456" }
+          # No mocks yet - we'll generate them with --no-mocks
           expect:
-            calls:
-              - step: chat.route-intent
-                exactly: 1
             outputs:
               - step: chat.route-intent
                 path: skills
@@ -268,10 +282,17 @@ tests:
       description: User asks about codebase
       flow:
         - name: test-code-routing
+          event: manual
+          fixture: local.minimal
+          routing:
+            max_loops: 1
           execution_context:
             conversation:
-              current:
-                text: "How does authentication work?"
+              transport: slack
+              thread: { id: "test-2" }
+              messages: [{ role: user, text: "How does authentication work?", timestamp: "2024-01-01T00:00:00Z" }]
+              current: { role: user, text: "How does authentication work?", timestamp: "2024-01-01T00:00:00Z" }
+              attributes: { channel: "C123", user: "U456" }
           expect:
             outputs:
               - step: chat.route-intent
@@ -321,10 +342,17 @@ Copy the suggested mocks into your test:
 - name: jira-ticket-query
   flow:
     - name: test-jira-routing
+      event: manual
+      fixture: local.minimal
+      routing:
+        max_loops: 1
       execution_context:
         conversation:
-          current:
-            text: "Get ticket TT-9234"
+          transport: slack
+          thread: { id: "test-1" }
+          messages: [{ role: user, text: "Get ticket TT-9234", timestamp: "2024-01-01T00:00:00Z" }]
+          current: { role: user, text: "Get ticket TT-9234", timestamp: "2024-01-01T00:00:00Z" }
+          attributes: { channel: "C123", user: "U456" }
       mocks:
         chat.route-intent:
           intent: chat
@@ -500,38 +528,30 @@ Let's build a complete test suite for an AI assistant that routes to Jira, code 
 For workflow syntax details, see [Liquid Templates](https://github.com/probelabs/visor/blob/main/docs/liquid-templates.md) and [Workflows](https://github.com/probelabs/visor/blob/main/docs/workflows.md).
 
 ```yaml
-# assistant.yaml
+# tyk-assistant.yaml
 version: "1.0"
 
 imports:
-  - workflows/intent-router.yaml
+  - https://raw.githubusercontent.com/probelabs/visor-ee/master/workflows/assistant.yaml
 
-steps:
-  route-intent:
+checks:
+  chat:
     type: workflow
-    workflow: intent-router
-    with:
-      question: "{{ inputs.question }}"
-      skills: "{{ inputs.skills }}"
-
-  build-config:
-    type: script
-    depends_on: [route-intent]
-    content: |
-      const skills = outputs['route-intent'].skills || [];
-      // Build MCP servers and knowledge based on active skills
-      return { mcp_servers: {}, knowledge: skills.join(', ') };
-
-  generate-response:
-    type: ai
-    depends_on: [route-intent, build-config]
-    prompt: |
-      You are a helpful assistant.
-      Active skills: {{ outputs['route-intent'].skills | join: ', ' }}
-      Knowledge: {{ outputs['build-config'].knowledge }}
-
-      User question: {{ inputs.question }}
+    workflow: assistant
+    args:
+      question: "{{ conversation.current.text }}"
+      system_prompt: |
+        You are the Tyk AI Assistant, helping developers with the Tyk API Gateway ecosystem.
+      intents:
+        expression: "loadConfig('config/intents.yaml')"
+      skills:
+        expression: "loadConfig('config/skills.yaml')"
 ```
+
+The imported `assistant` workflow contains sub-steps:
+- `route-intent` - Classifies the question and selects skills
+- `build-config` - Builds MCP servers and knowledge context
+- `generate-response` - Generates the final AI response
 
 ### The Test Suite
 
@@ -554,17 +574,23 @@ tests:
         - name: ticket-id-routing
           event: manual
           fixture: local.minimal
+          routing:
+            max_loops: 1
           execution_context:
             conversation:
-              current:
-                text: "Get ticket TT-9234"
+              transport: slack
+              thread: { id: "test-jira" }
+              messages: [{ role: user, text: "Get ticket TT-9234", timestamp: "2024-01-01T00:00:00Z" }]
+              current: { role: user, text: "Get ticket TT-9234", timestamp: "2024-01-01T00:00:00Z" }
+              attributes: { channel: "C123", user: "U456" }
           mocks:
             chat.route-intent:
               intent: chat
               skills: [jira]
+              tags: []
             chat.build-config:
               mcp_servers: {}
-              knowledge: "jira"
+              knowledge: "Jira tools activated"
             chat.generate-response:
               text: "TT-9234: Graceful shutdown of Gateway"
           expect:
@@ -585,32 +611,6 @@ tests:
                 path: text
                 matches: "TT-9234"
 
-    - name: jira-url-detection
-      description: Jira URL in message activates jira skill
-      tags: [jira, routing]
-      flow:
-        - name: url-routing
-          event: manual
-          fixture: local.minimal
-          execution_context:
-            conversation:
-              current:
-                text: "Check https://company.atlassian.net/browse/TT-9234"
-          mocks:
-            chat.route-intent:
-              intent: chat
-              skills: [jira]
-            chat.build-config:
-              mcp_servers: {}
-              knowledge: "jira"
-            chat.generate-response:
-              text: "TT-9234: Graceful shutdown of Gateway"
-          expect:
-            outputs:
-              - step: chat.route-intent
-                path: skills
-                contains_unordered: [jira]
-
     # ============================================
     # CODE EXPLORATION TESTS
     # ============================================
@@ -621,17 +621,23 @@ tests:
         - name: code-routing
           event: manual
           fixture: local.minimal
+          routing:
+            max_loops: 1
           execution_context:
             conversation:
-              current:
-                text: "How does the authentication middleware work?"
+              transport: slack
+              thread: { id: "test-code" }
+              messages: [{ role: user, text: "How does the authentication middleware work?", timestamp: "2024-01-01T00:00:00Z" }]
+              current: { role: user, text: "How does the authentication middleware work?", timestamp: "2024-01-01T00:00:00Z" }
+              attributes: { channel: "C123", user: "U456" }
           mocks:
             chat.route-intent:
               intent: code_help
               skills: [code-explorer]
+              tags: []
             chat.build-config:
               mcp_servers: {}
-              knowledge: "code-explorer"
+              knowledge: "Code exploration tools activated"
             chat.generate-response:
               text: "The authentication middleware validates JWT tokens..."
           expect:
@@ -650,17 +656,23 @@ tests:
         - name: multi-skill-routing
           event: manual
           fixture: local.minimal
+          routing:
+            max_loops: 1
           execution_context:
             conversation:
-              current:
-                text: "TT-9234 mentions a memory leak - can you find the relevant code?"
+              transport: slack
+              thread: { id: "test-multi" }
+              messages: [{ role: user, text: "TT-9234 mentions a memory leak - can you find the relevant code?", timestamp: "2024-01-01T00:00:00Z" }]
+              current: { role: user, text: "TT-9234 mentions a memory leak - can you find the relevant code?", timestamp: "2024-01-01T00:00:00Z" }
+              attributes: { channel: "C123", user: "U456" }
           mocks:
             chat.route-intent:
               intent: code_help
               skills: [jira, code-explorer]
+              tags: []
             chat.build-config:
               mcp_servers: {}
-              knowledge: "jira, code-explorer"
+              knowledge: "Jira and code exploration tools activated"
             chat.generate-response:
               text: "Looking at TT-9234 and the codebase..."
           expect:
@@ -679,18 +691,24 @@ tests:
         - name: real-api-test
           event: manual
           fixture: local.minimal
+          routing:
+            max_loops: 1
           execution_context:
             conversation:
-              current:
-                text: "Get ticket TT-9234"
+              transport: slack
+              thread: { id: "test-integration" }
+              messages: [{ role: user, text: "Get ticket TT-9234", timestamp: "2024-01-01T00:00:00Z" }]
+              current: { role: user, text: "Get ticket TT-9234", timestamp: "2024-01-01T00:00:00Z" }
+              attributes: { channel: "C123", user: "U456" }
           # Mocks will be overridden by --no-mocks-for http_client
           mocks:
             chat.route-intent:
               intent: chat
               skills: [jira]
+              tags: []
             chat.build-config:
               mcp_servers: {}
-              knowledge: "jira"
+              knowledge: "Jira tools activated"
             chat.generate-response:
               text: "TT-9234: Graceful shutdown of Gateway"
           expect:
