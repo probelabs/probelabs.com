@@ -89,9 +89,9 @@ That's exactly what Visor's testing framework provides.
 
 Let me tell you how we evolved our testing strategy, step by step.
 
-### Stage 1: No Tests (The Dark Ages)
+### Stage 1: No Tests
 
-We started like everyone else - manually testing in Slack, hoping things worked:
+Does this look familiar? A workflow that works in development, deployed to production with manual spot-checks:
 
 ```yaml
 # Our first assistant - zero tests
@@ -107,14 +107,14 @@ checks:
         expression: "loadConfig('config/skills.yaml')"
 ```
 
-**Problems:**
-- No idea if changes broke anything
-- "It worked on my machine" conversations
-- Debugging production issues at 2am
+**The pain:**
+- How do you know if a prompt change broke something?
+- How do you verify routing still works after adding a new skill?
+- How do you debug when users report "it used to work"?
 
-### Stage 2: Basic Mocks (First Light)
+### Stage 2: Basic Mocks
 
-We added simple mocked tests (see [Fixtures and Mocks documentation](https://github.com/probelabs/visor/blob/main/docs/testing/fixtures-and-mocks.md) for full details):
+The natural first step - add mocked tests for fast CI (see [Fixtures and Mocks documentation](https://github.com/probelabs/visor/blob/main/docs/testing/fixtures-and-mocks.md) for full details):
 
 ```yaml
 tests:
@@ -136,14 +136,14 @@ tests:
                 exactly: 1
 ```
 
-**What we gained:**
+**What you gain:**
 - Fast, deterministic CI runs
-- Caught obvious regressions
+- Catches obvious regressions
 
-**What we lost:**
-- Mocks drifted from reality within weeks
-- No idea if our mocks were realistic
-- False confidence - tests passed but production failed
+**The new pain:**
+- How do you know if mocks reflect reality?
+- When was the last time you updated them?
+- Tests pass, but production behaves differently - why?
 
 ### Stage 3: The No-Mocks Revelation
 
