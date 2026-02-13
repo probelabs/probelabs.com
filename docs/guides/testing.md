@@ -81,7 +81,7 @@ What you need is a way to:
 
 That's exactly what Visor's testing framework provides.
 
-> **Deep dive:** See the [Test Framework RFC](https://github.com/probelabs/visor/blob/main/docs/test-framework-rfc.md) for the design philosophy behind Visor's testing approach.
+> **Deep dive:** See the [DSL Reference](https://github.com/probelabs/visor/blob/main/docs/testing/dsl-reference.md) for the complete testing syntax and options.
 
 ---
 
