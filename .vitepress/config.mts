@@ -133,7 +133,8 @@ export default defineConfig({
       {
         text: 'Guides',
         items: [
-          { text: 'Build a Slack Bot', link: '/docs/guides/slack-bot' }
+          { text: 'Build a Slack Bot', link: '/docs/guides/slack-bot' },
+          { text: 'Testing AI Workflows', link: '/docs/guides/testing' }
         ]
       },
       {
@@ -201,7 +202,8 @@ export default defineConfig({
           text: 'Guides',
           collapsed: false,
           items: [
-            { text: 'Build a Slack Bot', link: '/docs/guides/slack-bot' }
+            { text: 'Build a Slack Bot', link: '/docs/guides/slack-bot' },
+            { text: 'Testing AI Workflows', link: '/docs/guides/testing' }
           ]
         },
         {
