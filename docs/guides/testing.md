@@ -101,10 +101,17 @@ checks:
     workflow: assistant
     args:
       question: "{{ conversation.current.text }}"
+      system_prompt: "You are a helpful assistant."
       intents:
-        expression: "loadConfig('config/intents.yaml')"
+        - name: chat
+          description: "General conversation"
+        - name: code_help
+          description: "Questions about code"
       skills:
-        expression: "loadConfig('config/skills.yaml')"
+        - name: jira
+          description: "Jira ticket lookup"
+        - name: code-explorer
+          description: "Code search and exploration"
 ```
 
 **The pain:**
