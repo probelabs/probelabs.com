@@ -35,34 +35,44 @@ Copy and paste this manifest in the JSON tab:
 ```json
 {
     "display_information": {
-        "name": "Probe",
-        "description": "A friendly bot to answer questions about code",
-        "background_color": "#000000"
+        "name": "Oel",
+        "description": ":wave:",
+        "background_color": "#000000",
+        "long_description": "I can help with product realted questions - code, jira or confluence related, maybe do mix of everything. Try to combine different sources and topics too! I love to learn more, so you can ask me to request some features too!"
     },
     "features": {
         "app_home": {
             "home_tab_enabled": true,
-            "messages_tab_enabled": true,
+            "messages_tab_enabled": false,
             "messages_tab_read_only_enabled": false
         },
         "bot_user": {
-            "display_name": "Probe",
+            "display_name": "Oel",
             "always_online": true
         }
     },
     "oauth_config": {
+        "redirect_urls": [
+            "https://localhost:3993/oauth/callback"
+        ],
         "scopes": {
+            "user": [
+                "search:read.public"
+            ],
             "bot": [
                 "app_mentions:read",
                 "channels:history",
                 "chat:write",
                 "groups:history",
+                "groups:read",
                 "im:history",
+                "im:read",
+                "im:write",
                 "mpim:history",
                 "reactions:read",
                 "reactions:write",
-                "im:read",
-                "im:write"
+                "users:read.email",
+                "users:read"
             ]
         }
     },
