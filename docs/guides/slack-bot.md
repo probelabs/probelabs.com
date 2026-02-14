@@ -42,7 +42,7 @@ Copy and paste this manifest in the JSON tab:
     "features": {
         "app_home": {
             "home_tab_enabled": true,
-            "messages_tab_enabled": true,
+            "messages_tab_enabled": false,
             "messages_tab_read_only_enabled": false
         },
         "bot_user": {
@@ -51,18 +51,27 @@ Copy and paste this manifest in the JSON tab:
         }
     },
     "oauth_config": {
+        "redirect_urls": [
+            "https://localhost:3993/oauth/callback"
+        ],
         "scopes": {
+            "user": [
+                "search:read.public"
+            ],
             "bot": [
                 "app_mentions:read",
                 "channels:history",
                 "chat:write",
                 "groups:history",
+                "groups:read",
                 "im:history",
+                "im:read",
+                "im:write",
                 "mpim:history",
                 "reactions:read",
                 "reactions:write",
-                "im:read",
-                "im:write"
+                "users:read.email",
+                "users:read"
             ]
         }
     },
