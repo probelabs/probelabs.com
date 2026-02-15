@@ -1,4 +1,12 @@
 import { defineConfig } from 'vitepress'
+import { readdirSync, existsSync } from 'fs'
+import { resolve } from 'path'
+
+// Auto-discover static apps: any public/<dir>/index.html
+const publicDir = resolve(__dirname, '../public')
+const PUBLIC_APPS = readdirSync(publicDir, { withFileTypes: true })
+  .filter(d => d.isDirectory() && existsSync(resolve(publicDir, d.name, 'index.html')))
+  .map(d => d.name)
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -48,6 +56,10 @@ export default defineConfig({
   },
 
   vite: {
+    // Expose static app paths to client-side code
+    define: {
+      __STATIC_APP_PATHS__: JSON.stringify(PUBLIC_APPS.map(name => '/' + name))
+    },
     server: {
       fs: {
         strict: false
@@ -58,15 +70,12 @@ export default defineConfig({
         name: 'rewrite-public-apps',
         enforce: 'pre',
         configureServer(server) {
-          // Add middleware at the very start of the stack
-          const publicApps = ['maid', 'visor', 'probe', 'big-brain', 'afk', 'vow', 'memaris', 'logoscope']
-
           server.middlewares.use((req, res, next) => {
             // Parse the URL to handle query strings properly
             const url = new URL(req.url || '/', `http://${req.headers.host}`)
             const pathname = url.pathname
 
-            for (const app of publicApps) {
+            for (const app of PUBLIC_APPS) {
               // Redirect non-trailing-slash to trailing-slash
               if (pathname === `/${app}`) {
                 res.writeHead(301, { Location: `/${app}/${url.search}` })

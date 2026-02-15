@@ -105,8 +105,8 @@ const ThemeSwitcher = {
   }
 }
 
-// Paths that should force full page reload (static HTML apps in /public)
-const STATIC_APP_PATHS = ['/maid', '/visor', '/probe']
+// Auto-discovered at build time from public/*/index.html (injected via vite define)
+const STATIC_APP_PATHS = typeof __STATIC_APP_PATHS__ !== 'undefined' ? __STATIC_APP_PATHS__ : []
 
 export default {
   ...DefaultTheme,
@@ -133,7 +133,7 @@ export default {
       PortfolioTheme.enhanceApp({ app })
     }
 
-    // Force full page reload for static app paths (maid, visor, probe)
+    // Force full page reload for static app paths
     // These are standalone HTML apps that don't use VitePress routing
     if (typeof window !== 'undefined') {
       router.onBeforeRouteChange = (to) => {
