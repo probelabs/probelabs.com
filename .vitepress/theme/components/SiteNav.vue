@@ -187,49 +187,49 @@
                 <div class="mega-menu-section">
                   <div class="mega-menu-label">By Solution</div>
                   <div class="mega-menu-grid mega-menu-grid--1col">
-                    <a href="/docs/chat-with-code" class="mega-menu-card">
-                      <div class="mega-card-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                      </div>
-                      <div class="mega-card-content">
-                        <div class="mega-card-title">Chat with Code</div>
-                        <div class="mega-card-desc">Grounded answers from your codebase</div>
-                      </div>
-                    </a>
-                    <a href="/docs/code-review" class="mega-menu-card">
+                    <a href="/solutions/code-review" class="mega-menu-card">
                       <div class="mega-card-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>
                       </div>
                       <div class="mega-card-content">
-                        <div class="mega-card-title">Intelligent Code Review</div>
+                        <div class="mega-card-title">AI Code Review</div>
                         <div class="mega-card-desc">Structured reviews with guardrails</div>
                       </div>
                     </a>
-                    <a href="/docs/github-assistant" class="mega-menu-card">
+                    <a href="/solutions/codebase-understanding" class="mega-menu-card">
                       <div class="mega-card-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 18a4 4 0 0 1-8 0v-1a4 4 0 0 1 8 0v1z"/><circle cx="12" cy="7" r="4"/></svg>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                       </div>
                       <div class="mega-card-content">
-                        <div class="mega-card-title">GitHub Assistant</div>
-                        <div class="mega-card-desc">Issue and PR automation in GitHub</div>
+                        <div class="mega-card-title">Codebase Understanding</div>
+                        <div class="mega-card-desc">Grounded answers from your codebase</div>
                       </div>
                     </a>
-                    <a href="/docs/use-cases/visor-workflows" class="mega-menu-card">
+                    <a href="/solutions/workflow-automation" class="mega-menu-card">
                       <div class="mega-card-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
                       </div>
                       <div class="mega-card-content">
-                        <div class="mega-card-title">Engineering Process Automation</div>
+                        <div class="mega-card-title">Workflow Automation</div>
                         <div class="mega-card-desc">Visor workflows for real processes</div>
                       </div>
                     </a>
-                    <a href="/docs/use-cases/building-ai-tools" class="mega-menu-card">
+                    <a href="/solutions/developer-onboarding" class="mega-menu-card">
+                      <div class="mega-card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 18a4 4 0 0 1-8 0v-1a4 4 0 0 1 8 0v1z"/><circle cx="12" cy="7" r="4"/></svg>
+                      </div>
+                      <div class="mega-card-content">
+                        <div class="mega-card-title">Developer Onboarding</div>
+                        <div class="mega-card-desc">Get up to speed on any codebase</div>
+                      </div>
+                    </a>
+                    <a href="/solutions/support-operations" class="mega-menu-card">
                       <div class="mega-card-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
                       </div>
                       <div class="mega-card-content">
-                        <div class="mega-card-title">Developers & SDK</div>
-                        <div class="mega-card-desc">Build custom tooling on Probe</div>
+                        <div class="mega-card-title">Support Operations</div>
+                        <div class="mega-card-desc">Engineering-grade context for support</div>
                       </div>
                     </a>
                   </div>
@@ -289,12 +289,12 @@
         <a href="/solutions/enterprise" class="mobile-sublink">Enterprise</a>
       </div>
       <div class="mobile-section">
-        <div class="mobile-section-label">Solutions (By Use Case)</div>
-        <a href="/docs/chat-with-code" class="mobile-sublink">Chat with Code</a>
-        <a href="/docs/code-review" class="mobile-sublink">Intelligent Code Review</a>
-        <a href="/docs/github-assistant" class="mobile-sublink">GitHub Assistant</a>
-        <a href="/docs/use-cases/visor-workflows" class="mobile-sublink">Engineering Process Automation</a>
-        <a href="/docs/use-cases/building-ai-tools" class="mobile-sublink">Developers & SDK</a>
+        <div class="mobile-section-label">By Solution</div>
+        <a href="/solutions/code-review" class="mobile-sublink">AI Code Review</a>
+        <a href="/solutions/codebase-understanding" class="mobile-sublink">Codebase Understanding</a>
+        <a href="/solutions/workflow-automation" class="mobile-sublink">Workflow Automation</a>
+        <a href="/solutions/developer-onboarding" class="mobile-sublink">Developer Onboarding</a>
+        <a href="/solutions/support-operations" class="mobile-sublink">Support Operations</a>
       </div>
       <a href="/pricing" class="mobile-link">Pricing</a>
       <a href="/docs/" class="mobile-link">Docs</a>
