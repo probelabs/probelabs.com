@@ -15,8 +15,8 @@ title: Solutions for Engineers - Probe Labs
     <div class="hero-content">
       <div class="hero-badge"><span class="badge-dot"></span> For Software Engineers &amp; Developers</div>
       <h1 class="hero-title">
-        <span class="hero-title-main">Stop Reading Code</span>
-        <span class="hero-title-sub">You Didn't Write</span>
+        <span class="hero-title-main">Understand Any Codebase</span>
+        <span class="hero-title-sub">In Minutes, Not Days</span>
       </h1>
       <p class="hero-subtitle">Understand any codebase in minutes, not days. AI-powered code intelligence that gives you the full picture before you touch a single line.</p>
       <div class="hero-badges">
