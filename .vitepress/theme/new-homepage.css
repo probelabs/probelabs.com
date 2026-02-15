@@ -309,6 +309,17 @@
   letter-spacing: -0.02em;
 }
 
+.new-homepage .nh-hero-value {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  line-height: 1.4;
+  color: var(--cream);
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+  max-width: 560px;
+  letter-spacing: -0.01em;
+}
+
 .new-homepage .nh-hero-sub {
   font-size: 0.8rem;
   line-height: 1.75;
@@ -316,10 +327,6 @@
   font-weight: 400;
   margin-bottom: 2rem;
   max-width: 520px;
-}
-
-.new-homepage .nh-hero-sub + .nh-hero-punch {
-  margin-top: -1.2rem;
 }
 
 .new-homepage .nh-hero-verbs {
@@ -934,6 +941,9 @@
 .new-homepage .nh-pc p { font-size: 0.76rem; line-height: 1.7; color: var(--gray); font-weight: 400; max-width: 400px; }
 .new-homepage .nh-ps { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 1.4rem; text-align: right; }
 .new-homepage .nh-psl { font-size: 0.58rem; color: var(--gray); text-align: right; margin-top: 0.15rem; }
+
+/* Use Cases Inline Header (merged into Roles section) */
+.new-homepage .nh-usecases-inline-header { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gray); margin-top: 2.5rem; margin-bottom: 1.5rem; }
 
 /* Use Cases Section */
 .new-homepage .nh-usecases { padding: 4rem 0; }

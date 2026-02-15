@@ -7,17 +7,15 @@
     <section class="nh-hero">
       <div class="nh-hero-left">
         <h1>AI agent for product teams</h1>
+        <p class="nh-hero-value">Search, understand, and act across every system your team uses.</p>
         <p class="nh-hero-sub">
           Half your team's time goes to finding things that already exist.
           In code, in tickets, in docs, in someone's head.
-        </p>
-        <p class="nh-hero-sub nh-hero-punch">
-          Probe knows your entire product. Ask it anything.<br>Let it handle the rest.
+          Probe knows your entire product. Ask it anything. Let it handle the rest.
           <span class="nh-hero-verbs">Learn. Debug. Plan. Review. Automate.</span>
         </p>
         <div class="nh-hero-ctas">
-          <a href="#how" class="nh-btn filled">Why Probe &rarr;</a>
-          <a href="https://cal.com/leonid-bugaev/30min" class="nh-btn">Talk to a human</a>
+          <a href="#demo-booking" class="nh-btn filled">Book a demo &rarr;</a>
         </div>
       </div>
       <div class="nh-hero-right">
@@ -29,8 +27,8 @@
     <!-- Real Use Cases - Chat Examples -->
     <section class="nh-chats">
       <div class="nh-chats-header">
-        <h2>What teams actually ask Probe</h2>
-        <p>Real prompts. Real answers. From a production deployment across engineering, product, QA, support, legal, and HR. DM it, invite it to channels and threads, or mention it anywhere your team already works.</p>
+        <h2>See Probe in the wild</h2>
+        <p>Real prompts and real answers from production deployments. DM it, invite it to channels, or mention it anywhere your team already works.</p>
         <div class="nh-chats-filters">
           <button
             class="nh-chats-filter"
@@ -98,28 +96,161 @@
       </div>
     </section>
 
-    <!-- Testimonials Section (Enhanced) -->
-    <section class="nh-testimonials nh-reveal">
-      <div class="nh-testimonials-wrapper">
-        <div class="nh-testimonials-header">
-          <span class="nh-testimonials-badge">Customer feedback</span>
-          <h2>What teams say after shipping with Probe</h2>
+    <!-- Why Probe Section -->
+    <section class="nh-why nh-reveal" id="how">
+      <div class="nh-why-wrapper">
+        <div class="nh-why-header">
+          <h2>Why Probe works</h2>
+          <p>An agent you co-own with your team — backed by process, governed like infrastructure. Think of it as OpenClaw, built on enterprise-grade security standards and designed to scale across your whole org.</p>
         </div>
-        <div class="nh-testimonials-grid">
-          <div class="nh-testimonial-card">
-            <p class="nh-testimonial-quote">"As a Product Manager, Probe helps me to understand the true behaviour of the software so that I can go beyond the documentation and validate edge case scenarios and answer 'what if?' questions as I develop the product roadmap. This saves a lot of time and disruption to the development teams."</p>
-            <div class="nh-testimonial-author">
-              <strong>Andy Ost</strong>
-              <span>Senior Product Manager at Tyk.io</span>
+        <div class="nh-why-principles">
+          <div class="nh-why-principle">
+            <span class="nh-why-num">01</span>
+            <div class="nh-why-content">
+              <h3>Shaped by your team</h3>
+              <p>A framework your team shapes — YAML workflows, custom integrations, your rules. Probe knows how to extend itself. Under your control.</p>
             </div>
           </div>
-          <div class="nh-testimonial-card">
-            <p class="nh-testimonial-quote">"I'm using Probe Labs tools daily as a technical lead, and they've been adopted across marketing, sales, documentation, product, delivery, and engineering. The YAML-based automation makes it easy to wire in tools like JIRA, Zendesk, and GitHub for agentic flows that actually work from day one."</p>
-            <div class="nh-testimonial-author">
-              <strong>Laurentiu Ghiur</strong>
-              <span>Technical Lead at Tyk.io</span>
+          <div class="nh-why-principle">
+            <span class="nh-why-num">02</span>
+            <div class="nh-why-content">
+              <h3>Quality gates, built in</h3>
+              <p>Every workflow has quality gates. Every process starts with accurate data and the right question. Probe helps with both.</p>
             </div>
           </div>
+          <div class="nh-why-principle">
+            <span class="nh-why-num">03</span>
+            <div class="nh-why-content">
+              <h3>Connects, then acts</h3>
+              <p>Starts with your data sources — code, tickets, docs, Slack, wikis. Then acts on your behalf — PRs, ticket updates, reviews, deployments. Claude Code is one building block of your master plan.</p>
+            </div>
+          </div>
+          <div class="nh-why-principle">
+            <span class="nh-why-num">04</span>
+            <div class="nh-why-content">
+              <h3>Accurate at any scale</h3>
+              <p>Powered by a unique context engine built for large projects. Million-line repos, hundreds of users. Full accuracy at any scale.</p>
+            </div>
+          </div>
+          <div class="nh-why-principle">
+            <span class="nh-why-num">05</span>
+            <div class="nh-why-content">
+              <h3>First-class interface for agents</h3>
+              <p>Designed for humans and agents alike. Your CI pipelines, Slack bots, and AI editors all talk to Probe as a first-class interface.</p>
+            </div>
+          </div>
+          <div class="nh-why-principle">
+            <span class="nh-why-num">06</span>
+            <div class="nh-why-content">
+              <h3>Enterprise-grade by default</h3>
+              <p>On-prem deployment, any LLM provider, zero vendor lock-in. GitOps workflows, OpenTelemetry traces, fault tolerance, governance, and security controls — all built in from day one.</p>
+            </div>
+          </div>
+        </div>
+        <div class="nh-why-footer">
+          <div class="nh-why-tags">
+            <span class="nh-why-tag">Open source foundation</span>
+            <span class="nh-why-tag">Any LLM provider</span>
+            <span class="nh-why-tag">No vendor lock-in</span>
+            <span class="nh-why-tag">Scheduled jobs & reminders</span>
+            <span class="nh-why-tag">Multi-team with boundaries</span>
+            <span class="nh-why-tag">Audit trails & governance</span>
+            <span class="nh-why-tag">On-prem deployment</span>
+          </div>
+          <a href="/probe" class="nh-btn filled">See how the engine works &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Role Workbench Section -->
+    <section class="nh-workbench nh-reveal" id="solutions">
+      <div class="nh-workbench-wrapper">
+        <div class="nh-workbench-header">
+          <h2>Roles and workflows</h2>
+          <p>Engineers, platform teams, QA, product, and leadership all get value — through the same entry points.</p>
+        </div>
+        <div class="nh-workbench-tabs">
+          <button
+            v-for="role in roles"
+            :key="role.id"
+            @click="activeRole = role.id"
+            :class="['nh-role-tab', { active: activeRole === role.id }]"
+          >
+            <span class="nh-role-title">{{ role.title }}</span>
+            <span class="nh-role-subtitle">{{ role.subtitle }}</span>
+          </button>
+        </div>
+        <div class="nh-workbench-dropdown">
+          <select :value="activeRole" @change="activeRole = $event.target.value">
+            <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.title }} — {{ role.subtitle }}</option>
+          </select>
+        </div>
+        <div class="nh-workbench-panel">
+          <div class="nh-panel-header">
+            <h3>{{ currentRole.title }}</h3>
+            <p>{{ currentRole.oneLiner }}</p>
+          </div>
+          <div class="nh-panel-content">
+            <div class="nh-panel-block">
+              <h4>You get</h4>
+              <ul>
+                <li v-for="(item, i) in currentRole.youGet" :key="'get-'+i">
+                  <strong>{{ item.title }}:</strong> {{ item.desc }}
+                </li>
+              </ul>
+            </div>
+            <div class="nh-panel-block">
+              <h4>Replaces</h4>
+              <ul>
+                <li v-for="(item, i) in currentRole.replaces" :key="'rep-'+i">{{ item }}</li>
+              </ul>
+            </div>
+            <div class="nh-panel-block nh-panel-block--full">
+              <h4>How Probe helps</h4>
+              <ul class="nh-workflow-list">
+                <li v-for="(item, i) in currentRole.workflows" :key="'wf-'+i">
+                  <span class="nh-workflow-item">{{ item }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="nh-panel-cta">
+            <a :href="currentRole.solutionLink" class="nh-btn filled">{{ currentRole.solutionText }} &rarr;</a>
+            <a href="https://cal.com/leonid-bugaev/30min" class="nh-btn">Talk to a human</a>
+          </div>
+        </div>
+        <h3 class="nh-usecases-inline-header">Direct entry points</h3>
+        <div class="nh-usecases-grid">
+          <a href="/docs/chat-with-code" class="nh-usecase-tile">
+            <h3>Chat with Code</h3>
+            <p>Grounded answers from your codebase. Multi-repo search across millions of lines.</p>
+            <span class="nh-usecase-link">Learn more &rarr;</span>
+          </a>
+          <a href="/docs/code-review" class="nh-usecase-tile">
+            <h3>Intelligent Code Review</h3>
+            <p>Structured reviews with guardrails. Configurable, scalable, context-aware.</p>
+            <span class="nh-usecase-link">Learn more &rarr;</span>
+          </a>
+          <a href="/docs/github-assistant" class="nh-usecase-tile">
+            <h3>GitHub Assistant</h3>
+            <p>Issue and PR automation in GitHub. Auto-triage and first-pass reviews.</p>
+            <span class="nh-usecase-link">Learn more &rarr;</span>
+          </a>
+          <a href="/docs/use-cases/visor-workflows" class="nh-usecase-tile">
+            <h3>Workflow Automation</h3>
+            <p>Visor workflows for real processes — review, triage, and release pipelines.</p>
+            <span class="nh-usecase-link">Learn more &rarr;</span>
+          </a>
+          <a href="/docs/guides/slack-bot" class="nh-usecase-tile">
+            <h3>Scheduled Jobs & Reminders</h3>
+            <p>Daily digests, thread follow-ups, recurring checks, and Jira→Zendesk enrichment — from Slack or YAML.</p>
+            <span class="nh-usecase-link">Learn more &rarr;</span>
+          </a>
+          <a href="/docs/use-cases/building-ai-tools" class="nh-usecase-tile">
+            <h3>Developers & SDK</h3>
+            <p>Build custom tooling on Probe. MCP server, CLI, and programmatic access.</p>
+            <span class="nh-usecase-link">Learn more &rarr;</span>
+          </a>
         </div>
       </div>
     </section>
@@ -186,170 +317,28 @@
       </div>
     </section>
 
-    <!-- Why Probe Section -->
-    <section class="nh-why nh-reveal" id="how">
-      <div class="nh-why-wrapper">
-        <div class="nh-why-header">
-          <h2>Why Probe feels different</h2>
-          <p>Probe isn't a finished product in the classical sense. It's an agent you co-own with your team — backed by process, not promises. You can even think about it as OpenClaw, except built on enterprise-grade security standards and designed to scale across your whole org.</p>
+    <!-- Testimonials Section -->
+    <section class="nh-testimonials nh-reveal">
+      <div class="nh-testimonials-wrapper">
+        <div class="nh-testimonials-header">
+          <span class="nh-testimonials-badge">Customer feedback</span>
+          <h2>What teams say after shipping with Probe</h2>
         </div>
-        <div class="nh-why-principles">
-          <div class="nh-why-principle">
-            <span class="nh-why-num">01</span>
-            <div class="nh-why-content">
-              <h3>Co-owned, not consumed</h3>
-              <p>Probe isn't a product you subscribe to and hope works. It's a framework your team shapes — YAML workflows, custom integrations, your rules. Probe even knows how to extend itself. Under your control.</p>
+        <div class="nh-testimonials-grid">
+          <div class="nh-testimonial-card">
+            <p class="nh-testimonial-quote">"As a Product Manager, Probe helps me to understand the true behaviour of the software so that I can go beyond the documentation and validate edge case scenarios and answer 'what if?' questions as I develop the product roadmap. This saves a lot of time and disruption to the development teams."</p>
+            <div class="nh-testimonial-author">
+              <strong>Andy Ost</strong>
+              <span>Senior Product Manager at Tyk.io</span>
             </div>
           </div>
-          <div class="nh-why-principle">
-            <span class="nh-why-num">02</span>
-            <div class="nh-why-content">
-              <h3>Process over trust</h3>
-              <p>You can't trust AI. You can't trust humans either. So you turn everything into a process with quality gates. Every process starts with accurate data and the right question. Probe helps with both.</p>
+          <div class="nh-testimonial-card">
+            <p class="nh-testimonial-quote">"I'm using Probe Labs tools daily as a technical lead, and they've been adopted across marketing, sales, documentation, product, delivery, and engineering. The YAML-based automation makes it easy to wire in tools like JIRA, Zendesk, and GitHub for agentic flows that actually work from day one."</p>
+            <div class="nh-testimonial-author">
+              <strong>Laurentiu Ghiur</strong>
+              <span>Technical Lead at Tyk.io</span>
             </div>
           </div>
-          <div class="nh-why-principle">
-            <span class="nh-why-num">03</span>
-            <div class="nh-why-content">
-              <h3>Connects, then acts</h3>
-              <p>It starts with your data sources — code, tickets, docs, Slack, wikis. Then it acts on your behalf — PRs, ticket updates, reviews, deployments. Claude Code? Just one building block of your master plan.</p>
-            </div>
-          </div>
-          <div class="nh-why-principle">
-            <span class="nh-why-num">04</span>
-            <div class="nh-why-content">
-              <h3>Accurate at any scale</h3>
-              <p>Powered by a unique context engine that actually works on large projects. Million-line repos, hundreds of users. No scale limit, no accuracy trade-off.</p>
-            </div>
-          </div>
-          <div class="nh-why-principle">
-            <span class="nh-why-num">05</span>
-            <div class="nh-why-content">
-              <h3>Built for the AI age</h3>
-              <p>A new type of product — designed to be used not just by humans but by other agents too. Your CI pipelines, Slack bots, and AI editors all talk to Probe as a first-class interface.</p>
-            </div>
-          </div>
-          <div class="nh-why-principle">
-            <span class="nh-why-num">06</span>
-            <div class="nh-why-content">
-              <h3>Enterprise-grade by default</h3>
-              <p>On-prem deployment, any LLM provider, no vendor lock-in. GitOps workflows, OpenTelemetry traces, fault tolerance, governance, and security controls — not afterthoughts bolted on, but how it was built from day one.</p>
-            </div>
-          </div>
-        </div>
-        <div class="nh-why-footer">
-          <div class="nh-why-tags">
-            <span class="nh-why-tag">Open source foundation</span>
-            <span class="nh-why-tag">Any LLM provider</span>
-            <span class="nh-why-tag">No vendor lock-in</span>
-            <span class="nh-why-tag">Scheduled jobs & reminders</span>
-            <span class="nh-why-tag">Multi-team with boundaries</span>
-            <span class="nh-why-tag">Audit trails & governance</span>
-            <span class="nh-why-tag">On-prem deployment</span>
-          </div>
-          <a href="/probe" class="nh-btn filled">See how the engine works &rarr;</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Role Workbench Section -->
-    <section class="nh-workbench nh-reveal" id="solutions">
-      <div class="nh-workbench-wrapper">
-        <div class="nh-workbench-header">
-          <h2>Different roles, same source of truth</h2>
-          <p>Engineers, platform teams, QA, product, and leadership all get value — in different ways.</p>
-        </div>
-        <div class="nh-workbench-tabs">
-          <button
-            v-for="role in roles"
-            :key="role.id"
-            @click="activeRole = role.id"
-            :class="['nh-role-tab', { active: activeRole === role.id }]"
-          >
-            <span class="nh-role-title">{{ role.title }}</span>
-            <span class="nh-role-subtitle">{{ role.subtitle }}</span>
-          </button>
-        </div>
-        <div class="nh-workbench-dropdown">
-          <select :value="activeRole" @change="activeRole = $event.target.value">
-            <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.title }} — {{ role.subtitle }}</option>
-          </select>
-        </div>
-        <div class="nh-workbench-panel">
-          <div class="nh-panel-header">
-            <h3>{{ currentRole.title }}</h3>
-            <p>{{ currentRole.oneLiner }}</p>
-          </div>
-          <div class="nh-panel-content">
-            <div class="nh-panel-block">
-              <h4>You get</h4>
-              <ul>
-                <li v-for="(item, i) in currentRole.youGet" :key="'get-'+i">
-                  <strong>{{ item.title }}:</strong> {{ item.desc }}
-                </li>
-              </ul>
-            </div>
-            <div class="nh-panel-block">
-              <h4>Replaces</h4>
-              <ul>
-                <li v-for="(item, i) in currentRole.replaces" :key="'rep-'+i">{{ item }}</li>
-              </ul>
-            </div>
-            <div class="nh-panel-block nh-panel-block--full">
-              <h4>How Probe helps</h4>
-              <ul class="nh-workflow-list">
-                <li v-for="(item, i) in currentRole.workflows" :key="'wf-'+i">
-                  <span class="nh-workflow-item">{{ item }}</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="nh-panel-cta">
-            <a :href="currentRole.solutionLink" class="nh-btn filled">{{ currentRole.solutionText }} &rarr;</a>
-            <a href="https://cal.com/leonid-bugaev/30min" class="nh-btn">Talk to a human</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Use Cases Section -->
-    <section class="nh-usecases nh-reveal">
-      <div class="nh-usecases-wrapper">
-        <div class="nh-usecases-header">
-          <h2>Use cases & workflows</h2>
-          <p>Direct entry points for teams, tools, and automation.</p>
-        </div>
-        <div class="nh-usecases-grid">
-          <a href="/docs/chat-with-code" class="nh-usecase-tile">
-            <h3>Chat with Code</h3>
-            <p>Grounded answers from your codebase. Multi-repo search across millions of lines.</p>
-            <span class="nh-usecase-link">Learn more &rarr;</span>
-          </a>
-          <a href="/docs/code-review" class="nh-usecase-tile">
-            <h3>Intelligent Code Review</h3>
-            <p>Structured reviews with guardrails. Configurable, scalable, context-aware.</p>
-            <span class="nh-usecase-link">Learn more &rarr;</span>
-          </a>
-          <a href="/docs/github-assistant" class="nh-usecase-tile">
-            <h3>GitHub Assistant</h3>
-            <p>Issue and PR automation in GitHub. Auto-triage and first-pass reviews.</p>
-            <span class="nh-usecase-link">Learn more &rarr;</span>
-          </a>
-          <a href="/docs/use-cases/visor-workflows" class="nh-usecase-tile">
-            <h3>Workflow Automation</h3>
-            <p>Visor workflows for real processes — review, triage, and release pipelines.</p>
-            <span class="nh-usecase-link">Learn more &rarr;</span>
-          </a>
-          <a href="/docs/guides/slack-bot" class="nh-usecase-tile">
-            <h3>Scheduled Jobs & Reminders</h3>
-            <p>Daily digests, thread follow-ups, recurring checks, and Jira→Zendesk enrichment — from Slack or YAML.</p>
-            <span class="nh-usecase-link">Learn more &rarr;</span>
-          </a>
-          <a href="/docs/use-cases/building-ai-tools" class="nh-usecase-tile">
-            <h3>Developers & SDK</h3>
-            <p>Build custom tooling on Probe. MCP server, CLI, and programmatic access.</p>
-            <span class="nh-usecase-link">Learn more &rarr;</span>
-          </a>
         </div>
       </div>
     </section>
@@ -453,8 +442,8 @@
           <p>Deep code understanding. Workflow automation. Predictable, auditable, on-prem.</p>
         </div>
         <div class="nh-final-right">
-          <a href="#how" class="nh-btn filled">Why Probe &rarr;</a>
-          <a href="https://cal.com/leonid-bugaev/30min" class="nh-btn">Talk to a human</a>
+          <a href="#demo-booking" class="nh-btn filled">Book a demo &rarr;</a>
+          <a href="#quickwins" class="nh-btn">Get started in 10 minutes &rarr;</a>
         </div>
       </section>
     </div>
