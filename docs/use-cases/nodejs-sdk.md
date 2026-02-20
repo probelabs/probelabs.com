@@ -591,6 +591,5 @@ const extractResults = await extract({
 
 ## Next Steps
 
-- Learn about [Probe's CLI Reference](/cli-mode) for advanced command-line usage
-- Explore [using Probe with AI Code Editors](/docs/integrations/ai-code-editors) for integrated IDE experiences
-- Check out [hosting a team chat](/use-cases/team-chat) for collaborative code exploration
+- Explore [using Probe with AI Code Editors](https://github.com/probelabs/probe/blob/main/docs/use-cases/ai-code-editors.md) for integrated IDE experiences
+- Check out [hosting a team chat](/docs/use-cases/team-chat) for collaborative code exploration

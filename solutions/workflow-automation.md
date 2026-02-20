@@ -523,7 +523,7 @@ title: Workflow Automation - Probe Labs
             <div class="gs-quickwin-result">
               <strong>You get:</strong> A specialized AI agent for code search and analysis. Test prompts: "How does auth work?", "Which services depend on X?", "What changed between v1 and v2?"
             </div>
-            <a href="/docs/integrations/ai-code-editors" class="gs-quickwin-link">AI code editor setup &rarr;</a>
+            <a href="/docs/chat-with-code" class="gs-quickwin-link">AI code editor setup &rarr;</a>
           </div>
           <div class="gs-quickwin">
             <div class="gs-quickwin-header">

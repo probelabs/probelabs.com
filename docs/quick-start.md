@@ -321,7 +321,7 @@ probe search "auth flow" ./ --max-tokens 12000
 ```
 
 - [Chat with Code](/docs/chat-with-code) — use Probe with an LLM for interactive code Q&A
-- [CLI Reference](/docs/cli-mode) — full list of commands and flags
+- [CLI Reference](https://github.com/probelabs/probe/blob/main/docs/probe-cli/cli-reference.md) — full list of commands and flags
 
 ## Troubleshooting
 

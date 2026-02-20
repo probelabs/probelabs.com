@@ -523,7 +523,7 @@ title: Solutions for Engineers - Probe Labs
             <div class="gs-quickwin-result">
               <strong>You get:</strong> An AI coding assistant that actually understands your codebase -- not just the file you have open.
             </div>
-            <a href="/docs/integrations/ai-code-editors" class="gs-quickwin-link">AI code editor setup &rarr;</a>
+            <a href="/docs/chat-with-code" class="gs-quickwin-link">AI code editor setup &rarr;</a>
           </div>
           <div class="gs-quickwin">
             <div class="gs-quickwin-header">

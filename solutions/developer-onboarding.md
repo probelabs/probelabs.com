@@ -523,7 +523,7 @@ title: Developer Onboarding - Probe Labs
             <div class="gs-quickwin-result">
               <strong>You get:</strong> A specialized AI agent for code search and analysis — finds the right context and reduces wrong answers with bounded, structured retrieval.
             </div>
-            <a href="/docs/integrations/ai-code-editors" class="gs-quickwin-link">AI code editor setup &rarr;</a>
+            <a href="/docs/chat-with-code" class="gs-quickwin-link">AI code editor setup &rarr;</a>
           </div>
           <div class="gs-quickwin">
             <div class="gs-quickwin-header">

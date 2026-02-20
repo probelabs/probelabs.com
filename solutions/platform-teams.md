@@ -523,7 +523,7 @@ title: Platform Teams - Probe Labs
             <div class="gs-quickwin-result">
               <strong>You get:</strong> An AI agent that understands your infrastructure code -- finds the right Terraform module, traces the Helm chart, identifies the correct K8s manifest without you navigating file trees.
             </div>
-            <a href="/docs/integrations/ai-code-editors" class="gs-quickwin-link">AI code editor setup &rarr;</a>
+            <a href="/docs/chat-with-code" class="gs-quickwin-link">AI code editor setup &rarr;</a>
           </div>
           <div class="gs-quickwin">
             <div class="gs-quickwin-header">

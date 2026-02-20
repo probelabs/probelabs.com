@@ -537,7 +537,7 @@ title: AI Code Review - Probe Labs
             <div class="gs-quickwin-result">
               <strong>You get:</strong> An AI code review agent that understands your codebase structure. Review your own code before opening a PR, or audit someone else's PR with full context.
             </div>
-            <a href="/docs/integrations/ai-code-editors" class="gs-quickwin-link">AI code editor setup &rarr;</a>
+            <a href="/docs/chat-with-code" class="gs-quickwin-link">AI code editor setup &rarr;</a>
           </div>
           <div class="gs-quickwin">
             <div class="gs-quickwin-header">

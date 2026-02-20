@@ -523,7 +523,7 @@ title: Solutions for Enterprise - Probe Labs
             <div class="gs-quickwin-result">
               <strong>You get:</strong> A pilot team using AI that understands your actual architecture. Measure reduction in "how does this work?" Slack messages to determine if it's worth scaling.
             </div>
-            <a href="/docs/integrations/ai-code-editors" class="gs-quickwin-link">AI code editor setup &rarr;</a>
+            <a href="/docs/chat-with-code" class="gs-quickwin-link">AI code editor setup &rarr;</a>
           </div>
           <div class="gs-quickwin">
             <div class="gs-quickwin-header">

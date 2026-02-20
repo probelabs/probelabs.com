@@ -3,8 +3,8 @@
 This guide shows **workflow patterns** for CLI-driven AI tasks. It assumes Probe is installed and you are running commands from the repo root.
 
 Prerequisites:
-- [Probe Installation](/docs/installation)
-- [CLI Reference](/docs/cli-mode)
+- [Probe Installation](https://github.com/probelabs/probe/blob/main/docs/installation.md)
+- [CLI Reference](https://github.com/probelabs/probe/blob/main/docs/probe-cli/cli-reference.md)
 
 ## Pattern: pipe search into chat
 
@@ -44,5 +44,5 @@ echo "List security risks" | probe-chat > security_report.txt
 
 ## Related
 
-- [AI Chat Mode](/docs/ai-chat)
-- [Advanced CLI](/docs/advanced-cli)
+- [AI Chat](https://github.com/probelabs/probe/blob/main/docs/probe-agent/chat/cli-usage.md)
+- [Advanced CLI](https://github.com/probelabs/probe/blob/main/docs/use-cases/advanced-cli.md)

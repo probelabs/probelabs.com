@@ -21,7 +21,7 @@ As teams move toward agentic flows, humans and agents both need the same reliabl
 - **Automation-ready**: JSON output and CLI-friendly interfaces for pipelines
 - **Runs in your environment**: no required services beyond your chosen LLM provider
 
-See [AI Integration](/docs/ai-integration) for available personas and prompt types.
+See [AI Integration](https://github.com/probelabs/probe/blob/main/docs/probe-agent/ai-integration.md) for available personas and prompt types.
 
 ## Quick Start
 
@@ -45,7 +45,7 @@ Example MCP config (drop-in for AI editors that support MCP):
 }
 ```
 
-See [AI Code Editors (MCP/ACP)](/docs/integrations/ai-code-editors) for editor-specific setup.
+See [AI Code Editors](https://github.com/probelabs/probe/blob/main/docs/use-cases/ai-code-editors.md) for editor-specific setup.
 
 </Tab>
 <Tab :index="1">
@@ -98,7 +98,7 @@ Example MCP config:
 
 Agents can then use Probe's search/query/extract tools to read code with structure and references. This is the entry point for agentic flows.
 
-See [MCP Server Mode](/docs/mcp-server) for full setup details.
+See [MCP Server Mode](https://github.com/probelabs/probe/blob/main/docs/probe-agent/protocols/mcp-server.md) for full setup details.
 
 </Tab>
 </Tabs>
@@ -109,7 +109,7 @@ The quick start above assumes a single repository. The simplest workflow is to r
 
 For multiple repositories, you have two paths:
 
-- **Simple, self-serve**: run Probe from a top-level folder that contains several repos, or use the multi-repo options in the CLI. See [CLI Reference](/docs/cli-mode#chat-command-probe-chat).
+- **Simple, self-serve**: run Probe from a top-level folder that contains several repos, or use the multi-repo options in the CLI. See [CLI Reference](https://github.com/probelabs/probe/blob/main/docs/probe-cli/cli-reference.md).
 - **Company-wide, multi-project**: if you need org-wide chat across many codebases and complex architectures, we can help. Through Visor and related tools, we provide a robust multi-project setup that routes questions to the right codebase and works across all your projects.
 
 Interested in the multi-project setup? [Book a demo](https://cal.com/leonid-bugaev/30min) or [contact us](/#contact).
@@ -214,12 +214,11 @@ export OPENAI_BASE_URL=http://localhost:8080/v1
 - `--web` to launch the browser UI
 - `--message "<text>" --json` for non-interactive output
 - `--prompt <value>` to use a custom prompt or persona
-- Full flag list: [CLI Reference](/docs/cli-mode#chat-command-probe-chat)
+- Full flag list: [CLI Reference](https://github.com/probelabs/probe/blob/main/docs/probe-cli/cli-reference.md)
 
 ## Related Documentation
 
-- [AI Chat Mode](/docs/ai-chat) - advanced usage and tracing
-- [Web Interface](/docs/web-interface) - UI deployment details
-- [Docker Integration](/docs/integrations/docker) - containers and compose
-- [MCP Server Mode](/docs/mcp-server) - connect agents and AI editors
-- [AI Code Editors (MCP/ACP)](/docs/integrations/ai-code-editors) - real integrations
+- [AI Chat](https://github.com/probelabs/probe/blob/main/docs/probe-agent/chat/cli-usage.md) - advanced usage and tracing
+- [Web Interface](https://github.com/probelabs/probe/blob/main/docs/probe-agent/chat/web-interface.md) - UI deployment details
+- [MCP Server Mode](https://github.com/probelabs/probe/blob/main/docs/probe-agent/protocols/mcp-server.md) - connect agents and AI editors
+- [AI Code Editors](https://github.com/probelabs/probe/blob/main/docs/use-cases/ai-code-editors.md) - editor integrations

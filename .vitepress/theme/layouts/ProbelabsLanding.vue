@@ -1085,8 +1085,8 @@ const quickWins = [
     title: 'Add Probe to Your AI Coding Tool',
     desc: 'Get enterprise-grade code understanding in your existing workflow. Probe auto-detects Claude Code and Codex auth, or works with any LLM API. One command - your AI actually understands your architecture.',
     result: 'A specialized AI agent for code search and analysis, powered by Probe\'s code search engine - finds the right context and reduces wrong answers with bounded, structured retrieval.',
-    link: '/docs/integrations/ai-code-editors',
-    linkText: 'AI code editor setup'
+    link: '/docs/chat-with-code',
+    linkText: 'Chat with code guide'
   },
   {
     id: 'github',
@@ -1407,7 +1407,7 @@ const useCaseTiles = [
   { title: 'Team Chat with Code', desc: 'Shared context for PMs, support, and engineering.', link: '/docs/use-cases/team-chat', linkText: 'Team chat' },
   { title: 'CLI for AI Workflows', desc: 'Shell-first pipelines for large repos and automation.', link: '/docs/use-cases/cli-ai-workflows', linkText: 'CLI workflows' },
   { title: 'Engineering Process Automation', desc: 'Visor workflows for real product + engineering processes.', link: '/docs/use-cases/visor-workflows', linkText: 'Process automation' },
-  { title: 'AI Code Editors (MCP/ACP)', desc: 'Integrations with Claude Code, Codex, and IDEs.', link: '/docs/integrations/ai-code-editors', linkText: 'Editor integrations' },
+  { title: 'AI Code Editors (MCP/ACP)', desc: 'Integrations with Claude Code, Codex, and IDEs.', link: '/docs/chat-with-code', linkText: 'Chat with code' },
   { title: 'Building AI Tools', desc: 'Custom tooling on top of Probe context.', link: '/docs/use-cases/building-ai-tools', linkText: 'Build tools' },
   { title: 'Node.js SDK Use Case', desc: 'Programmatic workflows in JavaScript.', link: '/docs/use-cases/nodejs-sdk', linkText: 'Node.js SDK' }
 ]

@@ -534,7 +534,7 @@ title: Solutions for Non-Technical Teams - Probe Labs
             <div class="gs-quickwin-result">
               <strong>You get:</strong> A comprehensive test plan with positive, negative, and edge case scenarios based on actual implementation details from the code.
             </div>
-            <a href="/docs/ai-chat" class="gs-quickwin-link">AI chat guide &rarr;</a>
+            <a href="/docs/chat-with-code" class="gs-quickwin-link">AI chat guide &rarr;</a>
           </div>
           <div class="gs-quickwin">
             <div class="gs-quickwin-header">
@@ -545,7 +545,7 @@ title: Solutions for Non-Technical Teams - Probe Labs
             <div class="gs-quickwin-result">
               <strong>You get:</strong> Full investigation context that would have taken days of back-and-forth with engineering, delivered in seconds.
             </div>
-            <a href="/docs/ai-chat" class="gs-quickwin-link">AI chat guide &rarr;</a>
+            <a href="/docs/chat-with-code" class="gs-quickwin-link">AI chat guide &rarr;</a>
           </div>
         </div>
       </div>

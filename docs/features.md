@@ -41,7 +41,22 @@ Use JSON or SARIF output for machines, or human-friendly output for reviews and 
 
 ## Next steps
 
-- [Quick Start](/docs/quick-start)
-- [MCP Protocol](/docs/mcp-server)
-- [Web Interface](/docs/web-interface)
-- [Advanced CLI](/docs/advanced-cli)
+- [Build an AI Assistant](/docs/quick-start)
+- [Chat with Code](/docs/chat-with-code)
+- [Developers & SDK](/docs/use-cases/building-ai-tools)
+
+## Probe Reference (GitHub)
+
+Full reference docs live on GitHub. Use this as a quick table of contents:
+
+- [Installation](https://github.com/probelabs/probe/blob/main/docs/installation.md)
+- [CLI Reference](https://github.com/probelabs/probe/blob/main/docs/probe-cli/cli-reference.md)
+- [Search](https://github.com/probelabs/probe/blob/main/docs/probe-cli/search.md)
+- [Extract](https://github.com/probelabs/probe/blob/main/docs/probe-cli/extract.md)
+- [Query](https://github.com/probelabs/probe/blob/main/docs/probe-cli/query.md)
+- [AI Agent Overview](https://github.com/probelabs/probe/blob/main/docs/probe-agent/overview.md)
+- [MCP Protocol](https://github.com/probelabs/probe/blob/main/docs/probe-agent/protocols/mcp.md)
+- [Node.js SDK](https://github.com/probelabs/probe/blob/main/docs/probe-agent/sdk/nodejs-sdk.md)
+- [Output Formats](https://github.com/probelabs/probe/blob/main/docs/reference/output-formats.md)
+- [Language Support](https://github.com/probelabs/probe/blob/main/docs/reference/language-support.md)
+- [Architecture](https://github.com/probelabs/probe/blob/main/docs/reference/architecture.md)

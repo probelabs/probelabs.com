@@ -523,8 +523,7 @@ async function memoryEfficientSearch(query, path) {
 
 ## Next Steps
 
-- For individual developer workflows, see [AI Code Editors (MCP/ACP)](/docs/integrations/ai-code-editors)
-- For team collaboration, see [Web Interface](/docs/web-interface)
-- For advanced CLI usage, explore [Advanced CLI: Speed, Token Limits, and Large Repos](/docs/advanced-cli)
+- For individual developer workflows, see [AI Code Editors](https://github.com/probelabs/probe/blob/main/docs/use-cases/ai-code-editors.md)
+- For team collaboration, see [Team Chat](/docs/use-cases/team-chat)
 - For GitHub automation, see [GitHub Actions Integration](/docs/github-actions)
-- For complete API reference, see the [Node.js SDK API Reference](/nodejs-sdk)
+- For complete API reference, see the [Node.js SDK](https://github.com/probelabs/probe/blob/main/docs/probe-agent/sdk/nodejs-sdk.md)

@@ -345,7 +345,6 @@ If you encounter issues with your team deployment:
 
 ## Next Steps
 
-- Learn about [using Probe with AI Code Editors](/docs/integrations/ai-code-editors) for individual developer workflows
+- Learn about [using Probe with AI Code Editors](https://github.com/probelabs/probe/blob/main/docs/use-cases/ai-code-editors.md) for individual developer workflows
 - For GitHub automation, see [GitHub Actions Integration](/docs/github-actions)
-- Explore [building custom tools](/use-cases/nodejs-sdk) with the Node.js SDK
-- Check out the [CLI Reference](/cli-mode) for advanced command-line usage
+- Explore [building custom tools](/docs/use-cases/nodejs-sdk) with the Node.js SDK
