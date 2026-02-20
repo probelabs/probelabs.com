@@ -83,7 +83,7 @@
         </div>
       </aside>
     </div>
-    <NewFooter />
+    <SiteFooter />
   </div>
 </template>
 
@@ -91,7 +91,7 @@
 import { ref, computed, onMounted, onUnmounted, nextTick, watch, defineAsyncComponent } from 'vue'
 import { useData, useRoute, onContentUpdated } from 'vitepress'
 import SiteNav from '../components/SiteNav.vue'
-import NewFooter from '../components/NewFooter.vue'
+import SiteFooter from '../components/SiteFooter.vue'
 
 // Load VitePress local search component asynchronously
 const VPLocalSearchBox = defineAsyncComponent(() =>
