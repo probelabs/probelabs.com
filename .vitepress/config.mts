@@ -193,16 +193,6 @@ export default defineConfig({
             { text: 'Testing AI Workflows', link: '/docs/guides/testing' }
           ]
         },
-        {
-          text: 'Reference',
-          collapsed: false,
-          items: [
-            { text: 'Probe Reference', link: '/docs/features' },
-            { text: 'Visor Reference', link: '/docs/visor' },
-            { text: 'GitHub Releases', link: 'https://github.com/probelabs/probe/releases' },
-            { text: 'Contributing', link: 'https://github.com/probelabs/probe/blob/main/CONTRIBUTING.md' }
-          ]
-        }
       ]
     },
 
