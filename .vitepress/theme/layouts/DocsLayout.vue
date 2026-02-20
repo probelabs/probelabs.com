@@ -263,6 +263,11 @@ const openSearch = () => {
   padding: 24px 24px 32px;
   border-right: 1px solid var(--vp-c-divider);
   background: var(--vp-c-bg);
+  position: sticky;
+  top: var(--nav-height);
+  max-height: calc(100vh - var(--nav-height));
+  overflow-y: auto;
+  align-self: flex-start;
 }
 
 /* Search */
@@ -405,6 +410,11 @@ const openSearch = () => {
   width: var(--outline-width);
   padding: 32px 24px 32px 48px;
   background: var(--vp-c-bg);
+  position: sticky;
+  top: var(--nav-height);
+  max-height: calc(100vh - var(--nav-height));
+  overflow-y: auto;
+  align-self: flex-start;
 }
 
 .outline-content {
@@ -432,9 +442,10 @@ const openSearch = () => {
   font-size: 13px;
   color: var(--vp-c-text-2);
   text-decoration: none;
-  padding: 4px 0;
-  transition: color 0.15s;
+  padding: 4px 0 4px 12px;
+  transition: color 0.15s, border-color 0.15s;
   line-height: 1.4;
+  border-left: 2px solid transparent;
 }
 
 .outline-link:hover {
@@ -443,10 +454,12 @@ const openSearch = () => {
 
 .outline-link.active {
   color: var(--vp-c-brand-1);
+  border-left-color: var(--vp-c-brand-1);
+  font-weight: 500;
 }
 
 .outline-link--h3 {
-  padding-left: 12px;
+  padding-left: 24px;
   font-size: 12px;
 }
 

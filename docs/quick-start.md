@@ -15,7 +15,7 @@ This guide walks you through building a working AI assistant defined in a single
 ## Prerequisites
 
 - Node.js >= 18
-- An API key from [Anthropic](https://console.anthropic.com/settings/keys) (recommended), [OpenAI](https://platform.openai.com/api-keys), or [Google](https://aistudio.google.com/app/apikey)
+- An API key from [Google](https://aistudio.google.com/app/apikey), [Anthropic](https://console.anthropic.com/settings/keys), or [OpenAI](https://platform.openai.com/api-keys) — we recommend Gemini 2.5 Pro or equivalent for the best experience
 - git
 
 ## Step 1: Clone and Configure
@@ -26,14 +26,13 @@ cd visor-quickstart
 cp .env.example .env
 ```
 
-Open `.env` and uncomment your API key:
+Open `.env` and set your API key. We recommend **Gemini 2.5 Pro** for the best experience, but Anthropic and OpenAI work great too:
 
 ```bash
-# Anthropic Claude (recommended)
-ANTHROPIC_API_KEY=sk-ant-your-key-here
+GOOGLE_API_KEY=your-key-here
+# or ANTHROPIC_API_KEY=sk-ant-your-key-here
+# or OPENAI_API_KEY=sk-your-key-here
 ```
-
-If multiple keys are set, Probe uses: Anthropic > OpenAI > Google.
 
 ## Step 2: Run the Assistant
 
@@ -327,7 +326,7 @@ probe search "auth flow" ./ --max-tokens 12000
 ## Troubleshooting
 
 **No API key set**
-You see an error about missing credentials. Uncomment and set at least one API key in `.env`. Probe checks for `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, then `GOOGLE_API_KEY`.
+You see an error about missing credentials. Set at least one API key in `.env` — `GOOGLE_API_KEY`, `ANTHROPIC_API_KEY`, or `OPENAI_API_KEY`.
 
 **Fetch error on imports**
 The imported workflow URL is unreachable. Check your network connection. For offline use, download the workflow YAML and use a local `imports` path.

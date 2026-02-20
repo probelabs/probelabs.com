@@ -15,7 +15,7 @@ A Slack bot that:
 ## Prerequisites
 
 - A Slack workspace where you have permission to create apps
-- An Anthropic API key (or other LLM provider)
+- An LLM API key — we recommend [Gemini 2.5 Pro](https://aistudio.google.com/app/apikey) or equivalent (Anthropic and OpenAI also supported)
 - Visor installed (`npm install -g @probelabs/visor` or via npx)
 - Your codebase accessible locally or via git
 
@@ -165,10 +165,11 @@ Create a `.env` file (add to `.gitignore`!):
 SLACK_BOT_TOKEN=xoxb-your-bot-token-here
 SLACK_APP_TOKEN=xapp-your-app-token-here
 
-# LLM API key
-ANTHROPIC_API_KEY=sk-ant-your-key-here
+# LLM API key (Gemini 2.5 Pro recommended)
+GOOGLE_API_KEY=your-key-here
 
-# Optional: Use a different model provider
+# Or use another provider:
+# ANTHROPIC_API_KEY=sk-ant-your-key-here
 # OPENAI_API_KEY=sk-your-key-here
 ```
 
@@ -177,7 +178,7 @@ Or export them in your shell:
 ```bash
 export SLACK_BOT_TOKEN="xoxb-..."
 export SLACK_APP_TOKEN="xapp-..."
-export ANTHROPIC_API_KEY="sk-ant-..."
+export GOOGLE_API_KEY="your-key-here"
 ```
 
 ## Step 5: Run the Bot
@@ -272,10 +273,11 @@ pm2 start "npx -y @probelabs/visor@latest --config slack-bot.yaml --slack" --nam
 |----------|----------|-------------|
 | `SLACK_BOT_TOKEN` | Yes | Bot User OAuth Token (xoxb-...) |
 | `SLACK_APP_TOKEN` | Yes | App-Level Token with connections:write (xapp-...) |
-| `ANTHROPIC_API_KEY` | Yes* | Anthropic API key for Claude |
-| `OPENAI_API_KEY` | Alt* | OpenAI API key (alternative to Anthropic) |
+| `GOOGLE_API_KEY` | Yes* | Google API key — Gemini 2.5 Pro recommended |
+| `ANTHROPIC_API_KEY` | Alt* | Anthropic API key for Claude |
+| `OPENAI_API_KEY` | Alt* | OpenAI API key |
 
-*One LLM provider API key is required.
+*One LLM provider API key is required. We recommend Gemini 2.5 Pro for the best experience.
 
 ---
 

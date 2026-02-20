@@ -921,7 +921,7 @@ const currentRole = computed(() => roles.find(r => r.id === activeRole.value) ||
 // Build Your AI Assistant code block
 const assistantCode = `git clone https://github.com/probelabs/visor-quickstart.git
 cd visor-quickstart && cp .env.example .env
-# Set ANTHROPIC_API_KEY in .env
+# Set your LLM API key in .env (Anthropic, OpenAI, or Google)
 npx -y @probelabs/visor@latest run assistant.yaml --tui`
 
 // FAQ data
