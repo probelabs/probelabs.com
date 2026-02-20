@@ -1031,15 +1031,10 @@
 .new-homepage .nh-quickwins-header { margin-bottom: 2rem; }
 .new-homepage .nh-quickwins-header h2 { font-family: 'Space Mono', monospace; font-weight: 700; font-size: clamp(1.65rem, 3vw, 2.3rem); margin-bottom: 0.5rem; letter-spacing: -0.02em; }
 .new-homepage .nh-quickwins-header p { font-size: 0.8rem; color: var(--gray); font-weight: 400; }
-.new-homepage .nh-quickwin-tabs { display: flex; gap: 0; margin-bottom: 0; }
-.new-homepage .nh-quickwin-tab { flex: 1; padding: 1rem; background: #fff; border: 1px solid rgba(0,0,0,0.08); border-bottom: none; cursor: pointer; text-align: left; transition: all 0.3s; display: flex; align-items: center; gap: 0.8rem; }
-.new-homepage .nh-quickwin-tab:not(:first-child) { border-left: none; }
-.new-homepage .nh-quickwin-tab:hover { background: rgba(248,248,248,0.8); }
-.new-homepage .nh-quickwin-tab.active { background: var(--black); color: var(--cream); }
-.new-homepage .nh-qw-num { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 0.7rem; width: 20px; height: 20px; border: 1px solid currentColor; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.new-homepage .nh-qw-title { font-family: 'Space Mono', monospace; font-weight: 600; font-size: 0.75rem; flex: 1; }
-.new-homepage .nh-qw-time { font-size: 0.65rem; color: var(--gray); }
-.new-homepage .nh-quickwin-tab.active .nh-qw-time { color: rgba(255,255,255,0.5); }
+.new-homepage .nh-assistant-features { list-style: none; padding: 0; margin: 0 0 1.5rem 0; }
+.new-homepage .nh-assistant-features li { font-size: 0.78rem; line-height: 1.7; margin-bottom: 0.6rem; padding-left: 1.2rem; position: relative; color: var(--gray); }
+.new-homepage .nh-assistant-features li::before { content: '→'; position: absolute; left: 0; color: var(--gray); }
+.new-homepage .nh-assistant-features li strong { font-weight: 600; color: var(--black); }
 .new-homepage .nh-quickwin-content { display: grid; grid-template-columns: 1fr 1fr; background: #fff; border: 1px solid rgba(0,0,0,0.08); }
 .new-homepage .nh-quickwin-left { padding: 2.5rem; border-right: 1px solid rgba(0,0,0,0.08); }
 .new-homepage .nh-quickwin-left h3 { font-family: 'Space Mono', monospace; font-weight: 700; font-size: 1rem; margin-bottom: 1rem; }

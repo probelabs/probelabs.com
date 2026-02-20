@@ -343,40 +343,31 @@
       </div>
     </section>
 
-    <!-- Quick Wins Section -->
+    <!-- Build Your AI Assistant Section -->
     <section class="nh-quickwins nh-reveal" id="quickwins">
       <div class="nh-quickwins-wrapper">
         <div class="nh-quickwins-header">
-          <h2>Get started in 10 minutes</h2>
-          <p>Real value, not demos. Pick any of these and have something running before your next meeting.</p>
-        </div>
-        <div class="nh-quickwin-tabs">
-          <button
-            v-for="(qw, index) in quickWins"
-            :key="qw.id"
-            @click="activeQuickWin = qw.id"
-            :class="['nh-quickwin-tab', { active: activeQuickWin === qw.id }]"
-          >
-            <span class="nh-qw-num">{{ index + 1 }}</span>
-            <span class="nh-qw-title">{{ qw.tabTitle }}</span>
-            <span class="nh-qw-time">{{ qw.time }}</span>
-          </button>
+          <h2>Build your AI assistant in 10 minutes</h2>
+          <p>Clone the quickstart, set an API key, and get a working assistant with skills, tools, and knowledge — all defined in YAML.</p>
         </div>
         <div class="nh-quickwin-content">
           <div class="nh-quickwin-left">
-            <h3>{{ currentQuickWin.title }}</h3>
-            <p>{{ currentQuickWin.desc }}</p>
-            <div class="nh-quickwin-result">
-              <strong>You get:</strong> {{ currentQuickWin.result }}
-            </div>
-            <a :href="currentQuickWin.link" class="nh-quickwin-link">{{ currentQuickWin.linkText }} &rarr;</a>
+            <h3>What you get</h3>
+            <ul class="nh-assistant-features">
+              <li><strong>Intent classification</strong> — routes requests to the right skill automatically</li>
+              <li><strong>Code exploration</strong> — search and understand code across repos</li>
+              <li><strong>Knowledge injection</strong> — inline docs or loaded from files</li>
+              <li><strong>Tool orchestration</strong> — bash, MCP servers, workflow tools</li>
+              <li><strong>Slack-ready</strong> — connect to your workspace with one flag</li>
+            </ul>
+            <a href="/docs/quick-start" class="nh-quickwin-link">Quick start guide &rarr;</a>
           </div>
           <div class="nh-quickwin-right">
             <div class="nh-quickwin-code">
-              <div class="nh-code-label">{{ currentQuickWin.codeLabel }}</div>
+              <div class="nh-code-label">Clone & run</div>
               <div class="nh-code-body">
-                <pre><code>{{ currentQuickWin.code }}</code></pre>
-                <button class="nh-code-copy" @click="copyCode(currentQuickWin.code)">
+                <pre><code>{{ assistantCode }}</code></pre>
+                <button class="nh-code-copy" @click="copyCode(assistantCode)">
                   <svg v-if="!codeCopied" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
                   <svg v-else width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
                 </button>
@@ -468,7 +459,6 @@ let termObserver = null
 
 // Interactive state
 const activeRole = ref('cto')
-const activeQuickWin = ref('probe')
 const codeCopied = ref(false)
 
 // Chat filter state
@@ -928,70 +918,11 @@ const roles = [
 
 const currentRole = computed(() => roles.find(r => r.id === activeRole.value) || roles[0])
 
-// Quick Wins data
-const quickWins = [
-  {
-    id: 'probe',
-    tabTitle: 'Add to AI Editor',
-    time: '~2 min',
-    title: 'Add Probe to Your AI Coding Tool',
-    desc: 'Get enterprise-grade code understanding in your existing workflow. Probe auto-detects Claude Code and Codex auth, or works with any LLM API.',
-    result: 'A specialized AI agent for code search and analysis, powered by Probe\'s code search engine.',
-    link: '/docs/integrations/ai-code-editors',
-    linkText: 'AI code editor setup',
-    codeLabel: 'Add to Claude Code',
-    code: 'claude mcp add probe -- npx -y @probelabs/probe@latest agent --mcp'
-  },
-  {
-    id: 'github',
-    tabTitle: 'Automate PR Reviews',
-    time: '~5 min',
-    title: 'Add Visor GitHub Action',
-    desc: 'Add a reusable GitHub Action for automated issue triage and code review. Every issue triaged automatically. Every PR gets a first-pass review.',
-    result: 'Automated issue categorization and context-aware PR reviews on every commit.',
-    link: '/docs/github-assistant',
-    linkText: 'GitHub Assistant docs',
-    codeLabel: '.github/workflows/visor.yml',
-    code: `name: Visor Review
-on: [pull_request]
-jobs:
-  review:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: probelabs/visor-action@v1
-        with:
-          workflow: code-review`
-  },
-  {
-    id: 'slack',
-    tabTitle: 'Slack Bot',
-    time: '~5 min',
-    title: 'Deploy a Code-Aware Slack Bot',
-    desc: 'Answer codebase questions directly in Slack. Set up scheduled digests, thread follow-ups, and recurring automations — all from conversations or YAML configs.',
-    result: 'A Slack bot that answers questions, runs scheduled jobs, and follows up on action items.',
-    link: '/docs/guides/slack-bot',
-    linkText: 'Slack integration docs',
-    codeLabel: 'Deploy with Docker',
-    code: `docker run -d \\
-  -e SLACK_TOKEN=xoxb-... \\
-  -e ANTHROPIC_API_KEY=sk-... \\
-  probelabs/probe-slack:latest`
-  },
-  {
-    id: 'web',
-    tabTitle: 'Web Chat',
-    time: '~1 min',
-    title: 'Run the Web Chat UI',
-    desc: 'Spin up a local web interface to chat with your codebase. Great for exploration, onboarding, and sharing context with non-technical teammates.',
-    result: 'A browser-based chat interface connected to your local codebase.',
-    link: '/docs/chat-with-code',
-    linkText: 'Web chat docs',
-    codeLabel: 'Run locally',
-    code: 'npx -y @probelabs/probe-chat@latest --web'
-  }
-]
-
-const currentQuickWin = computed(() => quickWins.find(qw => qw.id === activeQuickWin.value) || quickWins[0])
+// Build Your AI Assistant code block
+const assistantCode = `git clone https://github.com/probelabs/visor-quickstart.git
+cd visor-quickstart && cp .env.example .env
+# Set ANTHROPIC_API_KEY in .env
+npx -y @probelabs/visor@latest run assistant.yaml --tui`
 
 // FAQ data
 const faqItems = [

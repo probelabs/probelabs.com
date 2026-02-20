@@ -142,6 +142,7 @@ export default defineConfig({
       {
         text: 'Guides',
         items: [
+          { text: 'Build an AI Assistant', link: '/docs/quick-start' },
           { text: 'Build a Slack Bot', link: '/docs/guides/slack-bot' },
           { text: 'Testing AI Workflows', link: '/docs/guides/testing' }
         ]
@@ -162,7 +163,7 @@ export default defineConfig({
           ]},
           { text: 'Probe Reference', items: [
             { text: 'Probe Installation', link: '/docs/installation' },
-            { text: 'Probe Quick Start', link: '/docs/quick-start' },
+            { text: 'Quick Start: Build an AI Assistant', link: '/docs/quick-start' },
             { text: 'How Probe Works', link: '/docs/how-it-works' },
             { text: 'Language Support', link: '/docs/language-support-overview' },
             { text: 'CLI Reference (Commands & Flags)', link: '/docs/cli-mode' },
@@ -220,7 +221,7 @@ export default defineConfig({
           collapsed: false,
           items: [
             { text: 'Probe Installation', link: '/docs/installation' },
-            { text: 'Probe Quick Start', link: '/docs/quick-start' },
+            { text: 'Quick Start: Build an AI Assistant', link: '/docs/quick-start' },
             { text: 'How Probe Works', link: '/docs/how-it-works' },
             { text: 'Language Support', link: '/docs/language-support-overview' },
             { text: 'CLI Reference (Commands & Flags)', link: '/docs/cli-mode' },

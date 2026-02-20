@@ -12,6 +12,7 @@ ProbeLabs is **code intelligence + workflow automation** for product and enginee
 
 ### Pick your first workflow
 
+- [Build an AI Assistant](/docs/quick-start) - Define skills, tools, and knowledge in YAML (~10 min)
 - [Chat with Code](/docs/chat-with-code) - Grounded answers from your codebase
 - [Intelligent Code Review](/docs/code-review) - Structured, guardrailed reviews in CI
 - [GitHub Assistant](/docs/github-assistant) - Issue + PR automation in GitHub Actions
@@ -20,7 +21,7 @@ ProbeLabs is **code intelligence + workflow automation** for product and enginee
 ### Install and run
 
 - [Installation](/docs/installation) - Install Probe locally or in CI
-- [Quick Start](/docs/quick-start) - Run it from your repo and get results fast
+- [Quick Start](/docs/quick-start) - Build a working AI assistant in ~10 minutes
 
 ## Use Cases
 
@@ -68,6 +69,12 @@ Real workflows teams run every day, powered by Probe + Visor.
 - [Code Extraction](/docs/code-extraction)
 - [Language Support](/docs/language-support-overview)
 - [Node.js SDK](/docs/nodejs-sdk)
+
+## Guides
+
+- [Build an AI Assistant](/docs/quick-start) - Clone the quickstart, define skills and tools, run from CLI or Slack
+- [Build a Slack Bot](/docs/guides/slack-bot) - Deploy a code-aware bot to your workspace
+- [Testing AI Workflows](/docs/guides/testing) - Mock-based and integration testing for AI pipelines
 
 ## Visor Reference
 
