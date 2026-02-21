@@ -71,3 +71,168 @@
 <script setup>
 const currentYear = new Date().getFullYear()
 </script>
+
+<style scoped>
+.nh-footer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem 2rem;
+  border-top: 1px solid rgba(0,0,0,0.055);
+  color: #111;
+}
+
+.nh-footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.nh-footer-brand {
+  padding-right: 2rem;
+}
+
+.nh-footer-brand-name {
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 1.1rem;
+  display: block;
+  margin-bottom: 0.6rem;
+  color: #111;
+}
+
+.nh-footer-tagline {
+  font-size: 0.75rem;
+  color: #666;
+  font-weight: 400;
+  line-height: 1.6;
+  margin-bottom: 1.2rem;
+}
+
+.nh-footer-social {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.nh-footer-social a {
+  color: #111;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+}
+
+.nh-footer-social a:hover {
+  opacity: 1;
+}
+
+.nh-footer-email {
+  font-size: 0.72rem;
+  color: #666;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.nh-footer-email:hover {
+  color: #111;
+}
+
+.nh-footer-col h4 {
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 0.75rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #111;
+}
+
+.nh-footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nh-footer-col li {
+  margin-bottom: 0.6rem;
+}
+
+.nh-footer-col a {
+  font-size: 0.75rem;
+  color: #666;
+  text-decoration: none;
+  transition: color 0.3s;
+  font-weight: 400;
+}
+
+.nh-footer-col a:hover {
+  color: #111;
+}
+
+.nh-footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+
+.nh-footer-copy {
+  font-size: 0.68rem;
+  color: #666;
+}
+
+.nh-footer-legal {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nh-footer-legal a {
+  font-size: 0.68rem;
+  color: #666;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.nh-footer-legal a:hover {
+  color: #111;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .nh-footer-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2rem 1.5rem;
+  }
+  .nh-footer-brand {
+    grid-column: span 3;
+    padding-right: 0;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .nh-footer { padding: 3rem 1.5rem 2rem; }
+  .nh-footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem 1.5rem;
+  }
+  .nh-footer-brand {
+    grid-column: span 2;
+    text-align: center;
+    padding-right: 0;
+    margin-bottom: 1rem;
+  }
+  .nh-footer-social {
+    justify-content: center;
+  }
+  .nh-footer-bottom {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  .nh-footer-legal {
+    justify-content: center;
+  }
+}
+</style>
