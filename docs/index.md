@@ -40,7 +40,7 @@ Real workflows teams run every day, powered by Probe + Visor.
 
 ## Foundations (Probe + Visor)
 
-- [What is Probe?](/docs/features) - includes reference links to GitHub docs
+- [What is Probe?](/docs/probe) - includes reference links to GitHub docs
 - [What is Visor?](/docs/visor) - includes reference links to GitHub docs
 
 ## Guides

@@ -227,7 +227,7 @@ docker build -t slack-bot .
 docker run -d --name slack-bot \
   -e SLACK_BOT_TOKEN=xoxb-... \
   -e SLACK_APP_TOKEN=xapp-... \
-  -e ANTHROPIC_API_KEY=sk-ant-... \
+  -e GOOGLE_API_KEY=your-key-here \
   slack-bot
 ```
 

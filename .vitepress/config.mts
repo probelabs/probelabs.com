@@ -143,7 +143,7 @@ export default defineConfig({
         text: 'Docs',
         items: [
           { text: 'Foundations', items: [
-            { text: 'What is Probe?', link: '/docs/features' },
+            { text: 'What is Probe?', link: '/docs/probe' },
             { text: 'What is Visor?', link: '/docs/visor' },
           ]},
           { text: 'Use Cases / Workflows', items: [
@@ -180,7 +180,7 @@ export default defineConfig({
           text: 'Foundations (Probe + Visor)',
           collapsed: false,
           items: [
-            { text: 'What is Probe?', link: '/docs/features' },
+            { text: 'What is Probe?', link: '/docs/probe' },
             { text: 'What is Visor?', link: '/docs/visor' },
           ]
         },

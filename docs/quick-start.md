@@ -262,8 +262,11 @@ allowed_commands:
   - "git:log:*"
   - "git:show:*"
   - "git:diff:*"
+```
 
-# Allow broad access but block destructive operations
+Or allow broader access while blocking destructive operations:
+
+```yaml
 allowed_commands:
   - "git:*"
 disallowed_commands:
