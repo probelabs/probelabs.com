@@ -5,7 +5,7 @@
         <div class="nav-logo">
           <img src="/probe/logo.png" alt="Probe" class="nav-logo-img">
         </div>
-        <span class="nav-title">ProbeLabs</span>
+        <span class="nav-title">Probe</span>
       </a>
       <div class="nav-links">
         <!-- Products Dropdown -->
