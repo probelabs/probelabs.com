@@ -23,6 +23,7 @@ title: Workflow Automation - Probe Labs
         <span class="guarantee-badge">Code-aware</span>
         <span class="guarantee-badge">Scheduled jobs</span>
         <span class="guarantee-badge">Event-driven</span>
+        <span class="guarantee-badge">A2A Agents</span>
         <span class="guarantee-badge">Any LLM</span>
       </div>
       <div class="hero-cta">
@@ -487,6 +488,7 @@ title: Workflow Automation - Probe Labs
           <li><strong>Datadog / Grafana integration</strong> — Correlate alerts with deploys, code changes, and dependency updates</li>
           <li><strong>Slack/Teams integration</strong> — Post workflow results to channels, trigger workflows from chat</li>
           <li><strong>Workflow library</strong> — Pre-built workflows for ops, release management, compliance, and hygiene</li>
+          <li><strong>A2A agent protocol</strong> — Run as an A2A server or call external A2A agents for multi-agent composition</li>
           <li><strong>On-premises deployment</strong> — Runs entirely in your infrastructure for maximum security</li>
         </ul>
         <div class="edition-cta">

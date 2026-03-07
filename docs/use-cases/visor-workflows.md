@@ -85,6 +85,7 @@ steps:
 - **Human-in-the-loop**: pause, ask, approve, and resume safely
 - **Observability by default**: OpenTelemetry traces for every step
 - **Testable automation**: run workflow tests before rolling out changes
+- **Agent interoperability**: compose specialized A2A agents into unified workflows via the Agent-to-Agent protocol
 
 ## Why Workflows Matter
 
@@ -98,10 +99,39 @@ Many steps still require human approval. But most steps can be automated, accele
 - **Issue triage**: auto-response, classification, and escalation workflows
 - **Release workflows**: generate release notes and route approvals
 - **Inbound automation**: trigger flows from webhooks, incidents, or schedules
+- **Multi-agent composition**: delegate tasks to specialized A2A agents and aggregate results
 
 ## Determinism for Unpredictable Systems
 
 Humans and AI are both fallible. Visor adds determinism around them: clear inputs and outputs, validated schemas, timeouts, retries, and explicit failure routes. You can mix scripts, APIs, and AI steps while keeping the workflow predictable and safe.
+
+## Multi-Agent Composition
+
+Visor supports the A2A (Agent-to-Agent) protocol for composing specialized agents into unified workflows. Run Visor as an A2A server to expose your workflows as discoverable agents, or call external A2A agents as workflow steps.
+
+```yaml
+steps:
+  compliance-check:
+    type: a2a
+    agent_url: "http://compliance-agent:9000"
+    message: "Review PR #{{ pr.number }} for compliance"
+    blocking: true
+
+  security-review:
+    type: a2a
+    agent_url: "http://security-agent:9000"
+    message: "Analyze security implications of {{ pr.title }}"
+
+  aggregate:
+    type: script
+    depends_on: [compliance-check, security-review]
+    content: |
+      const compliance = outputs['compliance-check'];
+      const security = outputs['security-review'];
+      return { approved: compliance.passed && security.passed };
+```
+
+Each agent handles its domain independently. Visor orchestrates the coordination, aggregates results, and enforces quality gates across the entire pipeline.
 
 ## How It Fits with Probe
 
