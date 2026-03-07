@@ -35,9 +35,10 @@ Copy and paste this manifest in the JSON tab:
 ```json
 {
     "display_information": {
-        "name": "Probe",
-        "description": "A friendly bot to answer questions about code",
-        "background_color": "#000000"
+        "name": "Oel",
+        "description": ":wave:",
+        "background_color": "#000000",
+        "long_description": "I can help with product realted questions - code, jira or confluence related, maybe do mix of everything. Try to combine different sources and topics too! I love to learn more, so you can ask me to request some features too!"
     },
     "features": {
         "app_home": {
@@ -46,7 +47,7 @@ Copy and paste this manifest in the JSON tab:
             "messages_tab_read_only_enabled": false
         },
         "bot_user": {
-            "display_name": "Probe",
+            "display_name": "Oel",
             "always_online": true
         }
     },
