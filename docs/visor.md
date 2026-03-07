@@ -1,6 +1,6 @@
 # What is Visor?
 
-Visor is a deterministic workflow engine for SDLC automation and code review orchestration. It turns human and AI processes into explicit steps with validation, approvals, and safe fallbacks so work stays predictable.
+Visor is a deterministic workflow engine for SDLC automation, code review orchestration, and multi-agent composition. It turns human and AI processes into explicit steps with validation, approvals, and safe fallbacks so work stays predictable.
 
 Visor is designed to run inside your infrastructure, typically in GitHub Actions or locally via CLI. It uses Probe to ground every step in real code context, so automation is based on source of truth, not stale docs.
 
@@ -8,11 +8,12 @@ Visor is designed to run inside your infrastructure, typically in GitHub Actions
 
 - **GitHub Actions**: native check runs, annotations, and PR comments.
 - **CLI**: run locally or in CI as part of custom pipelines.
+- **A2A agent server**: expose workflows as discoverable agents via the Agent-to-Agent protocol for multi-agent systems.
 
 ## How Visor Works
 
 - **Config-driven workflows**: define steps in YAML and version them with your repo.
-- **Deterministic steps + AI steps**: mix scripts, API calls, and AI checks with schemas.
+- **Deterministic steps + AI steps**: mix scripts, API calls, A2A agents, and AI checks with schemas.
 - **Guardrails by default**: timeouts, retries, and explicit failure paths.
 - **Grounded context**: Probe provides precise code context for every step.
 
@@ -41,4 +42,5 @@ Full reference docs live on GitHub. Use this as a quick table of contents:
 - [Performance & Cost Controls](https://github.com/probelabs/visor/blob/main/docs/performance.md)
 - [Observability](https://github.com/probelabs/visor/blob/main/docs/observability.md)
 - [Output Formats](https://github.com/probelabs/visor/blob/main/docs/output-formats.md)
+- [A2A Provider](https://github.com/probelabs/visor/blob/main/docs/a2a-provider.md)
 - [Recipes](https://github.com/probelabs/visor/blob/main/docs/recipes.md)

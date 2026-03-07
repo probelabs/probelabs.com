@@ -4,7 +4,7 @@ title: Platform Documentation
 
 # Platform Documentation
 
-ProbeLabs is **code intelligence + workflow automation** for product and engineering teams. Built for multi‑million line codebases and complex architectures, it powers search, reviews, and automation across your entire stack. PMs and support get answers without interrupting engineers. Reviews run automatically. Processes that used to take days happen in minutes. The bottleneck isn't writing code anymore — it's understanding it.
+ProbeLabs is **code intelligence + workflow automation + A2A agent interoperability** for product and engineering teams. Built for multi‑million line codebases and complex architectures, it powers search, reviews, and automation across your entire stack. PMs and support get answers without interrupting engineers. Reviews run automatically. Processes that used to take days happen in minutes. The bottleneck isn't writing code anymore — it's understanding it.
 
 **Probe** is the context engine. **Visor** is the workflow engine.
 
@@ -41,7 +41,7 @@ Real workflows teams run every day, powered by Probe + Visor.
 ## Foundations (Probe + Visor)
 
 - [What is Probe?](/docs/probe) - includes reference links to GitHub docs
-- [What is Visor?](/docs/visor) - includes reference links to GitHub docs
+- [What is Visor?](/docs/visor) - workflow engine with A2A agent protocol support
 
 ## Guides
 

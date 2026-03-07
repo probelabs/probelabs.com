@@ -14,6 +14,7 @@ Built for individual engineers, platform teams, and engineering leaders who need
 - **Built for Large Codebases**: Handles multi-service repos, cross-team conventions, and complex dependencies, powered by [Probe's](/probe) semantic code understanding.
 - **Structured Outputs**: Post PR comments and export JSON or SARIF for CI, dashboards, and code-scanning tools.
 - **Explains Why, Not Just What**: Findings include context and reasoning; ask follow-up questions in the PR thread.
+- **Multi-Agent Reviews**: Delegate specialized reviews (compliance, security) to external A2A agents and aggregate results.
 
 ## Quick Start
 

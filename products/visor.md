@@ -24,6 +24,7 @@ title: Visor - Predictable Agent Workflows
         <span class="guarantee-badge">Any Model</span>
         <span class="guarantee-badge">OpenTelemetry</span>
         <span class="guarantee-badge">MCP Tools</span>
+        <span class="guarantee-badge">A2A Agents</span>
         <span class="guarantee-badge">Open Source</span>
       </div>
       <div class="hero-cta">
@@ -43,12 +44,12 @@ title: Visor - Predictable Agent Workflows
         <div class="diagram-content">
           <div class="diagram-section">
             <div class="diagram-label">Trigger</div>
-            <div class="diagram-code"><code>PR opened, Slack thread, webhook, schedule</code></div>
+            <div class="diagram-code"><code>PR opened, Slack thread, webhook, A2A task, schedule</code></div>
           </div>
           <div class="diagram-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div class="diagram-section diagram-section-agent">
             <div class="diagram-label">Execute Steps</div>
-            <div class="diagram-code"><code>AI + MCP + GitHub + HTTP + shell</code><code>Schema validation + quality gates</code></div>
+            <div class="diagram-code"><code>AI + MCP + A2A + GitHub + HTTP + shell</code><code>Schema validation + quality gates</code></div>
           </div>
           <div class="diagram-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           <div class="diagram-section diagram-section-output">
@@ -103,6 +104,11 @@ title: Visor - Predictable Agent Workflows
         <h3>Scheduled Audits</h3>
         <p>Nightly security audits and periodic health checks with consistent reporting and traceability.</p>
       </div>
+      <div class="usecase-card">
+        <div class="usecase-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="4"/><circle cx="16" cy="16" r="4"/><path d="M10.5 10.5l3 3"/></svg></div>
+        <h3>Multi-Agent Systems</h3>
+        <p>Compose specialized agents via A2A protocol—delegate compliance, security, or analysis to external agents and aggregate results.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -132,7 +138,7 @@ title: Visor - Predictable Agent Workflows
       </div>
       <div class="primitive-card">
         <h3>Multi-provider steps</h3>
-        <p>AI, GitHub, HTTP, shell, MCP tools, memory, and reusable sub-workflows.</p>
+        <p>AI, A2A agents, GitHub, HTTP, shell, MCP tools, memory, and reusable sub-workflows.</p>
       </div>
       <div class="primitive-card">
         <h3>Stateful runs</h3>
@@ -179,6 +185,7 @@ title: Visor - Predictable Agent Workflows
           <li>Frontends are first-class: GitHub, Slack, webhooks, schedules</li>
           <li>Tool usage is auditable: tools are declared and traceable</li>
           <li>Runs are reproducible: state is isolated, testable like code</li>
+          <li>Agent interop is built-in: A2A protocol for multi-agent composition</li>
         </ul>
       </div>
     </div>
@@ -457,6 +464,11 @@ title: Visor - Predictable Agent Workflows
         <span class="provider-desc">Semgrep, internal servers</span>
       </div>
       <div class="provider-chip">
+        <span class="provider-icon">A2A</span>
+        <span class="provider-name">a2a</span>
+        <span class="provider-desc">Agent-to-agent delegation</span>
+      </div>
+      <div class="provider-chip">
         <span class="provider-icon">GH</span>
         <span class="provider-name">github</span>
         <span class="provider-desc">Labels, comments, PR ops</span>
@@ -558,6 +570,10 @@ title: Visor - Predictable Agent Workflows
       <div class="faq-item">
         <h3>How do we observe and debug runs?</h3>
         <p>OpenTelemetry tracing + log correlation are built-in (<code>telemetry.enabled</code>). You can inspect step timings, retries, loop iterations, and validation outcomes.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What is A2A and how does it work with Visor?</h3>
+        <p>A2A (Agent-to-Agent) is Google's open protocol for agent interoperability. Visor can run as an A2A server (exposing workflows as discoverable agents) or call external A2A agents as workflow steps. This enables multi-agent composition where specialized agents handle compliance, security, or domain-specific tasks.</p>
       </div>
     </div>
   </div>
