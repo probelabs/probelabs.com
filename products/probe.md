@@ -274,29 +274,38 @@ title: Probe - Code Intelligence for AI
   <div class="container">
     <div class="section-header">
       <span class="section-label">The Difference</span>
-      <h2>Most Systems Treat Code as Text. Probe Treats It as a Codebase.</h2>
+      <h2>Three Approaches to Code Search. Only One Works for AI Agents.</h2>
     </div>
-    <div class="comparison-grid">
+    <div class="comparison-grid comparison-grid-3col">
       <div class="comparison-col comparison-common">
-        <h3>Common approach</h3>
+        <h3>Text search (grep)</h3>
         <ul>
-          <li>Run 2–3 text queries</li>
-          <li>Grab a few lines around matches</li>
-          <li>Assume it's enough context</li>
-          <li>Move on confidently (often wrong)</li>
+          <li>Fast regex matching</li>
+          <li>Returns line fragments</li>
+          <li>No code understanding</li>
+          <li>No ranking or relevance</li>
+        </ul>
+      </div>
+      <div class="comparison-col comparison-common">
+        <h3>Embedding search</h3>
+        <ul>
+          <li>Requires indexing + embedding API</li>
+          <li>Returns ~512-char text chunks</li>
+          <li>Can split functions mid-body</li>
+          <li>Stale when code changes</li>
         </ul>
       </div>
       <div class="comparison-col comparison-probe">
-        <h3>Probe approach</h3>
+        <h3>Probe</h3>
         <ul>
-          <li>Build a ranked set of structural hits</li>
-          <li>Extract scoped, minimal context with boundaries</li>
-          <li>Highlight the important identifiers</li>
-          <li>Expand intentionally when deeper context is needed</li>
+          <li>Zero setup, instant results</li>
+          <li>Returns complete functions and classes</li>
+          <li>AST-aware structural understanding</li>
+          <li>Always current, deterministic</li>
         </ul>
       </div>
     </div>
-    <p class="comparison-closer">It's not about "more context." It's about the right context, delivered efficiently.</p>
+    <p class="comparison-closer">Embedding tools solve vocabulary mismatch — but AI agents already handle that. The LLM translates "find auth logic" into precise boolean queries. Probe gives it the query language and returns complete AST blocks in milliseconds.</p>
   </div>
 </section>
 <!-- Features Section -->
@@ -445,6 +454,11 @@ title: Probe - Code Intelligence for AI
   gap: var(--space-xl);
   max-width: 900px;
   margin: 0 auto var(--space-xl);
+}
+
+.ps-page .comparison-grid-3col {
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 1100px;
 }
 
 .ps-page .comparison-col {
@@ -883,6 +897,12 @@ title: Probe - Code Intelligence for AI
 
   .ps-page .quickstart-featured {
     grid-column: span 2;
+  }
+}
+
+@media (max-width: 1024px) {
+  .ps-page .comparison-grid-3col {
+    grid-template-columns: 1fr;
   }
 }
 

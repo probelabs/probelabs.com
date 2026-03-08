@@ -6,9 +6,13 @@ It powers every workflow in the ProbeLabs platform: code search, AI assistants, 
 
 ## Vision
 
-Most code search tools treat code like text. Probe treats code like structure. When you search for "authentication middleware", Probe doesn't return random lines that contain those words — it returns the complete function, its surrounding context, and ranks results by actual relevance using BM25/TF-IDF scoring.
+Code search tools fall into three camps: **text-based** (grep, ripgrep), **embedding-based** (vector search requiring indexing and an embedding model), and **AST-aware** (Probe). Most AI coding tools use the first two — grep some files and hope for the best, or build a vector index that returns approximate text chunks.
 
-This matters because AI agents and humans both need complete, accurate context to make good decisions. Partial snippets lead to hallucinations and wrong answers. Probe eliminates that problem at the engine level.
+Probe takes the third path. When you search for "authentication middleware", Probe doesn't return random lines or 512-character text chunks that split a function in half — it returns the complete function, its surrounding context, and ranks results by actual relevance using BM25/TF-IDF scoring.
+
+**Why not embeddings?** Embedding-based tools (like grepai, Octocode) solve vocabulary mismatch — finding "authentication" when the code says `verify_credentials`. But when an AI agent is the consumer, the LLM already handles this. It translates intent into precise boolean queries: `"verify_credentials OR authenticate OR login OR auth_handler"`. Probe gives it a powerful query language purpose-built for this, and returns results in milliseconds with zero setup.
+
+This matters because AI agents need complete, accurate, deterministic context. Partial snippets lead to hallucinations. Stale indexes lead to wrong answers. Probe eliminates both problems at the engine level — no indexing to maintain, no embedding model to run, and every result is a complete AST block.
 
 ## Architecture
 
@@ -348,6 +352,21 @@ probe --version
 ```
 
 [Installation reference →](https://github.com/probelabs/probe/blob/main/docs/installation.md)
+
+## How Probe Compares
+
+| | grep/ripgrep | Embedding tools | Knowledge graphs | Probe |
+|---|---|---|---|---|
+| **Setup** | None | Minutes (indexing + API) | Heavy (Neo4j, LSP) | None |
+| **Result unit** | Lines | ~512-char chunks | Graph nodes | Complete AST blocks |
+| **Natural language** | No | Built-in | Limited | LLM generates boolean queries |
+| **Exact search** | Regex | Weak | By name only | SIMD-accelerated + boolean operators |
+| **Deterministic** | Yes | No (model-dependent) | Yes | Yes |
+| **Token awareness** | No | Partial | Limited | Built-in (`--max-tokens`, session dedup) |
+| **External deps** | None | Embedding API | Database + LSP | None |
+| **Call graph** | No | No | Yes | Coming soon (LSP integration) |
+
+**Embedding tools** (grepai, Octocode) are best when humans search with natural language. **Knowledge graphs** (Stakgraph, ABCoder) are best for structural questions ("who calls this?"). **Probe** is best when AI agents need code context — fast, deterministic, zero-setup, and AST-aware.
 
 ## Where Probe Fits
 
