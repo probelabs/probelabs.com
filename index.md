@@ -2,7 +2,7 @@
 theme: lab-portfolio
 title: ProbeLabs
 titleTemplate: false
-description: "Making AI agents trustworthy on real software: recoverable intent, rerunnable evidence, inspectable instruments."
+description: "ProbeLabs is a research lab for engineering craft in the agentic era. We build the instruments that turn agent work into recoverable intent and rerunnable evidence."
 head:
   - - link
     - rel: preconnect

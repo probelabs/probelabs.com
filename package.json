@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "highlight.js": "^11.11.1",
+    "three": "^0.170.0",
     "vitepress": "^1.6.3"
   },
   "devDependencies": {
