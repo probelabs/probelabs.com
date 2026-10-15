@@ -1092,7 +1092,7 @@ onUnmounted(() => {
   letter-spacing: -0.03em;
   line-height: 1.05;
   text-wrap: balance;
-  max-width: 18ch;
+  max-width: 26ch;
 }
 
 .oel-dek {
