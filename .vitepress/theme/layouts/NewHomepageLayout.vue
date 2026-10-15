@@ -205,7 +205,7 @@
         <div class="oel-section-head">
           <h2>Tyk</h2>
           <p class="oel-dek">
-            The reference installation is at Tyk. Leonid calls that installation Oel. The quotes below are from the people who use it, in the words they used.
+            Tyk is the reference deployment of Oel. The quotes below are from the people who use it, in the words they used.
           </p>
         </div>
         <figure class="oel-testimonial" v-for="quote in quotes" :key="quote.name">
@@ -369,11 +369,11 @@ const hero = {
   evidence: [
     {
       label: 'middleware/rate_limit.go:142',
-      detail: 'The token bucket lookup uses client IP instead of API key when the X-Forwarded-For header is present.'
+      detail: 'bucket key = client IP'
     },
     {
       label: 'Fix',
-      detail: 'Use the session key as the primary identifier.'
+      detail: 'bucket key = session key'
     }
   ]
 }
