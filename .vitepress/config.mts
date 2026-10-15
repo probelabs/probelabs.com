@@ -11,7 +11,7 @@ const PUBLIC_APPS = readdirSync(publicDir, { withFileTypes: true })
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "Probe Labs",
-  description: "Agentic infrastructure platform enabling 10x engineering teams. Build the engineering organization that moves at AI speed.",
+  description: "Making AI agents trustworthy on real software: recoverable intent, rerunnable evidence, inspectable instruments.",
   lastUpdated: true,
   cleanUrls: true,
   appearance: true,
@@ -102,6 +102,7 @@ export default defineConfig({
     
     nav: [
       { text: 'Home', link: '/' },
+      { text: 'Proof', link: 'https://reqproof.com' },
       {
         text: 'Solutions',
         items: [
@@ -117,7 +118,9 @@ export default defineConfig({
         text: 'Products',
         items: [
           { text: 'Core Products', items: [
+            { text: 'Proof', link: 'https://reqproof.com' },
             { text: 'Probe', link: '/probe' },
+            { text: 'Probe Agent', link: '/probe-agent' },
             { text: 'Visor', link: '/visor' }
           ]},
           { text: 'Labs', items: [
@@ -160,7 +163,7 @@ export default defineConfig({
           ]}
         ]
       },
-      { text: 'Contact', link: '#contact' }
+      { text: 'Contact', link: 'mailto:hello@probelabs.com' }
     ],
 
     sidebar: {

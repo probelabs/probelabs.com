@@ -1,5 +1,17 @@
 ---
-theme: new-homepage
-title: Probe — Code Intelligence for Product & Engineering Teams
-description: AI that actually understands your codebase. Built for multi-million line codebases with AST-aware parsing, semantic search, and structured retrieval.
+theme: lab-portfolio
+title: ProbeLabs
+titleTemplate: false
+description: "Making AI agents trustworthy on real software: recoverable intent, rerunnable evidence, inspectable instruments."
+head:
+  - - link
+    - rel: preconnect
+      href: https://fonts.googleapis.com
+  - - link
+    - rel: preconnect
+      href: https://fonts.gstatic.com
+      crossorigin: ''
+  - - link
+    - rel: stylesheet
+      href: https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap
 ---

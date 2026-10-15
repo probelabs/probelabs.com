@@ -17,6 +17,14 @@
             <div class="nh-dropdown-cols">
               <div class="nh-dropdown-section">
                 <div class="nh-dropdown-label">Engine</div>
+                <a href="https://reqproof.com" class="nh-dropdown-item" target="_blank" rel="noopener noreferrer">
+                  <strong>Proof</strong>
+                  <span>AI-native software assurance</span>
+                </a>
+                <a href="/probe-agent" class="nh-dropdown-item">
+                  <strong>Probe Agent</strong>
+                  <span>AI agent for product teams</span>
+                </a>
                 <a href="/probe" class="nh-dropdown-item">
                   <strong>Probe</strong>
                   <span>AI-native code search across enterprise codebases</span>
@@ -111,6 +119,8 @@
         </button>
         <div class="nh-mobile-dropdown-content" v-show="mobileDropdown === 'platform'">
           <div class="nh-mobile-dropdown-label">Engine</div>
+          <a href="https://reqproof.com" class="nh-mobile-link" target="_blank" rel="noopener noreferrer" @click="mobileMenuOpen = false">Proof</a>
+          <a href="/probe-agent" class="nh-mobile-link" @click="mobileMenuOpen = false">Probe Agent</a>
           <a href="/probe" class="nh-mobile-link" @click="mobileMenuOpen = false">Probe</a>
           <a href="/visor" class="nh-mobile-link" @click="mobileMenuOpen = false">Visor</a>
           <div class="nh-mobile-dropdown-label">Tools</div>
