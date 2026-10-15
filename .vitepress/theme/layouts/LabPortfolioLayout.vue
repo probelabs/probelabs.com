@@ -475,7 +475,10 @@ onUnmounted(() => {
   border: 0;
 }
 
-.lab-skip {
+.lab a.lab-skip,
+.lab a.lab-skip:hover,
+.lab a.lab-skip:focus,
+.lab a.lab-skip:visited {
   position: absolute;
   left: 16px;
   top: -40px;
@@ -483,9 +486,10 @@ onUnmounted(() => {
   color: #fff;
   padding: 8px 12px;
   z-index: 30;
+  text-decoration: none;
 }
 
-.lab-skip:focus { top: 12px; }
+.lab a.lab-skip:focus { top: 12px; }
 
 .lab-header {
   position: sticky;
@@ -530,7 +534,8 @@ onUnmounted(() => {
 .lab-nav a:hover,
 .lab-menu a:not(.lab-cta):hover { color: var(--text); }
 
-.lab-cta {
+.lab a.lab-cta,
+.lab a.lab-cta:visited {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -538,6 +543,7 @@ onUnmounted(() => {
   padding: 0 12px;
   border: 1px solid var(--text);
   border-radius: 2px;
+  background: transparent;
   color: var(--text);
   text-decoration: none;
   font-size: 13px;
@@ -546,7 +552,15 @@ onUnmounted(() => {
   white-space: nowrap;
 }
 
-.lab-cta:hover { background: var(--text); color: #fff; }
+.lab a.lab-cta:hover,
+.lab a.lab-cta:focus,
+.lab a.lab-cta:active,
+.lab a.lab-cta:visited:hover,
+.lab a.lab-cta:visited:focus,
+.lab a.lab-cta:visited:active {
+  background: var(--text);
+  color: #fff;
+}
 
 .lab-menu-btn {
   display: none;
@@ -632,7 +646,8 @@ onUnmounted(() => {
   margin-top: 36px;
 }
 
-.lab-btn {
+.lab a.lab-btn,
+.lab a.lab-btn:visited {
   display: inline-flex;
   align-items: center;
   height: 42px;
@@ -645,7 +660,15 @@ onUnmounted(() => {
   font-weight: 500;
 }
 
-.lab-btn:hover { background: #242424; }
+.lab a.lab-btn:hover,
+.lab a.lab-btn:focus,
+.lab a.lab-btn:active,
+.lab a.lab-btn:visited:hover,
+.lab a.lab-btn:visited:focus,
+.lab a.lab-btn:visited:active {
+  background: #242424;
+  color: #fff;
+}
 
 .lab-textlink,
 .lab-linkrow a:not(.lab-btn) {
@@ -953,9 +976,22 @@ onUnmounted(() => {
     color: var(--text);
   }
 
-  .lab-menu .lab-cta {
+  .lab-menu a.lab-cta,
+  .lab-menu a.lab-cta:visited {
     margin-top: 8px;
     height: 44px;
+    color: var(--text);
+    background: transparent;
+  }
+
+  .lab-menu a.lab-cta:hover,
+  .lab-menu a.lab-cta:focus,
+  .lab-menu a.lab-cta:active,
+  .lab-menu a.lab-cta:visited:hover,
+  .lab-menu a.lab-cta:visited:focus,
+  .lab-menu a.lab-cta:visited:active {
+    background: var(--text);
+    color: #fff;
   }
 
   .lab-grid { grid-template-columns: 1fr; gap: 40px; }
