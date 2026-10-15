@@ -38,6 +38,38 @@ export default defineConfig({
       gtag('config', 'G-3Y0Z9SZLF2');
     `]
   ],
+
+  transformHead({ page, head }) {
+    if (page !== 'oel.md') return
+    const title = 'Oel by ProbeLabs — the code-grounded company brain'
+    const description = 'Oel is an AI teammate for product and engineering teams. It answers across code, Jira, Zendesk, Confluence, Slack, docs, CI, and observability, then opens pull requests, updates tickets, posts to Slack, and sends scheduled digests. On-prem, with audit trails. Powered by Probe and Visor.'
+    const drop = (tag, attr, value) => {
+      for (let i = head.length - 1; i >= 0; i--) {
+        const [name, attrs] = head[i]
+        if (name === tag && attrs && attrs[attr] === value) head.splice(i, 1)
+      }
+    }
+    drop('link', 'rel', 'canonical')
+    drop('meta', 'property', 'og:url')
+    drop('meta', 'property', 'og:title')
+    drop('meta', 'property', 'og:description')
+    drop('meta', 'property', 'og:type')
+    drop('meta', 'name', 'description')
+    drop('meta', 'name', 'twitter:card')
+    drop('meta', 'name', 'twitter:title')
+    drop('meta', 'name', 'twitter:description')
+    return [
+      ['link', { rel: 'canonical', href: 'https://probelabs.com/oel' }],
+      ['meta', { name: 'description', content: description }],
+      ['meta', { property: 'og:type', content: 'website' }],
+      ['meta', { property: 'og:title', content: title }],
+      ['meta', { property: 'og:description', content: description }],
+      ['meta', { property: 'og:url', content: 'https://probelabs.com/oel' }],
+      ['meta', { name: 'twitter:card', content: 'summary' }],
+      ['meta', { name: 'twitter:title', content: title }],
+      ['meta', { name: 'twitter:description', content: description }]
+    ]
+  },
   
   markdown: {
     theme: {
@@ -120,7 +152,7 @@ export default defineConfig({
           { text: 'Core Products', items: [
             { text: 'Proof', link: 'https://reqproof.com' },
             { text: 'Probe', link: '/probe' },
-            { text: 'Probe Agent', link: '/probe-agent' },
+            { text: 'Oel', link: '/oel' },
             { text: 'Visor', link: '/visor' }
           ]},
           { text: 'Labs', items: [

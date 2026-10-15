@@ -28,13 +28,13 @@
                       <div class="mega-card-desc">AI-native software assurance</div>
                     </div>
                   </a>
-                  <a href="/probe-agent" class="mega-menu-card">
+                  <a href="/oel" class="mega-menu-card">
                     <div class="mega-card-icon">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                     </div>
                     <div class="mega-card-content">
-                      <div class="mega-card-title">Probe Agent</div>
-                      <div class="mega-card-desc">AI agent for product teams</div>
+                      <div class="mega-card-title">Oel</div>
+                      <div class="mega-card-desc">Code-grounded company brain</div>
                     </div>
                   </a>
                   <a href="/probe" class="mega-menu-card">
@@ -283,7 +283,7 @@
       <div class="mobile-section">
         <div class="mobile-section-label">Core Products</div>
         <a href="https://reqproof.com" class="mobile-sublink" target="_blank" rel="noopener noreferrer">Proof</a>
-        <a href="/probe-agent" class="mobile-sublink">Probe Agent</a>
+        <a href="/oel" class="mobile-sublink">Oel</a>
         <a href="/probe" class="mobile-sublink">Probe</a>
         <a href="/visor" class="mobile-sublink">Visor</a>
       </div>
