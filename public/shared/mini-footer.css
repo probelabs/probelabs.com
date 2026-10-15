@@ -1,0 +1,151 @@
+/* Shared footer for the static product minis.
+   Markup: footer.footer > .container > .footer-content > .footer-main + .footer-bottom
+   Extracted from the Visor mini — the only stylesheet that matched this markup.
+   Descendant selectors outrank leftover page rules (.footer-links, footer, .footer-bottom). */
+
+.footer {
+    background: rgba(0, 0, 0, 0.8);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 3rem 0 2rem;
+    margin-top: 0;
+    position: relative;
+    z-index: 100;
+    color: rgba(255, 255, 255, 0.8);
+    text-align: left;
+    opacity: 1;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.footer .footer-content {
+    color: rgba(255, 255, 255, 0.8);
+    position: relative;
+    z-index: 101;
+    display: block;
+    text-align: left;
+    max-width: none;
+    margin: 0;
+}
+
+.footer a {
+    position: relative;
+    z-index: 102;
+    pointer-events: auto;
+}
+
+.footer .footer-content a {
+    border-bottom: none;
+}
+
+.footer .footer-main {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem;
+    margin-bottom: 2rem;
+}
+
+.footer .footer-brand {
+    max-width: none;
+    text-align: left;
+}
+
+.footer .footer-brand h3 {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.95);
+    margin: 0 0 0.5rem;
+    letter-spacing: normal;
+    text-transform: none;
+    background: none;
+    -webkit-text-fill-color: rgba(255, 255, 255, 0.95);
+    opacity: 1;
+}
+
+.footer .footer-brand p {
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.5;
+    opacity: 1;
+    text-align: left;
+}
+
+.footer .footer-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+.footer .footer-column {
+    text-align: left;
+    font-size: 1rem;
+}
+
+.footer .footer-column h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.95);
+    margin: 0 0 1rem;
+    text-transform: none;
+    letter-spacing: normal;
+    opacity: 1;
+}
+
+.footer .footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer .footer-column a {
+    display: block;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: 400;
+    opacity: 1;
+    border-bottom: none;
+    transition: color 0.2s ease;
+}
+
+.footer .footer-column a:hover {
+    color: rgba(255, 255, 255, 0.95);
+    text-decoration: none;
+    opacity: 1;
+}
+
+.footer .footer-bottom {
+    display: block;
+    text-align: center;
+    padding: 2rem 0 0;
+    margin: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.6);
+    background: transparent;
+}
+
+.footer .footer-bottom p {
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0 0 0.75rem;
+    opacity: 1;
+    font-size: 1rem;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .footer .footer-main {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
