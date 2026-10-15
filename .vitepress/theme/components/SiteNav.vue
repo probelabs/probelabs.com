@@ -19,6 +19,24 @@
               <div class="mega-menu-section">
                 <div class="mega-menu-label">Core Products</div>
                 <div class="mega-menu-grid">
+                  <a href="https://reqproof.com" class="mega-menu-card" target="_blank" rel="noopener noreferrer">
+                    <div class="mega-card-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v18M3 12h18"/><circle cx="12" cy="12" r="9"/></svg>
+                    </div>
+                    <div class="mega-card-content">
+                      <div class="mega-card-title">Proof</div>
+                      <div class="mega-card-desc">AI-native software assurance</div>
+                    </div>
+                  </a>
+                  <a href="/probe-agent" class="mega-menu-card">
+                    <div class="mega-card-icon">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    </div>
+                    <div class="mega-card-content">
+                      <div class="mega-card-title">Probe Agent</div>
+                      <div class="mega-card-desc">AI agent for product teams</div>
+                    </div>
+                  </a>
                   <a href="/probe" class="mega-menu-card">
                     <div class="mega-card-icon mega-card-icon--probe">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
@@ -264,6 +282,8 @@
       <!-- Core Products Section -->
       <div class="mobile-section">
         <div class="mobile-section-label">Core Products</div>
+        <a href="https://reqproof.com" class="mobile-sublink" target="_blank" rel="noopener noreferrer">Proof</a>
+        <a href="/probe-agent" class="mobile-sublink">Probe Agent</a>
         <a href="/probe" class="mobile-sublink">Probe</a>
         <a href="/visor" class="mobile-sublink">Visor</a>
       </div>

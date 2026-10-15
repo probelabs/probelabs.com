@@ -19,6 +19,7 @@ import BlogLayout from './layouts/BlogLayout.vue'
 import ProbelabsLanding from './layouts/ProbelabsLanding.vue'
 import DocsLayout from './layouts/DocsLayout.vue'
 import NewHomepageLayout from './layouts/NewHomepageLayout.vue'
+import LabPortfolioLayout from './layouts/LabPortfolioLayout.vue'
 import PricingLayout from './layouts/PricingLayout.vue'
 import SolutionsLayout from './layouts/SolutionsLayout.vue'
 import SiteFooter from './components/SiteFooter.vue'
@@ -74,6 +75,9 @@ const ThemeSwitcher = {
       // Use new homepage theme if specified
       if (frontmatter.value?.theme === 'new-homepage') {
         return h(NewHomepageLayout)
+      }
+      if (frontmatter.value?.theme === 'lab-portfolio') {
+        return h(LabPortfolioLayout)
       }
       // Use pricing theme
       if (frontmatter.value?.theme === 'pricing') {

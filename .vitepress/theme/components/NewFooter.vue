@@ -14,6 +14,8 @@
       <div class="nh-footer-col">
         <h4>Platform</h4>
         <ul>
+          <li><a href="https://reqproof.com">Proof</a></li>
+          <li><a href="/probe-agent">Probe Agent</a></li>
           <li><a href="/probe">Probe</a></li>
           <li><a href="/visor">Visor</a></li>
           <li><a href="/maid">Maid</a></li>
