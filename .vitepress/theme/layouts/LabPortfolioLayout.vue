@@ -6,10 +6,10 @@
       <div class="lab-header-bar">
         <a class="lab-wordmark" href="/">ProbeLabs</a>
         <nav class="lab-nav" aria-label="Primary">
-          <a href="#work">Work</a>
           <a href="#proof">Proof</a>
+          <a href="#stack">Core stack</a>
+          <a href="#projects">Projects &amp; experiments</a>
           <a href="#instruments">Instruments</a>
-          <a href="#lab">Lab</a>
           <a href="/company/about">About</a>
         </nav>
         <a class="lab-cta" href="https://reqproof.com/demo">Request demo</a>
@@ -25,10 +25,10 @@
         </button>
       </div>
       <div id="lab-menu" class="lab-menu">
-        <a href="#work" @click="menuOpen = false">Work</a>
         <a href="#proof" @click="menuOpen = false">Proof</a>
+        <a href="#stack" @click="menuOpen = false">Core stack</a>
+        <a href="#projects" @click="menuOpen = false">Projects &amp; experiments</a>
         <a href="#instruments" @click="menuOpen = false">Instruments</a>
-        <a href="#lab" @click="menuOpen = false">Lab</a>
         <a href="/company/about" @click="menuOpen = false">About</a>
         <a class="lab-cta" href="https://reqproof.com/demo">Request demo</a>
       </div>
@@ -36,26 +36,28 @@
 
     <main id="content">
       <section class="lab-hero">
-        <p class="lab-eyebrow">ProbeLabs · Research &amp; instruments</p>
-        <h1>
-          <span class="lab-lead">Making AI agents trustworthy<br class="lab-lb">on real software:</span>
-          <span class="lab-clauses">
-            <span>recoverable intent,</span>
-            <span>rerunnable evidence,</span>
-            <span>inspectable instruments.</span>
-          </span>
-        </h1>
-        <p class="lab-dek">
-          Proof reduces the work between a software change and the evidence required to trust it, and the instruments behind those checks are published so you can inspect them.
-        </p>
-        <div class="lab-hero-actions">
-          <a class="lab-btn" href="https://reqproof.com">Explore Proof</a>
-          <a class="lab-textlink" href="#instruments">See instruments</a>
+        <div class="lab-hero-copy">
+          <p class="lab-wordmark lab-hero-mark">ProbeLabs</p>
+          <h1>Making agents trustworthy on real software.</h1>
+          <p class="lab-dek">
+            ProbeLabs is a research lab for engineering craft in the agentic era. We build the instruments that turn agent work into recoverable intent and rerunnable evidence.
+          </p>
+          <div class="lab-tools">
+            <a class="lab-tool is-primary" href="https://reqproof.com">Proof</a>
+            <a class="lab-tool" href="/probe">Probe</a>
+            <a class="lab-tool" href="/visor">Visor</a>
+          </div>
+        </div>
+        <div class="lab-graph">
+          <canvas
+            ref="graphCanvas"
+            aria-label="Evidence graph. Nodes are requirement, change, check, and evidence. Evidence is marked in amber."
+          ></canvas>
         </div>
       </section>
 
-      <section class="lab-section" id="work">
-        <p class="lab-kicker" id="proof">01 / Flagship</p>
+      <section class="lab-section" id="proof">
+        <p class="lab-kicker">01 / Flagship</p>
         <div class="lab-section-head">
           <h2>Proof</h2>
           <div class="lab-prose">
@@ -83,46 +85,48 @@
         </div>
       </section>
 
-      <section class="lab-section" id="infrastructure">
-        <p class="lab-kicker">02 / Infrastructure</p>
+      <section class="lab-section" id="stack">
+        <p class="lab-kicker">02 / Core stack</p>
         <div class="lab-section-head">
-          <h2>Instruments behind the audits</h2>
-          <blockquote class="lab-quote">
-            <p>We build the instruments we audit with.</p>
-            <footer>
-              <cite><a href="https://reqproof.com/engine">Proof — the instruments that produce the evidence</a></cite>
-            </footer>
-          </blockquote>
-          <p class="lab-dek">
-            Probe walks code and corpus; structure-aware fuzzers pressure parsers; the gate re-runs in your CI.
-          </p>
+          <h2>Core stack</h2>
+          <p class="lab-dek">Probe walks code and corpus. Visor runs agent work as a traced workflow. Both sit beside Proof.</p>
         </div>
-        <ul class="lab-rows">
-          <li v-for="item in infrastructure" :key="item.name">
-            <div class="lab-row-name">
-              <a :href="item.href" :target="item.external ? '_blank' : undefined" :rel="item.external ? 'noopener noreferrer' : undefined">{{ item.name }}</a>
-              <span v-if="item.chip" class="lab-chip" :class="'is-' + item.chipKind">{{ item.chip }}</span>
+        <div class="lab-stack">
+          <article v-for="item in coreStack" :key="item.name" class="lab-stack-piece">
+            <a class="lab-frame" :href="item.href">
+              <img :src="item.image" width="1440" height="900" :alt="item.alt">
+            </a>
+            <div class="lab-piece-text">
+              <h3><a :href="item.href">{{ item.name }}</a></h3>
+              <p>{{ item.line }}</p>
+              <p class="lab-why">{{ item.why }}</p>
+              <p class="lab-piece-meta">
+                <span class="lab-chip" :class="'is-' + item.chipKind">{{ item.chip }}</span>
+                <span class="lab-mono">{{ item.meta }}</span>
+                <a :href="item.href">{{ item.linkLabel }}</a>
+                <a
+                  v-for="link in item.links"
+                  :key="link.href"
+                  :href="link.href"
+                  :target="link.external ? '_blank' : undefined"
+                  :rel="link.external ? 'noopener noreferrer' : undefined"
+                >{{ link.label }}</a>
+              </p>
             </div>
-            <p>{{ item.line }}</p>
-            <p class="lab-row-meta">{{ item.meta }}</p>
-          </li>
-        </ul>
-        <p class="lab-note">
-          Visor is the lab’s YAML workflow engine. Proof describes an orchestrator that lives in CI/CD, and does not say that orchestrator is Visor, so Visor stays with the instruments.
-        </p>
-        <p class="lab-note">
-          Proof plans to release the quality-engineering harness as open source. That release is not out yet. The dashboard and factory orchestration remain proprietary.
-        </p>
+          </article>
+        </div>
       </section>
 
-      <section class="lab-section" id="instruments">
-        <p class="lab-kicker">03 / Instruments</p>
+      <section class="lab-section" id="projects">
+        <p class="lab-kicker">03 / Projects</p>
         <div class="lab-section-head">
-          <h2>What you can open</h2>
-          <p class="lab-dek">Live pages, captured as they ship. Each one links through to the instrument.</p>
+          <h2>Projects &amp; experiments</h2>
+          <p class="lab-dek">
+            Small tools for accountability, memory, remote control, diagrams, and logs — experiments around the same problem: keeping agents useful without losing control. Live pages, captured as they ship.
+          </p>
         </div>
         <div class="lab-grid">
-          <article v-for="item in instruments" :key="item.name" class="lab-piece">
+          <article v-for="item in projects" :key="item.name" class="lab-piece">
             <a class="lab-shot" :href="item.href" :target="item.external ? '_blank' : undefined" :rel="item.external ? 'noopener noreferrer' : undefined">
               <img :src="item.image" width="1440" height="900" :alt="item.alt" loading="lazy">
             </a>
@@ -147,22 +151,33 @@
         </div>
       </section>
 
-      <section class="lab-section" id="lab">
-        <p class="lab-kicker">04 / Experiments</p>
+      <section class="lab-section" id="instruments">
+        <p class="lab-kicker">04 / Infrastructure</p>
         <div class="lab-section-head">
-          <h2>Smaller tools, same problem</h2>
+          <h2>Instruments behind the audits</h2>
+          <blockquote class="lab-quote">
+            <p>We build the instruments we audit with.</p>
+            <footer>
+              <cite><a href="https://reqproof.com/engine">Proof — the instruments that produce the evidence</a></cite>
+            </footer>
+          </blockquote>
           <p class="lab-dek">
-            Small tools for accountability, memory, remote control, diagrams, and logs — experiments around the same problem: keeping agents useful without losing control.
+            Structure-aware fuzzers pressure parsers. The gate re-runs in your CI.
           </p>
         </div>
-        <ol class="lab-register">
-          <li v-for="(item, index) in experiments" :key="item.name">
-            <span class="lab-mono lab-index">{{ String(index + 1).padStart(2, '0') }}</span>
-            <a class="lab-register-name" :href="item.href">{{ item.name }}</a>
+        <ul class="lab-rows">
+          <li v-for="item in infrastructure" :key="item.name">
+            <div class="lab-row-name">
+              <a :href="item.href" :target="item.external ? '_blank' : undefined" :rel="item.external ? 'noopener noreferrer' : undefined">{{ item.name }}</a>
+              <span v-if="item.chip" class="lab-chip" :class="'is-' + item.chipKind">{{ item.chip }}</span>
+            </div>
             <p>{{ item.line }}</p>
-            <span class="lab-chip" :class="'is-' + item.chipKind">{{ item.chip }}</span>
+            <p class="lab-row-meta">{{ item.meta }}</p>
           </li>
-        </ol>
+        </ul>
+        <p class="lab-note">
+          Proof plans to release the quality-engineering harness as open source. That release is not out yet. The dashboard and factory orchestration remain proprietary.
+        </p>
       </section>
     </main>
 
@@ -198,7 +213,7 @@
         </ul>
       </div>
       <div class="lab-footer-col">
-        <h2>Lab</h2>
+        <h2>Projects</h2>
         <ul>
           <li><a href="/maid">Maid</a></li>
           <li><a href="/big-brain">Big Brain</a></li>
@@ -233,16 +248,11 @@ import { onMounted, onUnmounted, ref } from 'vue'
 
 const menuOpen = ref(false)
 const year = new Date().getFullYear()
+const graphCanvas = ref(null)
+let unmountGraph = null
+let graphCancelled = false
 
 const infrastructure = [
-  {
-    name: 'Probe',
-    href: '/probe',
-    line: 'Semantic code search over large trees. Ripgrep speed, with tree-sitter structure. Engagements use it to walk code and corpus in one pass.',
-    meta: 'Rust',
-    chip: 'Open source',
-    chipKind: 'open'
-  },
   {
     name: 'json-fuzz',
     href: 'https://github.com/probelabs/json-fuzz',
@@ -272,13 +282,15 @@ const infrastructure = [
   }
 ]
 
-const instruments = [
+const coreStack = [
   {
     name: 'Probe',
     href: '/probe',
+    linkLabel: 'Open Probe',
     image: '/images/portfolio/probe.png',
     alt: 'Probe homepage: context retrieval that understands code, marked open source and local.',
     line: 'Semantic code search over large trees. Ripgrep speed, with tree-sitter structure.',
+    why: 'Proof engagements use it to walk code and corpus in one pass.',
     meta: 'Rust',
     chip: 'Open source',
     chipKind: 'open',
@@ -290,16 +302,21 @@ const instruments = [
   {
     name: 'Visor',
     href: '/visor',
+    linkLabel: 'Open Visor',
     image: '/images/portfolio/visor.png',
     alt: 'Visor homepage: predictable agent workflows defined in YAML.',
     line: 'YAML workflows with validation, approvals, fallbacks, and an OpenTelemetry trace for every run.',
+    why: 'It keeps an agent run visible: the same steps, the same gates, and an OpenTelemetry trace. Proof’s CI/CD orchestrator is a separate instrument, and is not identified as Visor.',
     meta: 'YAML',
     chip: 'Instrument',
     chipKind: 'neutral',
     links: [
       { label: 'GitHub', href: 'https://github.com/probelabs/visor', external: true }
     ]
-  },
+  }
+]
+
+const projects = [
   {
     name: 'Maid',
     href: '/maid',
@@ -412,8 +429,6 @@ const instruments = [
   }
 ]
 
-const experiments = instruments.filter((item) => item.experiment)
-
 let observer
 
 function lockLight() {
@@ -431,9 +446,15 @@ onMounted(() => {
   observer = new MutationObserver(lockLight)
   observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
   window.addEventListener('keydown', onKeydown)
+  import('../evidence-graph.js').then(({ mountEvidenceGraph }) => {
+    if (graphCancelled || !graphCanvas.value) return
+    unmountGraph = mountEvidenceGraph(graphCanvas.value)
+  })
 })
 
 onUnmounted(() => {
+  graphCancelled = true
+  unmountGraph?.()
   observer?.disconnect()
   window.removeEventListener('keydown', onKeydown)
   document.documentElement.style.colorScheme = ''
@@ -593,8 +614,28 @@ onUnmounted(() => {
 }
 
 .lab-hero {
-  padding-top: 88px;
-  padding-bottom: 112px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
+  align-items: stretch;
+  gap: 36px;
+  height: 64vh;
+  min-height: 60vh;
+  max-height: 70vh;
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+.lab-hero-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.lab-hero-mark {
+  display: block;
+  margin: 0 0 16px;
+  font-size: 15px;
 }
 
 .lab-eyebrow,
@@ -611,22 +652,13 @@ onUnmounted(() => {
 
 .lab-hero h1 {
   margin: 0;
-  font-size: clamp(2.125rem, 4.6vw, 3.75rem);
+  font-size: clamp(1.85rem, 2.8vw, 2.65rem);
   font-weight: 600;
   letter-spacing: -0.035em;
-  line-height: 1.02;
+  line-height: 1.08;
   text-wrap: balance;
-  max-width: 22ch;
+  max-width: 18ch;
 }
-
-.lab-lead { display: block; }
-
-.lab-clauses {
-  display: block;
-  margin-top: 0.22em;
-}
-
-.lab-clauses span { display: block; }
 
 .lab-dek {
   margin: 28px 0 0;
@@ -635,6 +667,81 @@ onUnmounted(() => {
   line-height: 1.5;
   color: var(--text);
   text-wrap: pretty;
+}
+
+.lab-hero .lab-dek {
+  margin-top: 14px;
+  font-size: 16px;
+  line-height: 1.45;
+  max-width: 38rem;
+}
+
+.lab-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.lab a.lab-tool,
+.lab a.lab-tool:visited {
+  display: inline-flex;
+  align-items: center;
+  height: 34px;
+  padding: 0 12px;
+  border: 1px solid var(--text);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.lab a.lab-tool.is-primary,
+.lab a.lab-tool.is-primary:visited {
+  height: 40px;
+  padding: 0 16px;
+  background: var(--text);
+  color: #fff;
+  font-weight: 600;
+}
+
+.lab a.lab-tool:hover,
+.lab a.lab-tool:focus,
+.lab a.lab-tool:active,
+.lab a.lab-tool:visited:hover,
+.lab a.lab-tool:visited:focus,
+.lab a.lab-tool:visited:active {
+  background: var(--text);
+  color: #fff;
+}
+
+.lab a.lab-tool.is-primary:hover,
+.lab a.lab-tool.is-primary:focus,
+.lab a.lab-tool.is-primary:active,
+.lab a.lab-tool.is-primary:visited:hover,
+.lab a.lab-tool.is-primary:visited:focus,
+.lab a.lab-tool.is-primary:visited:active {
+  background: #242424;
+  color: #fff;
+}
+
+.lab-graph {
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  border: 1px solid var(--line);
+  background: #f3f0e8;
+}
+
+.lab-graph canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: #f3f0e8;
 }
 
 .lab-hero-actions,
@@ -740,11 +847,31 @@ onUnmounted(() => {
 .lab-quote a { color: var(--muted); }
 
 .lab-frame {
+  display: block;
   margin: 40px 0 0;
   background: var(--frame);
   border: 1px solid #2a2a2e;
   padding: 10px;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  text-decoration: none;
+  color: inherit;
+}
+
+.lab-stack .lab-frame { margin: 0; }
+
+.lab-stack {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px 32px;
+  margin-top: 36px;
+}
+
+.lab-why {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.5;
+  text-wrap: pretty;
 }
 
 .lab-frame img,
@@ -994,6 +1121,23 @@ onUnmounted(() => {
     color: #fff;
   }
 
+  .lab-hero {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-height: 0;
+    max-height: none;
+    height: auto;
+    padding-top: 36px;
+    padding-bottom: 40px;
+  }
+
+  .lab-graph {
+    height: 210px;
+    flex: none;
+  }
+
+  .lab-stack,
   .lab-grid { grid-template-columns: 1fr; gap: 40px; }
 
   .lab-rows li,
@@ -1006,10 +1150,6 @@ onUnmounted(() => {
   .lab-footer-brand { grid-column: 1 / -1; }
 }
 
-@media (max-width: 720px) {
-  br.lab-lb { display: none; }
-}
-
 @media (max-width: 560px) {
   .lab-header-bar,
   .lab-hero,
@@ -1019,7 +1159,7 @@ onUnmounted(() => {
     padding-right: 20px;
   }
 
-  .lab-hero { padding-top: 48px; padding-bottom: 64px; }
+  .lab-hero { padding-top: 28px; padding-bottom: 32px; }
   .lab-section { padding-top: 56px; padding-bottom: 64px; }
   .lab-dek,
   .lab-prose p { font-size: 16px; }
