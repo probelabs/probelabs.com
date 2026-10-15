@@ -9,8 +9,10 @@ export function mountStage(canvas, render) {
   let destroyed = false
   let elapsed = 0
   let last = 0
-  const pointer = { x: 0.68, y: 0.42 }
-  const target = { x: 0.68, y: 0.42 }
+  const pointer = { x: 0.72, y: 0.46 }
+  const target = { x: 0.72, y: 0.46 }
+  let influence = 0
+  let influenceTarget = 0
   let size = { w: 1, h: 1, dpr: 1 }
 
   function measure() {
@@ -22,9 +24,17 @@ export function mountStage(canvas, render) {
   }
 
   function paint(dt) {
-    pointer.x += (target.x - pointer.x) * 0.045
-    pointer.y += (target.y - pointer.y) * 0.045
-    render({ elapsed, pointer, size, dt, reduced: reduce })
+    pointer.x += (target.x - pointer.x) * 0.04
+    pointer.y += (target.y - pointer.y) * 0.04
+    influence += (influenceTarget - influence) * 0.028
+    render({
+      elapsed,
+      pointer,
+      influence: reduce ? 0 : influence,
+      size,
+      dt,
+      reduced: reduce
+    })
   }
 
   function frame(now) {
@@ -67,11 +77,17 @@ export function mountStage(canvas, render) {
   })
 
   function onPointer(event) {
+    if (event.pointerType === 'touch') return
     const rect = canvas.getBoundingClientRect()
     const width = Math.max(1, rect.width)
     const height = Math.max(1, rect.height)
     target.x = (event.clientX - rect.left) / width
     target.y = 1 - (event.clientY - rect.top) / height
+    influenceTarget = 1
+  }
+
+  function onLeave() {
+    influenceTarget = 0
   }
 
   function onReduce() {
@@ -86,6 +102,8 @@ export function mountStage(canvas, render) {
   observer.observe(canvas)
   resizeObserver.observe(canvas)
   host.addEventListener('pointermove', onPointer, { passive: true })
+  host.addEventListener('pointerleave', onLeave)
+  host.addEventListener('pointercancel', onLeave)
   reduceQuery.addEventListener('change', onReduce)
   still()
 
@@ -95,6 +113,8 @@ export function mountStage(canvas, render) {
     observer.disconnect()
     resizeObserver.disconnect()
     host.removeEventListener('pointermove', onPointer)
+    host.removeEventListener('pointerleave', onLeave)
+    host.removeEventListener('pointercancel', onLeave)
     reduceQuery.removeEventListener('change', onReduce)
   }
 }

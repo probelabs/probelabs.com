@@ -9,7 +9,8 @@ attribute vec3 a1;
 attribute vec3 a2;
 uniform vec3 uW;
 uniform float uSpin;
-uniform vec2 uLean;
+uniform vec2 uPointer;
+uniform float uInfluence;
 uniform float uSize;
 varying float vLight;
 varying float vDepth;
@@ -19,9 +20,18 @@ void main() {
   float s = sin(uSpin);
   float c = cos(uSpin);
   p.xz = mat2(c, -s, s, c) * p.xz;
-  p.xy += uLean;
   vec4 mv = modelViewMatrix * vec4(p, 1.0);
-  gl_Position = projectionMatrix * mv;
+  vec4 clip = projectionMatrix * mv;
+  vec2 ndc = clip.xy / max(0.0001, clip.w);
+  vec2 delta = ndc - uPointer;
+  float dist = length(delta);
+  float falloff = smoothstep(0.58, 0.0, dist);
+  falloff *= falloff;
+  vec2 dir = delta / max(0.001, dist);
+  vec2 swirl = vec2(-dir.y, dir.x);
+  vec2 kick = (dir * 0.15 + swirl * 0.06) * falloff * uInfluence;
+  clip.xy += kick * clip.w;
+  gl_Position = clip;
   gl_PointSize = clamp(uSize * (4.8 / max(0.2, -mv.z)), 1.5, 9.0);
   vec3 n = normalize(p + vec3(0.0001));
   vec3 light = normalize(vec3(0.62, 0.72, 0.42));
@@ -100,13 +110,14 @@ function writeKnot(out) {
 }
 
 function weights(time) {
-  const span = 7.5
-  const phase = (time % (span * 3)) / span
-  const index = Math.floor(phase) % 3
-  const local = phase - Math.floor(phase)
-  const start = 0.58
-  const morph = local < start ? 0 : (local - start) / (1 - start)
-  const eased = morph * morph * (3 - 2 * morph)
+  const hold = 14
+  const morph = 10
+  const span = hold + morph
+  const cycle = time % (span * 3)
+  const index = Math.floor(cycle / span) % 3
+  const local = cycle - index * span
+  const t = local <= hold ? 0 : (local - hold) / morph
+  const eased = t * t * t * (t * (t * 6 - 15) + 10)
   const w = [0, 0, 0]
   w[index] = 1 - eased
   w[(index + 1) % 3] = eased
@@ -143,7 +154,8 @@ export function mount(canvas) {
   const uniforms = {
     uW: { value: new THREE.Vector3(1, 0, 0) },
     uSpin: { value: 0.4 },
-    uLean: { value: new THREE.Vector2(0, 0) },
+    uPointer: { value: new THREE.Vector2(0.44, -0.08) },
+    uInfluence: { value: 0 },
     uSize: { value: 4.2 }
   }
   const material = new THREE.ShaderMaterial({
@@ -156,22 +168,31 @@ export function mount(canvas) {
   scene.add(new THREE.Points(geometry, material))
 
   let sized = ''
-  const stop = mountStage(canvas, ({ elapsed, pointer, size, reduced }) => {
+  const stop = mountStage(canvas, ({ elapsed, pointer, influence, size, reduced }) => {
     const time = reduced ? 2.4 : elapsed
     const dpr = size.dpr
     const key = Math.round(size.w * dpr) + 'x' + Math.round(size.h * dpr)
     if (key !== sized) {
       renderer.setPixelRatio(dpr)
       renderer.setSize(size.w, size.h, false)
-      camera.aspect = size.w / Math.max(1, size.h)
-      camera.updateProjectionMatrix()
       sized = key
     }
+    const portrait = size.h > size.w * 0.92
+    camera.aspect = size.w / Math.max(1, size.h)
+    if (portrait) {
+      camera.position.set(0, 0.12, 3.55)
+      camera.lookAt(0, 0.58, 0)
+    } else {
+      camera.position.set(0, 0.02, 3.2)
+      camera.lookAt(-0.48, -0.02, 0)
+    }
+    camera.updateProjectionMatrix()
     const w = weights(time)
     uniforms.uW.value.set(w[0], w[1], w[2])
-    uniforms.uSpin.value = reduced ? 0.55 : time * 0.16
-    uniforms.uLean.value.set((pointer.x - 0.68) * 0.22, (pointer.y - 0.42) * 0.16)
-    uniforms.uSize.value = Math.max(5.5, Math.min(size.w, size.h) / 70)
+    uniforms.uSpin.value = reduced ? 0.42 : time * 0.055
+    uniforms.uPointer.value.set(pointer.x * 2 - 1, pointer.y * 2 - 1)
+    uniforms.uInfluence.value = influence || 0
+    uniforms.uSize.value = Math.max(5.2, Math.min(size.w, size.h) / 68)
     renderer.render(scene, camera)
   })
 

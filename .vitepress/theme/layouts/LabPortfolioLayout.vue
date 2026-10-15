@@ -35,7 +35,7 @@
     </header>
 
     <main id="content">
-      <section class="lab-hero" :data-hero="heroVariant">
+      <section class="lab-hero">
         <div class="lab-hero-copy">
           <p class="lab-wordmark lab-hero-mark">ProbeLabs</p>
           <h1>Making agents trustworthy on real software.</h1>
@@ -246,15 +246,8 @@ import { nextTick, onMounted, onUnmounted, ref } from 'vue'
 const menuOpen = ref(false)
 const year = new Date().getFullYear()
 const heroCanvas = ref(null)
-const heroVariant = ref('a')
 let unmountHero = null
 let heroCancelled = false
-
-const HEROES = {
-  a: () => import('../hero-ink.js'),
-  b: () => import('../hero-specimen.js'),
-  c: () => import('../hero-halftone.js')
-}
 
 const infrastructure = [
   {
@@ -450,10 +443,8 @@ onMounted(() => {
   observer = new MutationObserver(lockLight)
   observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
   window.addEventListener('keydown', onKeydown)
-  const query = new URLSearchParams(window.location.search).get('hero')
-  heroVariant.value = query === 'b' || query === 'c' ? query : 'a'
   nextTick(() => {
-    HEROES[heroVariant.value]().then((mod) => {
+    import('../hero-specimen.js').then((mod) => {
       if (heroCancelled || !heroCanvas.value) return
       unmountHero = mod.mount(heroCanvas.value)
     })
@@ -629,34 +620,15 @@ onUnmounted(() => {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background: #f4f1ea;
+  background: #141311;
+  color: #f6f3ec;
 }
 
 .lab-hero-visual {
   position: absolute;
   inset: 0;
   z-index: 0;
-}
-
-.lab-hero[data-hero="b"] .lab-hero-visual,
-.lab-hero[data-hero="c"] .lab-hero-visual {
-  left: 44%;
-}
-
-.lab-hero[data-hero="b"] {
-  background: #fff;
-}
-
-.lab-hero[data-hero="b"] .lab-hero-visual {
   background: #141311;
-}
-
-.lab-hero[data-hero="c"] {
-  background: #fff;
-}
-
-.lab-hero[data-hero="c"] .lab-hero-visual {
-  background: #f3f0e8;
 }
 
 .lab-hero-visual canvas {
@@ -672,21 +644,18 @@ onUnmounted(() => {
   flex-direction: column;
   justify-content: center;
   box-sizing: border-box;
-  width: min(480px, 42%);
+  width: min(520px, 46%);
   min-height: 100%;
   margin-left: max(28px, calc((100% - 1160px) / 2 + 28px));
-  padding: 28px 36px 28px 0;
-}
-
-.lab-hero[data-hero="a"] .lab-hero-copy {
-  width: min(520px, 46%);
-  background: linear-gradient(90deg, rgba(244, 241, 234, 0.96) 0%, rgba(244, 241, 234, 0.9) 68%, rgba(244, 241, 234, 0) 100%);
+  padding: 28px 56px 28px 0;
+  background: linear-gradient(90deg, rgba(20, 19, 17, 0.9) 0%, rgba(20, 19, 17, 0.62) 58%, rgba(20, 19, 17, 0) 100%);
 }
 
 .lab-hero-mark {
   display: block;
   margin: 0 0 16px;
   font-size: 15px;
+  color: #f6f3ec;
 }
 
 .lab-eyebrow,
@@ -709,6 +678,7 @@ onUnmounted(() => {
   line-height: 1.08;
   text-wrap: balance;
   max-width: 18ch;
+  color: #f7f4ee;
 }
 
 .lab-dek {
@@ -724,7 +694,8 @@ onUnmounted(() => {
   margin-top: 14px;
   font-size: 16px;
   line-height: 1.45;
-  max-width: 38rem;
+  max-width: 36rem;
+  color: rgba(247, 244, 238, 0.78);
 }
 
 .lab-tools {
@@ -778,6 +749,41 @@ onUnmounted(() => {
 .lab a.lab-tool.is-primary:visited:active {
   background: #242424;
   color: #fff;
+}
+
+.lab .lab-hero a.lab-tool,
+.lab .lab-hero a.lab-tool:visited {
+  border-color: rgba(246, 243, 236, 0.82);
+  background: transparent;
+  color: #f6f3ec;
+}
+
+.lab .lab-hero a.lab-tool.is-primary,
+.lab .lab-hero a.lab-tool.is-primary:visited {
+  background: #f4f1ea;
+  border-color: #f4f1ea;
+  color: #141311;
+}
+
+.lab .lab-hero a.lab-tool:hover,
+.lab .lab-hero a.lab-tool:focus,
+.lab .lab-hero a.lab-tool:active,
+.lab .lab-hero a.lab-tool:visited:hover,
+.lab .lab-hero a.lab-tool:visited:focus,
+.lab .lab-hero a.lab-tool:visited:active,
+.lab .lab-hero a.lab-tool.is-primary:hover,
+.lab .lab-hero a.lab-tool.is-primary:focus,
+.lab .lab-hero a.lab-tool.is-primary:active,
+.lab .lab-hero a.lab-tool.is-primary:visited:hover,
+.lab .lab-hero a.lab-tool.is-primary:visited:focus,
+.lab .lab-hero a.lab-tool.is-primary:visited:active {
+  background: #f4f1ea;
+  border-color: #f4f1ea;
+  color: #141311;
+}
+
+.lab .lab-hero a:focus-visible {
+  outline-color: #f4f1ea;
 }
 
 .lab-hero-actions,
@@ -1158,31 +1164,17 @@ onUnmounted(() => {
   }
 
   .lab-hero {
-    display: flex;
-    flex-direction: column;
     height: 75vh;
     max-height: 75vh;
   }
 
-  .lab-hero-copy,
-  .lab-hero[data-hero="a"] .lab-hero-copy {
-    flex: 0 0 auto;
+  .lab-hero-copy {
     width: auto;
     min-height: 0;
     margin-left: 0;
-    padding: 28px 20px 16px;
-    background: #fff;
-  }
-
-  .lab-hero-visual,
-  .lab-hero[data-hero="b"] .lab-hero-visual,
-  .lab-hero[data-hero="c"] .lab-hero-visual {
-    position: relative;
-    left: auto;
-    inset: auto;
-    flex: 1 1 auto;
-    min-height: 0;
-    height: auto;
+    padding: 28px 20px 72px;
+    justify-content: flex-start;
+    background: linear-gradient(180deg, rgba(20, 19, 17, 0.92) 0%, rgba(20, 19, 17, 0.78) 62%, rgba(20, 19, 17, 0) 100%);
   }
 
   .lab-stack,
