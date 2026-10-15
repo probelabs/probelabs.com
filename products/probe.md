@@ -26,7 +26,7 @@ title: Probe - Code Intelligence for AI
         <span class="guarantee-badge">No Indexing</span>
       </div>
       <div class="hero-cta">
-        <a href="/quick-start" class="btn btn-primary"><span>Get Started</span> <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="/docs/quick-start" class="btn btn-primary"><span>Get Started</span> <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         <a href="https://github.com/buger/probe" class="btn btn-secondary"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg> GitHub</a>
       </div>
     </div>
@@ -264,7 +264,7 @@ title: Probe - Code Intelligence for AI
       </div>
     </div>
     <div class="quickstart-cta">
-      <a href="/quick-start" class="btn btn-secondary"><span>View Full Documentation</span> <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="/docs/quick-start" class="btn btn-secondary"><span>View Full Documentation</span> <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
   </div>
 </section>
@@ -353,22 +353,22 @@ title: Probe - Code Intelligence for AI
       <h2>Documentation</h2>
     </div>
     <div class="docs-grid">
-      <a href="/quick-start" class="doc-card">
+      <a href="/docs/quick-start" class="doc-card">
         <h3>Quick Start</h3>
         <p>Get up and running in minutes</p>
         <span class="doc-link">Read guide <svg width="12" height="12" viewBox="0 0 12 12"><path d="M2.5 6h7M6.5 3l3 3-3 3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </a>
-      <a href="/features" class="doc-card">
+      <a href="/docs/probe" class="doc-card">
         <h3>Features</h3>
         <p>Explore all capabilities</p>
         <span class="doc-link">Learn more <svg width="12" height="12" viewBox="0 0 12 12"><path d="M2.5 6h7M6.5 3l3 3-3 3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </a>
-      <a href="/mcp-server" class="doc-card">
+      <a href="/docs/probe#ai-editor-integration-mcp" class="doc-card">
         <h3>MCP Server</h3>
         <p>Integrate with AI editors</p>
         <span class="doc-link">View docs <svg width="12" height="12" viewBox="0 0 12 12"><path d="M2.5 6h7M6.5 3l3 3-3 3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </a>
-      <a href="/cli-mode" class="doc-card">
+      <a href="https://github.com/probelabs/probe/blob/main/docs/probe-cli/cli-reference.md" class="doc-card" target="_blank" rel="noopener noreferrer">
         <h3>CLI Reference</h3>
         <p>Command line usage</p>
         <span class="doc-link">See commands <svg width="12" height="12" viewBox="0 0 12 12"><path d="M2.5 6h7M6.5 3l3 3-3 3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
@@ -385,7 +385,7 @@ title: Probe - Code Intelligence for AI
       <h2>Turn Your Repo Into a Queryable Knowledge System</h2>
       <p>Open source and free to use. Single binary, no dependencies.</p>
       <div class="cta-buttons">
-        <a href="/quick-start" class="btn btn-primary btn-lg"><span>Get Started</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="/docs/quick-start" class="btn btn-primary btn-lg"><span>Get Started</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         <a href="https://cal.com/leonid-bugaev/30min" class="btn btn-secondary">Book a Demo</a>
         <a href="https://github.com/buger/probe" class="btn btn-ghost">GitHub</a>
       </div>

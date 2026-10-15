@@ -1030,150 +1030,7 @@
             font-size: 1rem;
         }
 
-        /* Footer */
-        .site-footer {
-            background: #0f172a;
-            padding: 4rem 0 0;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-brand h3 {
-            color: #fff;
-            font-size: 1.25rem;
-            font-weight: 700;
-            margin-bottom: 0.75rem;
-            letter-spacing: -0.02em;
-        }
-
-        .footer-tagline {
-            font-size: 0.9375rem;
-            line-height: 1.5;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 1.25rem;
-        }
-
-        .footer-social {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .footer-social a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-            border-radius: 0.5rem;
-            background: rgba(255, 255, 255, 0.1);
-            transition: all 0.2s ease;
-        }
-
-        .footer-social a:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .footer-social svg {
-            width: 18px;
-            height: 18px;
-            fill: rgba(255, 255, 255, 0.8);
-        }
-
-        .footer-email {
-            color: rgba(255, 255, 255, 0.6);
-            text-decoration: none;
-            font-size: 0.875rem;
-            transition: color 0.2s ease;
-        }
-
-        .footer-email:hover {
-            color: #fff;
-        }
-
-        .footer-column h4 {
-            color: #fff;
-            font-size: 0.875rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            letter-spacing: -0.01em;
-        }
-
-        .footer-column ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .footer-column li {
-            margin-bottom: 0.625rem;
-        }
-
-        .footer-column a {
-            color: rgba(255, 255, 255, 0.6);
-            text-decoration: none;
-            font-size: 0.875rem;
-            transition: color 0.2s ease;
-        }
-
-        .footer-column a:hover {
-            color: #fff;
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 1.5rem 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.8125rem;
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .footer-legal {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .footer-legal a {
-            color: rgba(255, 255, 255, 0.5);
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-
-        .footer-legal a:hover {
-            color: #fff;
-        }
-
-        @media (max-width: 968px) {
-            .footer-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 2rem;
-            }
-
-            .footer-brand {
-                grid-column: 1 / -1;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .footer-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
-        }
+        /* Footer styles: public/shared/mini-footer.css */
 
         /* Responsive */
         @media (max-width: 768px) {
@@ -1243,6 +1100,7 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="/shared/mini-footer.css">
     
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3Y0Z9SZLF2"></script>

@@ -43,7 +43,7 @@
         --pad: clamp(1rem, 2vw, 2rem);
 
         /* Entropy lab dynamics */
-        --entropy: 62;   /* 0 structure → 100 chaos (js-updated) */
+        --entropy: 0;    /* 0 structure → 100 chaos (js-updated). 0 keeps the hero readable. */
         --blur: 0rem;    /* js-updated visual fuzz */
         --trk: 0em;      /* js-updated tracking */
         --opsz: 36;      /* js-updated optical size for Fraunces */
@@ -319,7 +319,18 @@
       .list { margin: 0; padding-left: 1.1em; }
       .list li { margin: .4rem 0; color: var(--muted); }
 
-      footer { margin-top: 0; padding: 0 0 var(--pad) 0; color: var(--dim); font-size: var(--step--1); }
+      .json-config-toggle {
+        background: none;
+        border: 0;
+        padding: 0;
+        margin-left: 0.5rem;
+        color: var(--accent);
+        font: inherit;
+        font-size: inherit;
+        line-height: inherit;
+        cursor: pointer;
+      }
+      .json-config-toggle:hover { text-decoration: underline; text-underline-offset: 3px; }
 
       /* Navigation Bar */
       .site-nav {
@@ -634,134 +645,8 @@
         }
       }
 
-      /* ProbeLabs Footer */
-      .probelabs-footer {
-        background: #0f172a;
-        padding: clamp(3rem, 6vw, 5rem) var(--pad) 0;
-        margin-top: clamp(3rem, 6vw, 6rem);
-      }
-      .footer-container {
-        max-width: var(--maxw);
-        margin: 0 auto;
-      }
-      .footer-grid {
-        display: grid;
-        grid-template-columns: 1.5fr repeat(4, 1fr);
-        gap: clamp(2rem, 4vw, 4rem);
-      }
-      @media (max-width: 900px) {
-        .footer-grid {
-          grid-template-columns: 1fr 1fr;
-          gap: 2rem;
-        }
-        .footer-brand {
-          grid-column: 1 / -1;
-        }
-      }
-      @media (max-width: 500px) {
-        .footer-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-      .footer-brand h3 {
-        font-family: "Space Grotesk", Inter, ui-sans-serif, system-ui;
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: var(--text);
-        margin: 0 0 0.5rem 0;
-        letter-spacing: -0.01em;
-      }
-      .footer-brand .tagline {
-        color: var(--dim);
-        font-size: var(--step--1);
-        margin-bottom: 1rem;
-        line-height: 1.5;
-      }
-      .footer-social {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        margin-bottom: 0.75rem;
-      }
-      .footer-social a {
-        color: var(--dim);
-        transition: color 0.15s;
-      }
-      .footer-social a:hover {
-        color: var(--accent);
-      }
-      .footer-social svg {
-        width: 20px;
-        height: 20px;
-      }
-      .footer-email {
-        color: var(--dim);
-        font-size: var(--step--1);
-      }
-      .footer-email a {
-        color: var(--dim);
-        text-decoration: none;
-      }
-      .footer-email a:hover {
-        color: var(--accent);
-        text-decoration: underline;
-        text-underline-offset: 2px;
-      }
-      .footer-col h4 {
-        font-family: Inter, ui-sans-serif, system-ui;
-        font-size: var(--step--1);
-        font-weight: 600;
-        color: var(--text);
-        margin: 0 0 1rem 0;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-      }
-      .footer-col ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-      .footer-col li {
-        margin-bottom: 0.6rem;
-      }
-      .footer-col a {
-        color: var(--dim);
-        font-size: var(--step--1);
-        text-decoration: none;
-        transition: color 0.15s;
-      }
-      .footer-col a:hover {
-        color: var(--accent);
-        text-decoration: none;
-      }
-      .footer-bottom {
-        margin-top: clamp(2rem, 4vw, 3rem);
-        padding: 1.5rem 0;
-        border-top: 1px solid rgba(255, 255, 255, 0.08);
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: center;
-        gap: 1rem;
-      }
-      .footer-copyright {
-        color: var(--dim);
-        font-size: var(--step--2);
-      }
-      .footer-legal {
-        display: flex;
-        gap: 1.5rem;
-      }
-      .footer-legal a {
-        color: var(--dim);
-        font-size: var(--step--2);
-        text-decoration: none;
-        transition: color 0.15s;
-      }
-      .footer-legal a:hover {
-        color: var(--text);
-      }
     </style>
+    <link rel="stylesheet" href="/shared/mini-footer.css">
     
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3Y0Z9SZLF2"></script>
@@ -1094,8 +979,8 @@
                 <div class="cli-title">AI quick start</div>
                 <p style="color: var(--muted); margin-bottom: 1rem; font-size: var(--step--1);">Connect Logoscope to Claude Desktop and analyze logs with natural language.</p>
 <pre class="cli"><span class="prompt">$</span> claude mcp add logoscope -- npx -y @probelabs/logoscope@latest mcp</pre>
-                <p style="color: var(--dim); margin: 0.8rem 0; font-size: var(--step--1);">Or manually add to <code>~/.claude/mcp.json</code> 
-                  <a href="#" id="jsonConfigLink" style="color: var(--accent); text-decoration: none; margin-left: 0.5rem;">(JSON config)</a>:</p>
+                <p style="color: var(--dim); margin: 0.8rem 0; font-size: var(--step--1);">Or manually add to <code>~/.claude/mcp.json</code>
+                  <button type="button" id="jsonConfigLink" class="json-config-toggle">(JSON config)</button>:</p>
 <pre class="cli" id="mcpConfig" style="display: none;">{
   "mcpServers": {
     "logoscope": {
@@ -1323,7 +1208,7 @@
         root.style.setProperty('--trk', track);
         root.style.setProperty('--opsz', opsz);
         // Title dramatization
-        titleEl.textContent = t > 0.66 ? 'Signal > Noise' : (t > 0.33 ? 'Noise → Narrative' : 'Raw → Pattern');
+        if (titleEl) titleEl.textContent = t > 0.66 ? 'Signal > Noise' : (t > 0.33 ? 'Noise → Narrative' : 'Raw → Pattern');
         // Crossfade demo → insights
         const ins = Math.min(1, Math.max(0, Math.pow(t, 1.2)));
         const dem = Math.min(1, Math.max(0, 1 - Math.pow(t, 1.0) * 0.4));
@@ -1335,7 +1220,8 @@
         entropyInput.addEventListener('input', e => setEntropy(e.target.value));
         setEntropy(entropyInput.value);
       } else {
-        setEntropy(100);
+        // Slider was removed. Max entropy blurs the hero by ~8rem and used to stick there.
+        setEntropy(0);
       }
 
       // JSON config toggle functionality
@@ -1791,7 +1677,8 @@
       // Auto-reveal: animate entropy from noise→clear in ~2s (no page scroll)
       const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       function autoReveal(duration=2000){
-        if (prefersReduced) { setEntropy(0); return; }
+        // No slider: reveal immediately so the hero is readable on first paint.
+        if (prefersReduced || !document.getElementById('entropy')) { setEntropy(0); return; }
         let start = null;
         function step(ts){
           if (!start) start = ts;

@@ -2185,73 +2185,7 @@
 
         }
 
-        /* Footer */
-        .footer {
-            background: rgba(0, 0, 0, 0.8);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 3rem 0 2rem;
-            margin-top: 0;
-            position: relative;
-            z-index: 100;
-        }
-
-        .footer-content {
-            color: rgba(255, 255, 255, 0.8);
-            position: relative;
-            z-index: 101;
-        }
-        
-        .footer a {
-            position: relative;
-            z-index: 102;
-            pointer-events: auto;
-        }
-
-        .footer-main {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 3rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-brand h3 {
-            font-size: 1.5rem;
-            font-weight: 900;
-            color: rgba(255, 255, 255, 0.95);
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-links {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 2rem;
-        }
-
-        .footer-column h4 {
-            font-size: 1rem;
-            font-weight: 700;
-            color: rgba(255, 255, 255, 0.95);
-            margin-bottom: 1rem;
-        }
-
-        .footer-column a {
-            display: block;
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            margin-bottom: 0.5rem;
-            transition: color 0.2s ease;
-        }
-
-        .footer-column a:hover {
-            color: rgba(255, 255, 255, 0.95);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.6);
-        }
+        /* Footer styles: public/shared/mini-footer.css */
 
         /* Responsive */
         @media (max-width: 768px) {
@@ -2802,6 +2736,7 @@
         }
 
     </style>
+    <link rel="stylesheet" href="/shared/mini-footer.css">
 </head>
 <body>
     <!-- Navigation -->
