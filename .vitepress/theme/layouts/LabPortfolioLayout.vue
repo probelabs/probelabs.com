@@ -29,7 +29,6 @@
             class="ghost"
             href="https://reqproof.com"
             data-world="proof"
-            data-takeover
             @pointerenter="enter('proof', { pointer: true })"
             @focus="enter('proof')"
           >Proof</a>,
@@ -37,7 +36,6 @@
             class="ghost"
             href="/oel"
             data-world="oel"
-            data-takeover
             @pointerenter="enter('oel', { pointer: true })"
             @focus="enter('oel')"
           >Oel</a>
@@ -46,7 +44,6 @@
             class="ghost"
             href="https://spiritroom.app/"
             data-world="spirit-room"
-            data-takeover
             @pointerenter="enter('spirit-room', { pointer: true })"
             @focus="enter('spirit-room')"
           >Spirit Room</a>.
@@ -214,11 +211,10 @@
               :data-world="item.world"
               data-takeover
               @pointerenter="enter(item.world, { pointer: true, poster: item.world })"
-              @pointerleave="leave"
               @focusin="enter(item.world, { poster: item.world })"
             >
               <span class="no">{{ item.num }}</span>
-              <a class="nm" :href="item.href">{{ item.name }}</a>
+              <a class="nm" :href="item.href" @focus="enter(item.world, { poster: item.world })">{{ item.name }}</a>
               <span class="kind">{{ item.kind }}</span>
               <p class="entry">
                 <span>{{ item.line }}</span>
@@ -229,6 +225,7 @@
                   :href="link.href"
                   target="_blank"
                   rel="noopener noreferrer"
+                  @focus="enter(item.world, { poster: item.world })"
                 >{{ link.label }}</a>
               </p>
               <a class="go" :href="item.href" :aria-label="'Open ' + item.name" tabindex="-1">↗</a>
@@ -270,7 +267,6 @@
             :data-world="item.world"
             data-takeover
             @pointerenter="enter(item.world, { pointer: true, poster: item.world })"
-            @pointerleave="leave"
             @focus="enter(item.world, { poster: item.world })"
           >
             <span class="frame ratio-og">
@@ -356,12 +352,9 @@
 
     <footer id="about" class="chapter tight about">
       <div class="rule"></div>
-      <div class="chapter-head">
-        <p class="mega" aria-hidden="true">06</p>
-        <div class="titles">
-          <h2>About</h2>
-          <p class="mono desc">Research lab for engineering craft in the agentic era.</p>
-        </div>
+      <div class="chapter-head about-head">
+        <h2>About</h2>
+        <p class="mono desc">Research lab for engineering craft in the agentic era.</p>
       </div>
       <div class="bleed-crop">
         <p class="mark-crop">ProbeLabs</p>
@@ -866,6 +859,15 @@ function mountScroll() {
       if (entry.isIntersecting) seen.set(entry.target, entry.intersectionRatio)
       else seen.delete(entry.target)
     }
+    const held = focusedWorld()
+    if (held) {
+      if (activeKey.value !== held) {
+        activeKey.value = held
+        if (byWorld[held]) showPoster(held)
+        paint(held)
+      }
+      return
+    }
     if (!seen.size) {
       activeKey.value = ''
       paint(null)
@@ -1029,11 +1031,22 @@ onUnmounted(() => {
 :global(html[data-world]) .nav a { color: var(--ink); }
 
 .nav {
+  position: static;
+  inset: auto;
+  z-index: auto;
   display: flex;
   align-items: center;
   gap: 18px;
-  margin-left: auto;
+  margin: 0 0 0 auto;
+  width: auto;
+  max-width: none;
   min-width: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  transition: none;
 }
 
 .nav a {
@@ -1055,6 +1068,9 @@ onUnmounted(() => {
 .hero {
   display: flex;
   flex-direction: column;
+  position: relative;
+  overflow: visible;
+  background: transparent;
   padding: 56px var(--gutter) 28px;
 }
 
@@ -1153,6 +1169,7 @@ onUnmounted(() => {
 .titles { max-width: 36ch; text-align: right; }
 
 .titles h2,
+.about-head h2,
 .proof-copy h3,
 .pair-copy h3,
 .half h3 {
@@ -1526,6 +1543,10 @@ onUnmounted(() => {
   color: var(--ink, #000);
 }
 
+.about-head {
+  justify-content: flex-end;
+}
+
 .about-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.7fr);
@@ -1579,6 +1600,19 @@ onUnmounted(() => {
 .rec a:focus-visible {
   outline: 2px solid var(--ring, #000);
   outline-offset: 3px;
+}
+
+.proof,
+.pair,
+.half,
+.row,
+.cell {
+  scroll-margin-top: 64px;
+}
+
+.rec a,
+.rec button {
+  transition: background-color 220ms var(--ease), color 220ms var(--ease), border-color 220ms var(--ease), outline-color 220ms var(--ease), text-decoration-color 220ms var(--ease);
 }
 
 :global(html),
@@ -1636,8 +1670,15 @@ onUnmounted(() => {
     padding-bottom: 0;
     overflow: hidden;
   }
-  .hero-foot { margin-top: auto; }
+  .hero-foot {
+    position: absolute;
+    left: var(--gutter);
+    right: var(--gutter);
+    bottom: 0;
+    margin-top: 0;
+  }
   .hero-num { transform: translateY(18%); }
+  .hero-cap { margin-bottom: 20px; position: relative; z-index: 1; }
   .sheet { grid-template-columns: 1fr 1fr 1fr; }
 }
 
@@ -1694,18 +1735,20 @@ onUnmounted(() => {
     height: auto;
     min-height: 40px;
     flex-wrap: wrap;
+    align-content: center;
     padding-top: 8px;
     padding-bottom: 8px;
-    row-gap: 4px;
+    row-gap: 6px;
   }
   .nav {
     order: 3;
-    width: 100%;
+    flex: 1 0 100%;
     margin-left: 0;
-    overflow-x: auto;
-    padding-bottom: 2px;
+    flex-wrap: wrap;
+    gap: 4px 14px;
+    overflow: visible;
   }
-  .hero { padding-top: 88px; }
+  .hero { padding-top: 96px; }
   .thesis { max-width: none; }
   .hero-foot { flex-direction: column; align-items: flex-start; }
   .hero-cap { text-align: left; margin: 0; max-width: 62ch; }
