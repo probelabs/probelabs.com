@@ -32,7 +32,7 @@
             <a href="#experiments">Experiments</a>
           </p>
         </div>
-        <ul class="hero-products" aria-label="Products">
+        <ul id="products" class="hero-products" aria-label="Products">
           <li
             v-for="item in heroProducts"
             :key="item.world"
@@ -53,72 +53,6 @@
       </section>
 
       <section
-        id="products"
-        class="chapter"
-        aria-labelledby="products-title"
-        @pointerleave="leave"
-        @focusout="onFocusOut"
-      >
-        <div class="rule"></div>
-        <div class="chapter-head">
-          <p class="mega" aria-hidden="true">01</p>
-          <div class="titles">
-            <h2 id="products-title">Products</h2>
-            <p class="mono desc">What we sell. Each one links to its own site.</p>
-          </div>
-        </div>
-
-        <article
-          class="proof"
-          data-world="proof"
-          data-takeover
-          @pointerenter="enter('proof', { pointer: true })"
-          @focusin="enter('proof')"
-        >
-          <a class="frame ratio-proof" href="https://reqproof.com">
-            <img
-              src="/images/portfolio/proof.png"
-              width="1440"
-              height="900"
-              alt="Proof homepage: From prompt to production, with Start with a change and See the evidence."
-            >
-          </a>
-          <div class="proof-copy">
-            <p class="mono kicker">Product · reqproof.com</p>
-            <h3>Proof</h3>
-            <p class="pitch">From prompt to production. Proof brings NASA-grade rigor to your AI workflow: review the evidence, spend less time reconstructing it.</p>
-            <a class="textlink" href="https://reqproof.com">reqproof.com ↗</a>
-            <p class="mono sublinks">
-              <a href="https://reqproof.com/method">Method</a>
-              <a href="https://reqproof.com/product">Product</a>
-              <a href="https://reqproof.com/about">Public register</a>
-            </p>
-          </div>
-        </article>
-
-        <article
-          v-for="item in productRows"
-          :key="item.world"
-          class="pair"
-          :data-world="item.world"
-          data-takeover
-          @pointerenter="enter(item.world, { pointer: true })"
-          @focusin="enter(item.world)"
-        >
-          <a class="frame ratio-row" :href="item.href">
-            <img :src="item.image" :width="item.width" :height="item.height" :alt="item.alt" loading="lazy">
-          </a>
-          <div class="pair-copy">
-            <p class="mono kicker">Product · {{ item.where }}</p>
-            <h3><a :href="item.href">{{ item.name }}</a></h3>
-            <p class="pitch">{{ item.pitch }}</p>
-            <p>{{ item.body }}</p>
-            <a class="textlink" :href="item.href">{{ item.link }}</a>
-          </div>
-        </article>
-      </section>
-
-      <section
         id="stack"
         class="chapter core"
         aria-labelledby="stack-title"
@@ -127,7 +61,7 @@
       >
         <div class="rule"></div>
         <div class="chapter-head">
-          <p class="mega" aria-hidden="true">02</p>
+          <p class="mega" aria-hidden="true">01</p>
           <div class="titles">
             <h2 id="stack-title">Open-source core</h2>
             <p class="mono desc">Probe walks code and corpus. Visor runs agent work as a traced workflow. Both sit beside Proof.</p>
@@ -177,7 +111,7 @@
       >
         <div class="rule"></div>
         <div class="chapter-head">
-          <p class="mega" aria-hidden="true">03</p>
+          <p class="mega" aria-hidden="true">02</p>
           <div class="titles">
             <h2 id="projects-title">Projects</h2>
             <p class="mono desc">Open-source tools, each with its own page. Hover a row to preview it.</p>
@@ -257,7 +191,7 @@
       >
         <div class="rule"></div>
         <div class="chapter-head">
-          <p class="mega" aria-hidden="true">04</p>
+          <p class="mega" aria-hidden="true">03</p>
           <div class="titles">
             <h2 id="experiments-title">Experiments</h2>
             <p class="mono desc">Small tools around the same problem: keeping agents useful without losing control.</p>
@@ -296,7 +230,7 @@
       <section id="instruments" class="chapter tight" aria-labelledby="instruments-title">
         <div class="rule"></div>
         <div class="chapter-head">
-          <p class="mega" aria-hidden="true">05</p>
+          <p class="mega" aria-hidden="true">04</p>
           <div class="titles">
             <h2 id="instruments-title">Instruments</h2>
             <p class="mono desc">Structure-aware fuzzers pressure parsers. The gate re-runs in your CI.</p>
@@ -1804,4 +1738,5 @@ onUnmounted(() => {
 }
 .core { padding-top: 64px; }
 .core + .chapter { --gap: 72px; }
+.hero-products { scroll-margin-top: 64px; }
 </style>
