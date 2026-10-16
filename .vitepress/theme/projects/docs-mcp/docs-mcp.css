@@ -275,3 +275,9 @@
     transform: none;
   }
 }
+
+/* Keep the config card (and its Copy button) fully visible. */
+.room .hero {
+  overflow: visible;
+  padding-bottom: 8px;
+}
