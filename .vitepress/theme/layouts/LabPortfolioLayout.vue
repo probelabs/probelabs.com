@@ -7,8 +7,7 @@
       <nav class="nav" aria-label="Primary">
         <a href="#products">Products</a>
         <a href="#stack">Stack</a>
-        <a href="#projects">Projects</a>
-        <a href="#instruments">Instruments</a>
+        <a href="#projects">Everything we build</a>
         <a href="#about">About</a>
         <a href="https://github.com/probelabs" target="_blank" rel="noopener noreferrer">GitHub</a>
       </nav>
@@ -31,8 +30,8 @@
               <dd><a href="/probe">Probe</a><a href="/visor">Visor</a></dd>
             </div>
             <div>
-              <dt class="mono">Projects &amp; experiments</dt>
-              <dd><a href="#projects">qc, ste, aeo, fuzzers…</a><a href="#experiments">Maid, AFK, Vow…</a></dd>
+              <dt class="mono">Tools &amp; instruments</dt>
+              <dd><a href="#projects">qc, ste, aeo, fuzzers, Maid, Vow…</a></dd>
             </div>
           </dl>
         </div>
@@ -150,45 +149,57 @@
         <div class="chapter-head">
           <p class="mega" aria-hidden="true">02</p>
           <div class="titles">
-            <h2 id="projects-title">Projects</h2>
-            <p class="mono desc">Open-source tools, each with its own page. Hover a row to preview it.</p>
+            <h2 id="projects-title">Everything we build</h2>
+            <p class="mono desc">Every tool, benchmark and instrument outside the products and the core, in one list. Each row takes on the colours and type of its own page.</p>
           </div>
         </div>
 
         <div class="proj">
-          <div class="ledger">
-            <div class="row cols" aria-hidden="true">
-              <span>Name</span>
-              <span>Kind</span>
-              <span>Entry</span>
-              <span></span>
+          <div class="ledger" role="table" aria-labelledby="projects-title">
+            <div class="row cols" role="row">
+              <span role="columnheader">Name</span>
+              <span role="columnheader">Type</span>
+              <span role="columnheader">What it does</span>
+              <span role="columnheader">Link</span>
             </div>
             <article
-              v-for="item in projects"
-              :key="item.world"
+              v-for="item in everything"
+              :key="item.key"
               class="row"
-              :class="{ 'is-on': activeKey === item.world }"
+              role="row"
+              :class="{ 'is-on': activeKey === item.world && activeItem === item.key }"
               :data-world="item.world"
+              :data-item="item.key"
               data-takeover
-              @pointerenter="enter(item.world, { pointer: true, poster: item.world })"
-              @focusin="enter(item.world, { poster: item.world })"
+              @pointerenter="enter(item.world, { pointer: true, poster: item.key })"
+              @focusin="enter(item.world, { poster: item.key })"
             >
-              <a class="nm" :href="item.href" @focus="enter(item.world, { poster: item.world })">{{ item.name }}</a>
-              <span class="kind">{{ item.kind }}</span>
-              <p class="entry">
-                <span>{{ item.line }}</span>
+              <a
+                class="nm"
+                role="cell"
+                :href="item.href"
+                :target="item.external ? '_blank' : undefined"
+                :rel="item.external ? 'noopener noreferrer' : undefined"
+              >{{ item.name }}</a>
+              <span class="kind" role="cell">{{ item.type }}</span>
+              <p class="entry" role="cell">{{ item.line }}</p>
+              <span class="links" role="cell">
                 <a
-                  v-for="link in item.links"
-                  :key="link.href"
-                  class="inline"
-                  :href="link.href"
+                  class="go"
+                  :href="item.href"
+                  :target="item.external ? '_blank' : undefined"
+                  :rel="item.external ? 'noopener noreferrer' : undefined"
+                  tabindex="-1"
+                >{{ item.where }}</a>
+                <a
+                  v-if="item.repo"
+                  class="repo"
+                  :href="item.repo"
                   target="_blank"
                   rel="noopener noreferrer"
-                  @focus="enter(item.world, { poster: item.world })"
-                >{{ link.label }}</a>
-              </p>
-              <a class="go" :href="item.href" :aria-label="'Open ' + item.name" tabindex="-1">↗</a>
-              <a class="m-shot frame" :href="item.href" tabindex="-1">
+                >GitHub</a>
+              </span>
+              <a class="m-shot frame" :href="item.href" tabindex="-1" aria-hidden="true">
                 <img :src="item.image" width="1200" height="630" :alt="item.alt" loading="lazy">
               </a>
             </article>
@@ -216,77 +227,7 @@
             <p class="mono caption">{{ poster.caption }}</p>
           </aside>
         </div>
-
-      </section>
-
-      <section
-        id="experiments"
-        class="chapter"
-        aria-labelledby="experiments-title"
-        @pointerleave="hideFloat"
-        @focusout="onFocusOut"
-      >
-        <div class="rule"></div>
-        <div class="chapter-head">
-          <p class="mega" aria-hidden="true">03</p>
-          <div class="titles">
-            <h2 id="experiments-title">Experiments</h2>
-            <p class="mono desc">Small tools around the same problem: keeping agents useful without losing control.</p>
-          </div>
-        </div>
-        <div class="ledger ledger-full">
-          <div class="row cols exp-row" aria-hidden="true">
-            <span>Name</span>
-            <span>Kind</span>
-            <span>Entry</span>
-            <span>Repo</span>
-          </div>
-          <article
-            v-for="item in experiments"
-            :key="item.name"
-            class="row exp-row"
-            @pointerenter="showFloat($event, item)"
-            @pointermove="moveFloat"
-            @pointerleave="hideFloat"
-          >
-            <a class="nm" :href="item.href" :target="item.external ? '_blank' : undefined" :rel="item.external ? 'noopener noreferrer' : undefined">{{ item.name }}</a>
-            <span class="kind">{{ item.kind }}</span>
-            <p class="entry">{{ item.line }}</p>
-            <a
-              v-if="item.repo"
-              class="repo"
-              :href="item.repo.href"
-              target="_blank"
-              rel="noopener noreferrer"
-            >{{ item.repo.label }}</a>
-            <span v-else class="repo">—</span>
-          </article>
-        </div>
-      </section>
-
-      <section id="instruments" class="chapter tight" aria-labelledby="instruments-title">
-        <div class="rule"></div>
-        <div class="chapter-head">
-          <p class="mega" aria-hidden="true">04</p>
-          <div class="titles">
-            <h2 id="instruments-title">Instruments</h2>
-            <p class="mono desc">Structure-aware fuzzers pressure parsers. The gate re-runs in your CI.</p>
-          </div>
-        </div>
-        <blockquote class="quote">
-          <p>We build the instruments we audit with.</p>
-          <footer>
-            <cite><a href="https://reqproof.com/engine">Proof — the instruments that produce the evidence</a></cite>
-          </footer>
-        </blockquote>
-        <ul class="inst">
-          <li v-for="item in instruments" :key="item.name">
-            <a :href="item.href" :target="item.external ? '_blank' : undefined" :rel="item.external ? 'noopener noreferrer' : undefined">{{ item.name }}</a>
-            <span class="status">{{ item.meta }}<template v-if="item.chip"> · {{ item.chip }}</template></span>
-            <span class="inst-line">{{ item.line }}</span>
-          </li>
-        </ul>
-        <p class="note">Proof plans to release the quality-engineering harness as open source. That release is not out yet. The dashboard and factory orchestration remain proprietary.</p>
+        <p class="note">Proof plans to release its quality-engineering harness as open source. That release is not out yet.</p>
       </section>
     </main>
 
@@ -316,14 +257,6 @@
       <p class="mono colophon">© ProbeLabs · updated {{ updated }}</p>
     </footer>
 
-    <div
-      v-show="float.on"
-      class="float"
-      :style="{ left: float.x + 'px', top: float.y + 'px' }"
-      aria-hidden="true"
-    >
-      <img :src="float.src" width="240" height="150" alt="">
-    </div>
   </div>
 </template>
 
@@ -349,7 +282,41 @@ const WORLDS = {
   aeo: { bg: '#0062c4', ink: '#ffffff', accent: '#ffe400', onAccent: '#111111', chip: true, faint: true, ring: '#ffffff', scheme: 'light' },
   fuzzers: { bg: '#000000', ink: '#ffffff', accent: '#00fb34', onAccent: '#000000', chip: false, faint: false, ring: '#00fb34', scheme: 'dark' },
   'docs-mcp': { bg: '#043f2e', ink: '#fcfcfc', accent: '#c8f169', onAccent: '#043f2e', chip: false, faint: false, ring: '#c8f169', scheme: 'dark' },
-  recs: { bg: '#f1f2f3', ink: '#111111', accent: '#ff5e24', onAccent: '#111111', chip: true, faint: true, ring: '#111111', scheme: 'light' }
+  recs: { bg: '#f1f2f3', ink: '#111111', accent: '#ff5e24', onAccent: '#111111', chip: true, faint: true, ring: '#111111', scheme: 'light' },
+  // Static pages in public/<name>/: colours from their own CSS variables.
+  maid: { bg: '#ffffff', ink: '#2d2d3f', accent: '#ff6b9d', onAccent: '#ffffff', chip: true, faint: true, ring: '#2d2d3f', scheme: 'light' },
+  vow: { bg: '#f0fdf4', ink: '#1a1a1a', accent: '#16a34a', onAccent: '#ffffff', chip: true, faint: true, ring: '#1a1a1a', scheme: 'light' },
+  afk: { bg: '#ffffff', ink: '#1a1a1a', accent: '#0066ff', onAccent: '#ffffff', chip: true, faint: false, ring: '#0066ff', scheme: 'light' },
+  memaris: { bg: '#0a0a0a', ink: '#ffffff', accent: '#00ff88', onAccent: '#0a0a0a', chip: false, faint: false, ring: '#00ff88', scheme: 'dark' },
+  logoscope: { bg: '#0c0d10', ink: '#e9ecf1', accent: '#7cf5c6', onAccent: '#0c0d10', chip: false, faint: false, ring: '#7cf5c6', scheme: 'dark' },
+  'big-brain': { bg: '#0a0a0f', ink: '#ffffff', accent: '#a78bfa', onAccent: '#0a0a0f', chip: false, faint: false, ring: '#a78bfa', scheme: 'dark' },
+  // No page of their own here: chosen palettes, distinct from the rest.
+  'proof-action': { bg: '#24292f', ink: '#f6f8fa', accent: '#7fa34e', onAccent: '#1b2823', chip: false, faint: false, ring: '#7fa34e', scheme: 'dark' },
+  goreplay: { bg: '#0f2a44', ink: '#f2f6fa', accent: '#4fc3f7', onAccent: '#0f2a44', chip: false, faint: false, ring: '#4fc3f7', scheme: 'dark' },
+  'memory-layer': { bg: '#f4efe6', ink: '#2a2118', accent: '#b4532a', onAccent: '#ffffff', chip: true, faint: true, ring: '#2a2118', scheme: 'light' }
+}
+
+// Display and body fonts per world (self-hosted under /fonts; see the @font-face block below).
+const FONTS = {
+  qc: ['"W Barlow Condensed"', '"W Barlow Semi"'],
+  ste: ['"W Inter Tight"', '"W Inter Tight"'],
+  aeo: ['"W Bricolage"', '"W Inter"'],
+  fuzzers: ['"W Big Shoulders"', '"W Tinos"'],
+  'docs-mcp': ['"W Fraunces"', '"W Inter"'],
+  recs: ['"W Jersey"', 'system-ui'],
+  maid: ['"W Space Grotesk"', '"W Space Grotesk"'],
+  logoscope: ['"W Space Grotesk"', '"W Inter"'],
+  vow: ['"W Inter"', '"W Inter"'],
+  afk: ['"W Inter"', '"W Inter"'],
+  memaris: ['"W Inter"', '"W Inter"'],
+  'big-brain': ['"W Inter"', '"W Inter"'],
+  'proof-action': ['"W JetBrains"', '"W Inter"'],
+  goreplay: ['"W Big Shoulders"', '"W Inter"'],
+  'memory-layer': ['"W Fraunces"', '"W Inter"']
+}
+for (const [k, [display, text]] of Object.entries(FONTS)) {
+  WORLDS[k].display = `${display}, Geist, ui-sans-serif, system-ui, sans-serif`
+  WORLDS[k].text = `${text}, Geist, ui-sans-serif, system-ui, sans-serif`
 }
 
 const PAPER = { bg: '#ffffff', ink: '#000000', accent: '#000000', onAccent: '#ffffff', ring: '#000000' }
@@ -425,246 +392,46 @@ const core = [
   }
 ]
 
-const projects = [
-  {
-    world: 'qc',
-    name: 'qc',
-    href: '/qc',
-    kind: 'Gate',
-    sheet: 'Inspection Sheet',
-    image: '/images/projects/qc-og.png',
-    alt: 'qc inspection sheet on grey paper: giant QC, a hazard-yellow highlight, and a CLEARED stamp.',
-    line: 'Deterministic checklist gate. Evidenced answers stay bound to file hashes, and the gate stays closed until every item is answered.',
-    links: [{ label: 'GitHub', href: 'https://github.com/probelabs/qc' }]
-  },
-  {
-    world: 'ste',
-    name: 'ste',
-    href: '/ste',
-    kind: 'Validator',
-    sheet: 'Specification Sheet',
-    image: '/images/projects/ste-og.png',
-    alt: 'ste specification sheet: UTILIZE struck through, USE set in a black block on white.',
-    line: 'ASD-STE100 Simplified Technical English validator, with matching Go and Node CLIs and JSON output.',
-    links: [{ label: 'GitHub', href: 'https://github.com/probelabs/ste' }]
-  },
-  {
-    world: 'aeo',
-    name: 'aeo',
-    href: '/aeo',
-    kind: 'Benchmark',
-    sheet: 'Scoreboard',
-    image: '/images/projects/aeo-og.png',
-    alt: 'aeo scoreboard on electric blue, with say your name on a yellow block and an example board.',
-    line: 'Measures whether Claude Code, Codex, and Grok mention your product, with search off and with search on.',
-    links: [{ label: 'GitHub', href: 'https://github.com/probelabs/aeo' }]
-  },
-  {
-    world: 'fuzzers',
-    name: 'Fuzzers',
-    href: '/fuzzers',
-    kind: 'Fuzzer',
-    sheet: 'Malformed',
-    image: '/images/projects/fuzzers-og.png',
-    alt: 'Malformed on black, cut by green blocks, over JSON, GraphQL, and XML documents.',
-    line: 'Structure-aware fuzzers for JSON, GraphQL, and XML. Grammar generators, format-aware mutations, and correctness gates.',
-    links: [
-      { label: 'json-fuzz', href: 'https://github.com/probelabs/json-fuzz' },
-      { label: 'graphql-fuzz', href: 'https://github.com/probelabs/graphql-fuzz' },
-      { label: 'xml-fuzz', href: 'https://github.com/probelabs/xml-fuzz' }
-    ]
-  },
-  {
-    world: 'docs-mcp',
-    name: 'docs-mcp',
-    href: '/docs-mcp',
-    kind: 'MCP server',
-    sheet: 'Reading Room',
-    image: '/images/projects/docs-mcp-og.png',
-    alt: 'docs-mcp reading room: forest green field, a paper sheet, and a lime copy button.',
-    line: 'Turns any GitHub repository into an MCP server so an assistant can search its code or docs.',
-    links: [{ label: 'GitHub', href: 'https://github.com/probelabs/docs-mcp' }]
-  },
-  {
-    world: 'recs',
-    name: 'recs',
-    href: '/recs',
-    kind: 'CRM',
-    sheet: 'Desktop',
-    image: '/images/projects/recs-og.png',
-    alt: 'recs desktop: grey field, overlapping windows, and an orange install button.',
-    line: 'A file-based CRM for agents. Markdown records, YAML dashboards, and a local UI over the same files.',
-    links: [{ label: 'GitHub', href: 'https://github.com/buger/recs' }]
-  }
+// One list for everything outside products and core. Rows with a page of their own
+// use that page's colours and fonts; the rest get a distinct palette (see WORLDS).
+const everything = [
+  { key: 'qc', world: 'qc', name: 'qc', type: 'gate', href: '/qc', where: '/qc', repo: 'https://github.com/probelabs/qc', image: '/images/projects/qc-og.png', alt: 'qc inspection sheet on grey paper: giant QC, a hazard-yellow highlight, and a CLEARED stamp.', line: 'A checklist gate for agent work. Answers stay tied to file hashes, and the gate stays shut until every item is answered.' },
+  { key: 'ste', world: 'ste', name: 'ste', type: 'validator', href: '/ste', where: '/ste', repo: 'https://github.com/probelabs/ste', image: '/images/projects/ste-og.png', alt: 'ste specification sheet: UTILIZE struck through, USE set in a black block on white.', line: 'Checks text against ASD-STE100 Simplified Technical English. Go and Node CLIs, JSON output.' },
+  { key: 'aeo', world: 'aeo', name: 'aeo', type: 'benchmark', href: '/aeo', where: '/aeo', repo: 'https://github.com/probelabs/aeo', image: '/images/projects/aeo-og.png', alt: 'aeo scoreboard on electric blue, with say your name on a yellow block and an example board.', line: 'Measures whether Claude Code, Codex and Grok mention your product, with web search off and on.' },
+  { key: 'json-fuzz', world: 'fuzzers', name: 'json-fuzz', type: 'instrument', href: '/fuzzers#json-fuzz', where: '/fuzzers', repo: 'https://github.com/probelabs/json-fuzz', image: '/images/projects/fuzzers-og.png', alt: 'Malformed on black, cut by green blocks, over JSON, GraphQL, and XML documents.', line: 'Structure-aware JSON fuzzer for differential testing of JSON parsers. Written in Go.' },
+  { key: 'graphql-fuzz', world: 'fuzzers', name: 'graphql-fuzz', type: 'instrument', href: '/fuzzers#graphql-fuzz', where: '/fuzzers', repo: 'https://github.com/probelabs/graphql-fuzz', image: '/images/projects/fuzzers-og.png', alt: 'Malformed on black, cut by green blocks, over JSON, GraphQL, and XML documents.', line: 'Generates GraphQL queries, operations and schemas to test GraphQL parsers. Written in Rust.' },
+  { key: 'xml-fuzz', world: 'fuzzers', name: 'xml-fuzz', type: 'instrument', href: '/fuzzers#xml-fuzz', where: '/fuzzers', repo: 'https://github.com/probelabs/xml-fuzz', image: '/images/projects/fuzzers-og.png', alt: 'Malformed on black, cut by green blocks, over JSON, GraphQL, and XML documents.', line: 'Structure-aware XML fuzzer with optional libxml2 harnesses. Written in Rust.' },
+  { key: 'proof-action', world: 'proof-action', name: 'proof-action', type: 'instrument', href: 'https://github.com/probelabs/proof-action', external: true, where: 'GitHub ↗', repo: null, image: '/images/portfolio/proof.png', alt: 'Proof homepage, the product behind the proof-action GitHub Action.', line: 'A GitHub Action that runs a Proof audit on a repository and writes the result to the job summary.' },
+  { key: 'docs-mcp', world: 'docs-mcp', name: 'docs-mcp', type: 'MCP server', href: '/docs-mcp', where: '/docs-mcp', repo: 'https://github.com/probelabs/docs-mcp', image: '/images/projects/docs-mcp-og.png', alt: 'docs-mcp reading room: forest green field, a paper sheet, and a lime copy button.', line: 'Turns any GitHub repository into an MCP server, so an assistant can search its code or docs.' },
+  { key: 'big-brain', world: 'big-brain', name: 'Big Brain', type: 'MCP server', href: '/big-brain', where: '/big-brain', repo: 'https://github.com/probelabs/big-brain', image: '/images/portfolio/big-brain.png', alt: 'Big Brain homepage: hand a stuck problem to a stronger model.', line: 'Packages code context so a stuck problem can be handed to a stronger model.' },
+  { key: 'recs', world: 'recs', name: 'recs', type: 'CRM', href: '/recs', where: '/recs', repo: 'https://github.com/buger/recs', image: '/images/projects/recs-og.png', alt: 'recs desktop: grey field, overlapping windows, and an orange install button.', line: 'A file-based CRM for agents: Markdown records, YAML dashboards and a local UI over the same files.' },
+  { key: 'maid', world: 'maid', name: 'Maid', type: 'linter', href: '/maid', where: '/maid', repo: 'https://github.com/probelabs/maid', image: '/images/portfolio/maid.png', alt: 'Maid homepage: Meet Maid, a Mermaid.js diagram assistant.', line: 'A fast Mermaid diagram linter with auto-fix, for the CLI, CI and agents.' },
+  { key: 'vow', world: 'vow', name: 'Vow', type: 'gate', href: '/vow', where: '/vow', repo: 'https://github.com/probelabs/vow', image: '/images/portfolio/vow.png', alt: 'Vow homepage: accountability gates before an agent commits or acts.', line: 'Makes an agent review its own work before it commits or acts.' },
+  { key: 'afk', world: 'afk', name: 'AFK', type: 'tool', href: '/afk', where: '/afk', repo: 'https://github.com/probelabs/afk', image: '/images/portfolio/afk.png', alt: 'AFK homepage: stay in control of Claude Code from Telegram.', line: 'Approve and steer Claude Code from Telegram while you are away.' },
+  { key: 'memaris', world: 'memaris', name: 'Memaris', type: 'tool', href: '/memaris', where: '/memaris', repo: 'https://github.com/probelabs/memaris', image: '/images/portfolio/memaris.png', alt: 'Memaris homepage: turn past Claude Code sessions into persistent memory.', line: 'Turns past Claude Code sessions into memory the next session can use.' },
+  { key: 'logoscope', world: 'logoscope', name: 'Logoscope', type: 'tool', href: '/logoscope', where: '/logoscope', repo: 'https://github.com/probelabs/logoscope', image: '/images/portfolio/logoscope.png', alt: 'Logoscope homepage: distill logs into structured intelligence.', line: 'Reduces large logs to the patterns that matter, in a form an agent can read.' },
+  { key: 'goreplay', world: 'goreplay', name: 'GoReplay', type: 'tool', href: 'https://goreplay.org', external: true, where: 'goreplay.org ↗', repo: 'https://github.com/probelabs/goreplay', image: '/images/portfolio/goreplay.png', alt: 'GoReplay homepage: capture and replay HTTP traffic.', line: 'Captures live HTTP traffic and replays it against a test environment.' },
+  { key: 'memory-layer', world: 'memory-layer', name: 'Memory Layer', type: 'waitlist', href: '/products/memory-layer', where: '/products/memory-layer', repo: null, image: '/images/portfolio/memory-layer.png', alt: 'Memory Layer page: a waitlist for extracting institutional knowledge from PRs, tickets, and Slack.', line: 'Pulls team knowledge out of PRs, tickets, Slack and docs. Not released yet; join the waitlist.' }
 ]
-
-const experiments = [
-  {
-    name: 'Maid',
-    href: '/maid',
-    kind: 'Diagrams',
-    image: '/images/portfolio/maid.png',
-    alt: 'Maid homepage: Meet Maid, a Mermaid.js diagram assistant.',
-    line: 'Lightning-fast Mermaid linter with auto-fix, for the CLI, CI, and agents.',
-    repo: { label: 'GitHub', href: 'https://github.com/probelabs/maid' }
-  },
-  {
-    name: 'GoReplay',
-    href: 'https://goreplay.org',
-    external: true,
-    kind: 'HTTP',
-    image: '/images/portfolio/goreplay.png',
-    alt: 'GoReplay homepage: capture and replay HTTP traffic.',
-    line: 'Capture live HTTP traffic and replay it against an isolated target.',
-    repo: { label: 'GitHub', href: 'https://github.com/probelabs/goreplay' }
-  },
-  {
-    name: 'Big Brain',
-    href: '/big-brain',
-    kind: 'MCP',
-    image: '/images/portfolio/big-brain.png',
-    alt: 'Big Brain homepage: hand a stuck problem to a stronger model.',
-    line: 'An MCP server that packages code context so a stuck problem can be handed to a stronger model.',
-    repo: { label: 'GitHub', href: 'https://github.com/probelabs/big-brain' }
-  },
-  {
-    name: 'AFK',
-    href: '/afk',
-    kind: 'Telegram',
-    image: '/images/portfolio/afk.png',
-    alt: 'AFK homepage: stay in control of Claude Code from Telegram.',
-    line: 'Remote control and approval for Claude Code via Telegram.',
-    repo: { label: 'GitHub', href: 'https://github.com/probelabs/afk' }
-  },
-  {
-    name: 'Vow',
-    href: '/vow',
-    kind: 'Gates',
-    image: '/images/portfolio/vow.png',
-    alt: 'Vow homepage: accountability gates before an agent commits or acts.',
-    line: 'Accountability gates: an agent must self-review before commits and actions.',
-    repo: { label: 'GitHub', href: 'https://github.com/probelabs/vow' }
-  },
-  {
-    name: 'Memaris',
-    href: '/memaris',
-    kind: 'Memory',
-    image: '/images/portfolio/memaris.png',
-    alt: 'Memaris homepage: turn past Claude Code sessions into persistent memory.',
-    line: 'Turns past Claude Code sessions into persistent memory.',
-    repo: { label: 'GitHub', href: 'https://github.com/probelabs/memaris' }
-  },
-  {
-    name: 'Logoscope',
-    href: '/logoscope',
-    kind: 'Logs',
-    image: '/images/portfolio/logoscope.png',
-    alt: 'Logoscope homepage: distill logs into structured intelligence.',
-    line: 'Distills logs into structured, AI-ready patterns.',
-    repo: { label: 'GitHub', href: 'https://github.com/probelabs/logoscope' }
-  },
-  {
-    name: 'Memory Layer',
-    href: '/products/memory-layer',
-    kind: 'Waitlist',
-    image: '/images/portfolio/memory-layer.png',
-    alt: 'Memory Layer page: a waitlist for extracting institutional knowledge from PRs, tickets, and Slack.',
-    line: 'Extracts institutional knowledge from PRs, tickets, Slack, and documentation.',
-    repo: null
-  }
-]
-
-const instruments = [
-  {
-    name: 'json-fuzz',
-    href: '/fuzzers#json-fuzz',
-    line: 'Structure-aware JSON fuzzer. A grammar-based generator, JSON-aware mutations, and correctness gates for differential testing of JSON parsers.',
-    meta: 'Go',
-    chip: 'Published'
-  },
-  {
-    name: 'graphql-fuzz',
-    href: '/fuzzers#graphql-fuzz',
-    line: 'Structure-aware GraphQL fuzzer. Grammar-based query, operation, and schema generators, with correctness gates for differential testing of GraphQL parsers.',
-    meta: 'Rust',
-    chip: 'Published'
-  },
-  {
-    name: 'xml-fuzz',
-    href: '/fuzzers#xml-fuzz',
-    line: 'Structure-aware XML fuzzer. Grammar-based documents, XML-aware mutations, and correctness gates, with optional libxml2 harnesses.',
-    meta: 'Rust',
-    chip: 'Published'
-  },
-  {
-    name: 'proof-action',
-    href: 'https://github.com/probelabs/proof-action',
-    external: true,
-    line: 'GitHub Action that runs a ReqProof verification audit on a repository and reports the result in the job summary.',
-    meta: 'Action',
-    chip: 'Public repo'
-  }
-]
-
-const counts = {
-  products: 1 + productRows.length,
-  core: core.length,
-  projects: projects.length,
-  experiments: experiments.length,
-  instruments: instruments.length
-}
-const total = counts.products + counts.core + counts.projects + counts.experiments + counts.instruments
-
-let cursor = 1
-products.forEach((item) => {
-  item.num = pad(cursor)
-  item.id = `PL-${item.num}`
-  cursor += 1
-})
-productRows.forEach((item) => {
-  item.num = pad(cursor)
-  item.id = `PL-${item.num}`
-  cursor += 1
-})
-core.forEach((item) => {
-  item.num = pad(cursor)
-  item.id = `PL-${item.num}`
-  cursor += 1
-})
-projects.forEach((item) => {
-  item.num = pad(cursor)
-  item.id = `PL-${item.num}`
-  cursor += 1
-})
-experiments.forEach((item) => {
-  item.num = pad(cursor)
-  item.id = `PL-${item.num}`
-  cursor += 1
-})
-instruments.forEach((item) => {
-  item.num = pad(cursor)
-  item.id = `PL-${item.num}`
-  cursor += 1
-})
 
 const secondaryProducts = [
   { world: 'oel', name: 'Oel', href: '/oel', linkText: 'Explore Oel', tag: 'Company brain', image: '/images/portfolio/oel-gitops.png', width: 1440, height: 616, alt: 'Oel page: the GitOps-friendly, security-first company brain.', line: 'The GitOps-friendly, security-first company brain: self-hosted, with scoped permissions and answers grounded in your code.' },
   { world: 'spirit-room', name: 'Spirit Room', href: 'https://spiritroom.app/', linkText: 'Visit spiritroom.app', tag: 'Agent experience', image: '/images/portfolio/spirit-room.png', width: 1440, height: 640, alt: 'Spirit Room homepage: Optimise your MCP, CLI or API for AI agents.', line: 'Optimise your MCP, CLI or API for AI agents, tested across every major agent.' }
 ]
 
-const byWorld = Object.fromEntries(projects.map((item) => [item.world, item]))
+const byKey = Object.fromEntries(everything.map((item) => [item.key, item]))
+const activeItem = ref('')
 
 const activeKey = ref('')
 const reduced = ref(false)
 const fineHover = ref(true)
 const poster = reactive({
-  a: projects[0].image,
-  b: projects[0].image,
+  a: everything[0].image,
+  b: everything[0].image,
   showA: true,
-  alt: projects[0].alt,
-  caption: captionFor(projects[0])
+  alt: everything[0].alt,
+  caption: captionFor(everything[0])
 })
-const float = reactive({ on: false, x: 0, y: 0, src: experiments[0].image })
 
 let leaveTimer = 0
 let posterTimer = 0
@@ -676,8 +443,7 @@ let onFine
 let onMotion
 
 function captionFor(item) {
-  const world = WORLDS[item.world]
-  return `${item.name} · ${item.kind} — open ${item.href}`
+  return `${item.name} · ${item.type} · ${item.where}`
 }
 
 function paint(key) {
@@ -692,6 +458,8 @@ function paint(key) {
     root.removeAttribute('data-world')
     root.removeAttribute('data-chip')
     root.removeAttribute('data-faint')
+    root.style.removeProperty('--w-display')
+    root.style.removeProperty('--w-text')
     root.style.colorScheme = 'light'
     return
   }
@@ -701,6 +469,10 @@ function paint(key) {
   root.style.setProperty('--on-accent', world.onAccent)
   root.style.setProperty('--ring', world.ring)
   root.dataset.world = key
+  if (world.display) root.style.setProperty('--w-display', world.display)
+  else root.style.removeProperty('--w-display')
+  if (world.text) root.style.setProperty('--w-text', world.text)
+  else root.style.removeProperty('--w-text')
   if (world.chip) root.dataset.chip = '1'
   else root.removeAttribute('data-chip')
   if (world.faint) root.dataset.faint = '1'
@@ -708,9 +480,10 @@ function paint(key) {
   root.style.colorScheme = world.scheme
 }
 
-function showPoster(worldKey) {
-  const item = byWorld[worldKey]
+function showPoster(itemKey) {
+  const item = byKey[itemKey]
   if (!item) return
+  activeItem.value = itemKey
   poster.alt = item.alt
   poster.caption = captionFor(item)
   const current = poster.showA ? poster.a : poster.b
@@ -792,25 +565,6 @@ function onFocusOut(event) {
   leave()
 }
 
-function showFloat(event, item) {
-  if (!fineHover.value || window.innerWidth < 1024) return
-  float.src = item.image
-  moveFloat(event)
-  float.on = true
-}
-
-function moveFloat(event) {
-  if (!float.on) return
-  const maxX = window.innerWidth - 240 - 8
-  const maxY = window.innerHeight - 150 - 8
-  float.x = Math.max(8, Math.min(event.clientX + 16, maxX))
-  float.y = Math.max(8, Math.min(event.clientY + 16, maxY))
-}
-
-function hideFloat() {
-  float.on = false
-}
-
 function lockLight() {
   const root = document.documentElement
   if (root.classList.contains('dark')) root.classList.remove('dark')
@@ -833,7 +587,7 @@ function mountScroll() {
     if (held) {
       if (activeKey.value !== held) {
         activeKey.value = held
-        if (byWorld[held]) showPoster(held)
+        showPoster(document.activeElement.closest('[data-item]')?.dataset.item)
         paint(held)
       }
       return
@@ -858,7 +612,7 @@ function mountScroll() {
     const key = best?.dataset.world
     if (!key) return
     activeKey.value = key
-    if (byWorld[key]) showPoster(key)
+    showPoster(best.dataset.item)
     paint(key)
   }, { rootMargin: '-45% 0px -45% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] })
   nodes.forEach((node) => observer.observe(node))
@@ -886,7 +640,6 @@ onMounted(() => {
   }
   onFine = () => {
     fineHover.value = fineQuery.matches
-    if (!fineHover.value) hideFloat()
     mountScroll()
   }
   motionQuery.addEventListener('change', onMotion)
@@ -912,6 +665,8 @@ onUnmounted(() => {
   root.removeAttribute('data-world')
   root.removeAttribute('data-chip')
   root.removeAttribute('data-faint')
+  root.style.removeProperty('--w-display')
+  root.style.removeProperty('--w-text')
 })
 </script>
 
@@ -1299,11 +1054,10 @@ onUnmounted(() => {
 }
 
 .ledger { grid-column: 1 / 8; min-width: 0; }
-.ledger-full { grid-column: 1 / -1; }
 
 .row {
   display: grid;
-  grid-template-columns: minmax(7rem, 10rem) minmax(6.5rem, 8.75rem) minmax(0, 1fr) auto;
+  grid-template-columns: minmax(8.5rem, 10rem) minmax(5.5rem, 7rem) minmax(0, 1fr) minmax(6.5rem, auto);
   column-gap: 16px;
   align-items: baseline;
   padding: 5px 0 8px;
@@ -1387,7 +1141,11 @@ onUnmounted(() => {
   color: var(--ink, #000);
 }
 
-.exp-row { grid-template-columns: minmax(7rem, 10rem) minmax(6.5rem, 8.75rem) minmax(0, 1fr) auto; }
+.cols > :last-child { text-align: right; }
+.links { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; text-align: right; white-space: nowrap; }
+.links .repo { color: var(--ash-strong); }
+.links a:hover { text-decoration: underline; text-underline-offset: 0.15em; }
+:global(html[data-world] .rec .links .repo) { color: var(--ink); }
 
 .m-shot { display: none; }
 
@@ -1448,55 +1206,14 @@ onUnmounted(() => {
 .ratio-og { aspect-ratio: 1200 / 630; }
 .cell .caption { padding: 8px 10px 10px; }
 
-.quote {
-  margin: 8px 0 0;
-  padding: 0;
-  border: 0;
-  max-width: 62ch;
-}
 
-.quote p {
-  font-size: var(--t-h2);
-  font-weight: 300;
-  line-height: 1;
-  letter-spacing: -0.02em;
-}
 
-.quote footer {
-  margin-top: 12px;
-  font-family: var(--mono);
-  font-size: 12px;
-  font-style: normal;
-  letter-spacing: 0;
-}
 
-.quote a { color: inherit; }
 
 .dek { margin-top: 18px; max-width: 62ch; }
 
-.inst {
-  list-style: none;
-  margin: 28px 0 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 32px;
-}
 
-.inst li {
-  padding: 6px 0 8px;
-  border-top: 1px solid var(--ink, #000);
-  font-family: var(--mono);
-  font-size: 13px;
-  line-height: 1.35;
-  letter-spacing: 0;
-}
 
-.inst a { color: inherit; text-decoration: none; }
-.inst a:hover { text-decoration: underline; text-underline-offset: 0.15em; }
-.inst .status { display: block; color: var(--ash-strong); margin-top: 2px; }
-:global(html[data-world] .rec .inst .status) { color: var(--ink); }
-.inst-line { display: block; margin-top: 4px; font-family: var(--sans); font-size: 13px; letter-spacing: -0.02em; }
 
 .note { margin-top: 18px; max-width: 62ch; color: var(--ash-strong); font-size: 14px; }
 
@@ -1551,24 +1268,7 @@ onUnmounted(() => {
 
 :global(html[data-world] .rec .colophon) { color: var(--ink); }
 
-.float {
-  position: fixed;
-  z-index: 50;
-  width: 240px;
-  height: 150px;
-  border: 1px solid var(--ink, #000);
-  background: #111;
-  pointer-events: none;
-  overflow: hidden;
-}
 
-.float img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center top;
-}
 
 .rec a:focus-visible {
   outline: 2px solid var(--ring, #000);
@@ -1610,7 +1310,6 @@ onUnmounted(() => {
 .cell,
 .frame,
 .window,
-.inst li,
 .colophon,
 .ghost,
 .nav a,
@@ -1651,31 +1350,21 @@ onUnmounted(() => {
   .window-wrap { display: none; }
   .ledger { grid-column: auto; }
   .cols { display: none; }
-  .row,
-  .exp-row {
-    grid-template-columns: auto minmax(0, 1fr);
+  .row {
+    grid-template-columns: minmax(0, 1fr) auto;
     grid-template-areas:
-      "name name"
-      "kind kind"
+      "name kind"
       "entry entry"
-      "go go"
-      "shot shot";
+      "go go";
     row-gap: 4px;
-    align-items: baseline;
+    padding: 10px 0 12px;
   }
-  .no { grid-area: no; }
   .nm { grid-area: name; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .kind { grid-area: kind; }
+  .kind { grid-area: kind; justify-self: end; }
   .entry { grid-area: entry; }
-  .go, .repo { grid-area: go; justify-self: start; }
-  .m-shot {
-    display: block;
-    grid-area: shot;
-    aspect-ratio: 16 / 10;
-    margin-top: 8px;
-  }
-  .exp-row .m-shot { display: none; }
-  .float { display: none; }
+  .links { grid-area: go; flex-direction: row; justify-content: flex-start; gap: 16px; }
+  .links .go { pointer-events: auto; }
+  .m-shot { display: none; }
 }
 
 @media (max-width: 800px) {
@@ -1721,7 +1410,6 @@ onUnmounted(() => {
   .halves { grid-template-columns: 1fr; }
   .half + .half { border-left: 0; border-top: 1px solid currentColor; }
   .mini { width: 66%; }
-  .inst,
   .about-grid { grid-template-columns: 1fr; }
 }
 
@@ -1899,4 +1587,22 @@ onUnmounted(() => {
   .intro-map > div { padding: 9px 0; }
 }
 @media (prefers-reduced-motion: reduce) { .intro-arrow { animation: none; } }
+</style>
+
+<style>
+/* Takeover fonts: only downloaded when a row that uses them is hovered. */
+@font-face { font-family: 'W Barlow Condensed'; src: url('/fonts/qc/barlow-condensed-800-normal.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'W Barlow Semi'; src: url('/fonts/qc/barlow-semi-condensed-400-normal.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'W Inter Tight'; src: url('/fonts/ste/inter-tight-600-normal.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'W Bricolage'; src: url('/fonts/aeo/bricolage-grotesque-800-normal.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'W Inter'; src: url('/fonts/aeo/inter-400-normal.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'W Big Shoulders'; src: url('/fonts/fuzzers/big-shoulders-display-900-normal.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'W Tinos'; src: url('/fonts/fuzzers/tinos-400-normal.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'W Fraunces'; src: url('/fonts/docs-mcp/fraunces-400-normal.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'W Jersey'; src: url('/fonts/recs/jersey-10-400-normal.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'W Space Grotesk'; src: url('/fonts/home/space-grotesk-600-normal.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: 'W JetBrains'; src: url('/fonts/qc/jetbrains-mono-400-normal.woff2') format('woff2'); font-display: swap; }
+html[data-world] .rec #projects .titles h2,
+html[data-world] .rec #projects .row.is-on .nm { font-family: var(--w-display, inherit); }
+html[data-world] .rec #projects .row.is-on .entry { font-family: var(--w-text, inherit); }
 </style>
