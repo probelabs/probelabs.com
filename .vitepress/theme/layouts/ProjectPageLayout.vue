@@ -12,7 +12,6 @@
           <a href="/#instruments">Instruments</a>
           <a href="/company/about">About</a>
         </nav>
-        <a class="lab-cta" href="https://reqproof.com/demo">Request demo</a>
         <button
           class="lab-menu-btn"
           type="button"
@@ -30,7 +29,6 @@
         <a href="/#projects" @click="menuOpen = false">Projects &amp; experiments</a>
         <a href="/#instruments" @click="menuOpen = false">Instruments</a>
         <a href="/company/about" @click="menuOpen = false">About</a>
-        <a class="lab-cta" href="https://reqproof.com/demo">Request demo</a>
       </div>
     </header>
 
@@ -170,7 +168,6 @@
           <li><a href="https://reqproof.com/method">Method</a></li>
           <li><a href="https://reqproof.com/product">Product</a></li>
           <li><a href="https://reqproof.com/about">About / register</a></li>
-          <li><a href="https://reqproof.com/demo">Request demo</a></li>
         </ul>
       </div>
       <div class="lab-footer-col">
