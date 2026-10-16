@@ -3,8 +3,8 @@
   <nav class="nh-nav" :class="{ scrolled: isScrolled }">
     <div class="nh-nav-inner">
       <a href="/" class="nh-logo">
-        <img src="/probe/logo.png" alt="Probe" class="nh-logo-img">
-        <span class="nh-logo-text">Probe</span>
+        <img src="/probe/logo.png" :alt="brandName" class="nh-logo-img">
+        <span class="nh-logo-text">{{ brandName }}</span>
       </a>
       <div class="nh-nav-links">
         <!-- Platform Dropdown -->
@@ -171,6 +171,10 @@ const props = defineProps({
   activeNav: {
     type: String,
     default: null
+  },
+  brandName: {
+    type: String,
+    default: 'Probe'
   },
   bookDemoHref: {
     type: String,
