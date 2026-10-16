@@ -10,6 +10,10 @@ export const projects = {
     github: 'https://github.com/probelabs/qc',
     githubLabel: 'github.com/probelabs/qc',
     meta: ['Cosmopolitan APE', 'CLI'],
+    visual: {
+      scene: 'qc',
+      label: 'Checklist rows drawn as points. Sealed rows end in an amber ring. Open rows break the column on the right.'
+    },
     sections: [
       {
         id: 'what',
@@ -33,6 +37,11 @@ export const projects = {
         id: 'how',
         kicker: '02 / How it works',
         title: 'Attestations bound to bytes',
+        visual: {
+          scene: 'qc-specimen',
+          label: 'Five checklist rows. Four end in an amber ring. One digest is scattered and has no ring.',
+          caption: 'Each row is an item. The cluster at the left is the digest of the bytes in scope. Change those bytes and the row opens again.'
+        },
         paragraphs: [
           'An attestation is a claim about content. Its logical key is the item and a digest: a 16-hex SHA-256 prefix over the item identity plus the sorted, normalized hashes of files in that item’s scope. Rewording the question, or changing those bytes, forces the item again.'
         ],
@@ -113,6 +122,10 @@ export const projects = {
     github: 'https://github.com/probelabs/ste',
     githubLabel: 'github.com/probelabs/ste',
     meta: ['Go', 'Node.js', 'MIT'],
+    visual: {
+      scene: 'ste',
+      label: 'Two copies of the same lines of points. A few words are lifted off the baseline in amber.'
+    },
     sections: [
       {
         id: 'what',
@@ -133,6 +146,11 @@ export const projects = {
         id: 'how',
         kicker: '02 / How it works',
         title: 'Two CLIs, one rule catalog',
+        visual: {
+          scene: 'ste-lexicon',
+          label: 'A lattice of point clusters. Three amber points sit outside empty cells, each with a line back.',
+          caption: 'Approved words sit in the lattice. A word that is not approved is a point off the cell, with a line to the alternative.'
+        },
         paragraphs: [
           'The Node form is a ReqProof mirror of the Go source. The README reports the release gate as proof audit --no-cache: 209 checks, zero errors, zero warnings, and mirror_complete, so a Node target that drops a case the Go source holds fails the gate.'
         ],
@@ -205,6 +223,10 @@ export const projects = {
     github: 'https://github.com/probelabs/aeo',
     githubLabel: 'github.com/probelabs/aeo',
     meta: ['Python 3.11+', 'MIT'],
+    visual: {
+      scene: 'aeo',
+      label: 'Three columns of points, split into a quiet half and a half with one amber search ray.'
+    },
     sections: [
       {
         id: 'what',
@@ -223,6 +245,11 @@ export const projects = {
         id: 'how',
         kicker: '02 / How it works',
         title: 'What a run keeps',
+        visual: {
+          scene: 'aeo-arms',
+          label: 'Two fields of points. The right field sends amber rays outward.',
+          caption: 'The quiet disk is what the model already believes. The rays are a search.'
+        },
         paragraphs: [
           'Each cell runs in a fresh empty directory under /tmp/aeo-isolate-* so Grok cannot read a local playbook and “discover” the brand. Google AI Overviews, rankings, and Search Console can be attached as separate layers. The README says those layers never change the board scores.'
         ],
@@ -292,6 +319,10 @@ export const projects = {
       { label: 'github.com/probelabs/xml-fuzz', href: 'https://github.com/probelabs/xml-fuzz' }
     ],
     meta: ['json-fuzz', 'graphql-fuzz', 'xml-fuzz'],
+    visual: {
+      scene: 'fuzzers',
+      label: 'Three point structures: a nested form, a small graph, and nested marks. Each one is fractured.'
+    },
     sections: [
       {
         id: 'what',
@@ -310,6 +341,12 @@ export const projects = {
         id: 'how',
         kicker: '02 / How it works',
         title: 'Generate, mutate, gate',
+        visual: {
+          scene: 'fuzzers-strip',
+          frame: 'strip',
+          label: 'Six stages of the same point structure, from intact to scattered.',
+          caption: 'One structure, then format-aware noise. The grammar is there before the break.'
+        },
         paragraphs: [
           'Each fuzzer is a library you wire into your own harness in a few calls. They are not a single CLI with one output format. The shape is the same in Go and Rust.'
         ],
@@ -409,6 +446,10 @@ export const projects = {
     github: 'https://github.com/probelabs/docs-mcp',
     githubLabel: 'github.com/probelabs/docs-mcp',
     meta: ['MCP', 'npm', 'MIT'],
+    visual: {
+      scene: 'docs',
+      label: 'Lines of points for files, an amber conduit, and a cluster where a point arrives.'
+    },
     sections: [
       {
         id: 'what',
@@ -431,6 +472,11 @@ export const projects = {
         id: 'how',
         kicker: '02 / How it works',
         title: 'Archive, clone, or a baked-in tree',
+        visual: {
+          scene: 'docs-hits',
+          label: 'Stacked lines of points. A few lines are amber, and a point travels across them.',
+          caption: 'A query moves across the archive. The amber lines are the pages that match.'
+        },
         paragraphs: [
           'By default, a gitUrl with updates disabled downloads a GitHub .tar.gz, which starts faster. A full git clone is used only when autoUpdateInterval is greater than 0. The configuration list gives that field a default of 0.'
         ],
@@ -502,6 +548,10 @@ export const projects = {
     github: 'https://github.com/buger/recs',
     githubLabel: 'github.com/buger/recs',
     meta: ['Go', 'MIT'],
+    visual: {
+      scene: 'recs',
+      label: 'Columns of point-cards over faint file lines, with one amber card moving between columns.'
+    },
     sections: [
       {
         id: 'what',
@@ -520,6 +570,11 @@ export const projects = {
         id: 'how',
         kicker: '02 / How it works',
         title: 'Records, boards, dashboards',
+        visual: {
+          scene: 'recs-links',
+          label: 'Horizontal lines of points with arcs joining them. One arc is amber.',
+          caption: 'Records are files. A link is an arc between them. The board is only a view.'
+        },
         paragraphs: [
           'State lives in fields, not in the directory name. Boards are matcher views: dragging a card runs on_drop, which writes frontmatter, the same engine as recs move. Each dashboard widget is a query, not a copy of the data. Add a file, get another dashboard. The agent learns commands from recs --help. There is no skill file and no SDK. Failed writes return ok: false plus the error, the field, and the allowed values.'
         ],

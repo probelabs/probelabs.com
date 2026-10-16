@@ -86,7 +86,12 @@ export default defineConfig({
     ]
     if (image) {
       tags.push(['meta', { property: 'og:image', content: image }])
+      tags.push(['meta', { property: 'og:image:width', content: '1200' }])
+      tags.push(['meta', { property: 'og:image:height', content: '630' }])
       tags.push(['meta', { name: 'twitter:image', content: image }])
+      if (frontmatter.ogImageAlt) {
+        tags.push(['meta', { property: 'og:image:alt', content: frontmatter.ogImageAlt }])
+      }
     }
     if (isProject) {
       tags.push(
