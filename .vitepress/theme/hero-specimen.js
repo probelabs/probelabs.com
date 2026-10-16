@@ -1,198 +1,211 @@
 import * as THREE from 'three'
 import { mountStage } from './hero-stage.js'
 
-const COUNT = 9000
-
-const VERT = `
-attribute vec3 a0;
-attribute vec3 a1;
-attribute vec3 a2;
-uniform vec3 uW;
-uniform float uSpin;
-uniform vec2 uPointer;
-uniform float uInfluence;
-uniform float uSize;
-varying float vLight;
-varying float vDepth;
-
-void main() {
-  vec3 p = a0 * uW.x + a1 * uW.y + a2 * uW.z;
-  float s = sin(uSpin);
-  float c = cos(uSpin);
-  p.xz = mat2(c, -s, s, c) * p.xz;
-  vec4 mv = modelViewMatrix * vec4(p, 1.0);
-  vec4 clip = projectionMatrix * mv;
-  vec2 ndc = clip.xy / max(0.0001, clip.w);
-  vec2 delta = ndc - uPointer;
-  float dist = length(delta);
-  float falloff = smoothstep(0.58, 0.0, dist);
-  falloff *= falloff;
-  vec2 dir = delta / max(0.001, dist);
-  vec2 swirl = vec2(-dir.y, dir.x);
-  vec2 kick = (dir * 0.15 + swirl * 0.06) * falloff * uInfluence;
-  clip.xy += kick * clip.w;
-  gl_Position = clip;
-  gl_PointSize = clamp(uSize * (4.8 / max(0.2, -mv.z)), 1.5, 9.0);
-  vec3 n = normalize(p + vec3(0.0001));
-  vec3 light = normalize(vec3(0.62, 0.72, 0.42));
-  vLight = pow(clamp(dot(n, light), 0.0, 1.0), 1.45);
-  vDepth = clamp((-mv.z - 2.2) / 3.2, 0.0, 1.0);
-}
-`
-
-const FRAG = `
-precision highp float;
-varying float vLight;
-varying float vDepth;
-void main() {
-  vec2 pc = gl_PointCoord * 2.0 - 1.0;
-  float d = dot(pc, pc);
-  if (d > 1.0) discard;
-  float edge = smoothstep(1.0, 0.2, d);
-  vec3 stone = vec3(0.88, 0.84, 0.76);
-  vec3 amber = vec3(0.86, 0.50, 0.16);
-  vec3 shade = vec3(0.38, 0.35, 0.31);
-  vec3 col = mix(shade, stone, smoothstep(0.0, 0.55, vLight));
-  col = mix(col, amber, smoothstep(0.62, 1.0, vLight) * 0.85);
-  col = mix(col, col * 0.45, vDepth);
-  gl_FragColor = vec4(col, edge);
-}
-`
+const TAU = Math.PI * 2
+const GOLDEN = Math.PI * (3 - Math.sqrt(5))
+const FIT_RADIUS = 0.92
 
 function hash(i) {
   const x = Math.sin(i * 127.1 + 311.7) * 43758.5453
   return x - Math.floor(x)
 }
 
-function writeVessel(out) {
-  const n = COUNT
-  for (let i = 0; i < n; i++) {
-    const y = 1 - (i / (n - 1)) * 2
-    const radius = Math.sqrt(Math.max(0, 1 - y * y))
-    const golden = Math.PI * (3 - Math.sqrt(5))
-    const phi = i * golden
-    const pinch = 0.62 + 0.38 * (1 - y * y)
-    const shell = 0.92 + (hash(i) - 0.5) * 0.08
-    out[i * 3] = Math.cos(phi) * radius * pinch * shell
-    out[i * 3 + 1] = y * 1.28
-    out[i * 3 + 2] = Math.sin(phi) * radius * pinch * shell * 0.82
+function normalize(out, radius) {
+  let max = 1e-6
+  for (let i = 0; i < out.length; i += 3) {
+    const r = Math.hypot(out[i], out[i + 1], out[i + 2])
+    if (r > max) max = r
   }
+  const s = radius / Math.max(1e-6, max)
+  for (let i = 0; i < out.length; i++) out[i] *= s
 }
 
-function writeRibbon(out) {
-  const n = COUNT
+// One instrument: a distorted ring around a dense core. Closed volumes,
+// no links between them, so it never reads as a graph.
+function writeInstrument(pos, kind) {
+  const n = pos.length / 3
+  const ringCount = Math.floor(n * 0.7)
   for (let i = 0; i < n; i++) {
-    const u = (i / n) * Math.PI * 2
-    const v = (hash(i + 19) - 0.5) * 2
-    const twist = u * 0.5
-    const rad = 1.05 + v * 0.28 * Math.cos(twist)
-    out[i * 3] = Math.cos(u) * rad
-    out[i * 3 + 1] = v * 0.42 * Math.sin(twist) + Math.sin(u * 2.0) * 0.16
-    out[i * 3 + 2] = Math.sin(u) * rad * 0.72
+    let x
+    let y
+    let z
+    let k
+    if (i < ringCount) {
+      const u = (i * GOLDEN) % TAU
+      const v = hash(i + 5) * TAU
+      const wobble = 0.22 * Math.sin(u * 2 + 0.5) + 0.1 * Math.sin(u * 3 - 1.1)
+      const major = 0.7 * (1 + 0.06 * Math.sin(u * 2))
+      const tube = 0.2 * (1 + wobble) * (0.94 + (hash(i + 13) - 0.5) * 0.1)
+      x = (major + tube * Math.cos(v)) * Math.cos(u)
+      y = tube * Math.sin(v) * (0.92 + 0.08 * Math.sin(u))
+      z = (major + tube * Math.cos(v)) * Math.sin(u)
+      const tilt = 0.62
+      const cy = y * Math.cos(tilt) - z * Math.sin(tilt)
+      const cz = y * Math.sin(tilt) + z * Math.cos(tilt)
+      y = cy
+      z = cz
+      k = 0
+    } else {
+      const t = (i - ringCount) / Math.max(1, n - ringCount - 1)
+      const y0 = 1 - t * 2
+      const rad = Math.sqrt(Math.max(0, 1 - y0 * y0))
+      const phi = i * GOLDEN
+      const shell = 0.94 + (hash(i + 2) - 0.5) * 0.08
+      const pinch = 0.7 + 0.3 * (1 - y0 * y0)
+      const scale = 0.34
+      x = Math.cos(phi) * rad * pinch * shell * scale
+      y = y0 * 0.46
+      z = Math.sin(phi) * rad * pinch * shell * scale * 0.92
+      k = 1
+    }
+    pos[i * 3] = x
+    pos[i * 3 + 1] = y
+    pos[i * 3 + 2] = z
+    kind[i] = k
   }
+  normalize(pos, FIT_RADIUS)
 }
 
-function writeKnot(out) {
-  const n = COUNT
-  for (let i = 0; i < n; i++) {
-    const u = (i / n) * Math.PI * 2
-    const tube = (hash(i + 41) - 0.5) * 0.28
-    const r = 0.78 + 0.34 * Math.cos(3 * u)
-    const cx = r * Math.cos(2 * u)
-    const cy = r * Math.sin(2 * u) * 0.72
-    const cz = 0.42 * Math.sin(3 * u)
-    const nx = Math.cos(2 * u)
-    const ny = Math.sin(3 * u)
-    out[i * 3] = cx + nx * tube
-    out[i * 3 + 1] = cy + tube * 0.65
-    out[i * 3 + 2] = cz + ny * tube
-  }
-}
+const VERT = `
+attribute float aKind;
+uniform float uSpin;
+uniform float uTime;
+uniform vec2 uSway;
+uniform float uSize;
+uniform float uCamZ;
+varying float vLight;
+varying float vDepth;
+varying float vLat;
+varying float vKind;
 
-function weights(time) {
-  const hold = 14
-  const morph = 10
-  const span = hold + morph
-  const cycle = time % (span * 3)
-  const index = Math.floor(cycle / span) % 3
-  const local = cycle - index * span
-  const t = local <= hold ? 0 : (local - hold) / morph
-  const eased = t * t * t * (t * (t * 6 - 15) + 10)
-  const w = [0, 0, 0]
-  w[index] = 1 - eased
-  w[(index + 1) % 3] = eased
-  return w
+void main() {
+  vec3 p = position;
+  float breathe = 1.0 + 0.012 * sin(uTime * 0.4);
+  p *= breathe;
+  float s = sin(uSpin);
+  float c = cos(uSpin);
+  vec2 xz = mat2(c, -s, s, c) * p.xz;
+  p.x = xz.x + uSway.x;
+  p.y = p.y + uSway.y;
+  p.z = xz.y;
+  vec4 mv = modelViewMatrix * vec4(p, 1.0);
+  gl_Position = projectionMatrix * mv;
+  float kindScale = aKind > 0.5 ? 1.2 : 1.0;
+  gl_PointSize = clamp(uSize * kindScale * (3.4 / max(0.4, -mv.z)), 1.15, 6.0);
+  vec3 n = normalize(p + vec3(0.0001));
+  vec3 light = normalize(vec3(0.58, 0.74, 0.36));
+  vLight = pow(clamp(dot(n, light), 0.0, 1.0), 1.35);
+  vDepth = clamp((-mv.z - (uCamZ - 1.05)) / 2.1, 0.0, 1.0);
+  vLat = clamp(p.y * 0.62 + 0.5, 0.0, 1.0);
+  vKind = aKind;
+}
+`
+
+const FRAG = `
+precision highp float;
+uniform float uScan;
+varying float vLight;
+varying float vDepth;
+varying float vLat;
+varying float vKind;
+
+void main() {
+  vec2 pc = gl_PointCoord * 2.0 - 1.0;
+  float d = dot(pc, pc);
+  if (d > 1.0) discard;
+  float edge = smoothstep(1.0, 0.22, d);
+  vec3 shade = vec3(0.34, 0.31, 0.27);
+  vec3 stone = vec3(0.90, 0.86, 0.78);
+  vec3 amber = vec3(0.86, 0.49, 0.15);
+  vec3 col = mix(shade, stone, smoothstep(0.02, 0.7, vLight));
+  col = mix(col, amber, smoothstep(0.55, 1.0, vLight) * 0.82);
+  float band = smoothstep(0.2, 0.0, abs(vLat - uScan));
+  col = mix(col, amber, band * 0.42);
+  col = mix(col, col * 0.62, vDepth * 0.55);
+  float alpha = edge * (vKind > 0.5 ? 0.95 : 0.9);
+  gl_FragColor = vec4(col, alpha);
+}
+`
+
+function frameCamera(camera, aspect, sway) {
+  const vFov = 26 * Math.PI / 180
+  const hFov = 2 * Math.atan(Math.tan(vFov / 2) * Math.max(0.2, aspect))
+  const minFov = Math.min(vFov, hFov)
+  const dist = (FIT_RADIUS * 1.38) / Math.tan(minFov / 2)
+  camera.fov = 26
+  camera.aspect = Math.max(0.2, aspect)
+  camera.near = 0.1
+  camera.far = dist + 12
+  camera.position.set(sway.x * 0.35, sway.y * 0.28, dist)
+  camera.lookAt(0, 0, 0)
+  camera.updateProjectionMatrix()
 }
 
 export function mount(canvas) {
+  const small = window.matchMedia('(max-width: 700px)').matches
+  const count = small ? 4200 : 9600
   const renderer = new THREE.WebGLRenderer({
     canvas,
     antialias: false,
     alpha: false,
-    powerPreference: 'high-performance'
+    powerPreference: small ? 'low-power' : 'high-performance'
   })
   renderer.setClearColor(0x141311, 1)
 
-  const scene = new THREE.Scene()
-  const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 24)
-  camera.position.set(0, 0.08, 3.15)
-
-  const a0 = new Float32Array(COUNT * 3)
-  const a1 = new Float32Array(COUNT * 3)
-  const a2 = new Float32Array(COUNT * 3)
-  writeVessel(a0)
-  writeRibbon(a1)
-  writeKnot(a2)
+  const pos = new Float32Array(count * 3)
+  const kind = new Float32Array(count)
+  writeInstrument(pos, kind)
 
   const geometry = new THREE.BufferGeometry()
-  geometry.setAttribute('position', new THREE.BufferAttribute(a0, 3))
-  geometry.setAttribute('a0', new THREE.BufferAttribute(a0, 3))
-  geometry.setAttribute('a1', new THREE.BufferAttribute(a1, 3))
-  geometry.setAttribute('a2', new THREE.BufferAttribute(a2, 3))
-  geometry.computeBoundingSphere()
+  geometry.setAttribute('position', new THREE.BufferAttribute(pos, 3))
+  geometry.setAttribute('aKind', new THREE.BufferAttribute(kind, 1))
 
   const uniforms = {
-    uW: { value: new THREE.Vector3(1, 0, 0) },
-    uSpin: { value: 0.4 },
-    uPointer: { value: new THREE.Vector2(0.44, -0.08) },
-    uInfluence: { value: 0 },
-    uSize: { value: 4.2 }
+    uSpin: { value: 0.15 },
+    uTime: { value: 0 },
+    uSway: { value: new THREE.Vector2(0, 0) },
+    uSize: { value: 4 },
+    uScan: { value: 0.66 },
+    uCamZ: { value: 5.5 }
   }
   const material = new THREE.ShaderMaterial({
     uniforms,
     vertexShader: VERT,
     fragmentShader: FRAG,
     transparent: true,
+    depthTest: false,
     depthWrite: false
   })
-  scene.add(new THREE.Points(geometry, material))
+  const scene = new THREE.Scene()
+  const points = new THREE.Points(geometry, material)
+  points.frustumCulled = false
+  scene.add(points)
 
+  const camera = new THREE.PerspectiveCamera(26, 1, 0.1, 24)
   let sized = ''
+
   const stop = mountStage(canvas, ({ elapsed, pointer, influence, size, reduced }) => {
-    const time = reduced ? 2.4 : elapsed
-    const dpr = size.dpr
+    const dpr = size.w < 520 ? Math.min(size.dpr, 1.15) : size.dpr
     const key = Math.round(size.w * dpr) + 'x' + Math.round(size.h * dpr)
     if (key !== sized) {
       renderer.setPixelRatio(dpr)
       renderer.setSize(size.w, size.h, false)
       sized = key
     }
-    const portrait = size.h > size.w * 0.92
-    camera.aspect = size.w / Math.max(1, size.h)
-    if (portrait) {
-      camera.position.set(0, 0.12, 3.55)
-      camera.lookAt(0, 0.58, 0)
-    } else {
-      camera.position.set(0, 0.02, 3.2)
-      camera.lookAt(-0.48, -0.02, 0)
-    }
-    camera.updateProjectionMatrix()
-    const w = weights(time)
-    uniforms.uW.value.set(w[0], w[1], w[2])
-    uniforms.uSpin.value = reduced ? 0.42 : time * 0.055
-    uniforms.uPointer.value.set(pointer.x * 2 - 1, pointer.y * 2 - 1)
-    uniforms.uInfluence.value = influence || 0
-    uniforms.uSize.value = Math.max(5.2, Math.min(size.w, size.h) / 68)
+    const sway = reduced
+      ? { x: 0, y: 0 }
+      : {
+          x: (pointer.x - 0.5) * influence,
+          y: (pointer.y - 0.5) * influence
+        }
+    frameCamera(camera, size.w / Math.max(1, size.h), sway)
+    uniforms.uCamZ.value = camera.position.z
+    const time = reduced ? 0 : elapsed
+    uniforms.uTime.value = time
+    uniforms.uSpin.value = reduced ? 0.15 : 0.15 + time * 0.045
+    uniforms.uSway.value.set(sway.x * 0.05, sway.y * 0.04)
+    uniforms.uScan.value = reduced ? 0.66 : 0.62 + Math.sin(time * 0.18) * 0.12
+    uniforms.uSize.value = Math.max(3.2, Math.min(size.w, size.h) / 52)
     renderer.render(scene, camera)
   })
 
