@@ -24,9 +24,9 @@
         </button>
       </div>
       <div id="lab-menu" class="lab-menu">
-        <a href="#products" @click="menuOpen = false">Products</a>
-        <a href="#stack" @click="menuOpen = false">Core stack</a>
-        <a href="#projects" @click="menuOpen = false">Projects</a>
+        <a href="#products" @click="closeAndGo($event, 'products')">Products</a>
+        <a href="#stack" @click="closeAndGo($event, 'stack')">Core stack</a>
+        <a href="#projects" @click="closeAndGo($event, 'projects')">Projects</a>
         <a href="/company/about" @click="menuOpen = false">About</a>
         <a class="lab-cta" href="https://reqproof.com/demo">Request demo</a>
       </div>
@@ -94,7 +94,7 @@
                 <img
                   src="/images/portfolio/oel.png"
                   width="1440"
-                  height="900"
+                  height="616"
                   alt="Oel page: The code-grounded company brain, with Book a demo and an answer that cites middleware/rate_limit.go."
                 >
               </a>
@@ -112,7 +112,7 @@
                 <img
                   src="/images/portfolio/spirit-room.png"
                   width="1440"
-                  height="900"
+                  height="640"
                   alt="Spirit Room homepage: Optimise your MCP, CLI or API for AI agents, with Book a pilot and Get updates."
                 >
               </a>
@@ -484,6 +484,19 @@ function lockLight() {
 
 function onKeydown(event) {
   if (event.key === 'Escape') menuOpen.value = false
+}
+
+function closeAndGo(event, id) {
+  event.preventDefault()
+  menuOpen.value = false
+  nextTick(() => {
+    requestAnimationFrame(() => {
+      const el = document.getElementById(id)
+      if (!el) return
+      el.scrollIntoView({ block: 'start', behavior: 'instant' })
+      history.pushState(null, '', `#${id}`)
+    })
+  })
 }
 
 onMounted(() => {
