@@ -20,8 +20,8 @@ function normalize(out, radius) {
   for (let i = 0; i < out.length; i++) out[i] *= s
 }
 
-// One instrument: a distorted ring (the trace of the work) around a dense
-// core (the evidence). Both are closed volumes. Nothing is a node graph.
+// One instrument: a distorted ring around a dense core. Closed volumes,
+// no links between them, so it never reads as a graph.
 function writeInstrument(pos, kind) {
   const n = pos.length / 3
   const ringCount = Math.floor(n * 0.7)
@@ -35,11 +35,11 @@ function writeInstrument(pos, kind) {
       const v = hash(i + 5) * TAU
       const wobble = 0.22 * Math.sin(u * 2 + 0.5) + 0.1 * Math.sin(u * 3 - 1.1)
       const major = 0.7 * (1 + 0.06 * Math.sin(u * 2))
-      const tube = 0.2 * (1 + wobble) * (0.9 + (hash(i + 13) - 0.5) * 0.16)
+      const tube = 0.2 * (1 + wobble) * (0.94 + (hash(i + 13) - 0.5) * 0.1)
       x = (major + tube * Math.cos(v)) * Math.cos(u)
       y = tube * Math.sin(v) * (0.92 + 0.08 * Math.sin(u))
       z = (major + tube * Math.cos(v)) * Math.sin(u)
-      const tilt = 0.52
+      const tilt = 0.62
       const cy = y * Math.cos(tilt) - z * Math.sin(tilt)
       const cz = y * Math.sin(tilt) + z * Math.cos(tilt)
       y = cy
@@ -70,7 +70,7 @@ const VERT = `
 attribute float aKind;
 uniform float uSpin;
 uniform float uTime;
-uniform float uSway;
+uniform vec2 uSway;
 uniform float uSize;
 uniform float uCamZ;
 varying float vLight;
@@ -84,11 +84,13 @@ void main() {
   p *= breathe;
   float s = sin(uSpin);
   float c = cos(uSpin);
-  p.xz = mat2(c, -s, s, c) * p.xz;
-  p.xy += uSway;
+  vec2 xz = mat2(c, -s, s, c) * p.xz;
+  p.x = xz.x + uSway.x;
+  p.y = p.y + uSway.y;
+  p.z = xz.y;
   vec4 mv = modelViewMatrix * vec4(p, 1.0);
   gl_Position = projectionMatrix * mv;
-  float kindScale = aKind > 0.5 ? 1.15 : 1.0;
+  float kindScale = aKind > 0.5 ? 1.2 : 1.0;
   gl_PointSize = clamp(uSize * kindScale * (3.4 / max(0.4, -mv.z)), 1.15, 6.0);
   vec3 n = normalize(p + vec3(0.0001));
   vec3 light = normalize(vec3(0.58, 0.74, 0.36));
@@ -171,10 +173,13 @@ export function mount(canvas) {
     vertexShader: VERT,
     fragmentShader: FRAG,
     transparent: true,
+    depthTest: false,
     depthWrite: false
   })
   const scene = new THREE.Scene()
-  scene.add(new THREE.Points(geometry, material))
+  const points = new THREE.Points(geometry, material)
+  points.frustumCulled = false
+  scene.add(points)
 
   const camera = new THREE.PerspectiveCamera(26, 1, 0.1, 24)
   let sized = ''
@@ -200,7 +205,7 @@ export function mount(canvas) {
     uniforms.uSpin.value = reduced ? 0.15 : 0.15 + time * 0.045
     uniforms.uSway.value.set(sway.x * 0.05, sway.y * 0.04)
     uniforms.uScan.value = reduced ? 0.66 : 0.62 + Math.sin(time * 0.18) * 0.12
-    uniforms.uSize.value = Math.max(3.2, Math.min(size.w, size.h) / 58)
+    uniforms.uSize.value = Math.max(3.2, Math.min(size.w, size.h) / 52)
     renderer.render(scene, camera)
   })
 
