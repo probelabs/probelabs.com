@@ -329,6 +329,12 @@
   max-width: 520px;
 }
 
+.new-homepage .nh-hero-sub a {
+  color: var(--cream);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
 .new-homepage .nh-hero-verbs {
   display: block;
   margin-top: 0.6rem;

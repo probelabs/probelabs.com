@@ -1,361 +1,495 @@
 <template>
-  <div class="oel">
-    <a class="oel-skip" href="#content">Skip to content</a>
+  <div class="new-homepage">
+    <NewNav brandName="Oel" bookDemoHref="#demo-booking" />
 
-    <header class="oel-header" :class="{ 'is-open': menuOpen }">
-      <div class="oel-header-bar">
-        <p class="oel-brand">
-          <a class="oel-home" href="/">ProbeLabs</a>
-          <span class="oel-slash" aria-hidden="true">/</span>
-          <a class="oel-wordmark" href="/oel" aria-current="page">Oel</a>
+    <!-- Hero Section -->
+    <div class="nh-hero-wrapper">
+    <section class="nh-hero">
+      <div class="nh-hero-left">
+        <p class="nh-hero-eyebrow">by ProbeLabs</p>
+        <h1>Oel</h1>
+        <p class="nh-hero-value">The code-grounded company brain.</p>
+        <p class="nh-hero-sub">
+          An AI teammate for product and engineering teams.
+          Ask across code, Jira, Zendesk, Confluence, Slack, docs, CI, and observability.
+          Answers come from the code, with the evidence attached.
+          Then it acts — pull requests, ticket updates, Slack posts, and scheduled digests.
+          <span class="nh-hero-verbs">Learn. Debug. Plan. Review. Automate.</span>
+          Powered by <a href="/probe">Probe</a> &amp; <a href="/visor">Visor</a>.
         </p>
-        <nav class="oel-nav" aria-label="Primary">
-          <a href="#answers">Answers</a>
-          <a href="#sources">Sources</a>
-          <a href="#trust">Trust</a>
-          <a href="#automations">Automations</a>
-          <a href="#proof">Tyk</a>
-        </nav>
-        <a class="oel-cta" href="#demo">Book a demo</a>
-        <button
-          class="oel-menu-btn"
-          type="button"
-          :aria-expanded="menuOpen ? 'true' : 'false'"
-          aria-controls="oel-menu"
-          @click="menuOpen = !menuOpen"
-        >
-          <span class="oel-sr">Menu</span>
-          <span></span><span></span><span></span>
-        </button>
+        <div class="nh-hero-ctas">
+          <a href="#demo-booking" class="nh-btn filled">Book a demo &rarr;</a>
+          <a href="#quickwins" class="nh-btn">Get started in 10 minutes &rarr;</a>
+        </div>
       </div>
-      <div id="oel-menu" class="oel-menu">
-        <a href="#answers" @click="menuOpen = false">Answers</a>
-        <a href="#sources" @click="menuOpen = false">Sources</a>
-        <a href="#trust" @click="menuOpen = false">Trust</a>
-        <a href="#automations" @click="menuOpen = false">Automations</a>
-        <a href="#proof" @click="menuOpen = false">Tyk</a>
-        <a class="oel-cta" href="#demo" @click="menuOpen = false">Book a demo</a>
+      <div class="nh-hero-right">
+        <canvas ref="heroCanvas" id="hero-canvas"></canvas>
       </div>
-    </header>
+    </section>
+    </div>
 
-    <main id="content">
-      <section class="oel-hero">
-        <div class="oel-hero-copy">
-          <p class="oel-hero-kicker">by ProbeLabs</p>
-          <h1>Oel</h1>
-          <p class="oel-hero-lead">The code-grounded company brain.</p>
-          <p class="oel-hero-dek">
-            Ask across code, Jira, Zendesk, Confluence, Slack, docs, CI, and observability. Every answer shows its evidence. Every action runs as a governed workflow on your infrastructure.
-          </p>
-          <p class="oel-powered">
-            Powered by <a href="/probe">Probe</a> &amp; <a href="/visor">Visor</a>
-          </p>
-          <div class="oel-hero-actions">
-            <a class="oel-hero-btn" href="#demo">Book a demo</a>
-            <a class="oel-hero-text" href="#demo">Run it in 10 minutes</a>
-          </div>
-        </div>
-        <div class="oel-hero-card">
-          <p class="oel-card-kicker">Answer</p>
-          <p class="oel-card-q">{{ hero.prompt }}</p>
-          <p class="oel-card-a">{{ hero.response }}</p>
-          <div class="oel-chips" role="group" aria-label="Evidence">
-            <button
-              v-for="(chip, index) in hero.evidence"
-              :key="chip.label"
-              type="button"
-              class="oel-chip is-on-dark"
-              :aria-expanded="openHeroChip === index ? 'true' : 'false'"
-              @click="openHeroChip = openHeroChip === index ? null : index"
-            >{{ chip.label }}</button>
-          </div>
-          <p v-if="activeHeroEvidence" class="oel-evidence">{{ activeHeroEvidence.detail }}</p>
-        </div>
-      </section>
-
-      <section class="oel-section" id="answers">
-        <p class="oel-kicker">01 / Answers</p>
-        <div class="oel-section-head">
-          <h2>What it answers</h2>
-          <p class="oel-dek">
-            An AI teammate for product and engineering teams. These are questions the installation already takes, with the sources left on the reply.
-          </p>
-        </div>
-        <div class="oel-filters" role="toolbar" aria-label="Filter examples">
+    <!-- Real Use Cases - Chat Examples -->
+    <section class="nh-chats">
+      <div class="nh-chats-header">
+        <h2>See Oel in the wild</h2>
+        <p>Real prompts and real answers. Mention @Oel in Slack, or ask from GitHub, an AI editor, or a scheduled workflow. The answer is grounded in the systems your team already runs.</p>
+        <div class="nh-chats-filters">
           <button
-            v-for="group in groups"
-            :key="group"
-            type="button"
-            class="oel-filter"
-            :aria-pressed="activeGroup === group ? 'true' : 'false'"
-            @click="activeGroup = group"
-          >{{ group }}</button>
+            class="nh-chats-filter"
+            :class="{ active: !activeChatFilter }"
+            @click="activeChatFilter = null"
+          >All</button>
+          <button
+            v-for="tag in allChatTags"
+            :key="tag"
+            class="nh-chats-filter"
+            :class="[
+              'nh-chats-filter--' + tag.toLowerCase().replace(/[^a-z]/g, ''),
+              { active: activeChatFilter === tag }
+            ]"
+            @click="activeChatFilter = activeChatFilter === tag ? null : tag"
+          >{{ tag }}</button>
         </div>
-        <ul class="oel-answers">
-          <li v-for="item in visibleAnswers" :key="item.prompt" class="oel-answer">
-            <p class="oel-answer-group">{{ item.group }}</p>
-            <h3>{{ item.prompt }}</h3>
-            <p>{{ item.response }}</p>
-            <div class="oel-chips">
-              <button
-                v-for="(chip, index) in item.evidence"
-                :key="chip.label"
-                type="button"
-                class="oel-chip"
-                :aria-expanded="openAnswerKey === item.prompt + index ? 'true' : 'false'"
-                @click="toggleAnswerChip(item.prompt, index)"
-              >{{ chip.label }}</button>
+      </div>
+      <!-- Marquee mode (no filter) -->
+      <div class="nh-chats-scroll" :class="{ 'nh-chats-scroll--stopped': marqueeStoppedByTouch }" v-if="!activeChatFilter" @touchstart="onMarqueeTouchStart">
+        <div class="nh-chats-row nh-chats-row--1">
+          <div class="nh-chat-card" v-for="chat in chatExamplesRow1" :key="chat.prompt">
+            <div class="nh-chat-tags">
+              <span class="nh-chat-tag" v-for="tag in chat.tags" :key="tag" :class="'nh-chat-tag--' + tag.toLowerCase().replace(/[^a-z]/g, '')">{{ tag }}</span>
             </div>
-            <p v-if="answerDetail(item)" class="oel-evidence is-light">{{ answerDetail(item) }}</p>
-          </li>
-        </ul>
-      </section>
-
-      <section class="oel-section" id="sources">
-        <p class="oel-kicker">02 / Sources and surfaces</p>
-        <div class="oel-section-head">
-          <h2>Where it reads, and where it shows up</h2>
-          <p class="oel-dek">
-            Code, tickets, docs, chat, CI, and observability. Then Slack, GitHub, editors, the CLI, and the web UI.
-          </p>
-        </div>
-        <h3 class="oel-subhead">Reads</h3>
-        <ul class="oel-rows">
-          <li v-for="source in sources" :key="source.name">
-            <p class="oel-row-name">{{ source.name }}</p>
-            <p>{{ source.line }}</p>
-          </li>
-        </ul>
-        <h3 class="oel-subhead">Shows up in</h3>
-        <ul class="oel-rows">
-          <li v-for="surface in surfaces" :key="surface.name">
-            <p class="oel-row-name">{{ surface.name }}</p>
-            <p>{{ surface.line }}</p>
-          </li>
-        </ul>
-      </section>
-
-      <section class="oel-section" id="trust">
-        <p class="oel-kicker">03 / Trust</p>
-        <div class="oel-section-head">
-          <h2>Grounded in the code, so the answer can be checked</h2>
-          <blockquote class="oel-quote">
-            <p>A search index returns documents. Oel returns an answer with the file, the pull request, and the ticket attached.</p>
-          </blockquote>
-          <p class="oel-dek">
-            That is the lab thesis applied to a company brain: making agents trustworthy on real software. The engine underneath is <a href="/probe">Probe</a>. The workflow underneath is <a href="/visor">Visor</a>.
-          </p>
-        </div>
-        <ul class="oel-rows oel-rows--trust">
-          <li v-for="item in trust" :key="item.name">
-            <p class="oel-row-name">{{ item.name }}</p>
-            <p>{{ item.line }}</p>
-          </li>
-        </ul>
-      </section>
-
-      <section class="oel-section" id="automations">
-        <p class="oel-kicker">04 / Automations</p>
-        <div class="oel-section-head">
-          <h2>It answers, then it acts</h2>
-          <p class="oel-dek">
-            Opens pull requests, updates and creates Jira tickets, posts to Slack, merges when the conditions are met, drafts docs pull requests, and saves runbooks into a knowledge base. Scheduled work is YAML on Visor: digests, enrichment, and watchers.
-          </p>
-        </div>
-        <ul class="oel-schedule">
-          <li v-for="job in jobs" :key="job.when">
-            <p class="oel-when">{{ job.when }}</p>
-            <p>{{ job.line }}</p>
-          </li>
-        </ul>
-        <div class="oel-roles">
-          <div class="oel-role-tabs" role="tablist" aria-label="Who it serves">
-            <button
-              v-for="role in roles"
-              :key="role.id"
-              type="button"
-              role="tab"
-              class="oel-role-tab"
-              :id="'role-tab-' + role.id"
-              :aria-selected="activeRole === role.id ? 'true' : 'false'"
-              :aria-controls="'role-panel-' + role.id"
-              @click="activeRole = role.id"
-            >{{ role.title }}</button>
+            <div class="nh-chat-prompt">{{ chat.prompt }}</div>
+            <div class="nh-chat-response">{{ chat.response }}</div>
           </div>
-          <div
-            class="oel-role-panel"
-            role="tabpanel"
-            :id="'role-panel-' + currentRole.id"
-            :aria-labelledby="'role-tab-' + currentRole.id"
+          <!-- Duplicate for seamless loop -->
+          <div class="nh-chat-card" v-for="chat in chatExamplesRow1" :key="'dup1-'+chat.prompt">
+            <div class="nh-chat-tags">
+              <span class="nh-chat-tag" v-for="tag in chat.tags" :key="tag" :class="'nh-chat-tag--' + tag.toLowerCase().replace(/[^a-z]/g, '')">{{ tag }}</span>
+            </div>
+            <div class="nh-chat-prompt">{{ chat.prompt }}</div>
+            <div class="nh-chat-response">{{ chat.response }}</div>
+          </div>
+        </div>
+        <div class="nh-chats-row nh-chats-row--2">
+          <div class="nh-chat-card" v-for="chat in chatExamplesRow2" :key="chat.prompt">
+            <div class="nh-chat-tags">
+              <span class="nh-chat-tag" v-for="tag in chat.tags" :key="tag" :class="'nh-chat-tag--' + tag.toLowerCase().replace(/[^a-z]/g, '')">{{ tag }}</span>
+            </div>
+            <div class="nh-chat-prompt">{{ chat.prompt }}</div>
+            <div class="nh-chat-response">{{ chat.response }}</div>
+          </div>
+          <!-- Duplicate for seamless loop -->
+          <div class="nh-chat-card" v-for="chat in chatExamplesRow2" :key="'dup2-'+chat.prompt">
+            <div class="nh-chat-tags">
+              <span class="nh-chat-tag" v-for="tag in chat.tags" :key="tag" :class="'nh-chat-tag--' + tag.toLowerCase().replace(/[^a-z]/g, '')">{{ tag }}</span>
+            </div>
+            <div class="nh-chat-prompt">{{ chat.prompt }}</div>
+            <div class="nh-chat-response">{{ chat.response }}</div>
+          </div>
+        </div>
+      </div>
+      <!-- Filtered grid mode -->
+      <div class="nh-chats-filtered" v-else>
+        <div class="nh-chat-card" v-for="chat in filteredChatExamples" :key="'f-'+chat.prompt">
+          <div class="nh-chat-tags">
+            <span class="nh-chat-tag" v-for="tag in chat.tags" :key="tag" :class="'nh-chat-tag--' + tag.toLowerCase().replace(/[^a-z]/g, '')">{{ tag }}</span>
+          </div>
+          <div class="nh-chat-prompt">{{ chat.prompt }}</div>
+          <div class="nh-chat-response">{{ chat.response }}</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Oel Section -->
+    <section class="nh-why nh-reveal" id="how">
+      <div class="nh-why-wrapper">
+        <div class="nh-why-header">
+          <h2>Why Oel works</h2>
+          <p>A company brain grounded in your real code. Your team shapes the workflows, every answer can be traced, and every action is governed like infrastructure.</p>
+        </div>
+        <div class="nh-why-principles">
+          <div class="nh-why-principle">
+            <span class="nh-why-num">01</span>
+            <div class="nh-why-content">
+              <h3>Shaped by your team</h3>
+              <p>A framework your team shapes — YAML workflows, custom integrations, your rules. Oel knows how to extend itself. Under your control.</p>
+            </div>
+          </div>
+          <div class="nh-why-principle">
+            <span class="nh-why-num">02</span>
+            <div class="nh-why-content">
+              <h3>Quality gates, built in</h3>
+              <p>Every workflow has quality gates. Every process starts with accurate data and the right question. Oel helps with both.</p>
+            </div>
+          </div>
+          <div class="nh-why-principle">
+            <span class="nh-why-num">03</span>
+            <div class="nh-why-content">
+              <h3>Connects, then acts</h3>
+              <p>Starts with your sources — code, tickets, docs, Slack, wikis, CI, and observability. Then acts on your behalf — pull requests, ticket updates, reviews, and deployments.</p>
+            </div>
+          </div>
+          <div class="nh-why-principle">
+            <span class="nh-why-num">04</span>
+            <div class="nh-why-content">
+              <h3>Accurate at any scale</h3>
+              <p>Powered by Probe, the code engine built for large projects. Million-line repos, hundreds of users. Full accuracy at any scale.</p>
+            </div>
+          </div>
+          <div class="nh-why-principle">
+            <span class="nh-why-num">05</span>
+            <div class="nh-why-content">
+              <h3>First-class interface for agents</h3>
+              <p>Designed for humans and agents alike. Your CI pipelines, Slack bots, and AI editors all talk to Oel as a first-class interface.</p>
+            </div>
+          </div>
+          <div class="nh-why-principle">
+            <span class="nh-why-num">06</span>
+            <div class="nh-why-content">
+              <h3>Enterprise-grade by default</h3>
+              <p>On-prem deployment, any LLM provider, zero vendor lock-in. GitOps workflows, OpenTelemetry traces, fault tolerance, governance, and security controls — all built in from day one.</p>
+            </div>
+          </div>
+        </div>
+        <div class="nh-why-footer">
+          <div class="nh-why-tags">
+            <span class="nh-why-tag">Open source foundation</span>
+            <span class="nh-why-tag">Any LLM provider</span>
+            <span class="nh-why-tag">No vendor lock-in</span>
+            <span class="nh-why-tag">Scheduled jobs & reminders</span>
+            <span class="nh-why-tag">Multi-team with boundaries</span>
+            <span class="nh-why-tag">Audit trails & governance</span>
+            <span class="nh-why-tag">On-prem deployment</span>
+          </div>
+          <a href="/probe" class="nh-btn filled">See how the engine works &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Role Workbench Section -->
+    <section class="nh-workbench nh-reveal" id="solutions">
+      <div class="nh-workbench-wrapper">
+        <div class="nh-workbench-header">
+          <h2>One company brain, every role</h2>
+          <p>Engineering leadership, platform, engineers, QA, and product all ask the same brain — from Slack, GitHub, an AI editor, or a YAML workflow.</p>
+        </div>
+        <div class="nh-workbench-tabs">
+          <button
+            v-for="role in roles"
+            :key="role.id"
+            @click="activeRole = role.id"
+            :class="['nh-role-tab', { active: activeRole === role.id }]"
           >
+            <span class="nh-role-title">{{ role.title }}</span>
+            <span class="nh-role-subtitle">{{ role.subtitle }}</span>
+          </button>
+        </div>
+        <div class="nh-workbench-dropdown">
+          <select :value="activeRole" @change="activeRole = $event.target.value">
+            <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.title }} — {{ role.subtitle }}</option>
+          </select>
+        </div>
+        <div class="nh-workbench-panel">
+          <div class="nh-panel-header">
             <h3>{{ currentRole.title }}</h3>
-            <p>{{ currentRole.line }}</p>
-            <ul>
-              <li v-for="item in currentRole.workflows" :key="item">{{ item }}</li>
-            </ul>
+            <p>{{ currentRole.oneLiner }}</p>
+          </div>
+          <div class="nh-panel-content">
+            <div class="nh-panel-block">
+              <h4>You get</h4>
+              <ul>
+                <li v-for="(item, i) in currentRole.youGet" :key="'get-'+i">
+                  <strong>{{ item.title }}:</strong> {{ item.desc }}
+                </li>
+              </ul>
+            </div>
+            <div class="nh-panel-block">
+              <h4>Replaces</h4>
+              <ul>
+                <li v-for="(item, i) in currentRole.replaces" :key="'rep-'+i">{{ item }}</li>
+              </ul>
+            </div>
+            <div class="nh-panel-block nh-panel-block--full">
+              <h4>How Oel helps</h4>
+              <ul class="nh-workflow-list">
+                <li v-for="(item, i) in currentRole.workflows" :key="'wf-'+i">
+                  <span class="nh-workflow-item">{{ item }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="nh-panel-cta">
+            <a :href="currentRole.solutionLink" class="nh-btn filled">{{ currentRole.solutionText }} &rarr;</a>
+            <a href="https://cal.com/leonid-bugaev/30min" class="nh-btn">Talk to a human</a>
           </div>
         </div>
-        <p class="oel-note">
-          The quickstart is <a href="https://github.com/probelabs/visor-quickstart">probelabs/visor-quickstart</a>: intent classification, skills, knowledge injection, and tool orchestration, defined in YAML.
-        </p>
-      </section>
-
-      <section class="oel-section" id="proof">
-        <p class="oel-kicker">05 / Reference</p>
-        <div class="oel-section-head">
-          <h2>Tyk</h2>
-          <p class="oel-dek">
-            Tyk is the reference deployment of Oel. The quotes below are from the people who use it, in the words they used.
-          </p>
+        <h3 class="nh-usecases-inline-header">Direct entry points</h3>
+        <div class="nh-usecases-grid">
+          <a href="/docs/chat-with-code" class="nh-usecase-tile">
+            <h3>Chat with Code</h3>
+            <p>Grounded answers from your codebase. Multi-repo search across millions of lines.</p>
+            <span class="nh-usecase-link">Learn more &rarr;</span>
+          </a>
+          <a href="/docs/code-review" class="nh-usecase-tile">
+            <h3>Intelligent Code Review</h3>
+            <p>Structured reviews with guardrails. Configurable, scalable, context-aware.</p>
+            <span class="nh-usecase-link">Learn more &rarr;</span>
+          </a>
+          <a href="/docs/github-assistant" class="nh-usecase-tile">
+            <h3>GitHub Assistant</h3>
+            <p>Issue and PR automation in GitHub. Auto-triage and first-pass reviews.</p>
+            <span class="nh-usecase-link">Learn more &rarr;</span>
+          </a>
+          <a href="/docs/use-cases/visor-workflows" class="nh-usecase-tile">
+            <h3>Workflow Automation</h3>
+            <p>Visor workflows for real processes — review, triage, and release pipelines.</p>
+            <span class="nh-usecase-link">Learn more &rarr;</span>
+          </a>
+          <a href="/docs/guides/slack-bot" class="nh-usecase-tile">
+            <h3>Scheduled Jobs & Reminders</h3>
+            <p>Daily digests, thread follow-ups, recurring checks, and Jira→Zendesk enrichment — from Slack or YAML.</p>
+            <span class="nh-usecase-link">Learn more &rarr;</span>
+          </a>
+          <a href="/docs/use-cases/building-ai-tools" class="nh-usecase-tile">
+            <h3>Developers & SDK</h3>
+            <p>MCP server, CLI, and programmatic access for custom tooling.</p>
+            <span class="nh-usecase-link">Learn more &rarr;</span>
+          </a>
         </div>
-        <figure class="oel-testimonial" v-for="quote in quotes" :key="quote.name">
-          <blockquote>
-            <p>{{ quote.text }}</p>
-          </blockquote>
-          <figcaption>
-            <strong>{{ quote.name }}</strong>
-            <span>{{ quote.role }}</span>
-          </figcaption>
-        </figure>
-      </section>
+      </div>
+    </section>
 
-      <section class="oel-section" id="demo">
-        <p class="oel-kicker">06 / Demo</p>
-        <div class="oel-demo">
-          <div>
-            <h2>Ask your codebase a real question in 30 minutes.</h2>
-            <p class="oel-dek">Thirty minutes. Real questions, real answers. No slideware.</p>
-            <ol class="oel-agenda">
+    <!-- Demo Booking Section -->
+    <section class="nh-demo-booking nh-reveal" id="demo-booking">
+      <div class="nh-demo-booking-wrapper">
+        <div class="nh-demo-booking-content">
+          <div class="nh-demo-booking-left">
+            <h2>See Oel on your stack</h2>
+            <p>Thirty minutes. A production-scale environment, real integrations, no slideware.</p>
+            <ol class="nh-demo-agenda">
               <li>
                 <strong>See it on a real codebase</strong>
-                <span>A production-scale environment: multi-repo, real integrations, real complexity.</span>
+                <span>We'll walk through Oel on a production-scale environment — multi-repo, real integrations, real complexity.</span>
               </li>
               <li>
                 <strong>Map it to your stack</strong>
-                <span>AI editors, GitHub Actions, Slack, or the web UI.</span>
+                <span>AI editors, GitHub Actions, Slack, Web UI — we'll figure out what fits your team and workflow.</span>
               </li>
               <li>
                 <strong>Walk away with a plan</strong>
-                <span>A path to running Oel in your org. Most teams are live within a day.</span>
+                <span>A clear path to getting Oel running in your org. Most teams are live within a day.</span>
               </li>
             </ol>
           </div>
-          <form class="oel-form" @submit.prevent="submitDemoForm">
-            <h3>Tell us about your setup</h3>
-            <div class="oel-field">
-              <label for="oel-email">Work email</label>
-              <input id="oel-email" v-model="demoForm.email" type="email" required autocomplete="email" placeholder="you@company.com">
+          <div class="nh-demo-booking-right">
+            <div class="nh-demo-form-card">
+              <h3>Tell us about your setup</h3>
+              <form class="nh-demo-form" @submit.prevent="submitDemoForm">
+                <div class="nh-demo-field">
+                  <label for="nh-demo-email">Work email</label>
+                  <input type="email" id="nh-demo-email" v-model="demoForm.email" required placeholder="you@company.com" />
+                </div>
+                <div class="nh-demo-field">
+                  <label for="nh-demo-codebase">Codebase size</label>
+                  <select id="nh-demo-codebase" v-model="demoForm.codebaseSize">
+                    <option value="">Select...</option>
+                    <option value="<100k">&lt;100K lines</option>
+                    <option value="100k-1m">100K - 1M lines</option>
+                    <option value="1m-10m">1M - 10M lines</option>
+                    <option value="10m+">10M+ lines</option>
+                  </select>
+                </div>
+                <div class="nh-demo-field">
+                  <label for="nh-demo-team">Engineering team size</label>
+                  <select id="nh-demo-team" v-model="demoForm.teamSize">
+                    <option value="">Select...</option>
+                    <option value="1-10">1-10 engineers</option>
+                    <option value="11-50">11-50 engineers</option>
+                    <option value="51-200">51-200 engineers</option>
+                    <option value="200+">200+ engineers</option>
+                  </select>
+                </div>
+                <div class="nh-demo-field">
+                  <label for="nh-demo-pain">What slows your team down most?</label>
+                  <textarea id="nh-demo-pain" v-model="demoForm.painPoint" rows="3" placeholder="e.g., Onboarding takes weeks, PMs constantly ask engineering..."></textarea>
+                </div>
+                <button type="submit" class="nh-demo-submit">Book a demo</button>
+              </form>
             </div>
-            <div class="oel-field">
-              <label for="oel-codebase">Codebase size</label>
-              <select id="oel-codebase" v-model="demoForm.codebaseSize">
-                <option value="">Select…</option>
-                <option value="<100k">&lt;100K lines</option>
-                <option value="100k-1m">100K–1M lines</option>
-                <option value="1m-10m">1M–10M lines</option>
-                <option value="10m+">10M+ lines</option>
-              </select>
-            </div>
-            <div class="oel-field">
-              <label for="oel-team">Engineering team size</label>
-              <select id="oel-team" v-model="demoForm.teamSize">
-                <option value="">Select…</option>
-                <option value="1-10">1–10 engineers</option>
-                <option value="11-50">11–50 engineers</option>
-                <option value="51-200">51–200 engineers</option>
-                <option value="200+">200+ engineers</option>
-              </select>
-            </div>
-            <div class="oel-field">
-              <label for="oel-pain">What slows your team down most?</label>
-              <textarea id="oel-pain" v-model="demoForm.painPoint" rows="3" placeholder="Onboarding takes weeks. PMs wait on engineering for answers."></textarea>
-            </div>
-            <button class="oel-submit" type="submit">Book a demo</button>
-          </form>
+          </div>
         </div>
+      </div>
+    </section>
 
-        <div class="oel-quick">
-          <div>
-            <h3>Or run it in 10 minutes</h3>
-            <p>Clone the quickstart, set an API key, and get a working assistant. Most teams are running within 10 minutes.</p>
-            <ul>
-              <li>Intent classification routes a request to the right skill</li>
-              <li>Code exploration across repos</li>
-              <li>Knowledge injection from inline docs or files</li>
-              <li>Tool orchestration: bash, MCP servers, workflow tools</li>
-              <li>Slack, with one flag</li>
+    <!-- Testimonials Section -->
+    <section class="nh-testimonials nh-reveal">
+      <div class="nh-testimonials-wrapper">
+        <div class="nh-testimonials-header">
+          <span class="nh-testimonials-badge">Reference deployment</span>
+          <h2>Tyk is the reference deployment of Oel</h2>
+        </div>
+        <div class="nh-testimonials-grid">
+          <div class="nh-testimonial-card">
+            <p class="nh-testimonial-quote">"As a Product Manager, Probe helps me to understand the true behaviour of the software so that I can go beyond the documentation and validate edge case scenarios and answer 'what if?' questions as I develop the product roadmap. This saves a lot of time and disruption to the development teams."</p>
+            <div class="nh-testimonial-author">
+              <strong>Andy Ost</strong>
+              <span>Senior Product Manager at Tyk.io</span>
+            </div>
+          </div>
+          <div class="nh-testimonial-card">
+            <p class="nh-testimonial-quote">"I'm using Probe Labs tools daily as a technical lead, and they've been adopted across marketing, sales, documentation, product, delivery, and engineering. The YAML-based automation makes it easy to wire in tools like JIRA, Zendesk, and GitHub for agentic flows that actually work from day one."</p>
+            <div class="nh-testimonial-author">
+              <strong>Laurentiu Ghiur</strong>
+              <span>Technical Lead at Tyk.io</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Build Your AI Assistant Section -->
+    <section class="nh-quickwins nh-reveal" id="quickwins">
+      <div class="nh-quickwins-wrapper">
+        <div class="nh-quickwins-header">
+          <h2>A working assistant in 10 minutes</h2>
+          <p>Clone the Visor quickstart, set an API key, and get skills, tools, and knowledge — all defined in YAML. Powered by Probe and Visor.</p>
+        </div>
+        <div class="nh-quickwin-content">
+          <div class="nh-quickwin-left">
+            <h3>What you get</h3>
+            <ul class="nh-assistant-features">
+              <li><strong>Intent classification</strong> — routes requests to the right skill automatically</li>
+              <li><strong>Code exploration</strong> — search and understand code across repos</li>
+              <li><strong>Knowledge injection</strong> — inline docs or loaded from files</li>
+              <li><strong>Tool orchestration</strong> — bash, MCP servers, workflow tools</li>
+              <li><strong>Slack-ready</strong> — connect to your workspace with one flag</li>
             </ul>
-            <a class="oel-textlink" href="/docs/quick-start">Quick start guide</a>
+            <a href="/docs/quick-start" class="nh-quickwin-link">Quick start guide &rarr;</a>
           </div>
-          <div class="oel-code">
-            <p class="oel-card-kicker">Clone and run</p>
-            <pre><code>{{ assistantCode }}</code></pre>
-            <button class="oel-copy" type="button" @click="copyCode">{{ codeCopied ? 'Copied' : 'Copy' }}</button>
+          <div class="nh-quickwin-right">
+            <div class="nh-quickwin-code">
+              <div class="nh-code-label">Clone & run</div>
+              <div class="nh-code-body">
+                <pre><code>{{ assistantCode }}</code></pre>
+                <button class="nh-code-copy" @click="copyCode(assistantCode)">
+                  <svg v-if="!codeCopied" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                  <svg v-else width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
+    </section>
 
-        <h3 class="oel-subhead">Questions</h3>
-        <dl class="oel-faq">
-          <div v-for="faq in faqs" :key="faq.q">
-            <dt>{{ faq.q }}</dt>
-            <dd>{{ faq.a }}</dd>
+    <!-- Security & Governance Section -->
+    <section class="nh-security nh-reveal">
+      <div class="nh-security-wrapper">
+        <div class="nh-security-header">
+          <h2>On-prem, with an audit trail</h2>
+          <p>Run Oel in your environment, bring your own model, and inspect every workflow. OpenTelemetry traces show what happened, and with what context.</p>
+        </div>
+        <div class="nh-security-grid">
+          <div class="nh-security-col">
+            <h3>Control</h3>
+            <ul>
+              <li><strong>On-prem by default</strong> — your code and data stay in your environment</li>
+              <li><strong>Any LLM</strong> — choose per workflow; swap models without rewriting</li>
+              <li><strong>Explicit tool permissions</strong> — per workflow and per step</li>
+              <li><strong>Scoped context retrieval</strong> — pull only what's needed</li>
+              <li><strong>Schema validation + policy gates</strong> — for critical steps</li>
+            </ul>
           </div>
-        </dl>
-      </section>
-    </main>
+          <div class="nh-security-col">
+            <h3>Governance</h3>
+            <ul>
+              <li><strong>OpenTelemetry traces + audit trails</strong> — what happened, with what context</li>
+              <li><strong>Versioned workflows</strong> — reviewed like code</li>
+              <li><strong>Org templates + team ownership</strong> — teams customize safely</li>
+              <li><strong>Multi-repo + multi-team</strong> — aligned to ownership boundaries</li>
+              <li><strong>Deterministic retries</strong> — no silent "AI weirdness"</li>
+            </ul>
+          </div>
+        </div>
+        <p class="nh-security-note">No vendor lock-in: open-source core + open standards + deploy anywhere.</p>
+      </div>
+    </section>
 
-    <footer class="oel-footer">
-      <div>
-        <p class="oel-wordmark">Oel</p>
-        <p class="oel-footer-line">by ProbeLabs</p>
-        <p class="oel-footer-line">Powered by <a href="/probe">Probe</a> &amp; <a href="/visor">Visor</a></p>
+    <!-- FAQ Section -->
+    <section class="nh-faq nh-reveal">
+      <div class="nh-faq-wrapper">
+        <h2>Before you book a demo</h2>
+        <div class="nh-faq-grid">
+          <div class="nh-faq-item" v-for="faq in faqItems" :key="faq.q">
+            <h3>{{ faq.q }}</h3>
+            <p>{{ faq.a }}</p>
+          </div>
+        </div>
       </div>
-      <div>
-        <h2>Oel</h2>
-        <ul>
-          <li><a href="#answers">Answers</a></li>
-          <li><a href="#sources">Sources</a></li>
-          <li><a href="#trust">Trust</a></li>
-          <li><a href="#automations">Automations</a></li>
-          <li><a href="#proof">Tyk</a></li>
-          <li><a href="#demo">Book a demo</a></li>
-        </ul>
-      </div>
-      <div>
-        <h2>Lab</h2>
-        <ul>
-          <li><a href="/">ProbeLabs</a></li>
-          <li><a href="/probe">Probe</a></li>
-          <li><a href="/visor">Visor</a></li>
-          <li><a href="https://reqproof.com">Proof</a></li>
-          <li><a href="/docs/quick-start">Quick start</a></li>
-          <li><a href="/company/about">About</a></li>
-        </ul>
-      </div>
-      <div>
-        <h2>Legal</h2>
-        <ul>
-          <li><a href="/privacy">Privacy</a></li>
-          <li><a href="/terms">Terms</a></li>
-          <li><a href="mailto:hello@probelabs.com">hello@probelabs.com</a></li>
-        </ul>
-      </div>
-      <p class="oel-copy">&copy; {{ year }} GoReplay LLC</p>
-    </footer>
+    </section>
+
+    <!-- Final CTA Section -->
+    <div class="nh-final-wrapper">
+      <section class="nh-final">
+        <canvas ref="finalCanvas" id="final-canvas"></canvas>
+        <div class="nh-final-left">
+          <h2>A company brain you can audit.</h2>
+          <p>Grounded in your code. Workflows, not one-off prompts. On-prem, with traces and audit trails.</p>
+        </div>
+        <div class="nh-final-right">
+          <a href="#demo-booking" class="nh-btn filled">Book a demo &rarr;</a>
+          <a href="#quickwins" class="nh-btn">Get started in 10 minutes &rarr;</a>
+        </div>
+      </section>
+    </div>
+
+    <NewFooter />
   </div>
 </template>
 
 <script setup>
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, ref, onUnmounted, computed } from 'vue'
+import NewNav from '../components/NewNav.vue'
+import NewFooter from '../components/NewFooter.vue'
 
-const menuOpen = ref(false)
-const year = new Date().getFullYear()
-const openHeroChip = ref(0)
-const openAnswerKey = ref(null)
-const activeGroup = ref('All')
-const activeRole = ref('engineering')
+const heroCanvas = ref(null)
+const finalCanvas = ref(null)
+const terminalRef = ref(null)
+
+let heroEngine = null
+let finalAnimation = null
+let observer = null
+let termObserver = null
+
+// Interactive state
+const activeRole = ref('cto')
 const codeCopied = ref(false)
 
+// Chat filter state
+const activeChatFilter = ref(null)
+const marqueeStoppedByTouch = ref(false)
+
+const onMarqueeTouchStart = () => {
+  if (!marqueeStoppedByTouch.value) {
+    marqueeStoppedByTouch.value = true
+  }
+}
+
+const allChatTags = computed(() => {
+  const tags = new Set()
+  const exclude = new Set(['All', 'Anyone'])
+  ;[...chatExamplesRow1, ...chatExamplesRow2].forEach(c => c.tags.forEach(t => { if (!exclude.has(t)) tags.add(t) }))
+  const first = ['Engineering', 'Product', 'QA', 'Platform', 'Automation', 'Business Ops']
+  const rest = [...tags].filter(t => !first.includes(t)).sort()
+  return [...first.filter(t => tags.has(t)), ...rest]
+})
+
+const filteredChatExamples = computed(() => {
+  if (!activeChatFilter.value) return [...chatExamplesRow1, ...chatExamplesRow2]
+  return [...chatExamplesRow1, ...chatExamplesRow2].filter(c => c.tags.includes(activeChatFilter.value))
+})
+
+// Demo booking form
 const demoForm = ref({
   email: '',
   codebaseSize: '',
@@ -363,305 +497,451 @@ const demoForm = ref({
   painPoint: ''
 })
 
-const hero = {
-  prompt: 'Why does the rate limiter return 429 for authenticated users even when they are under quota?',
-  response: 'The token bucket lookup uses the client IP instead of the API key when X-Forwarded-For is present. Authenticated users behind a shared proxy hit the same bucket.',
-  evidence: [
-    {
-      label: 'middleware/rate_limit.go:142',
-      detail: 'bucket key = client IP'
-    },
-    {
-      label: 'Fix',
-      detail: 'bucket key = session key'
-    }
-  ]
-}
-
-const answers = [
-  {
-    group: 'Product',
-    prompt: 'Evaluate ticket PROJ-15792 for completeness.',
-    response: 'Not ready. Blockers include missing acceptance criteria, no error-handling spec, incomplete edge cases, and no performance requirements.',
-    evidence: [
-      { label: 'Jira PROJ-15792', detail: 'Sixteen issues found before implementation should start.' }
-    ]
-  },
-  {
-    group: 'Product',
-    prompt: 'Break this ticket into engineering tasks with story points.',
-    response: 'Fix the cache-control logic in gateway/res_cache.go (1 point). Add regression tests (3 points). Update the API docs (1 point).',
-    evidence: [
-      { label: 'gateway/res_cache.go', detail: 'The code change is a one-line fix. The tests carry the rest of the estimate.' }
-    ]
-  },
-  {
-    group: 'Product',
-    prompt: 'Which customers are interested in JWT authentication?',
-    response: 'Pulled from Zendesk, Jira, and onboarding docs: Acme Corp wants to migrate to JWT, GlobalTech uses Auth0, MegaSoft lists JWT as a candidate, DataFlow’s strategy is JWT with Okta.',
-    evidence: [
-      { label: 'Zendesk', detail: 'Customer notes on JWT migration and current identity providers.' },
-      { label: 'Jira', detail: 'Tickets that name JWT as a requirement or a candidate.' },
-      { label: 'Docs', detail: 'Onboarding documents that record the auth strategy.' }
-    ]
-  },
-  {
-    group: 'Engineering',
-    prompt: 'Upstream cache control is not working as the ticket describes. Is this a bug?',
-    response: 'Yes. The gateway caches when upstream cache-control headers are absent. The code is in gateway/res_cache.go.',
-    evidence: [
-      { label: 'gateway/res_cache.go', detail: 'Set cacheThisRequest to false when upstream cache control is enabled and the required header is missing: cacheThisRequest = res.Header.Get(upstreamCacheHeader) != "".' }
-    ]
-  },
-  {
-    group: 'Engineering',
-    prompt: 'CI tests are failing. Which change broke them, and when was the last green build?',
-    response: 'Failures began on November 5, immediately after pull request #143. That pull request moved the GitHub Actions runner from ubuntu-22.04 to ubuntu-24.04.',
-    evidence: [
-      { label: 'PR #143', detail: 'The runner upgrade is the direct cause of the CI failures.' },
-      { label: 'GitHub Actions', detail: 'The last green build is the run before the November 5 merge.' }
-    ]
-  },
-  {
-    group: 'Engineering',
-    prompt: 'Memory consumption increased between v5.8.2 and v5.8.5. What could cause it?',
-    response: 'Pull requests in that range: #2847 changed buffer handling, #2891 changed connection-pool defaults, and #2903 added eager loading.',
-    evidence: [
-      { label: 'PR #2847', detail: 'Modified buffer handling in the request pipeline.' },
-      { label: 'PR #2891', detail: 'Changed connection pooling defaults.' },
-      { label: 'PR #2903', detail: 'Added eager loading.' }
-    ]
-  },
-  {
-    group: 'QA',
-    prompt: 'Compare the acceptance criteria in PROJ-16554 with pull request #7745.',
-    response: 'Three of seven acceptance criteria are covered. Missing: per-key quota reset, concurrent requests under burst, and the 429 error format. Eighteen test cases follow from the gap.',
-    evidence: [
-      { label: 'Jira PROJ-16554', detail: 'Rate-limit policy per API key.' },
-      { label: 'PR #7745', detail: 'Thirty-eight files changed. The pull request does not cover reset, burst, or the 429 body.' }
-    ]
-  },
-  {
-    group: 'QA',
-    prompt: 'Read PROJ-8410, find the original spec, and write the test cases.',
-    response: 'Traced to PROJ-7201 and RFC-031. Fourteen cases: five positive, four negative, five edge. tests/webhook_test.go covers six of the fourteen.',
-    evidence: [
-      { label: 'PROJ-8410', detail: 'Webhook retry logic. The ticket was updated with the cases.' },
-      { label: 'RFC-031', detail: 'The design doc the original task was built from.' },
-      { label: 'tests/webhook_test.go', detail: 'Covers 6 of 14 cases. Timeout, concurrent retries, and the edge cases are missing.' }
-    ]
-  },
-  {
-    group: 'Platform',
-    prompt: 'Correlate the Datadog p99 spike with recent deploys.',
-    response: 'The spike started at 14:22 UTC. Pull request #892 merged at 13:45 and the deploy finished at 14:10. The new middleware serializes every request body, including uploads.',
-    evidence: [
-      { label: 'Datadog', detail: 'p99 moved from 120ms to 890ms at 14:22 UTC.' },
-      { label: 'PR #892', detail: 'Added request-logging middleware. Skipping serialization for multipart requests restores latency in staging.' }
-    ]
-  },
-  {
-    group: 'Platform',
-    prompt: 'Grafana shows memory climbing until the API pods are OOMKilled. Where is the leak?',
-    response: 'It started five days ago, after pull request #1204. An in-memory response cache has no TTL. The eviction already exists in cache/lru.go and is not wired up. The call site is api/middleware.go:89.',
-    evidence: [
-      { label: 'Grafana / Loki', detail: 'About 200MB after six hours, 1.2GB at the OOMKill, every 18 hours.' },
-      { label: 'PR #1204', detail: 'Added the cache. The key includes query params, so unique calls never expire.' },
-      { label: 'api/middleware.go:89', detail: 'Wire the TTL eviction that already lives in cache/lru.go.' }
-    ]
-  },
-  {
-    group: 'Ops',
-    prompt: 'Answer this security questionnaire from Confluence, docs, and code.',
-    response: 'Forty-three of forty-seven questions compiled with source references. Four flagged for a person to review.',
-    evidence: [
-      { label: 'Confluence', detail: 'Policy pages used as the source for the answered questions.' },
-      { label: 'Docs', detail: 'Published docs checked against the questionnaire.' },
-      { label: 'Code', detail: 'Implementation checked where the docs were not enough. Four questions left for manual review.' }
-    ]
-  },
-  {
-    group: 'Ops',
-    prompt: 'List every GPL and AGPL dependency, and flag anything in production code.',
-    response: 'Across the dependency manifests: 23 GPL dependencies, 12 of them test-only; 4 AGPL packages that need legal review; 2 transitive AGPL dependencies in production code.',
-    evidence: [
-      { label: 'Dependency manifests', detail: 'Lockfiles across the repos. Apache-2.0 dependencies need no action.' }
-    ]
-  }
-]
-
-const groups = ['All', 'Product', 'Engineering', 'QA', 'Platform', 'Ops']
-
-const sources = [
-  { name: 'Code', line: 'Multi-repo trees, including million-line codebases. AST-aware semantic search, with ripgrep and tree-sitter, through Probe.' },
-  { name: 'GitHub', line: 'Pull requests, reviews, and Actions runs.' },
-  { name: 'Jira', line: 'Tickets, epics, cycle time, and the comments on them.' },
-  { name: 'Zendesk', line: 'Support cases, tags, and the customer behind a ticket.' },
-  { name: 'Confluence', line: 'RFCs, design docs, wikis, and policy pages.' },
-  { name: 'Slack', line: 'DMs, channels, threads, and @mentions.' },
-  { name: 'Docs', line: 'Published docs, plus a knowledge base it can save runbooks into.' },
-  { name: 'Datadog', line: 'Metrics such as error rate and p99 latency, tied back to a deploy.' },
-  { name: 'Grafana / Loki', line: 'Charts and container logs, read next to git history.' },
-  { name: 'Terraform', line: 'Modules mapped to the services and repos that use them.' },
-  { name: 'MCP', line: 'The same context, exposed to AI editors through an MCP server.' }
-]
-
-const surfaces = [
-  { name: 'Slack', line: 'DM, channels, and @mention.' },
-  { name: 'GitHub', line: 'A GitHub Action and the GitHub Assistant.' },
-  { name: 'AI editors', line: 'Through the MCP server.' },
-  { name: 'CLI / SDK', line: 'Terminal workflows and programmatic access.' },
-  { name: 'Web', line: 'A web UI for the same questions.' }
-]
-
-const trust = [
-  { name: 'Citations', line: 'An answer names the file and line, the pull request, the ticket, or the thread it used. The evidence chips on this page are that habit.' },
-  { name: 'Visor', line: 'Workflows are versioned YAML, reviewed like code. Tool permissions are explicit per workflow and per step. Retrieval is scoped. Critical steps pass schema validation and policy gates. Retries are deterministic.' },
-  { name: 'OpenTelemetry', line: 'Every run can emit an OpenTelemetry trace and an audit trail: what happened, and with what context.' },
-  { name: 'On-prem', line: 'On-prem by default, any LLM provider, and an open-source core. Code indexing and retrieval run locally or on your own infrastructure. You control what context is sent to the model.' }
-]
-
-const jobs = [
-  { when: 'Daily', line: 'Standup digest for a channel: open pull requests, blockers, tickets in review, and work stale for three or more days.' },
-  { when: 'Daily', line: 'A personal digest: open pull requests, assigned tickets, threads you were mentioned in, and deadlines this week.' },
-  { when: 'Morning', line: 'Datadog health check. Services with error rate above 1% or p99 above 500ms in the last 12 hours, posted to #on-call, with the recent deploy when there is one.' },
-  { when: 'Hourly', line: 'New Jira tickets enriched with related Zendesk cases, a classification, and an early comment.' },
-  { when: 'Monday 9:00', line: 'Zendesk tickets tagged churn-risk, cross-referenced with open Jira bugs for those accounts.' },
-  { when: 'Friday 16:00', line: 'Tickets moved to Ready for QA that week, flagged when acceptance criteria or test cases are missing.' },
-  { when: 'Every 6 hours', line: 'Watch a pull request. Merge it when reviewers have approved and CI is green, then post to the releases channel.' },
-  { when: 'Follow-up', line: 'Return to a thread to check whether a hotfix deployed and whether the Datadog error rate dropped.' }
-]
-
-const roles = [
-  {
-    id: 'engineering',
-    title: 'Engineering',
-    line: 'Trace a change across services, find the commit that introduced a regression, and get a morning digest of your own queue.',
-    workflows: [
-      'Trace a request lifecycle across services: auth, caching, and error handling.',
-      'Find which commit introduced a regression, and what it broke downstream.',
-      'Pinpoint a failing CI run: the change, the last green build, and the step that broke.',
-      'Personal morning digest of open pull requests, assigned tickets, mentions, and deadlines.'
-    ]
-  },
-  {
-    id: 'platform',
-    title: 'Platform',
-    line: 'Builds, deploys, and infra, without being the person everyone DMs when something is red.',
-    workflows: [
-      'Debug intermittent GitHub Actions failures across runs and find the pattern.',
-      'Correlate a Datadog latency spike with the deploy and config change that caused it.',
-      'Trace a memory leak through Grafana, Loki, and git history.',
-      'Map Terraform resources to owning teams and flag orphaned infrastructure.'
-    ]
-  },
-  {
-    id: 'product',
-    title: 'Product & QA',
-    line: 'Specs, estimates, and test cases checked against the code, not against whoever is free in Slack.',
-    workflows: [
-      'Evaluate a ticket for missing acceptance criteria before engineering starts.',
-      'Generate positive, negative, and edge cases from a ticket and the spec it came from.',
-      'Break an epic into tasks with story points based on the code it will touch.',
-      'Weekly QA gate: flag Ready for QA tickets that have no acceptance criteria or tests.'
-    ]
-  },
-  {
-    id: 'leadership',
-    title: 'Leadership',
-    line: 'The same codebase for engineering, product, support, legal, HR, and finance, plus the recurring checks that should not depend on someone remembering.',
-    workflows: [
-      'Release notes from merged pull requests and linked Jira tickets.',
-      'License audits across repos, with production copy flagged.',
-      'RFP security questionnaires answered from Confluence, docs, and code, with sources.',
-      'Recurring compliance checks: license audits, security scans, and R&D effort from Jira.'
-    ]
-  }
-]
-
-const quotes = [
-  {
-    name: 'Andy Ost',
-    role: 'Senior Product Manager at Tyk.io',
-    text: 'As a Product Manager, Probe helps me to understand the true behaviour of the software so that I can go beyond the documentation and validate edge case scenarios and answer \'what if?\' questions as I develop the product roadmap. This saves a lot of time and disruption to the development teams.'
-  },
-  {
-    name: 'Laurentiu Ghiur',
-    role: 'Technical Lead at Tyk.io',
-    text: 'I\'m using Probe Labs tools daily as a technical lead, and they\'ve been adopted across marketing, sales, documentation, product, delivery, and engineering. The YAML-based automation makes it easy to wire in tools like JIRA, Zendesk, and GitHub for agentic flows that actually work from day one.'
-  }
-]
-
-const faqs = [
-  {
-    q: 'What is Oel?',
-    a: 'Oel is an AI teammate that connects to your codebase, tickets, docs, Slack, CI, and observability, then answers questions and takes actions: opening pull requests, updating tickets, posting to Slack, and running scheduled digests. It runs on Probe’s code engine and Visor workflows.'
-  },
-  {
-    q: 'Does my code stay private?',
-    a: 'Yes. Code indexing and retrieval run locally or on your own infrastructure. You control what context is sent to the model. Full on-prem deployment is available, with any LLM provider.'
-  },
-  {
-    q: 'Who is it for?',
-    a: 'Engineers, platform teams, QA, product managers, support, and also legal, HR, and finance. Anyone who needs an answer from the codebase or the tools connected to it.'
-  },
-  {
-    q: 'How is this different from pasting context into a chat?',
-    a: 'A general chat works with what you paste in. Oel connects to the systems themselves — repos, Jira, Zendesk, Confluence, Slack, CI, and observability — and can act: open a pull request, update a ticket, post a summary, or run the same check again as a Visor workflow.'
-  },
-  {
-    q: 'Can I use my own model?',
-    a: 'Yes. Any LLM provider, including a self-hosted model. Switch providers without rewriting the workflow.'
-  },
-  {
-    q: 'How long does setup take?',
-    a: 'The quickstart is a clone, an API key, and a YAML file: most teams are running within 10 minutes. Add it to an AI editor, connect Slack, or deploy the GitHub Action.'
-  }
-]
-
-const assistantCode = `git clone https://github.com/probelabs/visor-quickstart.git
-cd visor-quickstart && cp .env.example .env
-# Set your LLM API key in .env (Anthropic, OpenAI, or Google)
-npx -y @probelabs/visor@latest run assistant.yaml --tui`
-
-const activeHeroEvidence = computed(() => (
-  openHeroChip.value === null ? null : hero.evidence[openHeroChip.value]
-))
-
-const visibleAnswers = computed(() => (
-  activeGroup.value === 'All'
-    ? answers
-    : answers.filter((item) => item.group === activeGroup.value)
-))
-
-const currentRole = computed(() => roles.find((role) => role.id === activeRole.value) || roles[0])
-
-function toggleAnswerChip(prompt, index) {
-  const key = prompt + index
-  openAnswerKey.value = openAnswerKey.value === key ? null : key
-}
-
-function answerDetail(item) {
-  if (!openAnswerKey.value || !openAnswerKey.value.startsWith(item.prompt)) return ''
-  const index = Number(openAnswerKey.value.slice(item.prompt.length))
-  return item.evidence[index]?.detail || ''
-}
-
-function submitDemoForm() {
+const submitDemoForm = () => {
   const params = new URLSearchParams()
-  if (demoForm.value.email) params.set('email', demoForm.value.email)
+  if (demoForm.value.email) params.append('email', demoForm.value.email)
   const notes = [
     demoForm.value.codebaseSize ? `Codebase: ${demoForm.value.codebaseSize}` : '',
     demoForm.value.teamSize ? `Team: ${demoForm.value.teamSize}` : '',
     demoForm.value.painPoint ? `Pain point: ${demoForm.value.painPoint}` : ''
   ].filter(Boolean).join(' | ')
-  if (notes) params.set('notes', notes)
-  window.open(`https://cal.com/leonid-bugaev/30min?${params.toString()}`, '_blank', 'noopener')
+  if (notes) params.append('notes', notes)
+  window.open(`https://cal.com/leonid-bugaev/30min?${params.toString()}`, '_blank')
 }
 
-async function copyCode() {
+// Chat examples data - real use cases from production
+const chatExamplesRow1 = [
+  {
+    tags: ['Product', 'QA'],
+    prompt: '@Oel evaluate ticket PROJ-15792 for completeness',
+    response: 'Status: NOT READY — There are blockers that must be addressed before implementation. Issues Found (16): missing acceptance criteria, no error handling spec, incomplete edge cases, no performance requirements defined...'
+  },
+  {
+    tags: ['Engineering'],
+    prompt: 'Upstream cache control is not working as described in the ticket — is this actually a bug?',
+    response: 'Yes, this is a bug in the response caching logic. The issue lies in how the gateway handles the absence of upstream cache control headers. The problematic code is in gateway/res_cache.go — it incorrectly defaults to caching...'
+  },
+  {
+    tags: ['Engineering', 'QA'],
+    prompt: 'If I adopt your fix, what tests should I write to prove it?',
+    response: '1. Test Case: Cache Control Enabled, Header ABSENT (Verifies the Bug Fix)\n2. Test Case: Header PRESENT (Verifies Correct Behavior)\n3. Test Case: Control Disabled (Verifies No Regression)'
+  },
+  {
+    tags: ['Engineering'],
+    prompt: 'How does the developer portal connect to the admin dashboard, and how are API keys created?',
+    response: '1. Portal-Dashboard Connection: The Portal acts as a client to the Dashboard API via REST. 2. API Key Creation Flow: When a developer requests a key through the portal UI, it sends a request to the Dashboard API, which generates the key object and stores it in Redis...'
+  },
+  {
+    tags: ['Product', 'UX'],
+    prompt: 'Which customers are interested in JWT authentication? Pull from Zendesk, Jira, and onboarding docs.',
+    response: 'Acme Corp: Looking to migrate to JWT long term. GlobalTech: Uses JWT with tokens minted by Auth0. MegaSoft: JWT listed as a potential auth method. DataFlow Inc: Strategy is JWT Auth with Okta and EntralD...'
+  },
+  {
+    tags: ['Engineering'],
+    prompt: 'Memory consumption increased between v5.8.2 and v5.8.5 — what could cause it?',
+    response: 'Based on the code changes between v5.8.2 and v5.8.5, here are PRs that might be related: PR #2847 modified buffer handling in the request pipeline, PR #2891 changed connection pooling defaults, PR #2903 added eager-loading...'
+  },
+  {
+    tags: ['Product'],
+    prompt: 'Break this refined ticket down into small engineering tasks with story point estimates',
+    response: 'Task 1: Fix the cache control logic in gateway/res_cache.go\n• Estimated Effort: 1 Point (one-line code change)\nTask 2: Add regression tests for cache behavior\n• Estimated Effort: 3 Points\nTask 3: Update API docs\n• Estimated Effort: 1 Point'
+  },
+  {
+    tags: ['Technical Writer'],
+    prompt: 'Build release notes for v5.10.1 from the merged PRs and Jira tickets',
+    response: 'Release Notes for v5.10.1\n\nChanged: Upgraded Go version to enhance security.\nFixed: Addressed high-impact CVEs. Fixed critical issue where Hybrid mode would hang. Patched "Zip Slip" vulnerability in bundle decompression...'
+  },
+  {
+    tags: ['Engineering'],
+    prompt: 'Propose a fix for this caching bug — show me the exact code change needed',
+    response: 'The bug can be fixed by ensuring that cacheThisRequest is explicitly set to false when upstream cache control is enabled and the required header is missing. Change the logic in gateway/res_cache.go:\n  cacheThisRequest = res.Header.Get(upstreamCacheHeader) != ""'
+  },
+  {
+    tags: ['Business Ops'],
+    prompt: 'Answer this 47-question RFP security questionnaire — search Confluence, docs, and code for evidence',
+    response: 'Systematically searching Confluence, docs, and codebase. Compiled answers for 43/47 questions with source references. 4 questions flagged for manual review. Estimated 12 hours of work reduced to 20 minutes...'
+  },
+  {
+    tags: ['Engineering', 'QA'],
+    prompt: 'Assess our test coverage for certificate filtering by comparing open bugs to existing tests',
+    response: 'CRITICAL: No acceptance criteria defined for certificate statuses. CRITICAL: Available filter states not documented. ERROR: Non-functional requirements like performance not specified. WARNING: Edge cases for expired certificates not covered...'
+  },
+  {
+    tags: ['UX', 'Engineering'],
+    prompt: 'I\'m designing a real-time collaborative editor for the dashboard — is that technically feasible with our current architecture?',
+    response: 'Short answer: not without significant changes. The dashboard uses REST polling on a 30s interval (dashboard/api/poller.ts). There\'s no WebSocket infrastructure — the backend has no pub/sub layer. Real-time collab would require: 1. Adding a WebSocket gateway (estimate: 3-5 weeks). 2. Conflict resolution (OT or CRDT). 3. Redis pub/sub for state sync. Alternative: you could do near-real-time with optimistic UI + 2s polling, which works within current architecture. That\'s a 1-week effort.'
+  },
+  {
+    tags: ['UX'],
+    prompt: 'Can the settings page support drag-and-drop reordering? The design assumes it but I want to check before we finalize mocks.',
+    response: 'The settings page renders items from a static config object in settings/config.ts — there\'s no sort order field in the database. Drag-and-drop would require: 1. Adding a "position" column to the settings table. 2. A new API endpoint for reorder (PATCH /settings/reorder). 3. Frontend: the current list uses v-for with no key tracking — needs refactoring. Estimated effort: 2-3 days backend, 1-2 days frontend. The simpler option: alphabetical or category-based sorting, which needs zero backend changes.'
+  },
+  {
+    tags: ['Engineering'],
+    prompt: 'CI tests are failing — can you pinpoint which change broke them and when was the last green build?',
+    response: 'The failures began on November 5th, immediately following the merge of pull request #143. This PR updated the GitHub Actions runner from ubuntu-22.04 to ubuntu-24.04. The operating system upgrade is the direct cause of the CI failures...'
+  },
+  {
+    tags: ['Engineering'],
+    prompt: 'Why does the rate limiter return 429 for authenticated users even when they\'re under quota?',
+    response: 'Found the issue in middleware/rate_limit.go:142. The token bucket lookup uses client IP instead of API key when the X-Forwarded-For header is present. Authenticated users behind a shared proxy hit the same bucket. Fix: use the session key as primary identifier...'
+  },
+  {
+    tags: ['QA', 'Engineering'],
+    prompt: 'Read ticket PROJ-8410, then find the original task and spec it was built from. Think like QA — cover positive, negative, and edge cases. Update the ticket with detailed test cases, then check tests/ for gaps in automated coverage.',
+    response: 'Done. Read PROJ-8410 (webhook retry logic). Traced back to PROJ-7201 (original spec) and RFC-031 (design doc). Generated 14 test cases: 5 positive (successful retry, backoff timing, max retries), 4 negative (malformed payload, timeout, auth failure), 5 edge (concurrent retries, partial failure, clock skew). Updated PROJ-8410 with all cases. Gap analysis: tests/webhook_test.go covers 6/14 — missing timeout, concurrent, and all edge cases.'
+  },
+  {
+    tags: ['Engineering'],
+    prompt: 'Nightly CI failed on main — analyze the failure, identify root cause, and post a summary to #engineering with steps to fix',
+    response: 'Build #4721 failed at 03:12 UTC. Root cause: integration test test_api_gateway_timeout depends on external sandbox endpoint that returned 503. Not a code regression — infrastructure issue. Posted to #engineering: "Nightly build failed — external sandbox was down. Tests are green when sandbox is healthy. Recommend: add retry logic to integration suite or mock the external dependency. Created INFRA-892 for the sandbox team."'
+  },
+  {
+    tags: ['QA', 'Engineering'],
+    prompt: '@Oel analyze ticket PROJ-16554 and compare its acceptance criteria with PR #7745. Provide a list of test cases and edge cases.',
+    response: 'Analyzed PROJ-16554 (rate limit policy per API key) and PR #7745 (38 files changed). AC comparison: 3/7 acceptance criteria fully covered by PR. Missing: per-key quota reset behavior, concurrent request handling under burst, and error response format for 429s. Generated 18 test cases: 8 positive (basic rate limiting, quota tracking, key rotation), 6 negative (expired keys, malformed headers, zero-quota edge), 4 edge (burst at quota boundary, clock skew between nodes, race condition on counter increment).'
+  },
+  {
+    tags: ['Product', 'Engineering'],
+    prompt: '@Oel quantify the cost to deliver PROJ-15859 — time in each kanban state, time on PRs and tests in GitHub, number of people involved and for how long',
+    response: 'PROJ-15859 (SSO integration): Total cycle time: 34 days. Breakdown: Backlog → In Dev: 8 days (waited for sprint). In Dev: 14 days across 3 engineers (2 PRs: #6201 primary, #6240 hotfix). PR review time: 6.2 days avg (first review comment after 2.1 days). QA: 4 days (failed first pass, 2 days to fix, 1 day re-test). Done: deployed day 34. GitHub effort: 847 lines added, 312 removed, 23 review comments. People: 3 engineers (1 primary, 2 reviewers), 1 QA, 1 PM. Estimated cost at blended rate: ~$18,400.'
+  },
+  {
+    tags: ['Product'],
+    prompt: '@Oel for PROJ-15859 — focus on refinement. What was missed in the original spec, what was added during dev, what AC would you recommend, and how did this influence coding time?',
+    response: 'Refinement gaps: Original spec had 4 AC — missing: session timeout handling, multi-IdP fallback, SAML vs OIDC toggle behavior, and error states for expired assertions. During dev: 3 unplanned items added (SCIM provisioning hook, group mapping, audit log entries) — these added ~6 days. Recommended AC that would have caught this: 1. Define supported IdP protocols upfront. 2. Specify session lifecycle (creation, refresh, timeout, revocation). 3. Include admin UI states for config errors. 4. Define audit log schema for SSO events. Impact: ~40% of coding time was spent on requirements discovered mid-development.'
+  },
+  {
+    tags: ['Product'],
+    prompt: 'Review the proposed architecture in epic PROJ-220 — give me your honest opinion on feasibility, risks, and what\'s missing from the spec',
+    response: 'Epic PROJ-220 (event-driven notification system): Feasibility: 7/10. The proposed Kafka-based architecture is sound but over-engineered for current throughput (200 events/sec). Risks: 1. No fallback if Kafka goes down. 2. Schema evolution strategy is undefined. 3. Consumer lag monitoring not addressed. Missing: SLA requirements, capacity planning, rollback strategy, data retention policy. Recommendation: start with Redis Streams, migrate to Kafka when you hit 10k events/sec.'
+  },
+  {
+    tags: ['Platform'],
+    prompt: 'Our deploy workflow in GitHub Actions started failing intermittently — find the pattern and root cause across recent runs',
+    response: 'Analyzed last 40 runs of deploy.yml. Failures correlate with runs triggered between 02:00-04:00 UTC — the container registry rate-limits pulls during that window. 12/15 failures show "429 Too Many Requests" in the docker pull step. Fix: add registry mirror as fallback, or switch to pre-cached base images. Created OPS-1847 with details.'
+  },
+  {
+    tags: ['Automation', 'Product'],
+    prompt: '@Oel remind me every Monday 9am: check Zendesk tickets tagged "churn-risk" and cross-reference with open Jira bugs for those accounts',
+    response: 'Scheduled. Every Monday at 9:00 AM I\'ll pull Zendesk tickets tagged "churn-risk," match them to customer accounts in Jira, and DM you a summary: which accounts have open bugs, severity, and how long they\'ve been waiting. First report arrives this Monday.'
+  },
+  {
+    tags: ['Automation', 'Engineering'],
+    prompt: '@Oel follow up on this thread tomorrow — check if the hotfix was deployed and the error rate dropped in Datadog',
+    response: 'Got it. Tomorrow at 10:00 AM I\'ll check: 1. Whether PR #1847 was merged and deployed to production. 2. The error rate for /api/checkout in Datadog over the last 24h. I\'ll reply in this thread with the status. If the error rate is still elevated, I\'ll flag it in #engineering.'
+  },
+  {
+    tags: ['Automation', 'QA'],
+    prompt: '@Oel every Friday 4pm: check all tickets moved to "Ready for QA" this week — flag any missing acceptance criteria or test cases',
+    response: 'Scheduled weekly QA gate check. Every Friday at 4:00 PM I\'ll scan all tickets moved to "Ready for QA" during the week, evaluate each for: acceptance criteria completeness, defined edge cases, and linked test cases. Tickets that fail get flagged with comments and a summary posted to #qa-team. First run this Friday.'
+  },
+  {
+    tags: ['Automation', 'Product'],
+    prompt: '@Oel every hour: check newly created Jira tickets, find related Zendesk cases, classify the issue, and add early analysis as a comment',
+    response: 'Hourly ticket enrichment active. Every hour I\'ll scan Jira for tickets created in the last 60 minutes, search Zendesk for related customer cases by keyword and account, classify each issue (bug, feature request, regression, config error), and post a comment with: related Zendesk tickets, affected customers, preliminary root cause from the codebase, and suggested priority. Already processed 4 new tickets — PROJ-4210 linked to 3 Zendesk cases from the same customer, classified as regression in the billing module.'
+  },
+  {
+    tags: ['Automation'],
+    prompt: '@Oel set up a daily standup digest for #backend-team: open PRs, blocking issues, tickets in review, and anything stale for 3+ days',
+    response: 'Daily standup digest configured for #backend-team at 9:15 AM. Each morning I\'ll post: open PRs with review status, tickets blocked or waiting on external teams, items in code review for 2+ days, and anything in "In Progress" with no activity for 3+ days. Team members can reply to the digest thread with updates.'
+  },
+  {
+    tags: ['Platform', 'Engineering'],
+    prompt: 'Correlate the Datadog spike in p99 latency with recent deployments and config changes — what went out in the last 6 hours?',
+    response: 'Latency spike began at 14:22 UTC. Timeline: 13:45 — PR #892 merged (added request logging middleware). 14:10 — deploy to prod completed. 14:22 — p99 jumped from 120ms to 890ms. The new middleware calls JSON.stringify on every request body including file uploads. Confirmed: disabling the middleware in staging restores normal latency. Recommend: skip serialization for multipart requests.'
+  },
+  {
+    tags: ['Platform'],
+    prompt: 'We have 14 microservices — which ones are missing health checks, structured logging, or graceful shutdown? Audit all repos.',
+    response: 'Scanned all 14 service repos. Missing health checks: payment-service, notification-worker, analytics-ingest (3/14). Missing structured logging: legacy-api, pdf-generator still use fmt.Println (2/14). Missing graceful shutdown: notification-worker, batch-processor, analytics-ingest — all exit immediately on SIGTERM (3/14). Priority: analytics-ingest fails all 3 checks. Created PLAT-320 through PLAT-327 with per-service remediation steps.'
+  }
+]
+
+const chatExamplesRow2 = [
+  {
+    tags: ['Product'],
+    prompt: 'Give me solution design, functional AC, and non-functional AC for this ticket',
+    response: 'Solution Design: Configure the container registry to reject pushes to existing tags and update the CI/CD pipeline to use unique tags per build.\nFunctional: All Docker images tagged with Git commit SHA. Deployment processes updated to use new tags.\nNon-functional: Image publishing must not be significantly slowed...'
+  },
+  {
+    tags: ['QA'],
+    prompt: 'Write unit and integration tests that prove the acceptance criteria for PROJ-4521',
+    response: '9 tests across 3 categories. Unit: verify tag uniqueness validation, test rejection of duplicate tags, validate rollback on failure. Integration: end-to-end pipeline with unique tag generation. Cross-project: dependency resolution with new tagging scheme...'
+  },
+  {
+    tags: ['Engineering'],
+    prompt: 'Are these two bugs related? Jira PROJ-9234 and Zendesk ticket #17962',
+    response: 'Based on analysis, these are NOT related. PROJ-9234 is about the runtime behavior of the gateway process (how it stops). Zendesk #17962 is about data representation in the dashboard UI (how session tokens are displayed). Completely different subsystems and problem areas...'
+  },
+  {
+    tags: ['Product'],
+    prompt: 'Estimate these 5 tasks using Fibonacci points — factor in codebase complexity and cross-service deps',
+    response: 'Based on code analysis and historical PRs of similar scope: Task 1: 1 point (single-file config change). Task 2: 3 points (touches 4 files across 2 services). Task 3: 2 points. Task 4: 5 points (requires migration). Task 5: 3 points. Total: 14 points.'
+  },
+  {
+    tags: ['Engineering'],
+    prompt: 'These 4 tickets look similar — trace the code and tell me if they share a root cause. Can we fix them in one PR?',
+    response: 'After tracing the code paths: 3 of the 4 tickets share the same root cause — a race condition in the session store when Redis connections reset. PROJ-8821 is unrelated (UI rendering issue). The 3 related bugs can be fixed in one effort by adding a mutex in storage/redis.go...'
+  },
+  {
+    tags: ['Engineering'],
+    prompt: 'Show me where API authentication lives in the codebase and walk me through the request lifecycle',
+    response: 'Authentication lives in middleware/auth_check.go. The request lifecycle: 1. Listener accepts connection (server/http.go) 2. Router matches endpoint (mux/router.go) 3. Middleware chain executes: rate-limit → auth → transform → proxy 4. Response flows back through the chain...'
+  },
+  {
+    tags: ['All'],
+    prompt: 'Give me a digest of key technical decisions from last week — pull from Slack, RFCs, and design docs',
+    response: 'Week of Jan 27: 1. Platform team decided to migrate from Redis 6 to Redis 7 (thread in #platform). 2. RFC-042 approved: new circuit breaker pattern for upstream calls. 3. Decision to deprecate v1 REST API by Q3. 4. Security team flagged OpenSSL upgrade as P1...'
+  },
+  {
+    tags: ['UX', 'Engineering'],
+    prompt: 'The new design has inline editing for all table cells. Before I push back on scope — what does the current table component actually support?',
+    response: 'The DataTable component (components/DataTable.vue) supports: read-only rendering, column sorting, pagination, and row selection. No inline editing — cells are plain <span> elements. The component doesn\'t emit cell-level events, only row-level (row-click, row-select). Adding inline editing means: new cell renderer, per-field validation, debounced auto-save, and undo support. Easier path: an "Edit" button per row that opens a side panel — the SidePanel component already exists and handles form state.'
+  },
+  {
+    tags: ['UX', 'Product'],
+    prompt: 'Design wants to show "time since last activity" on user profiles — do we even track that? What data is available?',
+    response: 'Partially. The users table has "last_login_at" (updated on auth) and "updated_at" (updated on profile changes). But there\'s no general activity tracking — no page views, no click events, no session duration. The closest thing: audit_log table records API calls with user_id and timestamp, but it\'s write-heavy actions only (create, update, delete). For the design: you can show "Last login: 3 days ago" today. Showing "Last active" would need a new activity tracking service — that\'s a separate project.'
+  },
+  {
+    tags: ['Engineering'],
+    prompt: 'Run a first-pass security scan — find hardcoded secrets, deprecated crypto, and SQL injection risks',
+    response: 'Found: 3 instances of hardcoded API keys in config files (config/test_fixtures.go). 7 uses of deprecated crypto/md5 for hashing (should use SHA-256). 2 instances of SQL string concatenation in reporting module. 1 use of eval() in template engine...'
+  },
+  {
+    tags: ['Engineering'],
+    prompt: 'List every public function in pkg/api/handler.go that\'s missing from our API reference docs',
+    response: 'Comparing handler.go exports with docs/api-reference/: 4 undocumented endpoints found: HandleBatchRequest(), HandleWebhookCallback(), HandleGraphQLPlayground(), HandleMetricsExport(). All added after v5.8 release — docs were not updated...'
+  },
+  {
+    tags: ['Product'],
+    prompt: 'Diff these two job spec drafts in Confluence — what\'s different, what\'s missing from each?',
+    response: 'Key differences: Spec A requires 5+ years experience, Spec B requires 3+. Spec A includes on-call rotation, Spec B doesn\'t mention it. 4 items in Spec A missing from Spec B: security clearance requirement, travel expectations, budget ownership, team size...'
+  },
+  {
+    tags: ['Business Ops'],
+    prompt: 'List every GPL and AGPL dependency across all repos — flag anything in production code',
+    response: 'Scanning all dependency manifests and lock files across 47 repos. Found: 23 GPL-licensed dependencies (12 are test-only), 4 AGPL packages requiring legal review, 156 Apache-2.0 (no action needed). Flagged: 2 transitive AGPL deps in production code...'
+  },
+  {
+    tags: ['Business Ops'],
+    prompt: 'I need the remote work policy and the process for requesting a new laptop — find both',
+    response: 'Remote work policy: Confluence > People Ops > Remote Work Guidelines (last updated Oct 2024). Equipment requests: submit through ServiceNow portal > IT Hardware > New Equipment Request. Standard approval takes 2-3 business days, expedited available for new hires...'
+  },
+  {
+    tags: ['Business Ops'],
+    prompt: 'Pull engineering effort data from Jira for Project X this quarter — we need it for R&D tax credit filing',
+    response: 'Project X, Q4 2024: 847 tickets completed across 12 engineers. 2,340 story points delivered. Breakdown by category: New feature development (62%), bug fixes (18%), infrastructure (12%), documentation (8%). Qualifying R&D activities: 74% of total effort...'
+  },
+  {
+    tags: ['Business Ops'],
+    prompt: 'User can\'t access staging — check known issues, recent infra changes, and open a ticket if needed',
+    response: 'Checked: 1. No active incidents in #status channel. 2. Found: VPN config was updated yesterday (Jira OPS-2341) — new certificate required. 3. Resolution: User needs to re-download VPN profile from portal. Created ticket OPS-2387 to update the onboarding docs...'
+  },
+  {
+    tags: ['Engineering'],
+    prompt: 'Check tickets assigned to me in this sprint for project TT. Analyze status, comments, and pending PRs — tell me what needs my attention before standup',
+    response: 'Sprint "TT-24.3": You have 6 tickets. 2 need action: PROJ-3341 (In Review) — reviewer left 3 comments yesterday, 1 blocking change requested in auth module. PROJ-3358 (In Progress) — blocked by PROJ-3290 which was merged 2h ago, you can unblock now. PRs: #487 approved and ready to merge. #491 has failing CI — same sandbox issue from last night. Suggestion: merge #487, rebase #491, then address review comments on PROJ-3341.'
+  },
+  {
+    tags: ['Technical Writer', 'Engineering'],
+    prompt: 'Ticket PROJ-6100 changed the webhook retry logic — update the docs, open a PR, and link it back to the Jira ticket',
+    response: 'Done. Read PROJ-6100 and the merged PR #672. Changes: max retries increased from 3 to 5, backoff changed from fixed to exponential, new X-Retry-Count header added. Updated docs/webhooks/retry-policy.md with new behavior table and code examples. Opened PR #701 "Update webhook retry docs for PROJ-6100". Linked PR back to PROJ-6100 in Jira. Also flagged: the API changelog needs an entry — created PROJ-6105 for that.'
+  },
+  {
+    tags: ['Engineering'],
+    prompt: 'I just taught you how our deployment pipeline works. Save this as a runbook so you can help the whole team with deployments going forward.',
+    response: 'Saved to knowledge base as "Deployment Runbook — Production Pipeline". Contents: 1. Pre-deploy checklist (migrations, feature flags, config). 2. Deploy steps (merge to main → CI → staging canary → prod rolling). 3. Rollback procedure (revert commit, re-run pipeline, verify health checks). 4. Common issues and fixes. This is now available to all team members who ask about deployments.'
+  },
+  {
+    tags: ['QA', 'Engineering'],
+    prompt: 'Generate TDD-style test stubs for the acceptance criteria in PROJ-5500 — I want to write tests before I write the implementation',
+    response: 'Generated 11 test stubs from PROJ-5500 acceptance criteria. Organized into 3 files: test_rate_limit_policy.go (4 tests: applies correct limit per tier, rejects over-quota, resets at window boundary, handles concurrent requests), test_rate_limit_api.go (4 tests: CRUD for policies, validation errors, conflict detection), test_rate_limit_integration.go (3 tests: end-to-end with Redis, failover behavior, metrics emission). All stubs have descriptive names and TODO comments mapping back to specific AC items.'
+  },
+  {
+    tags: ['Product', 'QA'],
+    prompt: '@Oel analyze Zendesk tickets updated this week. Summarize by severity, resolution type (product fix vs environment issue vs docs gap). For product issues — suggest test cases. For docs issues — suggest fixes. Delegate each ticket analysis individually.',
+    response: 'Analyzed 47 Zendesk tickets updated this week. Summary: 12 Critical (3 product bugs, 7 environment/config, 2 docs gaps). 19 High (5 product, 9 environment, 5 docs). 16 Medium/Low. Product bugs (8 total): ZD-29841 — race condition in webhook delivery, suggested 3 regression tests. ZD-29903 — pagination broken on filtered results, 2 test cases covering offset+filter combo. ZD-29877 — API returns 500 on empty array body, 1 negative test. Docs gaps (7): ZD-29856 — migration guide missing step for Redis 7 upgrade. ZD-29901 — rate limit headers undocumented. Created 8 Jira tickets for product fixes and 7 docs PRs drafted.'
+  },
+  {
+    tags: ['Engineering', 'Product'],
+    prompt: '@Oel check the In Dev time for PROJ-15859. What were the blockers? When was the first human PR review (ignore bot comments)? How long from In Dev to QA? How long to fix when QA failed? Show me the cycles and reaction times.',
+    response: 'PROJ-15859 flow analysis: In Dev entered: Jan 12. First commit: Jan 12 (same day). PR #6201 opened: Jan 18 (6 days coding). First human review comment: Jan 20 — 2 days wait (3 bot comments before that filtered out). Review cycles: Round 1: 4 comments, 2 blocking — fixed in 1 day. Round 2: approved Jan 22. Moved to QA: Jan 23 (11 days In Dev). QA failed: Jan 24 — edge case in group mapping. Fix PR #6240: opened Jan 25, merged Jan 26. QA re-test passed: Jan 27. Blockers: 2-day wait for first review, 1 day for QA feedback. Reaction times: avg 1 day to respond to review comments, same-day QA fix turnaround. Total QA cycle: 4 days (including 1 failure + retest).'
+  },
+  {
+    tags: ['Platform'],
+    prompt: 'Our GitHub Actions matrix build takes 47 minutes — analyze the workflow, find bottlenecks, and propose how to cut it in half',
+    response: 'Analyzed ci.yml and last 20 runs. Bottlenecks: 1. Docker layer cache miss on every run — no cache-from configured (adds 8min). 2. Integration tests run sequentially across 3 DBs — can parallelize with matrix strategy (saves 12min). 3. Linting runs after build instead of concurrently (wastes 4min). 4. npm ci re-downloads every time — add actions/cache for node_modules (saves 3min). Proposed workflow cuts build from 47min to ~20min. PR draft ready for review.'
+  },
+  {
+    tags: ['Platform', 'Engineering'],
+    prompt: 'Grafana shows memory climbing on the API pods until OOMKill every 18 hours — trace the leak through logs, metrics, and recent code changes',
+    response: 'Cross-referenced Grafana memory charts, Loki container logs, and git history. The leak started 5 days ago after PR #1204 merged — it added an in-memory response cache with no TTL eviction. Cache grows unbounded: 200MB after 6h, 1.2GB at OOMKill. The cache key includes query params, so unique API calls generate unique entries forever. Fix: add TTL-based eviction (already implemented in cache/lru.go but not wired up). One-line fix in api/middleware.go:89.'
+  },
+  {
+    tags: ['Platform'],
+    prompt: 'Map our Terraform infrastructure to the services that depend on it — which resources are used by which teams and repos?',
+    response: 'Scanned 8 Terraform modules and cross-referenced with service configs, Dockerfiles, and env vars across all repos. Mapping: RDS cluster → used by 4 services (user-api, billing, analytics, admin). ElastiCache → 3 services (session-store, rate-limiter, user-api). SQS queues → 5 services across 2 teams. Orphaned resources found: 2 unused S3 buckets (last write 8 months ago), 1 idle NAT gateway costing $32/day. Owner gaps: 3 Lambda functions have no team tag. Created spreadsheet and PLAT-412 for cleanup.'
+  },
+  {
+    tags: ['Automation', 'Product'],
+    prompt: '@Oel every time a Zendesk ticket is tagged "feature-request" — find the related Jira epic, add customer context, and update the epic with the request',
+    response: 'Automation active. When a Zendesk ticket gets tagged "feature-request," I\'ll: 1. Extract the feature area and match it to existing Jira epics. 2. Add the customer name, plan tier, and request details as a comment on the epic. 3. If no matching epic exists, I\'ll create a new one in the Product Backlog and DM you. Already processed 3 tickets from today — linked to EPIC-142 and EPIC-89.'
+  },
+  {
+    tags: ['Automation', 'Engineering'],
+    prompt: '@Oel check this PR every 6 hours — when all reviewers approve and CI is green, merge it and post to #releases',
+    response: 'Watching PR #2104. I\'ll check every 6 hours for: all requested reviewers approved, CI pipeline passing, no merge conflicts. Once all conditions are met, I\'ll merge to main and post a summary to #releases with the changelog. If anything blocks it, I\'ll reply here with what\'s still pending.'
+  },
+  {
+    tags: ['Automation', 'Platform'],
+    prompt: '@Oel every morning: check Datadog for any service with error rate above 1% or p99 above 500ms in the last 12 hours — post findings to #on-call',
+    response: 'Morning health check scheduled for 8:00 AM daily. I\'ll query Datadog for services exceeding thresholds, correlate any anomalies with recent deploys from GitHub, and post a summary to #on-call. If everything is healthy, I\'ll post a green status. If issues are found, I\'ll include: affected service, metric values, likely cause, and link to the relevant deploy or config change.'
+  },
+  {
+    tags: ['Automation'],
+    prompt: '@Oel personal digest every morning: my open PRs, tickets assigned to me, any threads I was mentioned in yesterday, and upcoming deadlines this week',
+    response: 'Personal daily digest configured. Every morning at 8:30 AM I\'ll DM you: 1. Your open PRs — review status and CI results. 2. Assigned tickets — any status changes or new comments overnight. 3. Slack mentions from yesterday you haven\'t responded to. 4. Tickets with due dates this week. Digest arrives as a single message you can scan in 30 seconds.'
+  }
+]
+
+// Role data
+const roles = [
+  {
+    id: 'cto',
+    title: 'Engineering Leadership',
+    subtitle: 'CTOs & VPs',
+    oneLiner: 'Stop being the bottleneck. Give every team self-serve access to engineering context.',
+    youGet: [
+      { title: 'One source of truth for everyone', desc: 'Engineers, PMs, support, legal — all query the same codebase. No more "ask engineering" loops.' },
+      { title: 'Problems get handled when they arise', desc: 'Issues triaged, context gathered, first response drafted — automatically, the moment something breaks. Your response times shrink without adding headcount.' },
+      { title: 'Repeatable processes without the overhead', desc: 'Build workflows once — compliance checks, release gates, onboarding — and they run every time. No chasing people.' }
+    ],
+    replaces: ['Tribal knowledge locked in senior engineers\' heads', '"Can someone from engineering answer this?" in Slack', 'Processes that only work when the right person remembers'],
+    workflows: [
+      'Automate issue triage — categorize, assign, and add context before a human touches it',
+      'Enforce release readiness gates across all teams before every deploy',
+      'Schedule hourly Jira→Zendesk enrichment — new tickets get customer context and classification automatically',
+      'Surface cross-team risks and blockers in a weekly digest from Slack and RFCs',
+      'Onboard new hires faster with self-serve codebase walkthroughs',
+      'Set up recurring compliance checks — license audits, security scans, R&D tracking — that run on schedule'
+    ],
+    solutionLink: '/solutions/engineering-leadership',
+    solutionText: 'Engineering Leadership'
+  },
+  {
+    id: 'platform',
+    title: 'Platform / DevEx',
+    subtitle: 'Infra & CI/CD',
+    oneLiner: 'Stop being the human router. Give every team answers about builds, deploys, and infra without filing a ticket.',
+    youGet: [
+      { title: 'You stop being the bottleneck', desc: 'Teams get answers about failed builds, deploy status, and infra questions themselves. Your Slack DMs go quiet.' },
+      { title: 'Institutional knowledge that doesn\'t quit', desc: 'Every runbook, post-mortem, and tribal fix lives in one place that actually responds when asked. On-call rotations stop being hazing rituals.' },
+      { title: 'Observability you can interrogate', desc: 'Metrics, logs, traces, and git history wired together. Ask "why is latency up" and get the PR, not a dashboard.' }
+    ],
+    replaces: ['Being the human router for every broken build', 'Grep-ing through CI logs at 11pm', '"Hey do you know why staging is down" in your DMs'],
+    workflows: [
+      'Debug intermittent GitHub Actions failures across runs — find the pattern, not just the error',
+      'Correlate a Datadog latency spike to the exact deploy and config change that caused it',
+      'Schedule daily health checks — error rates, p99 latency, OOM events — posted to #on-call every morning',
+      'Map Terraform resources to owning teams and flag orphaned infra',
+      'Trace a memory leak through metrics, logs, and git history without context-switching between tools',
+      'Set up thread follow-ups: "check if the hotfix deployed and error rate dropped by tomorrow"'
+    ],
+    solutionLink: '/solutions/platform-teams',
+    solutionText: 'Platform Teams'
+  },
+  {
+    id: 'engineers',
+    title: 'Engineers',
+    subtitle: 'ICs & Leads',
+    oneLiner: 'Stop reading code you didn\'t write. Start shipping code that works.',
+    youGet: [
+      { title: 'Instant codebase fluency', desc: 'Any repo, any service, any team\'s code — understand it in minutes. No more half-day ramp-ups just to review a PR in an unfamiliar service.' },
+      { title: 'Fewer interruptions, both ways', desc: 'Stop pinging other teams to explain their code. Stop getting pinged to explain yours. Oel answers the "how does this work?" questions for everyone.' },
+      { title: 'Debugging without the archeology', desc: 'Go from symptom to root cause without manually tracing through 15 files across 4 repos. Get the full picture — what broke, when, and why.' }
+    ],
+    replaces: ['Jumping between repos, tabs, and Slack threads trying to connect the dots', '"Does anyone know how this works?" in Slack', 'Context-switching between debugging and actual feature work'],
+    workflows: [
+      'Trace a request lifecycle across services — auth, caching, error handling',
+      'Find which commit introduced a regression and what it broke downstream',
+      'Get up to speed on an unfamiliar service before a PR review',
+      'Pinpoint why a flaky test fails — exact conditions, exact code path',
+      'Get a personal morning digest: open PRs, assigned tickets, Slack mentions, deadlines',
+      'Draft a PR description with full context on what changed and why'
+    ],
+    solutionLink: '/solutions/engineers',
+    solutionText: 'Engineers'
+  },
+  {
+    id: 'qa',
+    title: 'QA & Testing',
+    subtitle: 'Quality Engineers',
+    oneLiner: 'Full codebase context for every test you write. Catch gaps before they become bugs.',
+    youGet: [
+      { title: 'Test with full system understanding', desc: 'Know how the code actually works — data flows, edge cases, failure modes — before writing a single test. No more guessing.' },
+      { title: 'Shift quality left, permanently', desc: 'Catch missing AC, untested paths, and spec gaps before engineering starts. QA stops being the last line of defense.' },
+      { title: 'Coverage confidence at scale', desc: 'See exactly where your test suite has blind spots — mapped to real bugs, recent changes, and risk areas across the whole codebase.' }
+    ],
+    replaces: ['Writing tests blind to how the code actually works', 'Reviewing tickets too late to fix bad specs', 'Tracking coverage in spreadsheets and gut feel'],
+    workflows: [
+      'Generate test cases from a ticket — positive, negative, and edge cases mapped to AC',
+      'Schedule weekly QA gates — auto-flag tickets moved to "Ready for QA" with missing AC or test cases',
+      'Compare open bugs against existing tests to find coverage gaps',
+      'Trace a bug fix through the codebase and suggest targeted regression tests',
+      'Write unit and integration test stubs grounded in actual code paths',
+      'Audit a feature area for untested branches and boundary conditions'
+    ],
+    solutionLink: '/solutions/engineers',
+    solutionText: 'QA & Testing'
+  },
+  {
+    id: 'product',
+    title: 'Product & Support',
+    subtitle: 'PMs, CS & Writers',
+    oneLiner: 'Stop waiting on engineers. Get answers from the source.',
+    youGet: [
+      { title: 'Self-serve technical answers', desc: 'Ask how anything works — edge cases, real behavior, why it was built that way — and get answers validated against code, not tribal knowledge.' },
+      { title: 'Ship decisions faster', desc: 'Scope work, estimate effort, and write specs grounded in what the codebase actually looks like. No more back-and-forth with engineering just to plan.' },
+      { title: 'One query across everything', desc: 'Pull from code, tickets, docs, Slack, and support history in a single question. No more tab-switching and manual synthesis.' }
+    ],
+    replaces: ['Pinging engineers and waiting days for context', 'Writing specs based on outdated docs and assumptions', 'Manually stitching together info from six different tools'],
+    workflows: [
+      'Ask "how does X actually work?" and get a code-backed answer in seconds',
+      'Break epics into engineering tasks with story points based on codebase complexity',
+      'Generate release notes from merged PRs and linked tickets',
+      'Auto-enrich new Jira tickets with related Zendesk cases and customer context',
+      'Draft solution designs with acceptance criteria grounded in existing architecture',
+      'Compare design docs or job specs — surface gaps and contradictions'
+    ],
+    solutionLink: '/solutions/non-technical',
+    solutionText: 'Product & Support'
+  }
+]
+
+const currentRole = computed(() => roles.find(r => r.id === activeRole.value) || roles[0])
+
+// Build Your AI Assistant code block
+const assistantCode = `git clone https://github.com/probelabs/visor-quickstart.git
+cd visor-quickstart && cp .env.example .env
+# Set your LLM API key in .env (Anthropic, OpenAI, or Google)
+npx -y @probelabs/visor@latest run assistant.yaml --tui`
+
+// FAQ data
+const faqItems = [
+  { q: 'What is Oel?', a: 'Oel is an AI teammate — a company brain — that connects to your codebase, tickets, docs, Slack, CI, and observability, then answers questions and takes actions like opening pull requests, updating tickets, posting to Slack, and sending scheduled digests. It runs on Probe\'s code engine and Visor workflows, on-prem, with audit trails.' },
+  { q: 'Does my code stay private?', a: 'Yes. Code indexing and retrieval run locally or on your own infrastructure. You control what context is sent to the LLM. Full on-prem deployment is available — bring any LLM provider, no vendor lock-in.' },
+  { q: 'Who uses Oel?', a: 'Engineers, platform teams, QA, product managers, support, legal, HR, and finance. Anyone who needs answers from your codebase or connected tools. It\'s deployed across entire orgs, not just engineering. Tyk is the reference deployment.' },
+  { q: 'How is this different from ChatGPT or Copilot?', a: 'ChatGPT and Copilot work with what you paste in. Oel connects to your actual systems — code repos, Jira, Zendesk, Confluence, Slack — and reasons across all of them. Answers stay grounded in that evidence. It also takes actions: opens pull requests, updates tickets, posts summaries.' },
+  { q: 'Can I use my own LLM?', a: 'Yes. Oel works with any LLM provider — OpenAI, Anthropic, Google, or your own self-hosted models. Switch providers anytime with no lock-in.' },
+  { q: 'How long does setup take?', a: 'Most teams are running Oel within 10 minutes. Add it to your AI editor, connect a Slack bot, or deploy the GitHub Action. YAML-based workflows mean no custom code required.' }
+]
+
+// Copy code helper
+const copyCode = async (code) => {
   try {
-    await navigator.clipboard.writeText(assistantCode)
+    await navigator.clipboard.writeText(code)
     codeCopied.value = true
     setTimeout(() => { codeCopied.value = false }, 2000)
   } catch (err) {
@@ -669,961 +949,601 @@ async function copyCode() {
   }
 }
 
-let observer
-
-function lockLight() {
-  const root = document.documentElement
-  if (root.classList.contains('dark')) root.classList.remove('dark')
-  if (root.style.colorScheme !== 'light') root.style.colorScheme = 'light'
+// System config helper
+function S(label, sub, a, b, spd, off, tilt) {
+  return { label, sub, a, b, spd, off, tilt, _ia: 0, _ir: 0 }
 }
 
-function onKeydown(event) {
-  if (event.key === 'Escape') menuOpen.value = false
+// Orrery Engine class
+class OrreryEngine {
+  constructor(canvas, opts = {}) {
+    this.canvas = canvas
+    this.ctx = canvas.getContext('2d')
+    this.dark = opts.dark !== false
+    this.systems = opts.systems || []
+    this.probes = []
+    this.dust = []
+    this.comets = []
+    this.shootingStars = []
+    this.stars = []
+    this.nebulae = []
+    this.microDebris = []
+    this.time = 0
+    this.coreRadius = opts.coreRadius || 18
+    this.cyOffset = opts.cyOffset || 0
+    this.cxOffset = opts.cxOffset || 0
+    this.extraWidth = opts.extraWidth || 0
+    this.corePulse = 0
+    this.spawnRate = opts.spawnRate || 0.01
+    this.running = true
+    this._resize()
+    this._boundResize = () => this._resize()
+    window.addEventListener('resize', this._boundResize)
+    this._loop()
+  }
+
+  destroy() {
+    this.running = false
+    window.removeEventListener('resize', this._boundResize)
+  }
+
+  _resize() {
+    const parent = this.canvas.parentElement
+    if (!parent) return
+    const r = parent.getBoundingClientRect()
+    const dpr = Math.min(window.devicePixelRatio || 1, 2)
+    this.w = r.width + this.extraWidth
+    this.h = r.height
+    this.canvas.width = this.w * dpr
+    this.canvas.height = this.h * dpr
+    this.canvas.style.width = this.w + 'px'
+    this.canvas.style.height = this.h + 'px'
+    this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+    this.cx = this.w / 2 + this.cxOffset
+    this.cy = this.h / 2 + this.cyOffset
+
+    const scale = Math.min(this.w, this.h) / 620
+    this.systems.forEach(s => {
+      s._a = s.a * scale
+      s._b = s.b * scale
+    })
+
+    // Stars
+    this.stars = []
+    if (this.dark) {
+      for (let i = 0; i < 250; i++) {
+        this.stars.push({
+          x: Math.random() * this.w,
+          y: Math.random() * this.h,
+          r: Math.random() * 1.2 + 0.15,
+          a: Math.random() * 0.45 + 0.08,
+          p: Math.random() * Math.PI * 2,
+          s: 0.002 + Math.random() * 0.008
+        })
+      }
+    }
+
+    // Cosmic dust
+    this.dust = []
+    const dc = this.dark ? 180 : 90
+    for (let i = 0; i < dc; i++) {
+      const ang = Math.random() * Math.PI * 2
+      const dist = 25 + Math.random() * Math.max(this.w, this.h) * 0.55
+      this.dust.push({
+        ang, dist, rd: dist,
+        r: Math.random() * 0.7 + 0.15,
+        a: Math.random() * 0.25 + 0.04,
+        os: 0.00008 + Math.random() * 0.0005,
+        dr: 0.004 + Math.random() * 0.018
+      })
+    }
+
+    // Micro debris
+    this.microDebris = []
+    const md = this.dark ? 100 : 40
+    for (let i = 0; i < md; i++) {
+      this.microDebris.push({
+        x: Math.random() * this.w,
+        y: Math.random() * this.h,
+        vx: (Math.random() - 0.5) * 0.12,
+        vy: (Math.random() - 0.5) * 0.1,
+        r: Math.random() * 0.4 + 0.1,
+        a: Math.random() * 0.12 + 0.02,
+        p: Math.random() * Math.PI * 2,
+        ps: 0.003 + Math.random() * 0.006
+      })
+    }
+
+    // Nebula haze
+    this.nebulae = []
+    if (this.dark) {
+      for (let i = 0; i < 3; i++) {
+        this.nebulae.push({
+          x: this.w * (0.15 + Math.random() * 0.7),
+          y: this.h * (0.15 + Math.random() * 0.7),
+          r: 70 + Math.random() * 110,
+          a: 0.012 + Math.random() * 0.015,
+          d: Math.random() * Math.PI * 2,
+          ds: 0.0004 + Math.random() * 0.0008
+        })
+      }
+    }
+
+    this.comets = []
+    this.shootingStars = []
+  }
+
+  _epos(sys, t) {
+    const ang = t + sys.off
+    const r = (sys._a * sys._b) / Math.sqrt((sys._b * Math.cos(ang)) ** 2 + (sys._a * Math.sin(ang)) ** 2)
+    const x = r * Math.cos(ang), y = r * Math.sin(ang)
+    const ti = sys.tilt || 0
+    return {
+      x: this.cx + x * Math.cos(ti) - y * Math.sin(ti),
+      y: this.cy + x * Math.sin(ti) + y * Math.cos(ti)
+    }
+  }
+
+  _spawnProbe(sys) {
+    const t = this._epos(sys, this.time * sys.spd)
+    this.probes.push({
+      ph: 'out', pr: 0, sp: 0.003 + Math.random() * 0.0025,
+      sx: this.cx, sy: this.cy, tx: t.x, ty: t.y,
+      sys, x: this.cx, y: this.cy, trail: [], sz: 1.4 + Math.random() * 1.2
+    })
+  }
+
+  _spawnComet() {
+    const e = Math.random()
+    let sx, sy, a
+    if (e < 0.25) { sx = -10; sy = Math.random() * this.h; a = Math.random() * 0.8 - 0.4 }
+    else if (e < 0.5) { sx = this.w + 10; sy = Math.random() * this.h; a = Math.PI + Math.random() * 0.8 - 0.4 }
+    else if (e < 0.75) { sx = Math.random() * this.w; sy = -10; a = Math.PI / 2 + Math.random() * 0.8 - 0.4 }
+    else { sx = Math.random() * this.w; sy = this.h + 10; a = -Math.PI / 2 + Math.random() * 0.8 - 0.4 }
+    this.comets.push({
+      x: sx, y: sy,
+      vx: Math.cos(a) * (1 + Math.random() * 1.5),
+      vy: Math.sin(a) * (1 + Math.random() * 1.5),
+      life: 1, decay: 0.003 + Math.random() * 0.004,
+      trail: [], sz: 0.7 + Math.random() * 0.8
+    })
+  }
+
+  _spawnStar() {
+    const x = Math.random() * this.w, y = Math.random() * this.h * 0.5
+    const a = Math.PI * 0.12 + Math.random() * 0.35, sp = 3 + Math.random() * 3
+    this.shootingStars.push({
+      x, y,
+      vx: Math.cos(a) * sp,
+      vy: Math.sin(a) * sp,
+      trail: [], life: 1, decay: 0.012 + Math.random() * 0.01
+    })
+  }
+
+  _loop() {
+    if (!this.running) return
+    this.time += 0.0025
+    this.corePulse += 0.014
+    const ctx = this.ctx
+    ctx.clearRect(0, 0, this.w, this.h)
+    const col = this.dark ? '255,255,255' : '17,17,17'
+    const cf = `rgba(${col},`
+
+    // Nebula haze
+    for (const n of this.nebulae) {
+      n.d += n.ds
+      const ox = Math.sin(n.d) * 18, oy = Math.cos(n.d * 0.7) * 14
+      const g = ctx.createRadialGradient(n.x + ox, n.y + oy, 0, n.x + ox, n.y + oy, n.r)
+      g.addColorStop(0, `rgba(180,180,210,${n.a})`)
+      g.addColorStop(1, 'transparent')
+      ctx.fillStyle = g
+      ctx.fillRect(0, 0, this.w, this.h)
+    }
+
+    // Stars
+    for (const s of this.stars) {
+      s.p += s.s
+      ctx.beginPath()
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2)
+      ctx.fillStyle = `rgba(255,255,255,${s.a * (0.3 + Math.sin(s.p) * 0.7)})`
+      ctx.fill()
+    }
+
+    // Cosmic dust
+    for (const d of this.dust) {
+      d.ang += d.os
+      d.dist -= d.dr
+      if (d.dist < 18) { d.dist = d.rd; d.a = 0 }
+      if (d.a < 0.2) d.a += 0.0008
+      ctx.beginPath()
+      ctx.arc(this.cx + Math.cos(d.ang) * d.dist, this.cy + Math.sin(d.ang) * d.dist, d.r, 0, Math.PI * 2)
+      ctx.fillStyle = `${cf}${d.a})`
+      ctx.fill()
+    }
+
+    // Micro debris
+    for (const m of this.microDebris) {
+      m.x += m.vx
+      m.y += m.vy
+      m.p += m.ps
+      if (m.x < -5) m.x = this.w + 5
+      if (m.x > this.w + 5) m.x = -5
+      if (m.y < -5) m.y = this.h + 5
+      if (m.y > this.h + 5) m.y = -5
+      ctx.beginPath()
+      ctx.arc(m.x, m.y, m.r, 0, Math.PI * 2)
+      ctx.fillStyle = `${cf}${m.a * (0.4 + Math.sin(m.p) * 0.6)})`
+      ctx.fill()
+    }
+
+    // Shooting stars
+    if (this.dark && Math.random() < 0.0025) this._spawnStar()
+    for (let i = this.shootingStars.length - 1; i >= 0; i--) {
+      const ss = this.shootingStars[i]
+      ss.x += ss.vx
+      ss.y += ss.vy
+      ss.life -= ss.decay
+      ss.trail.push({ x: ss.x, y: ss.y })
+      if (ss.trail.length > 22) ss.trail.shift()
+      for (let j = 0; j < ss.trail.length - 1; j++) {
+        const a = (j / ss.trail.length) * ss.life * 0.35
+        ctx.beginPath()
+        ctx.moveTo(ss.trail[j].x, ss.trail[j].y)
+        ctx.lineTo(ss.trail[j + 1].x, ss.trail[j + 1].y)
+        ctx.strokeStyle = `rgba(255,255,255,${a})`
+        ctx.lineWidth = 1
+        ctx.stroke()
+      }
+      ctx.beginPath()
+      ctx.arc(ss.x, ss.y, 1.3, 0, Math.PI * 2)
+      ctx.fillStyle = `rgba(255,255,255,${ss.life * 0.6})`
+      ctx.fill()
+      if (ss.life <= 0) this.shootingStars.splice(i, 1)
+    }
+
+    // Comets
+    if (Math.random() < 0.004) this._spawnComet()
+    for (let i = this.comets.length - 1; i >= 0; i--) {
+      const c = this.comets[i]
+      c.x += c.vx
+      c.y += c.vy
+      c.life -= c.decay
+      c.trail.push({ x: c.x, y: c.y })
+      if (c.trail.length > 22) c.trail.shift()
+      for (let j = 0; j < c.trail.length - 1; j++) {
+        const a = (j / c.trail.length) * 0.14 * c.life
+        ctx.beginPath()
+        ctx.moveTo(c.trail[j].x, c.trail[j].y)
+        ctx.lineTo(c.trail[j + 1].x, c.trail[j + 1].y)
+        ctx.strokeStyle = `${cf}${a})`
+        ctx.lineWidth = c.sz * (j / c.trail.length)
+        ctx.stroke()
+      }
+      ctx.beginPath()
+      ctx.arc(c.x, c.y, c.sz, 0, Math.PI * 2)
+      ctx.fillStyle = `${cf}${0.45 * c.life})`
+      ctx.fill()
+      if (c.life <= 0) this.comets.splice(i, 1)
+    }
+
+    // Orbit paths
+    this.systems.forEach(sys => {
+      ctx.beginPath()
+      for (let i = 0; i <= 128; i++) {
+        const ang = (i / 128) * Math.PI * 2
+        const r = (sys._a * sys._b) / Math.sqrt((sys._b * Math.cos(ang)) ** 2 + (sys._a * Math.sin(ang)) ** 2)
+        const x = r * Math.cos(ang), y = r * Math.sin(ang)
+        const ti = sys.tilt || 0
+        const px = this.cx + x * Math.cos(ti) - y * Math.sin(ti)
+        const py = this.cy + x * Math.sin(ti) + y * Math.cos(ti)
+        i === 0 ? ctx.moveTo(px, py) : ctx.lineTo(px, py)
+      }
+      ctx.closePath()
+      ctx.setLineDash([4, 7])
+      ctx.strokeStyle = `${cf}${this.dark ? '0.07' : '0.06'})`
+      ctx.lineWidth = 0.7
+      ctx.stroke()
+      ctx.setLineDash([])
+    })
+
+    // Faint center lines
+    this.systems.forEach(sys => {
+      const pos = this._epos(sys, this.time * sys.spd)
+      ctx.beginPath()
+      ctx.moveTo(this.cx, this.cy)
+      ctx.lineTo(pos.x, pos.y)
+      ctx.setLineDash([2, 10])
+      ctx.strokeStyle = `${cf}0.025)`
+      ctx.lineWidth = 0.4
+      ctx.stroke()
+      ctx.setLineDash([])
+    })
+
+    // System bodies
+    this.systems.forEach(sys => {
+      const pos = this._epos(sys, this.time * sys.spd)
+      sys._cx = pos.x
+      sys._cy = pos.y
+
+      ctx.beginPath()
+      ctx.arc(pos.x, pos.y, 3.5, 0, Math.PI * 2)
+      ctx.fillStyle = `${cf}0.4)`
+      ctx.fill()
+
+      ctx.font = '600 11px "Space Mono",monospace'
+      const tw = ctx.measureText(sys.label).width
+      const lx = pos.x + 10, ly = pos.y - 6
+      const lh = sys.sub ? 34 : 18
+      ctx.fillStyle = this.dark ? 'rgba(0,0,0,0.55)' : 'rgba(247,245,240,0.88)'
+      ctx.fillRect(lx - 5, ly - 11, tw + 10, lh)
+      ctx.strokeStyle = `${cf}${this.dark ? '0.1' : '0.07'})`
+      ctx.lineWidth = 0.4
+      ctx.strokeRect(lx - 5, ly - 11, tw + 10, lh)
+      ctx.fillStyle = `${cf}${this.dark ? '0.6' : '0.55'})`
+      ctx.fillText(sys.label, lx, ly + 2)
+      if (sys.sub) {
+        ctx.font = '300 9.5px "IBM Plex Mono",monospace'
+        ctx.fillStyle = `${cf}${this.dark ? '0.25' : '0.25'})`
+        ctx.fillText(sys.sub, lx, ly + 16)
+      }
+
+      if (sys._ia > 0) {
+        ctx.beginPath()
+        ctx.arc(pos.x, pos.y, sys._ir || 8, 0, Math.PI * 2)
+        ctx.strokeStyle = `${cf}${sys._ia})`
+        ctx.lineWidth = 0.7
+        ctx.stroke()
+        sys._ir += 0.5
+        sys._ia -= 0.004
+      }
+    })
+
+    // Spawn probes
+    if (Math.random() < this.spawnRate) {
+      this._spawnProbe(this.systems[Math.floor(Math.random() * this.systems.length)])
+    }
+
+    // Update & draw probes
+    for (let i = this.probes.length - 1; i >= 0; i--) {
+      const p = this.probes[i]
+      p.pr += p.sp
+      if (p.ph === 'out') {
+        const t = this._epos(p.sys, this.time * p.sys.spd)
+        p.tx = t.x
+        p.ty = t.y
+        const e = 1 - Math.pow(1 - p.pr, 2.5) // ease-out
+        p.x = p.sx + (p.tx - p.sx) * e
+        p.y = p.sy + (p.ty - p.sy) * e
+        p.trail.push({ x: p.x, y: p.y })
+        if (p.trail.length > 28) p.trail.shift()
+        if (p.pr >= 1) {
+          p.ph = 'ret'
+          p.pr = 0
+          p.sx = p.tx
+          p.sy = p.ty
+          p.tx = this.cx
+          p.ty = this.cy
+          p.trail = []
+          p.sys._ia = 0.3
+          p.sys._ir = 6
+        }
+      } else {
+        const e = p.pr * p.pr * p.pr // ease-in (accelerate home)
+        p.x = p.sx + (p.tx - p.sx) * e
+        p.y = p.sy + (p.ty - p.sy) * e
+        p.trail.push({ x: p.x, y: p.y })
+        if (p.trail.length > 22) p.trail.shift()
+        if (p.pr >= 1) {
+          this.probes.splice(i, 1)
+          continue
+        }
+      }
+
+      for (let j = 0; j < p.trail.length - 1; j++) {
+        const a = (j / p.trail.length) * (p.ph === 'ret' ? 0.18 : 0.1)
+        ctx.beginPath()
+        ctx.moveTo(p.trail[j].x, p.trail[j].y)
+        ctx.lineTo(p.trail[j + 1].x, p.trail[j + 1].y)
+        ctx.strokeStyle = `${cf}${a})`
+        ctx.lineWidth = 0.7
+        ctx.stroke()
+      }
+      const glow = p.ph === 'ret' ? 0.55 : 0.35
+      ctx.beginPath()
+      ctx.arc(p.x, p.y, p.sz + 3, 0, Math.PI * 2)
+      ctx.fillStyle = `${cf}${glow * 0.12})`
+      ctx.fill()
+      ctx.beginPath()
+      ctx.arc(p.x, p.y, p.sz, 0, Math.PI * 2)
+      ctx.fillStyle = `${cf}${glow})`
+      ctx.fill()
+    }
+
+    // Core
+    const cg = 0.07 + Math.sin(this.corePulse) * 0.035
+    ctx.beginPath()
+    ctx.arc(this.cx, this.cy, this.coreRadius + 15, 0, Math.PI * 2)
+    ctx.fillStyle = `${cf}${cg * 0.5})`
+    ctx.fill()
+    ctx.beginPath()
+    ctx.arc(this.cx, this.cy, this.coreRadius + 5, 0, Math.PI * 2)
+    ctx.strokeStyle = `${cf}${0.05 + Math.sin(this.corePulse) * 0.025})`
+    ctx.lineWidth = 0.7
+    ctx.stroke()
+
+    if (this.dark) {
+      const g = ctx.createRadialGradient(this.cx - 4, this.cy - 4, 2, this.cx, this.cy, this.coreRadius)
+      g.addColorStop(0, 'rgba(255,255,255,0.9)')
+      g.addColorStop(0.25, 'rgba(200,200,200,0.7)')
+      g.addColorStop(0.6, 'rgba(120,120,120,0.5)')
+      g.addColorStop(1, 'rgba(50,50,50,0.3)')
+      ctx.beginPath()
+      ctx.arc(this.cx, this.cy, this.coreRadius, 0, Math.PI * 2)
+      ctx.fillStyle = g
+      ctx.fill()
+    } else {
+      const g = ctx.createRadialGradient(this.cx - 3, this.cy - 3, 2, this.cx, this.cy, this.coreRadius)
+      g.addColorStop(0, '#f7f5f0')
+      g.addColorStop(0.25, '#ccc')
+      g.addColorStop(0.6, '#888')
+      g.addColorStop(1, '#444')
+      ctx.beginPath()
+      ctx.arc(this.cx, this.cy, this.coreRadius, 0, Math.PI * 2)
+      ctx.fillStyle = g
+      ctx.fill()
+      ctx.strokeStyle = 'rgba(17,17,17,0.18)'
+      ctx.lineWidth = 1.5
+      ctx.stroke()
+    }
+
+    ctx.font = '700 10px "Space Mono",monospace'
+    ctx.fillStyle = `${cf}${this.dark ? '0.38' : '0.38'})`
+    ctx.textAlign = 'center'
+    ctx.fillText('PROBE', this.cx, this.cy + this.coreRadius + 20)
+    const n = this.probes.length
+    if (n > 0) {
+      ctx.font = '300 8.5px "IBM Plex Mono",monospace'
+      ctx.fillStyle = `${cf}${this.dark ? '0.18' : '0.15'})`
+      ctx.fillText(`${n} probe${n > 1 ? 's' : ''} active`, this.cx, this.cy + this.coreRadius + 33)
+    }
+    ctx.textAlign = 'start'
+
+    requestAnimationFrame(() => this._loop())
+  }
+}
+
+// Initialize final canvas animation
+function initFinalCanvas(canvas) {
+  if (!canvas) return null
+  const ctx = canvas.getContext('2d')
+  let stars = []
+  let dust = []
+  let running = true
+
+  function resize() {
+    canvas.width = canvas.offsetWidth
+    canvas.height = canvas.offsetHeight
+    stars = []
+    dust = []
+    for (let i = 0; i < 130; i++) {
+      stars.push({
+        x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+        r: Math.random() * 0.9 + 0.2, a: Math.random() * 0.35 + 0.08,
+        p: Math.random() * Math.PI * 2, s: 0.004 + Math.random() * 0.008
+      })
+    }
+    for (let i = 0; i < 70; i++) {
+      dust.push({
+        x: Math.random() * canvas.width, y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.12, vy: (Math.random() - 0.5) * 0.08,
+        r: Math.random() * 0.5 + 0.12, a: Math.random() * 0.12 + 0.02
+      })
+    }
+  }
+
+  function draw() {
+    if (!running) return
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    for (const s of stars) {
+      s.p += s.s
+      ctx.beginPath()
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2)
+      ctx.fillStyle = `rgba(255,255,255,${s.a * (0.3 + Math.sin(s.p) * 0.7)})`
+      ctx.fill()
+    }
+    for (const d of dust) {
+      d.x += d.vx
+      d.y += d.vy
+      if (d.x < 0) d.x = canvas.width
+      if (d.x > canvas.width) d.x = 0
+      if (d.y < 0) d.y = canvas.height
+      if (d.y > canvas.height) d.y = 0
+      ctx.beginPath()
+      ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2)
+      ctx.fillStyle = `rgba(255,255,255,${d.a})`
+      ctx.fill()
+    }
+    requestAnimationFrame(draw)
+  }
+
+  const resizeHandler = () => resize()
+  window.addEventListener('resize', resizeHandler)
+  resize()
+  draw()
+
+  return {
+    destroy() {
+      running = false
+      window.removeEventListener('resize', resizeHandler)
+    }
+  }
 }
 
 onMounted(() => {
-  lockLight()
-  observer = new MutationObserver(lockLight)
-  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
-  window.addEventListener('keydown', onKeydown)
+  // Initialize Hero orrery
+  if (heroCanvas.value) {
+    heroEngine = new OrreryEngine(heroCanvas.value, {
+      dark: true,
+      coreRadius: 24,
+      spawnRate: 0.012,
+      cyOffset: 10,
+      cxOffset: -25,
+      extraWidth: 50,
+      systems: [
+        S('Codebase', '47 repos', 200, 145, 0.44, 0, 0.18),
+        S('Zendesk', '12.8k tickets', 190, 155, 0.31, 1.4, -0.12),
+        S('Jira', '3.2k issues', 210, 135, 0.48, 2.8, 0.22),
+        S('Slack', 'Bot + threads', 195, 150, 0.27, 4.1, -0.08),
+        S('Sentry', 'Error tracking', 215, 138, 0.42, 5.4, 0.14),
+        S('Plane', 'Project tracking', 205, 148, 0.35, 3.5, 0.16),
+        S('Architecture', '', 290, 210, 0.17, 0.6, -0.2),
+        S('Test Suites', '8.4k cases', 310, 225, 0.13, 2.2, 0.1),
+        S('Docs & RFCs', '1.2k pages', 300, 230, 0.21, 3.8, -0.15),
+        S('Notion', 'Wiki pages', 315, 205, 0.10, 5.2, 0.08)
+      ]
+    })
+  }
+
+  // Initialize final canvas
+  if (finalCanvas.value) {
+    finalAnimation = initFinalCanvas(finalCanvas.value)
+  }
+
+  // Scroll reveal observer
+  observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible')
+    })
+  }, { threshold: 0.1 })
+
+  document.querySelectorAll('.nh-reveal').forEach(el => observer.observe(el))
+
+  // Terminal replay observer
+  if (terminalRef.value) {
+    termObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.querySelectorAll('.nh-tl').forEach(l => {
+            l.style.animation = 'none'
+            l.offsetHeight // Force reflow
+            l.style.animation = ''
+          })
+        }
+      })
+    }, { threshold: 0.3 })
+    termObserver.observe(terminalRef.value)
+  }
 })
 
 onUnmounted(() => {
-  observer?.disconnect()
-  window.removeEventListener('keydown', onKeydown)
-  document.documentElement.style.colorScheme = ''
+  if (heroEngine) heroEngine.destroy()
+  if (finalAnimation) finalAnimation.destroy()
+  if (observer) observer.disconnect()
+  if (termObserver) termObserver.disconnect()
 })
 </script>
 
-<style scoped>
-.oel {
-  --bg: #ffffff;
-  --text: #0a0a0a;
-  --muted: #6b6b6b;
-  --line: #e4e4e7;
-  --ink: #141311;
-  --cream: #f6f3ec;
-  --cream-dim: rgba(246, 243, 236, 0.72);
-  --sans: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--sans);
-  font-size: 16px;
-  line-height: 1.5;
-  min-height: 100vh;
-  color-scheme: light;
-  overflow-x: hidden;
-}
-
-.oel * { box-sizing: border-box; }
-
-.oel a { color: inherit; }
-
-.oel h1,
-.oel h2,
-.oel h3,
-.oel p { overflow-wrap: break-word; }
-
-.oel-sr {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
-}
-
-.oel a.oel-skip,
-.oel a.oel-skip:hover,
-.oel a.oel-skip:focus,
-.oel a.oel-skip:visited {
-  position: absolute;
-  left: 16px;
-  top: -40px;
-  background: var(--text);
-  color: #fff;
-  padding: 8px 12px;
-  z-index: 40;
-  text-decoration: none;
-}
-
-.oel a.oel-skip:focus { top: 12px; }
-
-.oel-header {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  background: rgba(255, 255, 255, 0.96);
-  border-bottom: 1px solid transparent;
-}
-
-.oel-header-bar {
-  max-width: 1160px;
-  margin: 0 auto;
-  padding: 0 28px;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  gap: 28px;
-}
-
-.oel-brand {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  margin: 0;
-  min-width: 0;
-}
-
-.oel-home,
-.oel-wordmark {
-  font-weight: 600;
-  letter-spacing: -0.03em;
-  text-decoration: none;
-  color: var(--text);
-}
-
-.oel-home { font-size: 14px; color: var(--muted); font-weight: 500; }
-.oel-home:hover { color: var(--text); }
-.oel-wordmark { font-size: 18px; }
-.oel-slash { color: var(--line); }
-
-.oel-nav {
-  display: flex;
-  align-items: center;
-  gap: 22px;
-  margin-left: auto;
-}
-
-.oel-nav a,
-.oel-menu a:not(.oel-cta) {
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 14px;
-  letter-spacing: -0.01em;
-}
-
-.oel-nav a:hover,
-.oel-menu a:not(.oel-cta):hover { color: var(--text); }
-
-.oel a.oel-cta,
-.oel a.oel-cta:visited {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 34px;
-  padding: 0 12px;
-  border: 1px solid var(--text);
-  border-radius: 2px;
-  background: transparent;
-  color: var(--text);
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 500;
-  white-space: nowrap;
-}
-
-.oel a.oel-cta:hover,
-.oel a.oel-cta:focus,
-.oel a.oel-cta:active,
-.oel a.oel-cta:visited:hover,
-.oel a.oel-cta:visited:focus,
-.oel a.oel-cta:visited:active {
-  background: var(--text);
-  color: #fff;
-}
-
-.oel-menu-btn {
-  display: none;
-  width: 42px;
-  height: 42px;
-  margin-left: auto;
-  border: 0;
-  background: transparent;
-  padding: 10px;
-  cursor: pointer;
-}
-
-.oel-menu-btn span:not(.oel-sr) {
-  display: block;
-  height: 1px;
-  background: var(--text);
-  margin: 6px 0;
-}
-
-.oel-menu { display: none; }
-
-.oel-hero {
-  background: var(--ink);
-  color: var(--cream);
-}
-
-.oel-hero,
-.oel-section,
-.oel-footer {
-  max-width: 1160px;
-  margin: 0 auto;
-  padding-left: 28px;
-  padding-right: 28px;
-}
-
-.oel-hero {
-  max-width: none;
-  display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
-  gap: 48px;
-  align-items: center;
-  padding-top: 72px;
-  padding-bottom: 72px;
-  padding-left: max(28px, calc((100% - 1160px) / 2 + 28px));
-  padding-right: max(28px, calc((100% - 1160px) / 2 + 28px));
-}
-
-.oel-hero-kicker,
-.oel-card-kicker,
-.oel-kicker,
-.oel-answer-group,
-.oel-when,
-.oel-powered,
-.oel-footer h2 {
-  font-family: var(--mono);
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.04em;
-}
-
-.oel-hero-kicker {
-  margin: 0 0 18px;
-  color: var(--cream-dim);
-  text-transform: uppercase;
-}
-
-.oel-hero h1 {
-  margin: 0;
-  font-size: clamp(3.5rem, 8vw, 6.5rem);
-  font-weight: 600;
-  letter-spacing: -0.045em;
-  line-height: 0.9;
-  color: var(--cream);
-}
-
-.oel-hero-lead {
-  margin: 14px 0 0;
-  font-size: clamp(1.35rem, 2vw, 1.75rem);
-  font-weight: 600;
-  letter-spacing: -0.03em;
-  line-height: 1.2;
-  text-wrap: balance;
-  max-width: 18ch;
-  color: var(--cream);
-}
-
-.oel-hero-dek {
-  margin: 18px 0 0;
-  max-width: 38rem;
-  font-size: 16px;
-  line-height: 1.5;
-  color: var(--cream-dim);
-  text-wrap: pretty;
-}
-
-.oel-powered {
-  margin: 18px 0 0;
-  color: var(--cream-dim);
-  text-transform: uppercase;
-}
-
-.oel-powered a {
-  color: var(--cream);
-  text-decoration: none;
-  border-bottom: 1px solid rgba(246, 243, 236, 0.45);
-}
-
-.oel-hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 14px 22px;
-  margin-top: 28px;
-}
-
-.oel a.oel-hero-btn,
-.oel a.oel-hero-btn:visited {
-  display: inline-flex;
-  align-items: center;
-  height: 42px;
-  padding: 0 16px;
-  background: #f4f1ea;
-  color: var(--ink);
-  text-decoration: none;
-  border-radius: 2px;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.oel a.oel-hero-btn:hover,
-.oel a.oel-hero-btn:focus,
-.oel a.oel-hero-btn:active,
-.oel a.oel-hero-btn:visited:hover,
-.oel a.oel-hero-btn:visited:focus,
-.oel a.oel-hero-btn:visited:active {
-  background: #fff;
-  color: var(--ink);
-}
-
-.oel a.oel-hero-text,
-.oel a.oel-hero-text:visited {
-  color: var(--cream);
-  text-decoration: none;
-  font-size: 14px;
-  border-bottom: 1px solid var(--cream);
-  line-height: 1.2;
-  padding-bottom: 1px;
-}
-
-.oel-hero-card {
-  border: 1px solid #2a2926;
-  background: #1c1b19;
-  padding: 22px 22px 20px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
-}
-
-.oel-card-kicker {
-  margin: 0 0 14px;
-  color: var(--cream-dim);
-  text-transform: uppercase;
-}
-
-.oel-card-q {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.35;
-  text-wrap: balance;
-  color: var(--cream);
-}
-
-.oel-card-a {
-  margin: 12px 0 0;
-  color: var(--cream-dim);
-  font-size: 15px;
-  text-wrap: pretty;
-}
-
-.oel-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 16px;
-}
-
-.oel-chip {
-  appearance: none;
-  border: 1px solid var(--line);
-  background: transparent;
-  color: var(--text);
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.01em;
-  line-height: 1.3;
-  padding: 6px 8px;
-  border-radius: 2px;
-  cursor: pointer;
-  text-align: left;
-  max-width: 100%;
-}
-
-.oel-chip.is-on-dark {
-  border-color: rgba(246, 243, 236, 0.28);
-  color: var(--cream);
-}
-
-.oel-chip[aria-expanded="true"] {
-  background: var(--text);
-  border-color: var(--text);
-  color: #fff;
-}
-
-.oel-chip.is-on-dark[aria-expanded="true"] {
-  background: var(--cream);
-  border-color: var(--cream);
-  color: var(--ink);
-}
-
-.oel-evidence {
-  margin: 12px 0 0;
-  padding-top: 12px;
-  border-top: 1px solid rgba(246, 243, 236, 0.16);
-  color: var(--cream);
-  font-family: var(--mono);
-  font-size: 12px;
-  line-height: 1.55;
-}
-
-.oel-evidence.is-light {
-  border-top-color: var(--line);
-  color: var(--text);
-}
-
-.oel-section {
-  padding-top: 88px;
-  padding-bottom: 96px;
-  border-top: 1px solid var(--line);
-  scroll-margin-top: 80px;
-}
-
-.oel-section:first-of-type { border-top: 0; }
-
-.oel-kicker {
-  margin: 0 0 22px;
-  color: var(--muted);
-  text-transform: uppercase;
-}
-
-.oel-section h2,
-.oel-demo h2 {
-  margin: 0;
-  font-size: clamp(2rem, 3.4vw, 3rem);
-  font-weight: 600;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
-  text-wrap: balance;
-  max-width: 26ch;
-}
-
-.oel-dek {
-  margin: 18px 0 0;
-  max-width: 40rem;
-  font-size: 18px;
-  line-height: 1.5;
-  text-wrap: pretty;
-}
-
-.oel-dek a,
-.oel-note a,
-.oel-textlink,
-.oel-footer a {
-  color: inherit;
-}
-
-.oel-quote {
-  margin: 28px 0 0;
-  padding: 0;
-  border: 0;
-  max-width: 36rem;
-}
-
-.oel-quote p {
-  margin: 0;
-  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
-  font-weight: 600;
-  letter-spacing: -0.03em;
-  line-height: 1.25;
-  text-wrap: balance;
-}
-
-.oel-subhead {
-  margin: 36px 0 0;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-.oel-filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 28px;
-}
-
-.oel-filter,
-.oel-role-tab {
-  appearance: none;
-  min-height: 36px;
-  padding: 0 12px;
-  border: 1px solid var(--line);
-  border-radius: 2px;
-  background: transparent;
-  color: var(--muted);
-  font: inherit;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.oel-filter[aria-pressed="true"],
-.oel-role-tab[aria-selected="true"] {
-  background: var(--text);
-  border-color: var(--text);
-  color: #fff;
-}
-
-.oel-answers,
-.oel-rows,
-.oel-schedule,
-.oel-faq {
-  list-style: none;
-  margin: 8px 0 0;
-  padding: 0;
-}
-
-.oel-answers {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0 40px;
-  margin-top: 12px;
-}
-
-.oel-answer,
-.oel-rows li,
-.oel-schedule li,
-.oel-faq div {
-  padding: 22px 0;
-  border-top: 1px solid var(--line);
-}
-
-.oel-answer h3 {
-  margin: 6px 0 0;
-  font-size: 18px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.3;
-  text-wrap: balance;
-}
-
-.oel-answer p,
-.oel-rows p,
-.oel-schedule p,
-.oel-role-panel li,
-.oel-agenda span,
-.oel-faq dd,
-.oel-quick li {
-  margin: 8px 0 0;
-  color: var(--text);
-  font-size: 15px;
-  text-wrap: pretty;
-}
-
-.oel-answer-group,
-.oel-when {
-  margin: 0;
-  color: var(--muted);
-  text-transform: uppercase;
-}
-
-.oel-rows li,
-.oel-schedule li {
-  display: grid;
-  grid-template-columns: minmax(140px, 200px) minmax(0, 1fr);
-  gap: 12px 28px;
-  align-items: baseline;
-}
-
-.oel-rows li:last-child,
-.oel-schedule li:last-child { border-bottom: 1px solid var(--line); }
-
-.oel-row-name,
-.oel-when {
-  margin: 0;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-}
-
-.oel-when {
-  font-family: var(--mono);
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.03em;
-}
-
-.oel-rows p { margin: 0; }
-.oel-schedule p { margin: 0; }
-
-.oel-rows--trust { margin-top: 28px; }
-
-.oel-roles {
-  display: grid;
-  grid-template-columns: 200px minmax(0, 1fr);
-  gap: 28px;
-  margin-top: 36px;
-  padding-top: 28px;
-  border-top: 1px solid var(--line);
-}
-
-.oel-role-tabs {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 8px;
-}
-
-.oel-role-tab { text-align: left; }
-
-.oel-role-panel h3 {
-  margin: 0;
-  font-size: 22px;
-  letter-spacing: -0.03em;
-}
-
-.oel-role-panel ul {
-  margin: 14px 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.oel-role-panel li {
-  margin: 0;
-  padding: 12px 0;
-  border-top: 1px solid var(--line);
-}
-
-.oel-note {
-  margin: 22px 0 0;
-  max-width: 44rem;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.oel-note a,
-.oel-textlink,
-.oel-footer a {
-  text-underline-offset: 3px;
-}
-
-.oel-testimonial {
-  margin: 36px 0 0;
-  padding-top: 28px;
-  border-top: 1px solid var(--line);
-}
-
-.oel-testimonial blockquote {
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-
-.oel-testimonial p {
-  margin: 0;
-  max-width: 46rem;
-  font-size: clamp(1.2rem, 2vw, 1.5rem);
-  font-weight: 600;
-  letter-spacing: -0.03em;
-  line-height: 1.35;
-  text-wrap: pretty;
-}
-
-.oel-testimonial figcaption {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 14px;
-  margin-top: 16px;
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--muted);
-}
-
-.oel-testimonial strong {
-  color: var(--text);
-  font-weight: 500;
-}
-
-.oel-demo {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr);
-  gap: 48px;
-  align-items: start;
-}
-
-.oel-agenda {
-  margin: 28px 0 0;
-  padding: 0;
-  list-style: none;
-  counter-reset: agenda;
-}
-
-.oel-agenda li {
-  counter-increment: agenda;
-  padding: 16px 0;
-  border-top: 1px solid var(--line);
-}
-
-.oel-agenda strong {
-  display: block;
-  font-size: 16px;
-  letter-spacing: -0.02em;
-}
-
-.oel-agenda strong::before {
-  content: counter(agenda, decimal-leading-zero);
-  display: inline-block;
-  margin-right: 10px;
-  font-family: var(--mono);
-  font-size: 12px;
-  font-weight: 400;
-  color: var(--muted);
-}
-
-.oel-agenda span { display: block; color: var(--muted); }
-
-.oel-form {
-  border: 1px solid var(--line);
-  padding: 22px;
-}
-
-.oel-form h3,
-.oel-quick h3 {
-  margin: 0;
-  font-size: 18px;
-  letter-spacing: -0.02em;
-}
-
-.oel-field { margin-top: 14px; }
-
-.oel-field label {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 13px;
-  color: var(--muted);
-}
-
-.oel-field input,
-.oel-field select,
-.oel-field textarea {
-  width: 100%;
-  border: 1px solid var(--line);
-  border-radius: 2px;
-  background: #fff;
-  color: var(--text);
-  font: inherit;
-  font-size: 15px;
-  padding: 10px 12px;
-  min-height: 44px;
-}
-
-.oel-field textarea { min-height: 96px; resize: vertical; }
-
-.oel-submit,
-.oel-copy {
-  appearance: none;
-  border: 0;
-  border-radius: 2px;
-  cursor: pointer;
-  font: inherit;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.oel-submit {
-  margin-top: 16px;
-  height: 44px;
-  padding: 0 16px;
-  background: var(--text);
-  color: #fff;
-}
-
-.oel-submit:hover,
-.oel-submit:focus { background: #242424; }
-
-.oel-quick {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  gap: 28px;
-  margin-top: 48px;
-  padding: 22px;
-  background: var(--ink);
-  color: var(--cream);
-}
-
-.oel-quick p,
-.oel-quick li { color: var(--cream-dim); font-size: 15px; }
-
-.oel-quick ul {
-  margin: 12px 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.oel-quick li {
-  margin: 0;
-  padding: 8px 0;
-  border-top: 1px solid rgba(246, 243, 236, 0.14);
-}
-
-.oel a.oel-textlink,
-.oel a.oel-textlink:visited {
-  display: inline-block;
-  margin-top: 16px;
-  color: var(--cream);
-  text-decoration: none;
-  border-bottom: 1px solid var(--cream);
-  font-size: 14px;
-}
-
-.oel-code { position: relative; min-width: 0; }
-
-.oel-code pre {
-  margin: 12px 0 0;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-  font-family: var(--mono);
-  font-size: 12px;
-  line-height: 1.6;
-  color: var(--cream);
-}
-
-.oel-copy {
-  margin-top: 12px;
-  height: 32px;
-  padding: 0 10px;
-  background: transparent;
-  color: var(--cream);
-  border: 1px solid rgba(246, 243, 236, 0.4);
-}
-
-.oel-faq { margin-top: 8px; }
-
-.oel-faq dt {
-  font-weight: 600;
-  letter-spacing: -0.02em;
-}
-
-.oel-faq dd { margin: 8px 0 0; color: var(--muted); }
-
-.oel-footer {
-  display: grid;
-  grid-template-columns: 1.3fr repeat(3, 1fr);
-  gap: 28px 24px;
-  padding-top: 64px;
-  padding-bottom: 28px;
-  border-top: 1px solid var(--line);
-}
-
-.oel-footer-line {
-  margin: 8px 0 0;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.oel-footer h2 {
-  margin: 0 0 12px;
-  color: var(--muted);
-  font-weight: 500;
-  text-transform: uppercase;
-}
-
-.oel-footer ul { list-style: none; margin: 0; padding: 0; }
-.oel-footer li { margin: 0 0 8px; }
-
-.oel-footer a {
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 14px;
-}
-
-.oel-footer a:hover { color: var(--text); }
-
-.oel-copy {
-  grid-column: 1 / -1;
-  margin: 12px 0 0;
-  padding-top: 18px;
-  border-top: 1px solid var(--line);
-  color: var(--muted);
-  font-family: var(--mono);
-  font-size: 12px;
-}
-
-.oel a:focus-visible,
-.oel button:focus-visible,
-.oel input:focus-visible,
-.oel select:focus-visible,
-.oel textarea:focus-visible {
-  outline: 2px solid var(--text);
-  outline-offset: 3px;
-}
-
-.oel-hero a:focus-visible,
-.oel-hero button:focus-visible,
-.oel-quick a:focus-visible,
-.oel-quick button:focus-visible {
-  outline-color: #f4f1ea;
-}
-
-@media (max-width: 980px) {
-  .oel-nav,
-  .oel-header-bar > .oel-cta { display: none; }
-  .oel-menu-btn { display: block; }
-
-  .oel-header.is-open .oel-menu {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    padding: 4px 20px 20px;
-    border-bottom: 1px solid var(--line);
-    background: #fff;
-  }
-
-  .oel-menu a:not(.oel-cta) {
-    display: flex;
-    align-items: center;
-    min-height: 44px;
-    font-size: 16px;
-    color: var(--text);
-  }
-
-  .oel-menu a.oel-cta,
-  .oel-menu a.oel-cta:visited {
-    margin-top: 8px;
-    height: 44px;
-    color: var(--text);
-    background: transparent;
-  }
-
-  .oel-hero,
-  .oel-answers,
-  .oel-demo,
-  .oel-quick,
-  .oel-roles,
-  .oel-footer {
-    grid-template-columns: 1fr;
-  }
-
-  .oel-hero { gap: 32px; padding-top: 48px; padding-bottom: 48px; }
-  .oel-rows li,
-  .oel-schedule li { grid-template-columns: 1fr; gap: 6px; }
-}
-
-@media (max-width: 560px) {
-  .oel-header-bar,
-  .oel-section,
-  .oel-footer {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  .oel-hero {
-    padding-left: 20px;
-    padding-right: 20px;
-    padding-top: 36px;
-    padding-bottom: 36px;
-  }
-
-  .oel-section { padding-top: 56px; padding-bottom: 64px; }
-  .oel-dek { font-size: 16px; }
-  .oel-hero h1 { font-size: 4.25rem; }
-  .oel-filter,
-  .oel-role-tab,
-  .oel-chip { min-height: 44px; }
-  .oel-form,
-  .oel-quick { padding: 16px; }
-  .oel-footer { grid-template-columns: 1fr; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .oel a,
-  .oel button { transition: none; }
-}
+<style>
+/* Import the CSS file */
+@import '../new-homepage.css';
 </style>

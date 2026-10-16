@@ -1,6 +1,6 @@
 <template>
   <div class="new-homepage new-homepage-pricing">
-    <NewNav activeNav="pricing" />
+    <NewNav activeNav="pricing" brandName="Oel" />
 
     <!-- Hero -->
     <section class="nhp-hero">
@@ -80,7 +80,7 @@
                 <span class="nhp-price-period">/ seat / month</span>
                 <span class="nhp-seat-info" tabindex="0">
                   <svg class="nhp-info-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M8 7v4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="4.5" r="0.75" fill="currentColor"/></svg>
-                  <span class="nhp-seat-tooltip">A seat is an active user of Probe in the last 30 days.</span>
+                  <span class="nhp-seat-tooltip">A seat is an active user of Oel in the last 30 days.</span>
                 </span>
               </div>
               <p class="nhp-best" v-if="isAnnual">Billed annually. HA deployment, hands-on support. Most teams live within a day.</p>
@@ -178,7 +178,7 @@
         <div class="nhp-faq-grid">
           <div class="nhp-faq-item">
             <h3>How are seats counted?</h3>
-            <p>A seat is any user who actively uses Probe in the last 30 days. Inactive users don't count toward your bill. If your team size fluctuates, you only pay for who's actually using it.</p>
+            <p>A seat is any user who actively uses Oel in the last 30 days. Inactive users don't count toward your bill. If your team size fluctuates, you only pay for who's actually using it.</p>
           </div>
           <div class="nhp-faq-item">
             <h3>Is there a trial?</h3>
@@ -194,7 +194,7 @@
           </div>
           <div class="nhp-faq-item">
             <h3>How is this different from ChatGPT or Copilot?</h3>
-            <p>They work with what you paste in. Probe has a purpose-built context retrieval engine designed for enterprise-scale, multi-repo codebases. It connects to your real systems — code repos, Jira, Zendesk, Confluence, Slack — reasons across all of them, and takes actions: opens PRs, updates tickets, posts summaries.</p>
+            <p>They work with what you paste in. Oel has a purpose-built context retrieval engine designed for enterprise-scale, multi-repo codebases. It connects to your real systems — code repos, Jira, Zendesk, Confluence, Slack — reasons across all of them, and takes actions: opens PRs, updates tickets, posts summaries.</p>
           </div>
           <div class="nhp-faq-item">
             <h3>What's included in support?</h3>
