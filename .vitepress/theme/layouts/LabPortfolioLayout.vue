@@ -6,10 +6,9 @@
       <div class="lab-header-bar">
         <a class="lab-wordmark" href="/">ProbeLabs</a>
         <nav class="lab-nav" aria-label="Primary">
-          <a href="#proof">Proof</a>
+          <a href="#products">Products</a>
           <a href="#stack">Core stack</a>
-          <a href="#projects">Projects &amp; experiments</a>
-          <a href="#instruments">Instruments</a>
+          <a href="#projects">Projects</a>
           <a href="/company/about">About</a>
         </nav>
         <a class="lab-cta" href="https://reqproof.com/demo">Request demo</a>
@@ -25,10 +24,9 @@
         </button>
       </div>
       <div id="lab-menu" class="lab-menu">
-        <a href="#proof" @click="menuOpen = false">Proof</a>
+        <a href="#products" @click="menuOpen = false">Products</a>
         <a href="#stack" @click="menuOpen = false">Core stack</a>
-        <a href="#projects" @click="menuOpen = false">Projects &amp; experiments</a>
-        <a href="#instruments" @click="menuOpen = false">Instruments</a>
+        <a href="#projects" @click="menuOpen = false">Projects</a>
         <a href="/company/about" @click="menuOpen = false">About</a>
         <a class="lab-cta" href="https://reqproof.com/demo">Request demo</a>
       </div>
@@ -44,8 +42,8 @@
           </p>
           <div class="lab-tools">
             <a class="lab-tool is-primary" href="https://reqproof.com">Proof</a>
-            <a class="lab-tool" href="/probe">Probe</a>
-            <a class="lab-tool" href="/visor">Visor</a>
+            <a class="lab-tool" href="/oel">Oel</a>
+            <a class="lab-tool" href="https://spiritroom.app/">Spirit Room</a>
           </div>
         </div>
         <div class="lab-hero-visual">
@@ -53,34 +51,83 @@
         </div>
       </section>
 
-      <section class="lab-section" id="proof">
-        <p class="lab-kicker">01 / Flagship</p>
-        <div class="lab-section-head">
-          <h2>Proof</h2>
-          <div class="lab-prose">
-            <p>
-              Proof is AI-native software assurance for changes made by humans and by coding agents. It reduces the work between a software change and the evidence required to trust it.
-            </p>
-            <p>
-              The Software Intent Graph connects approved requirements, code, dependencies, risks, and checks, so reviewers look at evidence instead of reconstructing it.
-            </p>
+      <div class="lab-band">
+        <section class="lab-section lab-products" id="products">
+          <div class="lab-tier">
+            <h2 class="lab-kicker">01 / Products</h2>
+            <span class="lab-chip is-commercial">Commercial</span>
           </div>
-        </div>
-        <figure class="lab-frame">
-          <img
-            src="/images/portfolio/proof.png"
-            width="1440"
-            height="900"
-            alt="Proof homepage: From prompt to production, with Start with a change and See the evidence."
-          >
-        </figure>
-        <div class="lab-linkrow">
-          <a class="lab-btn" href="https://reqproof.com">Proof website</a>
-          <a href="https://reqproof.com/method">Method</a>
-          <a href="https://reqproof.com/product">Product</a>
-          <a href="https://reqproof.com/about">Public register</a>
-        </div>
-      </section>
+          <p class="lab-dek lab-products-intro">The products you can book. Open instruments and research follow.</p>
+
+          <article class="lab-flagship" id="proof">
+            <div class="lab-section-head">
+              <h3>Proof</h3>
+              <div class="lab-prose">
+                <p>
+                  Proof is AI-native software assurance for changes made by humans and by coding agents. It reduces the work between a software change and the evidence required to trust it.
+                </p>
+                <p>
+                  The Software Intent Graph connects approved requirements, code, dependencies, risks, and checks, so reviewers look at evidence instead of reconstructing it.
+                </p>
+              </div>
+            </div>
+            <figure class="lab-frame">
+              <img
+                src="/images/portfolio/proof.png"
+                width="1440"
+                height="900"
+                alt="Proof homepage: From prompt to production, with Start with a change and See the evidence."
+              >
+            </figure>
+            <div class="lab-linkrow">
+              <a class="lab-btn" href="https://reqproof.com">Proof website</a>
+              <a href="https://reqproof.com/demo">Request demo</a>
+              <a href="https://reqproof.com/method">Method</a>
+              <a href="https://reqproof.com/product">Product</a>
+              <a href="https://reqproof.com/about">Public register</a>
+            </div>
+          </article>
+
+          <div class="lab-product-pair">
+            <article class="lab-product-card">
+              <a class="lab-frame" href="/oel">
+                <img
+                  src="/images/portfolio/oel.png"
+                  width="1440"
+                  height="900"
+                  alt="Oel page: The code-grounded company brain, with Book a demo and an answer that cites middleware/rate_limit.go."
+                >
+              </a>
+              <div class="lab-piece-text">
+                <h3><a href="/oel">Oel</a></h3>
+                <p class="lab-pitch">The code-grounded company brain.</p>
+                <p>Ask across code, Jira, Zendesk, Confluence, Slack, docs, CI, and observability. Every answer shows its evidence. Every action runs as a governed workflow on your infrastructure.</p>
+                <div class="lab-product-cta">
+                  <a class="lab-btn" href="/oel#demo">Book a demo</a>
+                </div>
+              </div>
+            </article>
+            <article class="lab-product-card">
+              <a class="lab-frame" href="https://spiritroom.app/">
+                <img
+                  src="/images/portfolio/spirit-room.png"
+                  width="1440"
+                  height="900"
+                  alt="Spirit Room homepage: Optimise your MCP, CLI or API for AI agents, with Book a pilot and Get updates."
+                >
+              </a>
+              <div class="lab-piece-text">
+                <h3><a href="https://spiritroom.app/">Spirit Room</a></h3>
+                <p class="lab-pitch">Optimise your MCP, CLI or API for AI agents.</p>
+                <p>You give us the jobs agents need to get right. We run every major agent through hundreds of simulations, trying new tool descriptions, help text, errors and combined tools. The result: agents finish your jobs in fewer steps, with fewer mistakes, even on cheaper models.</p>
+                <div class="lab-product-cta">
+                  <a class="lab-btn" href="https://spiritroom.app/#contact">Book a pilot</a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+      </div>
 
       <section class="lab-section" id="stack">
         <p class="lab-kicker">02 / Core stack</p>
@@ -188,20 +235,21 @@
         <a class="lab-mono" href="https://github.com/probelabs">github.com/probelabs</a>
       </div>
       <div class="lab-footer-col">
-        <h2>Proof</h2>
+        <h2>Products</h2>
         <ul>
-          <li><a href="https://reqproof.com">Website</a></li>
+          <li><a href="https://reqproof.com">Proof</a></li>
           <li><a href="https://reqproof.com/method">Method</a></li>
           <li><a href="https://reqproof.com/product">Product</a></li>
           <li><a href="https://reqproof.com/about">About / register</a></li>
           <li><a href="https://reqproof.com/demo">Request demo</a></li>
+          <li><a href="/oel">Oel</a></li>
+          <li><a href="https://spiritroom.app/">Spirit Room</a></li>
         </ul>
       </div>
       <div class="lab-footer-col">
         <h2>Instruments</h2>
         <ul>
           <li><a href="/probe">Probe</a></li>
-          <li><a href="/oel">Oel</a></li>
           <li><a href="/visor">Visor</a></li>
           <li><a href="https://goreplay.org">GoReplay</a></li>
           <li><a href="https://github.com/probelabs/json-fuzz">json-fuzz</a></li>
@@ -836,13 +884,40 @@ onUnmounted(() => {
   scroll-margin-top: 80px;
 }
 
+.lab-band {
+  background: #f4f4f5;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.lab-products { border-top: 0; }
+
+.lab-band + .lab-section { border-top: 0; }
+
+.lab-tier {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 12px;
+}
+
+.lab-tier .lab-kicker { margin: 0; }
+
+.lab-products-intro {
+  margin-top: 16px;
+  max-width: 34rem;
+}
+
+.lab-flagship { margin-top: 40px; }
+
 .lab-kicker {
   margin: 0 0 22px;
   text-transform: uppercase;
   scroll-margin-top: 80px;
 }
 
-.lab-section-head h2 {
+.lab-section-head h2,
+.lab-flagship h3 {
   margin: 0;
   font-size: clamp(2rem, 3.4vw, 3rem);
   font-weight: 600;
@@ -899,7 +974,49 @@ onUnmounted(() => {
   color: inherit;
 }
 
-.lab-stack .lab-frame { margin: 0; }
+.lab-stack .lab-frame,
+.lab-product-card .lab-frame { margin: 0; }
+
+.lab-product-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px 32px;
+  margin-top: 72px;
+}
+
+.lab-product-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.lab-product-card .lab-piece-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.lab-product-card h3 {
+  margin: 0 0 8px;
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.lab-piece-text > p.lab-pitch {
+  margin: 0 0 8px;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.35;
+  text-wrap: balance;
+}
+
+.lab-product-cta {
+  margin-top: auto;
+  padding-top: 18px;
+}
 
 .lab-stack {
   display: grid;
@@ -952,7 +1069,8 @@ onUnmounted(() => {
 
 .lab-row-name a,
 .lab-register-name,
-.lab-piece h3 a {
+.lab-piece h3 a,
+.lab-product-card h3 a {
   color: var(--text);
   text-decoration: none;
   font-weight: 600;
@@ -961,7 +1079,8 @@ onUnmounted(() => {
 
 .lab-row-name a:hover,
 .lab-register-name:hover,
-.lab-piece h3 a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.lab-piece h3 a:hover,
+.lab-product-card h3 a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 .lab-rows p,
 .lab-register p,
@@ -1042,6 +1161,12 @@ onUnmounted(() => {
   color: var(--status);
   border-color: var(--status-line);
   background: transparent;
+}
+
+.lab-chip.is-commercial {
+  color: #fff;
+  background: var(--text);
+  border-color: var(--text);
 }
 
 .lab-register li {
@@ -1178,7 +1303,10 @@ onUnmounted(() => {
   }
 
   .lab-stack,
-  .lab-grid { grid-template-columns: 1fr; gap: 40px; }
+  .lab-grid,
+  .lab-product-pair { grid-template-columns: 1fr; gap: 40px; }
+
+  .lab-product-pair { margin-top: 56px; }
 
   .lab-rows li,
   .lab-register li {
