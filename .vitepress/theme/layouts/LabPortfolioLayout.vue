@@ -32,20 +32,22 @@
 
     <main id="content">
       <section class="lab-hero">
-        <div class="lab-hero-copy">
-          <p class="lab-wordmark lab-hero-mark">ProbeLabs</p>
-          <h1>Making agents trustworthy on real software.</h1>
-          <p class="lab-dek">
-            ProbeLabs is a research lab for engineering craft in the agentic era. We build the instruments that turn agent work into recoverable intent and rerunnable evidence.
-          </p>
-          <div class="lab-tools">
-            <a class="lab-tool is-primary" href="https://reqproof.com">Proof</a>
-            <a class="lab-tool" href="/oel">Oel</a>
-            <a class="lab-tool" href="https://spiritroom.app/">Spirit Room</a>
+        <div class="lab-hero-inner">
+          <div class="lab-hero-copy">
+            <p class="lab-wordmark lab-hero-mark">ProbeLabs</p>
+            <h1>Making agents trustworthy on real software.</h1>
+            <p class="lab-dek">
+              ProbeLabs is a research lab for engineering craft in the agentic era. We build the instruments that turn agent work into recoverable intent and rerunnable evidence.
+            </p>
+            <div class="lab-tools">
+              <a class="lab-tool is-primary" href="https://reqproof.com">Proof</a>
+              <a class="lab-tool" href="/oel">Oel</a>
+              <a class="lab-tool" href="https://spiritroom.app/">Spirit Room</a>
+            </div>
           </div>
-        </div>
-        <div class="lab-hero-visual">
-          <canvas ref="heroCanvas" aria-hidden="true"></canvas>
+          <div class="lab-hero-visual">
+            <canvas ref="heroCanvas" aria-hidden="true"></canvas>
+          </div>
         </div>
       </section>
 
@@ -781,11 +783,7 @@ onUnmounted(() => {
 }
 
 .lab-hero {
-  position: relative;
   width: 100%;
-  max-width: none;
-  height: 72vh;
-  max-height: 75vh;
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -793,31 +791,41 @@ onUnmounted(() => {
   color: #f6f3ec;
 }
 
+.lab-hero-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 32px 28px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(32px, 4vw, 72px);
+}
+
 .lab-hero-visual {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
+  position: relative;
+  flex: 0 0 auto;
+  width: min(440px, 42%);
+  aspect-ratio: 1 / 1;
   background: #141311;
 }
 
 .lab-hero-visual canvas {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100%;
   height: 100%;
+  background: #141311;
 }
 
 .lab-hero-copy {
   position: relative;
-  z-index: 1;
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 34rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  box-sizing: border-box;
-  width: min(520px, 46%);
-  min-height: 100%;
-  margin-left: max(28px, calc((100% - 1160px) / 2 + 28px));
-  padding: 28px 56px 28px 0;
-  background: linear-gradient(90deg, rgba(20, 19, 17, 0.9) 0%, rgba(20, 19, 17, 0.62) 58%, rgba(20, 19, 17, 0) 100%);
 }
 
 .lab-hero-mark {
@@ -1432,18 +1440,20 @@ onUnmounted(() => {
     color: #fff;
   }
 
-  .lab-hero {
-    height: 75vh;
-    max-height: 75vh;
+  .lab-hero-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 28px 20px 32px;
   }
 
-  .lab-hero-copy {
-    width: auto;
-    min-height: 0;
-    margin-left: 0;
-    padding: 28px 20px 72px;
-    justify-content: flex-start;
-    background: linear-gradient(180deg, rgba(20, 19, 17, 0.92) 0%, rgba(20, 19, 17, 0.78) 62%, rgba(20, 19, 17, 0) 100%);
+  .lab-hero-copy { max-width: 40rem; }
+
+  .lab-hero-visual {
+    width: min(100%, 380px);
+    aspect-ratio: 4 / 3;
+    align-self: center;
+    margin-top: 12px;
   }
 
   .lab-stack,
@@ -1469,6 +1479,7 @@ onUnmounted(() => {
     padding-left: 20px;
     padding-right: 20px;
   }
+  .lab-hero-inner { padding-left: 20px; padding-right: 20px; }
   .lab-section { padding-top: 56px; padding-bottom: 64px; }
   .lab-dek,
   .lab-prose p { font-size: 16px; }
