@@ -84,10 +84,10 @@
             <article class="lab-product-card">
               <a class="lab-frame" href="/oel">
                 <img
-                  src="/images/portfolio/oel.png"
+                  src="/images/portfolio/oel-gitops.png"
                   width="1440"
                   height="616"
-                  alt="Oel page: the company brain, with an answer that cites middleware/rate_limit.go."
+                  alt="Oel page: the GitOps-friendly, security-first company brain, with an answer that cites middleware/rate_limit.go."
                 >
               </a>
               <div class="lab-piece-text">
