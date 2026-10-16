@@ -1,378 +1,397 @@
 <template>
-  <div class="lab">
-    <a class="lab-skip" href="#content">Skip to content</a>
+  <div class="rec">
+    <a class="skip" href="#content">Skip to content</a>
 
-    <header class="lab-header" :class="{ 'is-open': menuOpen }">
-      <div class="lab-header-bar">
-        <a class="lab-wordmark" href="/">ProbeLabs</a>
-        <nav class="lab-nav" aria-label="Primary">
-          <a href="#products">Products</a>
-          <a href="#stack">Core stack</a>
-          <a href="#projects">Projects</a>
-          <a href="/company/about">About</a>
-        </nav>
-        <button
-          class="lab-menu-btn"
-          type="button"
-          :aria-expanded="menuOpen ? 'true' : 'false'"
-          aria-controls="lab-menu"
-          @click="menuOpen = !menuOpen"
-        >
-          <span class="lab-sr">Menu</span>
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-      <div id="lab-menu" class="lab-menu">
-        <a href="#products" @click="closeAndGo($event, 'products')">Products</a>
-        <a href="#stack" @click="closeAndGo($event, 'stack')">Core stack</a>
-        <a href="#projects" @click="closeAndGo($event, 'projects')">Projects</a>
-        <a href="/company/about" @click="menuOpen = false">About</a>
-      </div>
+    <header class="bar">
+      <a class="word" href="/">ProbeLabs</a>
+      <nav class="nav" aria-label="Primary">
+        <a href="#products">Products</a>
+        <a href="#stack">Stack</a>
+        <a href="#projects">Projects</a>
+        <a href="#instruments">Instruments</a>
+        <a href="#about">About</a>
+        <a href="https://github.com/probelabs" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </nav>
     </header>
 
     <main id="content">
-      <section class="lab-hero">
-        <div class="lab-hero-inner">
-          <div class="lab-hero-copy">
-            <p class="lab-wordmark lab-hero-mark">ProbeLabs</p>
-            <h1>Making agents trustworthy on real software.</h1>
-            <p class="lab-dek">
-              ProbeLabs is a research lab for engineering craft in the agentic era. We build the instruments that turn agent work into recoverable intent and rerunnable evidence.
-            </p>
-            <div class="lab-tools">
-              <a class="lab-tool is-primary" href="https://reqproof.com">Proof</a>
-              <a class="lab-tool" href="/oel">Oel</a>
-              <a class="lab-tool" href="https://spiritroom.app/">Spirit Room</a>
-            </div>
-          </div>
-          <div class="lab-hero-visual">
-            <canvas ref="heroCanvas" aria-hidden="true"></canvas>
-          </div>
-        </div>
-      </section>
-
-      <div class="lab-band">
-        <section class="lab-section lab-products" id="products">
-          <div class="lab-tier">
-            <h2 class="lab-kicker">01 / Products</h2>
-            <span class="lab-chip is-commercial">Commercial</span>
-          </div>
-          <p class="lab-dek lab-products-intro">Our products. Open instruments and research follow.</p>
-
-          <article class="lab-flagship" id="proof">
-            <div class="lab-section-head">
-              <h3>Proof</h3>
-              <div class="lab-prose">
-                <p>From prompt to production. Proof brings NASA-grade rigor to your AI workflow: review the evidence, spend less time reconstructing it.</p>
-              </div>
-            <div class="lab-linkrow">
-              <a class="lab-btn" href="https://reqproof.com">Proof website →</a>
+      <section class="flagship" aria-labelledby="thesis">
+        <div class="fl-text">
+          <p class="mono fl-id">ProbeLabs — a research lab making AI agents trustworthy on real software</p>
+          <p class="mono fl-kicker"><span class="fl-dot" aria-hidden="true"></span>Flagship product · Proof</p>
+          <h1 id="thesis" class="fl-title">From prompt<br>to production.</h1>
+          <p class="fl-line">Proof brings NASA-grade rigor to your AI workflow. Review the evidence. Spend less time reconstructing it.</p>
+          <div class="fl-actions">
+            <a class="fl-btn" href="https://reqproof.com">Open Proof <span aria-hidden="true">→</span></a>
+            <p class="mono fl-sub">
               <a href="https://reqproof.com/method">Method</a>
               <a href="https://reqproof.com/product">Product</a>
               <a href="https://reqproof.com/about">Public register</a>
-            </div>
-            </div>
-            <figure class="lab-frame">
-              <img
-                src="/images/portfolio/proof.png"
-                width="1440"
-                height="900"
-                alt="Proof homepage: From prompt to production, with Start with a change and See the evidence."
-              >
-            </figure>
-          </article>
+            </p>
+          </div>
+        </div>
+        <a class="fl-art" href="https://reqproof.com" tabindex="-1" aria-hidden="true">
+          <img
+            src="/images/proof/proof-landscape-1086.webp"
+            srcset="/images/proof/proof-landscape-800.webp 800w, /images/proof/proof-landscape-1086.webp 1086w"
+            sizes="(max-width: 900px) 100vw, 50vw"
+            width="1086"
+            height="1448"
+            alt=""
+            fetchpriority="high"
+          >
+        </a>
+      </section>
 
-          <div class="lab-product-pair">
-            <article class="lab-product-card">
-              <a class="lab-frame" href="/oel">
-                <img
-                  src="/images/portfolio/oel-gitops.png"
-                  width="1440"
-                  height="616"
-                  alt="Oel page: the GitOps-friendly, security-first company brain, with an answer that cites middleware/rate_limit.go."
-                >
+      <section id="products" class="also" aria-labelledby="also-title">
+        <h2 id="also-title" class="mono also-label">Also from ProbeLabs</h2>
+        <div class="also-grid">
+          <a
+            v-for="item in secondaryProducts"
+            :key="item.world"
+            class="also-card"
+            :href="item.href"
+          >
+            <span class="also-shot"><img :src="item.image" :width="item.width" :height="item.height" :alt="item.alt" loading="lazy"></span>
+            <span class="also-copy">
+              <span class="mono also-tag">{{ item.tag }}</span>
+              <span class="also-name">{{ item.name }}</span>
+              <span class="also-line">{{ item.line }}</span>
+              <span class="mono also-link">{{ item.linkText }} <span aria-hidden="true">→</span></span>
+            </span>
+          </a>
+        </div>
+      </section>
+
+      <section
+        id="stack"
+        class="chapter core"
+        aria-labelledby="stack-title"
+        @pointerleave="leave"
+        @focusout="onFocusOut"
+      >
+        <div class="rule"></div>
+        <div class="chapter-head">
+          <p class="mega" aria-hidden="true">01</p>
+          <div class="titles">
+            <h2 id="stack-title">Open-source core</h2>
+            <p class="mono desc">Probe walks code and corpus. Visor runs agent work as a traced workflow. Both sit beside Proof.</p>
+          </div>
+        </div>
+        <div class="halves">
+          <article
+            v-for="item in core"
+            :key="item.world"
+            class="half"
+            :data-world="item.world"
+            data-takeover
+            @pointerenter="enter(item.world, { pointer: true })"
+            @focusin="enter(item.world)"
+          >
+            <h3><a :href="item.href">{{ item.name }}</a></h3>
+            <p>{{ item.line }}</p>
+            <p class="why">{{ item.why }}</p>
+            <p class="mono sublinks">
+              <a :href="item.href">{{ item.path }}</a>
+              <a
+                v-for="link in item.links"
+                :key="link.href"
+                :href="link.href"
+                :target="link.external ? '_blank' : undefined"
+                :rel="link.external ? 'noopener noreferrer' : undefined"
+              >{{ link.label }}</a>
+            </p>
+            <img
+              class="mini"
+              :src="item.image"
+              width="1440"
+              height="900"
+              :alt="item.alt"
+              loading="lazy"
+            >
+          </article>
+        </div>
+      </section>
+
+      <section
+        id="projects"
+        class="chapter"
+        aria-labelledby="projects-title"
+        @pointerleave="leave"
+        @focusout="onFocusOut"
+      >
+        <div class="rule"></div>
+        <div class="chapter-head">
+          <p class="mega" aria-hidden="true">02</p>
+          <div class="titles">
+            <h2 id="projects-title">Projects</h2>
+            <p class="mono desc">Open-source tools, each with its own page. Hover a row to preview it.</p>
+          </div>
+        </div>
+
+        <div class="proj">
+          <div class="ledger">
+            <div class="row cols" aria-hidden="true">
+              <span>Name</span>
+              <span>Kind</span>
+              <span>Entry</span>
+              <span></span>
+            </div>
+            <article
+              v-for="item in projects"
+              :key="item.world"
+              class="row"
+              :class="{ 'is-on': activeKey === item.world }"
+              :data-world="item.world"
+              data-takeover
+              @pointerenter="enter(item.world, { pointer: true, poster: item.world })"
+              @focusin="enter(item.world, { poster: item.world })"
+            >
+              <a class="nm" :href="item.href" @focus="enter(item.world, { poster: item.world })">{{ item.name }}</a>
+              <span class="kind">{{ item.kind }}</span>
+              <p class="entry">
+                <span>{{ item.line }}</span>
+                <a
+                  v-for="link in item.links"
+                  :key="link.href"
+                  class="inline"
+                  :href="link.href"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  @focus="enter(item.world, { poster: item.world })"
+                >{{ link.label }}</a>
+              </p>
+              <a class="go" :href="item.href" :aria-label="'Open ' + item.name" tabindex="-1">↗</a>
+              <a class="m-shot frame" :href="item.href" tabindex="-1">
+                <img :src="item.image" width="1200" height="630" :alt="item.alt" loading="lazy">
               </a>
-              <div class="lab-piece-text">
-                <h3><a href="/oel">Oel</a></h3>
-                <p class="lab-pitch">The security-first company brain.</p>
-                <p>GitOps-friendly and self-hosted, with scoped permissions, an audit trail and answers grounded in your code.</p>
-                <div class="lab-product-cta">
-                  <a class="lab-btn" href="/oel">Explore Oel →</a>
-                </div>
-              </div>
-            </article>
-            <article class="lab-product-card">
-              <a class="lab-frame" href="https://spiritroom.app/">
-                <img
-                  src="/images/portfolio/spirit-room.png"
-                  width="1440"
-                  height="640"
-                  alt="Spirit Room homepage: Optimise your MCP, CLI or API for AI agents."
-                >
-              </a>
-              <div class="lab-piece-text">
-                <h3><a href="https://spiritroom.app/">Spirit Room</a></h3>
-                <p class="lab-pitch">Optimise your MCP, CLI or API for AI agents.</p>
-                <p>We run every major agent through hundreds of simulations, trying new tool descriptions, help text, errors and combined tools. The result: agents finish your jobs in fewer steps, with fewer mistakes, even on cheaper models.</p>
-                <div class="lab-product-cta">
-                  <a class="lab-btn" href="https://spiritroom.app">Visit Spirit Room →</a>
-                </div>
-              </div>
             </article>
           </div>
-        </section>
-      </div>
 
-      <section class="lab-section" id="stack">
-        <p class="lab-kicker">02 / Core stack</p>
-        <div class="lab-section-head">
-          <h2>Core stack</h2>
-          <p class="lab-dek">Probe walks code and corpus. Visor runs agent work as a traced workflow. Both sit beside Proof.</p>
-        </div>
-        <div class="lab-stack">
-          <article v-for="item in coreStack" :key="item.name" class="lab-stack-piece">
-            <a class="lab-frame" :href="item.href">
-              <img :src="item.image" width="1440" height="900" :alt="item.alt">
-            </a>
-            <div class="lab-piece-text">
-              <h3><a :href="item.href">{{ item.name }}</a></h3>
-              <p>{{ item.line }}</p>
-              <p class="lab-why">{{ item.why }}</p>
-              <p class="lab-piece-meta">
-                <span class="lab-chip" :class="'is-' + item.chipKind">{{ item.chip }}</span>
-                <span class="lab-mono">{{ item.meta }}</span>
-                <a :href="item.href">{{ item.linkLabel }}</a>
-                <a
-                  v-for="link in item.links"
-                  :key="link.href"
-                  :href="link.href"
-                  :target="link.external ? '_blank' : undefined"
-                  :rel="link.external ? 'noopener noreferrer' : undefined"
-                >{{ link.label }}</a>
-              </p>
+          <aside class="window-wrap" aria-live="polite">
+            <div class="window">
+              <img
+                :src="poster.a"
+                :class="{ show: poster.showA }"
+                :alt="poster.showA ? poster.alt : ''"
+                :aria-hidden="poster.showA ? 'false' : 'true'"
+                width="1200"
+                height="630"
+              >
+              <img
+                :src="poster.b"
+                :class="{ show: !poster.showA }"
+                :alt="poster.showA ? '' : poster.alt"
+                :aria-hidden="poster.showA ? 'true' : 'false'"
+                width="1200"
+                height="630"
+              >
             </div>
+            <p class="mono caption">{{ poster.caption }}</p>
+          </aside>
+        </div>
+
+      </section>
+
+      <section
+        id="experiments"
+        class="chapter"
+        aria-labelledby="experiments-title"
+        @pointerleave="hideFloat"
+        @focusout="onFocusOut"
+      >
+        <div class="rule"></div>
+        <div class="chapter-head">
+          <p class="mega" aria-hidden="true">03</p>
+          <div class="titles">
+            <h2 id="experiments-title">Experiments</h2>
+            <p class="mono desc">Small tools around the same problem: keeping agents useful without losing control.</p>
+          </div>
+        </div>
+        <div class="ledger ledger-full">
+          <div class="row cols exp-row" aria-hidden="true">
+            <span>Name</span>
+            <span>Kind</span>
+            <span>Entry</span>
+            <span>Repo</span>
+          </div>
+          <article
+            v-for="item in experiments"
+            :key="item.name"
+            class="row exp-row"
+            @pointerenter="showFloat($event, item)"
+            @pointermove="moveFloat"
+            @pointerleave="hideFloat"
+          >
+            <a class="nm" :href="item.href" :target="item.external ? '_blank' : undefined" :rel="item.external ? 'noopener noreferrer' : undefined">{{ item.name }}</a>
+            <span class="kind">{{ item.kind }}</span>
+            <p class="entry">{{ item.line }}</p>
+            <a
+              v-if="item.repo"
+              class="repo"
+              :href="item.repo.href"
+              target="_blank"
+              rel="noopener noreferrer"
+            >{{ item.repo.label }}</a>
+            <span v-else class="repo">—</span>
           </article>
         </div>
       </section>
 
-      <section class="lab-section" id="projects">
-        <p class="lab-kicker">03 / Projects</p>
-        <div class="lab-section-head">
-          <h2>Projects &amp; experiments</h2>
-          <p class="lab-dek">
-            Small tools for accountability, memory, remote control, diagrams, and logs — experiments around the same problem: keeping agents useful without losing control. Live pages, captured as they ship.
-          </p>
+      <section id="instruments" class="chapter tight" aria-labelledby="instruments-title">
+        <div class="rule"></div>
+        <div class="chapter-head">
+          <p class="mega" aria-hidden="true">04</p>
+          <div class="titles">
+            <h2 id="instruments-title">Instruments</h2>
+            <p class="mono desc">Structure-aware fuzzers pressure parsers. The gate re-runs in your CI.</p>
+          </div>
         </div>
-        <div class="lab-grid">
-          <article v-for="item in projects" :key="item.name" class="lab-piece">
-            <a class="lab-shot" :class="{ 'is-specimen': !item.image }" :href="item.href" :target="item.external ? '_blank' : undefined" :rel="item.external ? 'noopener noreferrer' : undefined">
-              <img v-if="item.image" :src="item.image" :width="item.width || 1440" :height="item.height || 900" :alt="item.alt" loading="lazy">
-              <span v-else class="lab-specimen">
-                <span class="lab-mono">{{ item.specimen }}</span>
-                <span class="lab-specimen-name">{{ item.name }}</span>
-              </span>
-            </a>
-            <div class="lab-piece-text">
-              <h3>
-                <a :href="item.href" :target="item.external ? '_blank' : undefined" :rel="item.external ? 'noopener noreferrer' : undefined">{{ item.name }}</a>
-              </h3>
-              <p>{{ item.line }}</p>
-              <p class="lab-piece-meta">
-                <span v-if="item.chip" class="lab-chip" :class="'is-' + item.chipKind">{{ item.chip }}</span>
-                <span class="lab-mono">{{ item.meta }}</span>
-                <a
-                  v-for="link in item.links"
-                  :key="link.href"
-                  :href="link.href"
-                  :target="link.external ? '_blank' : undefined"
-                  :rel="link.external ? 'noopener noreferrer' : undefined"
-                >{{ link.label }}</a>
-              </p>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="lab-section" id="instruments">
-        <p class="lab-kicker">04 / Infrastructure</p>
-        <div class="lab-section-head">
-          <h2>Instruments behind the audits</h2>
-          <blockquote class="lab-quote">
-            <p>We build the instruments we audit with.</p>
-            <footer>
-              <cite><a href="https://reqproof.com/engine">Proof — the instruments that produce the evidence</a></cite>
-            </footer>
-          </blockquote>
-          <p class="lab-dek">
-            Structure-aware fuzzers pressure parsers. The gate re-runs in your CI.
-          </p>
-        </div>
-        <ul class="lab-rows">
-          <li v-for="item in infrastructure" :key="item.name">
-            <div class="lab-row-name">
-              <a :href="item.href" :target="item.external ? '_blank' : undefined" :rel="item.external ? 'noopener noreferrer' : undefined">{{ item.name }}</a>
-              <span v-if="item.chip" class="lab-chip" :class="'is-' + item.chipKind">{{ item.chip }}</span>
-            </div>
-            <p>{{ item.line }}</p>
-            <p class="lab-row-meta">{{ item.meta }}</p>
+        <blockquote class="quote">
+          <p>We build the instruments we audit with.</p>
+          <footer>
+            <cite><a href="https://reqproof.com/engine">Proof — the instruments that produce the evidence</a></cite>
+          </footer>
+        </blockquote>
+        <ul class="inst">
+          <li v-for="item in instruments" :key="item.name">
+            <a :href="item.href" :target="item.external ? '_blank' : undefined" :rel="item.external ? 'noopener noreferrer' : undefined">{{ item.name }}</a>
+            <span class="status">{{ item.meta }}<template v-if="item.chip"> · {{ item.chip }}</template></span>
+            <span class="inst-line">{{ item.line }}</span>
           </li>
         </ul>
-        <p class="lab-note">
-          Proof plans to release the quality-engineering harness as open source. That release is not out yet. The dashboard and factory orchestration remain proprietary.
-        </p>
+        <p class="note">Proof plans to release the quality-engineering harness as open source. That release is not out yet. The dashboard and factory orchestration remain proprietary.</p>
       </section>
     </main>
 
-    <footer class="lab-footer" id="contact">
-      <div class="lab-footer-brand">
-        <p class="lab-wordmark">ProbeLabs</p>
-        <p class="lab-footer-emails">
-          <a href="mailto:hello@probelabs.com">hello@probelabs.com</a>
-          <a href="mailto:hello@reqproof.com">hello@reqproof.com</a>
-        </p>
-        <a class="lab-mono" href="https://github.com/probelabs">github.com/probelabs</a>
+    <footer id="about" class="chapter tight about">
+      <div class="rule"></div>
+      <div class="chapter-head about-head">
+        <h2>About</h2>
+        <p class="mono desc">Research lab for engineering craft in the agentic era.</p>
       </div>
-      <div class="lab-footer-col">
-        <h2>Products</h2>
-        <ul>
-          <li><a href="https://reqproof.com">Proof</a></li>
-          <li><a href="https://reqproof.com/method">Method</a></li>
-          <li><a href="https://reqproof.com/product">Product</a></li>
-          <li><a href="https://reqproof.com/about">About / register</a></li>
-          <li><a href="/oel">Oel</a></li>
-          <li><a href="https://spiritroom.app/">Spirit Room</a></li>
-        </ul>
+      <div class="bleed-crop">
+        <p class="mark-crop">ProbeLabs</p>
       </div>
-      <div class="lab-footer-col">
-        <h2>Instruments</h2>
-        <ul>
-          <li><a href="/probe">Probe</a></li>
-          <li><a href="/visor">Visor</a></li>
-          <li><a href="https://goreplay.org">GoReplay</a></li>
-          <li><a href="/fuzzers">Fuzzers</a></li>
-          <li><a href="/fuzzers#json-fuzz">json-fuzz</a></li>
-          <li><a href="/fuzzers#graphql-fuzz">graphql-fuzz</a></li>
-          <li><a href="/fuzzers#xml-fuzz">xml-fuzz</a></li>
-          <li><a href="https://github.com/probelabs/proof-action">proof-action</a></li>
-        </ul>
-      </div>
-      <div class="lab-footer-col">
-        <h2>Projects</h2>
-        <ul>
-          <li><a href="/maid">Maid</a></li>
-          <li><a href="/big-brain">Big Brain</a></li>
-          <li><a href="/afk">AFK</a></li>
-          <li><a href="/vow">Vow</a></li>
-          <li><a href="/memaris">Memaris</a></li>
-          <li><a href="/logoscope">Logoscope</a></li>
-          <li><a href="/qc">qc</a></li>
-          <li><a href="/ste">ste</a></li>
-          <li><a href="/aeo">aeo</a></li>
-          <li><a href="/docs-mcp">docs-mcp</a></li>
-          <li><a href="/recs">recs</a></li>
-          <li><a href="/products/memory-layer">Memory Layer</a></li>
-        </ul>
-      </div>
-        <div class="lab-footer-col">
-        <h2>Company</h2>
-        <ul>
-          <li><a href="/company/about">About</a></li>
-          <li><a href="/blog/">Blog</a></li>
-        </ul>
-      </div>
-      <div class="lab-footer-col">
-        <h2>Legal</h2>
-        <ul>
+      <div class="about-grid">
+        <div class="about-copy">
+          <p>We build deterministic agent workflows for real engineering organizations.</p>
+          <p>AI is changing how software gets built. Code is getting cheaper. Understanding, planning, and governance are becoming the bottlenecks. We're building the infrastructure that helps teams extract the truth from complex systems and run AI workflows that are repeatable, inspectable, and safe.</p>
+        </div>
+        <ul class="mono contact">
+          <li><a href="mailto:hello@probelabs.com">hello@probelabs.com</a></li>
+          <li><a href="mailto:hello@reqproof.com">hello@reqproof.com</a></li>
+          <li><a href="https://github.com/probelabs" target="_blank" rel="noopener noreferrer">github.com/probelabs</a></li>
+          <li><a href="/company/about">/company/about</a></li>
           <li><a href="/privacy">Privacy</a></li>
           <li><a href="/terms">Terms</a></li>
         </ul>
       </div>
-      <p class="lab-copy">&copy; {{ year }} GoReplay LLC</p>
+      <p class="mono colophon">© ProbeLabs · updated {{ updated }}</p>
     </footer>
+
+    <div
+      v-show="float.on"
+      class="float"
+      :style="{ left: float.x + 'px', top: float.y + 'px' }"
+      aria-hidden="true"
+    >
+      <img :src="float.src" width="240" height="150" alt="">
+    </div>
   </div>
 </template>
 
 <script setup>
-import { nextTick, onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, reactive, ref } from 'vue'
 
-const menuOpen = ref(false)
-const year = new Date().getFullYear()
-const heroCanvas = ref(null)
-let unmountHero = null
-let heroCancelled = false
+const updated = '16 Oct 2026'
 
-const infrastructure = [
+// Colours checked against source, not the brief's estimates.
+// proof: reqproof.com :root --forest / --paper / wordmark span (styles.css, theme-color).
+// oel: /oel has no --bg/--ink/--accent (new-homepage.css). Brief fallback.
+// spirit-room: spiritroom.app site.css --bg/--ink and chamber.js orbit rgba(239,138,0).
+// qc, ste, aeo, fuzzers, docs-mcp, recs: each page's CSS background/color plus the accent used on that page.
+const WORLDS = {
+  proof: { bg: '#1b2823', ink: '#f3f0e9', accent: '#7fa34e', onAccent: '#1b2823', chip: false, faint: false, ring: '#7fa34e', scheme: 'dark' },
+  oel: { bg: '#0d0d0d', ink: '#f2f2f2', accent: '#ff7a1a', onAccent: '#0d0d0d', chip: false, faint: false, ring: '#ff7a1a', scheme: 'dark' },
+  'spirit-room': { bg: '#fafafa', ink: '#171717', accent: '#ef8a00', onAccent: '#171717', chip: true, faint: true, ring: '#171717', scheme: 'light' },
+  probe: { bg: '#ffffff', ink: '#000000', accent: '#000000', onAccent: '#ffffff', chip: false, faint: false, ring: '#000000', scheme: 'light' },
+  visor: { bg: '#000000', ink: '#ffffff', accent: '#ffffff', onAccent: '#000000', chip: false, faint: false, ring: '#ffffff', scheme: 'dark' },
+  qc: { bg: '#f3f3f3', ink: '#151515', accent: '#fff824', onAccent: '#151515', chip: true, faint: true, ring: '#151515', scheme: 'light' },
+  ste: { bg: '#ffffff', ink: '#000000', accent: '#000000', onAccent: '#ffffff', chip: false, faint: false, ring: '#000000', scheme: 'light' },
+  aeo: { bg: '#0062c4', ink: '#ffffff', accent: '#ffe400', onAccent: '#111111', chip: true, faint: true, ring: '#ffffff', scheme: 'light' },
+  fuzzers: { bg: '#000000', ink: '#ffffff', accent: '#00fb34', onAccent: '#000000', chip: false, faint: false, ring: '#00fb34', scheme: 'dark' },
+  'docs-mcp': { bg: '#043f2e', ink: '#fcfcfc', accent: '#c8f169', onAccent: '#043f2e', chip: false, faint: false, ring: '#c8f169', scheme: 'dark' },
+  recs: { bg: '#f1f2f3', ink: '#111111', accent: '#ff5e24', onAccent: '#111111', chip: true, faint: true, ring: '#111111', scheme: 'light' }
+}
+
+const PAPER = { bg: '#ffffff', ink: '#000000', accent: '#000000', onAccent: '#ffffff', ring: '#000000' }
+
+function pad(n) {
+  return String(n).padStart(2, '0')
+}
+
+const products = [
   {
-    name: 'Fuzzers',
-    href: '/fuzzers',
-    line: 'Structure-aware fuzzers for JSON, GraphQL, and XML. Grammar generators, format-aware mutations, and correctness gates.',
-    meta: 'Go · Rust',
-    chip: 'Published',
-    chipKind: 'open'
-  },
-  {
-    name: 'json-fuzz',
-    href: '/fuzzers#json-fuzz',
-    line: 'Structure-aware JSON fuzzer. A grammar-based generator, JSON-aware mutations, and correctness gates for differential testing of JSON parsers.',
-    meta: 'Go',
-    chip: 'Published',
-    chipKind: 'open'
-  },
-  {
-    name: 'graphql-fuzz',
-    href: '/fuzzers#graphql-fuzz',
-    line: 'Structure-aware GraphQL fuzzer. Grammar-based query, operation, and schema generators, with correctness gates for differential testing of GraphQL parsers.',
-    meta: 'Rust',
-    chip: 'Published',
-    chipKind: 'open'
-  },
-  {
-    name: 'xml-fuzz',
-    href: '/fuzzers#xml-fuzz',
-    line: 'Structure-aware XML fuzzer. Grammar-based documents, XML-aware mutations, and correctness gates, with optional libxml2 harnesses.',
-    meta: 'Rust',
-    chip: 'Published',
-    chipKind: 'open'
-  },
-  {
-    name: 'proof-action',
-    href: 'https://github.com/probelabs/proof-action',
-    external: true,
-    line: 'GitHub Action that runs a ReqProof verification audit on a repository and reports the result in the job summary.',
-    meta: 'Action',
-    chip: 'Public repo',
-    chipKind: 'neutral'
+    world: 'proof',
+    name: 'Proof',
+    pitch: 'From prompt to production. Proof brings NASA-grade rigor to your AI workflow: review the evidence, spend less time reconstructing it.'
   }
 ]
 
-const coreStack = [
+const productRows = [
   {
+    world: 'oel',
+    name: 'Oel',
+    href: '/oel',
+    where: '/oel',
+    link: '/oel →',
+    image: '/images/portfolio/oel-gitops.png',
+    width: 1440,
+    height: 616,
+    alt: 'Oel page: the GitOps-friendly, security-first company brain, with an answer that cites middleware/rate_limit.go.',
+    pitch: 'The security-first company brain.',
+    body: 'GitOps-friendly and self-hosted, with scoped permissions, an audit trail and answers grounded in your code.'
+  },
+  {
+    world: 'spirit-room',
+    name: 'Spirit Room',
+    href: 'https://spiritroom.app/',
+    where: 'spiritroom.app',
+    link: 'spiritroom.app ↗',
+    image: '/images/portfolio/spirit-room.png',
+    width: 1440,
+    height: 640,
+    alt: 'Spirit Room homepage: Optimise your MCP, CLI or API for AI agents.',
+    pitch: 'Optimise your MCP, CLI or API for AI agents.',
+    body: 'We run every major agent through hundreds of simulations, trying new tool descriptions, help text, errors and combined tools. The result: agents finish your jobs in fewer steps, with fewer mistakes, even on cheaper models.'
+  }
+]
+
+const core = [
+  {
+    world: 'probe',
     name: 'Probe',
     href: '/probe',
-    linkLabel: 'Open Probe',
+    path: '/probe',
     image: '/images/portfolio/probe.png',
     alt: 'Probe homepage: context retrieval that understands code, marked open source and local.',
     line: 'Semantic code search over large trees. Ripgrep speed, with tree-sitter structure.',
     why: 'Proof engagements use it to walk code and corpus in one pass.',
-    meta: 'Rust',
-    chip: 'Open source',
-    chipKind: 'open',
     links: [
       { label: 'Oel', href: '/oel' },
       { label: 'GitHub', href: 'https://github.com/probelabs/probe', external: true }
     ]
   },
   {
+    world: 'visor',
     name: 'Visor',
     href: '/visor',
-    linkLabel: 'Open Visor',
+    path: '/visor',
     image: '/images/portfolio/visor.png',
     alt: 'Visor homepage: predictable agent workflows defined in YAML.',
     line: 'YAML workflows with validation, approvals, fallbacks, and an OpenTelemetry trace for every run.',
-    why: 'It keeps an agent run visible: the same steps, the same gates, and an OpenTelemetry trace. Proof’s CI/CD orchestrator is a separate instrument, and is not identified as Visor.',
-    meta: 'YAML',
-    chip: 'Instrument',
-    chipKind: 'neutral',
+    why: 'It keeps an agent run visible: the same steps, the same gates, and an OpenTelemetry trace.',
     links: [
       { label: 'GitHub', href: 'https://github.com/probelabs/visor', external: true }
     ]
@@ -381,1113 +400,1426 @@ const coreStack = [
 
 const projects = [
   {
+    world: 'qc',
     name: 'qc',
     href: '/qc',
+    kind: 'Gate',
+    sheet: 'Inspection Sheet',
     image: '/images/projects/qc-og.png',
-    width: 1200,
-    height: 630,
     alt: 'qc inspection sheet on grey paper: giant QC, a hazard-yellow highlight, and a CLEARED stamp.',
     line: 'Deterministic checklist gate. Evidenced answers stay bound to file hashes, and the gate stays closed until every item is answered.',
-    meta: 'Gate',
-    chip: 'Public repo',
-    chipKind: 'neutral',
-    links: [
-      { label: 'GitHub', href: 'https://github.com/probelabs/qc', external: true }
-    ]
+    links: [{ label: 'GitHub', href: 'https://github.com/probelabs/qc' }]
   },
   {
+    world: 'ste',
     name: 'ste',
     href: '/ste',
+    kind: 'Validator',
+    sheet: 'Specification Sheet',
     image: '/images/projects/ste-og.png',
-    width: 1200,
-    height: 630,
     alt: 'ste specification sheet: UTILIZE struck through, USE set in a black block on white.',
     line: 'ASD-STE100 Simplified Technical English validator, with matching Go and Node CLIs and JSON output.',
-    meta: 'Go · Node',
-    chip: 'Open source',
-    chipKind: 'open',
-    links: [
-      { label: 'GitHub', href: 'https://github.com/probelabs/ste', external: true }
-    ]
+    links: [{ label: 'GitHub', href: 'https://github.com/probelabs/ste' }]
   },
   {
+    world: 'aeo',
     name: 'aeo',
     href: '/aeo',
+    kind: 'Benchmark',
+    sheet: 'Scoreboard',
     image: '/images/projects/aeo-og.png',
-    width: 1200,
-    height: 630,
     alt: 'aeo scoreboard on electric blue, with say your name on a yellow block and an example board.',
     line: 'Measures whether Claude Code, Codex, and Grok mention your product, with search off and with search on.',
-    meta: 'Python',
-    chip: 'Open source',
-    chipKind: 'open',
-    links: [
-      { label: 'GitHub', href: 'https://github.com/probelabs/aeo', external: true }
-    ]
+    links: [{ label: 'GitHub', href: 'https://github.com/probelabs/aeo' }]
   },
   {
-    name: 'docs-mcp',
-    href: '/docs-mcp',
-    image: '/images/projects/docs-mcp-og.png',
-    width: 1200,
-    height: 630,
-    alt: 'docs-mcp reading room: forest green field, a paper sheet, and a lime copy button.',
-    line: 'Turns any GitHub repository into an MCP server so an assistant can search its code or docs.',
-    meta: 'MCP',
-    chip: 'Open source',
-    chipKind: 'open',
-    links: [
-      { label: 'GitHub', href: 'https://github.com/probelabs/docs-mcp', external: true }
-    ]
-  },
-  {
-    name: 'recs',
-    href: '/recs',
-    image: '/images/projects/recs-og.png',
-    width: 1200,
-    height: 630,
-    alt: 'recs desktop: grey field, overlapping windows, and an orange install button.',
-    line: 'A file-based CRM for agents. Markdown records, YAML dashboards, and a local UI over the same files.',
-    meta: 'Go',
-    chip: 'Open source',
-    chipKind: 'open',
-    links: [
-      { label: 'GitHub', href: 'https://github.com/buger/recs', external: true }
-    ]
-  },
-  {
+    world: 'fuzzers',
     name: 'Fuzzers',
     href: '/fuzzers',
+    kind: 'Fuzzer',
+    sheet: 'Malformed',
     image: '/images/projects/fuzzers-og.png',
-    width: 1200,
-    height: 630,
     alt: 'Malformed on black, cut by green blocks, over JSON, GraphQL, and XML documents.',
     line: 'Structure-aware fuzzers for JSON, GraphQL, and XML. Grammar generators, format-aware mutations, and correctness gates.',
-    meta: 'Go · Rust',
-    chip: 'Published',
-    chipKind: 'open',
     links: [
-      { label: 'json-fuzz', href: 'https://github.com/probelabs/json-fuzz', external: true },
-      { label: 'graphql-fuzz', href: 'https://github.com/probelabs/graphql-fuzz', external: true },
-      { label: 'xml-fuzz', href: 'https://github.com/probelabs/xml-fuzz', external: true }
+      { label: 'json-fuzz', href: 'https://github.com/probelabs/json-fuzz' },
+      { label: 'graphql-fuzz', href: 'https://github.com/probelabs/graphql-fuzz' },
+      { label: 'xml-fuzz', href: 'https://github.com/probelabs/xml-fuzz' }
     ]
   },
+  {
+    world: 'docs-mcp',
+    name: 'docs-mcp',
+    href: '/docs-mcp',
+    kind: 'MCP server',
+    sheet: 'Reading Room',
+    image: '/images/projects/docs-mcp-og.png',
+    alt: 'docs-mcp reading room: forest green field, a paper sheet, and a lime copy button.',
+    line: 'Turns any GitHub repository into an MCP server so an assistant can search its code or docs.',
+    links: [{ label: 'GitHub', href: 'https://github.com/probelabs/docs-mcp' }]
+  },
+  {
+    world: 'recs',
+    name: 'recs',
+    href: '/recs',
+    kind: 'CRM',
+    sheet: 'Desktop',
+    image: '/images/projects/recs-og.png',
+    alt: 'recs desktop: grey field, overlapping windows, and an orange install button.',
+    line: 'A file-based CRM for agents. Markdown records, YAML dashboards, and a local UI over the same files.',
+    links: [{ label: 'GitHub', href: 'https://github.com/buger/recs' }]
+  }
+]
+
+const experiments = [
   {
     name: 'Maid',
     href: '/maid',
+    kind: 'Diagrams',
     image: '/images/portfolio/maid.png',
     alt: 'Maid homepage: Meet Maid, a Mermaid.js diagram assistant.',
     line: 'Lightning-fast Mermaid linter with auto-fix, for the CLI, CI, and agents.',
-    meta: 'Diagrams',
-    chip: 'Experiment',
-    chipKind: 'neutral',
-    experiment: true,
-    links: [
-      { label: 'GitHub', href: 'https://github.com/probelabs/maid', external: true }
-    ]
+    repo: { label: 'GitHub', href: 'https://github.com/probelabs/maid' }
   },
   {
     name: 'GoReplay',
     href: 'https://goreplay.org',
     external: true,
+    kind: 'HTTP',
     image: '/images/portfolio/goreplay.png',
     alt: 'GoReplay homepage: capture and replay HTTP traffic.',
     line: 'Capture live HTTP traffic and replay it against an isolated target.',
-    meta: 'HTTP',
-    chip: 'Open source',
-    chipKind: 'open',
-    links: [
-      { label: 'GitHub', href: 'https://github.com/probelabs/goreplay', external: true }
-    ]
+    repo: { label: 'GitHub', href: 'https://github.com/probelabs/goreplay' }
   },
   {
     name: 'Big Brain',
     href: '/big-brain',
+    kind: 'MCP',
     image: '/images/portfolio/big-brain.png',
     alt: 'Big Brain homepage: hand a stuck problem to a stronger model.',
     line: 'An MCP server that packages code context so a stuck problem can be handed to a stronger model.',
-    meta: 'MCP',
-    chip: 'Experiment',
-    chipKind: 'neutral',
-    experiment: true,
-    links: [
-      { label: 'GitHub', href: 'https://github.com/probelabs/big-brain', external: true }
-    ]
+    repo: { label: 'GitHub', href: 'https://github.com/probelabs/big-brain' }
   },
   {
     name: 'AFK',
     href: '/afk',
+    kind: 'Telegram',
     image: '/images/portfolio/afk.png',
     alt: 'AFK homepage: stay in control of Claude Code from Telegram.',
     line: 'Remote control and approval for Claude Code via Telegram.',
-    meta: 'Telegram',
-    chip: 'Experiment',
-    chipKind: 'neutral',
-    experiment: true,
-    links: [
-      { label: 'GitHub', href: 'https://github.com/probelabs/afk', external: true }
-    ]
+    repo: { label: 'GitHub', href: 'https://github.com/probelabs/afk' }
   },
   {
     name: 'Vow',
     href: '/vow',
+    kind: 'Gates',
     image: '/images/portfolio/vow.png',
     alt: 'Vow homepage: accountability gates before an agent commits or acts.',
     line: 'Accountability gates: an agent must self-review before commits and actions.',
-    meta: 'Gates',
-    chip: 'Experiment',
-    chipKind: 'neutral',
-    experiment: true,
-    links: [
-      { label: 'GitHub', href: 'https://github.com/probelabs/vow', external: true }
-    ]
+    repo: { label: 'GitHub', href: 'https://github.com/probelabs/vow' }
   },
   {
     name: 'Memaris',
     href: '/memaris',
+    kind: 'Memory',
     image: '/images/portfolio/memaris.png',
     alt: 'Memaris homepage: turn past Claude Code sessions into persistent memory.',
     line: 'Turns past Claude Code sessions into persistent memory.',
-    meta: 'Memory',
-    chip: 'Experiment',
-    chipKind: 'neutral',
-    experiment: true,
-    links: [
-      { label: 'GitHub', href: 'https://github.com/probelabs/memaris', external: true }
-    ]
+    repo: { label: 'GitHub', href: 'https://github.com/probelabs/memaris' }
   },
   {
     name: 'Logoscope',
     href: '/logoscope',
+    kind: 'Logs',
     image: '/images/portfolio/logoscope.png',
     alt: 'Logoscope homepage: distill logs into structured intelligence.',
     line: 'Distills logs into structured, AI-ready patterns.',
-    meta: 'Logs',
-    chip: 'Experiment',
-    chipKind: 'neutral',
-    experiment: true,
-    links: [
-      { label: 'GitHub', href: 'https://github.com/probelabs/logoscope', external: true }
-    ]
+    repo: { label: 'GitHub', href: 'https://github.com/probelabs/logoscope' }
   },
   {
     name: 'Memory Layer',
     href: '/products/memory-layer',
+    kind: 'Waitlist',
     image: '/images/portfolio/memory-layer.png',
     alt: 'Memory Layer page: a waitlist for extracting institutional knowledge from PRs, tickets, and Slack.',
     line: 'Extracts institutional knowledge from PRs, tickets, Slack, and documentation.',
-    meta: 'Waitlist',
-    chip: 'Waitlist',
-    chipKind: 'neutral',
-    experiment: true,
-    links: []
+    repo: null
   }
 ]
 
-let observer
+const instruments = [
+  {
+    name: 'json-fuzz',
+    href: '/fuzzers#json-fuzz',
+    line: 'Structure-aware JSON fuzzer. A grammar-based generator, JSON-aware mutations, and correctness gates for differential testing of JSON parsers.',
+    meta: 'Go',
+    chip: 'Published'
+  },
+  {
+    name: 'graphql-fuzz',
+    href: '/fuzzers#graphql-fuzz',
+    line: 'Structure-aware GraphQL fuzzer. Grammar-based query, operation, and schema generators, with correctness gates for differential testing of GraphQL parsers.',
+    meta: 'Rust',
+    chip: 'Published'
+  },
+  {
+    name: 'xml-fuzz',
+    href: '/fuzzers#xml-fuzz',
+    line: 'Structure-aware XML fuzzer. Grammar-based documents, XML-aware mutations, and correctness gates, with optional libxml2 harnesses.',
+    meta: 'Rust',
+    chip: 'Published'
+  },
+  {
+    name: 'proof-action',
+    href: 'https://github.com/probelabs/proof-action',
+    external: true,
+    line: 'GitHub Action that runs a ReqProof verification audit on a repository and reports the result in the job summary.',
+    meta: 'Action',
+    chip: 'Public repo'
+  }
+]
+
+const counts = {
+  products: 1 + productRows.length,
+  core: core.length,
+  projects: projects.length,
+  experiments: experiments.length,
+  instruments: instruments.length
+}
+const total = counts.products + counts.core + counts.projects + counts.experiments + counts.instruments
+
+let cursor = 1
+products.forEach((item) => {
+  item.num = pad(cursor)
+  item.id = `PL-${item.num}`
+  cursor += 1
+})
+productRows.forEach((item) => {
+  item.num = pad(cursor)
+  item.id = `PL-${item.num}`
+  cursor += 1
+})
+core.forEach((item) => {
+  item.num = pad(cursor)
+  item.id = `PL-${item.num}`
+  cursor += 1
+})
+projects.forEach((item) => {
+  item.num = pad(cursor)
+  item.id = `PL-${item.num}`
+  cursor += 1
+})
+experiments.forEach((item) => {
+  item.num = pad(cursor)
+  item.id = `PL-${item.num}`
+  cursor += 1
+})
+instruments.forEach((item) => {
+  item.num = pad(cursor)
+  item.id = `PL-${item.num}`
+  cursor += 1
+})
+
+const secondaryProducts = [
+  { world: 'oel', name: 'Oel', href: '/oel', linkText: 'Explore Oel', tag: 'Company brain', image: '/images/portfolio/oel-gitops.png', width: 1440, height: 616, alt: 'Oel page: the GitOps-friendly, security-first company brain.', line: 'The GitOps-friendly, security-first company brain: self-hosted, with scoped permissions and answers grounded in your code.' },
+  { world: 'spirit-room', name: 'Spirit Room', href: 'https://spiritroom.app/', linkText: 'Visit spiritroom.app', tag: 'Agent experience', image: '/images/portfolio/spirit-room.png', width: 1440, height: 640, alt: 'Spirit Room homepage: Optimise your MCP, CLI or API for AI agents.', line: 'Optimise your MCP, CLI or API for AI agents, tested across every major agent.' }
+]
+
+const byWorld = Object.fromEntries(projects.map((item) => [item.world, item]))
+
+const activeKey = ref('')
+const reduced = ref(false)
+const fineHover = ref(true)
+const poster = reactive({
+  a: projects[0].image,
+  b: projects[0].image,
+  showA: true,
+  alt: projects[0].alt,
+  caption: captionFor(projects[0])
+})
+const float = reactive({ on: false, x: 0, y: 0, src: experiments[0].image })
+
+let leaveTimer = 0
+let posterTimer = 0
+let observer = null
+let classObserver = null
+let fineQuery
+let motionQuery
+let onFine
+let onMotion
+
+function captionFor(item) {
+  const world = WORLDS[item.world]
+  return `${item.name} · ${item.kind} — open ${item.href}`
+}
+
+function paint(key) {
+  const root = document.documentElement
+  const world = key ? WORLDS[key] : null
+  if (!world) {
+    root.style.setProperty('--bg', PAPER.bg)
+    root.style.setProperty('--ink', PAPER.ink)
+    root.style.setProperty('--accent', PAPER.accent)
+    root.style.setProperty('--on-accent', PAPER.onAccent)
+    root.style.setProperty('--ring', PAPER.ring)
+    root.removeAttribute('data-world')
+    root.removeAttribute('data-chip')
+    root.removeAttribute('data-faint')
+    root.style.colorScheme = 'light'
+    return
+  }
+  root.style.setProperty('--bg', world.bg)
+  root.style.setProperty('--ink', world.ink)
+  root.style.setProperty('--accent', world.accent)
+  root.style.setProperty('--on-accent', world.onAccent)
+  root.style.setProperty('--ring', world.ring)
+  root.dataset.world = key
+  if (world.chip) root.dataset.chip = '1'
+  else root.removeAttribute('data-chip')
+  if (world.faint) root.dataset.faint = '1'
+  else root.removeAttribute('data-faint')
+  root.style.colorScheme = world.scheme
+}
+
+function showPoster(worldKey) {
+  const item = byWorld[worldKey]
+  if (!item) return
+  poster.alt = item.alt
+  poster.caption = captionFor(item)
+  const current = poster.showA ? poster.a : poster.b
+  if (current === item.image) return
+  window.clearTimeout(posterTimer)
+  if (poster.showA) poster.b = item.image
+  else poster.a = item.image
+  const flip = () => { poster.showA = !poster.showA }
+  if (reduced.value) flip()
+  else posterTimer = window.setTimeout(flip, 32)
+}
+
+let enterTimer = 0
+let lastScroll = 0
+let scrollTimer = 0
+const pointerAt = { x: -1, y: -1 }
+function onPointerMove(event) { pointerAt.x = event.clientX; pointerAt.y = event.clientY }
+function onScroll() {
+  lastScroll = performance.now()
+  window.clearTimeout(enterTimer)
+  if (!fineHover.value || !activeKey.value) return
+  window.clearTimeout(scrollTimer)
+  // When scrolling settles, keep the colour only if the cursor still sits on that work.
+  scrollTimer = window.setTimeout(() => {
+    const el = pointerAt.x < 0 ? null : document.elementFromPoint(pointerAt.x, pointerAt.y)
+    const zone = el && el.closest ? el.closest('.rec [data-world]') : null
+    if (!zone || zone.dataset.world !== activeKey.value) leave()
+  }, 160)
+}
+
+function enter(key, opts = {}) {
+  if (!key || !WORLDS[key]) return
+  if (opts.pointer) {
+    if (!fineHover.value) return
+    // Never repaint because content scrolled under a resting cursor,
+    // and wait a beat so passing over a row does not flash the page.
+    window.clearTimeout(enterTimer)
+    if (performance.now() - lastScroll < 250) return
+    enterTimer = window.setTimeout(() => apply(key, opts), 180)
+    return
+  }
+  apply(key, opts)
+}
+
+function apply(key, opts) {
+  window.clearTimeout(leaveTimer)
+  activeKey.value = key
+  if (opts.poster) showPoster(opts.poster)
+  requestAnimationFrame(() => paint(key))
+}
+
+function focusedWorld(root) {
+  const el = document.activeElement
+  if (!el || !el.closest) return ''
+  const zone = el.closest('.rec [data-world]')
+  if (!zone || (root && !root.contains(zone))) return ''
+  return zone.dataset.world || ''
+}
+
+function leave() {
+  window.clearTimeout(enterTimer)
+  window.clearTimeout(leaveTimer)
+  const delay = reduced.value ? 0 : 120
+  leaveTimer = window.setTimeout(() => {
+    const key = focusedWorld()
+    if (key) {
+      activeKey.value = key
+      paint(key)
+      return
+    }
+    activeKey.value = ''
+    requestAnimationFrame(() => paint(null))
+  }, delay)
+}
+
+function onFocusOut(event) {
+  const next = event.relatedTarget
+  if (next && event.currentTarget.contains(next)) return
+  leave()
+}
+
+function showFloat(event, item) {
+  if (!fineHover.value || window.innerWidth < 1024) return
+  float.src = item.image
+  moveFloat(event)
+  float.on = true
+}
+
+function moveFloat(event) {
+  if (!float.on) return
+  const maxX = window.innerWidth - 240 - 8
+  const maxY = window.innerHeight - 150 - 8
+  float.x = Math.max(8, Math.min(event.clientX + 16, maxX))
+  float.y = Math.max(8, Math.min(event.clientY + 16, maxY))
+}
+
+function hideFloat() {
+  float.on = false
+}
 
 function lockLight() {
   const root = document.documentElement
   if (root.classList.contains('dark')) root.classList.remove('dark')
-  if (root.style.colorScheme !== 'light') root.style.colorScheme = 'light'
 }
 
-function onKeydown(event) {
-  if (event.key === 'Escape') menuOpen.value = false
+function mountScroll() {
+  if (observer) {
+    observer.disconnect()
+    observer = null
+  }
+  if (reduced.value || fineHover.value) return
+  const nodes = [...document.querySelectorAll('[data-takeover][data-world]')]
+  const seen = new Map()
+  observer = new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (entry.isIntersecting) seen.set(entry.target, entry.intersectionRatio)
+      else seen.delete(entry.target)
+    }
+    const held = focusedWorld()
+    if (held) {
+      if (activeKey.value !== held) {
+        activeKey.value = held
+        if (byWorld[held]) showPoster(held)
+        paint(held)
+      }
+      return
+    }
+    if (!seen.size) {
+      activeKey.value = ''
+      paint(null)
+      return
+    }
+    const bandTop = window.innerHeight * 0.45
+    const bandBot = window.innerHeight * 0.55
+    let best = null
+    let overlap = -1
+    for (const el of seen.keys()) {
+      const rect = el.getBoundingClientRect()
+      const height = Math.min(rect.bottom, bandBot) - Math.max(rect.top, bandTop)
+      if (height > overlap) {
+        overlap = height
+        best = el
+      }
+    }
+    const key = best?.dataset.world
+    if (!key) return
+    activeKey.value = key
+    if (byWorld[key]) showPoster(key)
+    paint(key)
+  }, { rootMargin: '-45% 0px -45% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] })
+  nodes.forEach((node) => observer.observe(node))
 }
 
-function closeAndGo(event, id) {
-  event.preventDefault()
-  menuOpen.value = false
-  nextTick(() => {
-    requestAnimationFrame(() => {
-      const el = document.getElementById(id)
-      if (!el) return
-      el.scrollIntoView({ block: 'start', behavior: 'instant' })
-      history.pushState(null, '', `#${id}`)
-    })
-  })
+function useWorld() {
+  return { activeKey, reduced, fineHover, enter, leave, onFocusOut, paint }
 }
+
+useWorld()
 
 onMounted(() => {
   lockLight()
-  observer = new MutationObserver(lockLight)
-  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
-  window.addEventListener('keydown', onKeydown)
-  nextTick(() => {
-    import('../hero-specimen.js').then((mod) => {
-      if (heroCancelled || !heroCanvas.value) return
-      unmountHero = mod.mount(heroCanvas.value)
-    })
-  })
+  paint(null)
+  classObserver = new MutationObserver(lockLight)
+  classObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
+
+  motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+  fineQuery = window.matchMedia('(hover: hover) and (pointer: fine)')
+  reduced.value = motionQuery.matches
+  fineHover.value = fineQuery.matches
+  onMotion = () => {
+    reduced.value = motionQuery.matches
+    mountScroll()
+  }
+  onFine = () => {
+    fineHover.value = fineQuery.matches
+    if (!fineHover.value) hideFloat()
+    mountScroll()
+  }
+  motionQuery.addEventListener('change', onMotion)
+  fineQuery.addEventListener('change', onFine)
+  mountScroll()
+  window.addEventListener('scroll', onScroll, { passive: true })
+  window.addEventListener('pointermove', onPointerMove, { passive: true })
 })
 
 onUnmounted(() => {
-  heroCancelled = true
-  unmountHero?.()
+  window.removeEventListener('scroll', onScroll)
+  window.removeEventListener('pointermove', onPointerMove)
+  window.clearTimeout(scrollTimer)
+  window.clearTimeout(enterTimer)
+  window.clearTimeout(leaveTimer)
+  window.clearTimeout(posterTimer)
   observer?.disconnect()
-  window.removeEventListener('keydown', onKeydown)
-  document.documentElement.style.colorScheme = ''
+  classObserver?.disconnect()
+  motionQuery?.removeEventListener('change', onMotion)
+  fineQuery?.removeEventListener('change', onFine)
+  const root = document.documentElement
+  root.style.colorScheme = ''
+  root.removeAttribute('data-world')
+  root.removeAttribute('data-chip')
+  root.removeAttribute('data-faint')
 })
 </script>
 
 <style scoped>
-.lab {
-  --bg: #ffffff;
-  --text: #0a0a0a;
-  --muted: #6b6b6b;
-  --line: #e4e4e7;
-  --frame: #121113;
-  --status: #366740;
-  --status-line: #71d083;
-  --sans: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-  background: var(--bg);
-  color: var(--text);
+.rec {
+  --ash: #8c8c8c;
+  --ash-strong: #6b6b6b;
+  --sans: Geist, "Geist Sans", ui-sans-serif, system-ui, sans-serif;
+  --mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --ease: cubic-bezier(.2, .7, .1, 1);
+  --t-mega: clamp(220px, 34vw, 640px);
+  --t-display: clamp(44px, 4.4vw, 84px);
+  --t-h2: clamp(32px, 3vw, 56px);
+  --t-chapter: clamp(140px, 18vw, 340px);
+  --t-row: 24px;
+  --t-body: 17px;
+  --t-meta: 12px;
+  --gutter: 16px;
+  --gap: 96px;
+  background: var(--bg, #fff);
+  color: var(--ink, #000);
   font-family: var(--sans);
-  font-size: 16px;
-  line-height: 1.5;
+  font-weight: 400;
+  font-size: var(--t-body);
+  line-height: 1.4;
+  letter-spacing: -0.02em;
   min-height: 100vh;
   color-scheme: light;
 }
 
-.lab * { box-sizing: border-box; }
+.rec,
+.rec *,
+.rec *::before,
+.rec *::after { box-sizing: border-box; border-radius: 0; }
 
-.lab a { color: inherit; }
+.rec :where(h1, h2, h3, p, ul, blockquote) { margin: 0; }
 
-.lab-sr {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
+.rec a { color: inherit; }
+
+.mono {
+  font-family: var(--mono);
+  font-weight: 400;
+  font-size: var(--t-meta);
+  line-height: 1.25;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
 }
 
-.lab a.lab-skip,
-.lab a.lab-skip:hover,
-.lab a.lab-skip:focus,
-.lab a.lab-skip:visited {
+.skip {
   position: absolute;
   left: 16px;
-  top: -40px;
-  background: var(--text);
-  color: #fff;
+  top: -48px;
+  z-index: 80;
+  background: var(--ink, #000);
+  color: var(--bg, #fff);
   padding: 8px 12px;
-  z-index: 30;
   text-decoration: none;
 }
 
-.lab a.lab-skip:focus { top: 12px; }
+.skip:focus { top: 8px; }
 
-.lab-header {
-  position: sticky;
+.bar {
+  position: fixed;
   top: 0;
-  z-index: 20;
-  background: rgba(255, 255, 255, 0.96);
-}
-
-.lab-header-bar {
-  max-width: 1160px;
-  margin: 0 auto;
-  padding: 0 28px;
-  height: 64px;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  height: 40px;
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 16px;
+  padding: 0 var(--gutter);
+  background: var(--bg, #fff);
+  color: var(--ink, #000);
+  border-bottom: 1px solid var(--ink, #000);
 }
 
-.lab-wordmark {
-  font-weight: 600;
-  font-size: 18px;
-  letter-spacing: -0.03em;
+.word {
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: -0.02em;
   text-decoration: none;
-  color: var(--text);
+  color: var(--ink, #000);
+  flex: 0 0 auto;
 }
 
-.lab-nav {
+.counter {
+  color: var(--ash-strong);
+  flex: 0 0 auto;
+}
+
+:global(html[data-world] .rec .counter),
+:global(html[data-world] .rec .nav a) { color: var(--ink); }
+
+.nav {
+  position: static;
+  inset: auto;
+  z-index: auto;
   display: flex;
   align-items: center;
-  gap: 22px;
-  margin-left: auto;
+  gap: 18px;
+  margin: 0 0 0 auto;
+  width: auto;
+  max-width: none;
+  min-width: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  transition: none;
 }
 
-.lab-nav a,
-.lab-menu a:not(.lab-cta) {
-  color: var(--muted);
+.nav a {
+  color: var(--ash-strong);
   text-decoration: none;
   font-size: 14px;
-  letter-spacing: -0.01em;
-}
-
-.lab-nav a:hover,
-.lab-menu a:not(.lab-cta):hover { color: var(--text); }
-
-.lab a.lab-cta,
-.lab a.lab-cta:visited {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 34px;
-  padding: 0 12px;
-  border: 1px solid var(--text);
-  border-radius: 2px;
-  background: transparent;
-  color: var(--text);
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   white-space: nowrap;
 }
 
-.lab a.lab-cta:hover,
-.lab a.lab-cta:focus,
-.lab a.lab-cta:active,
-.lab a.lab-cta:visited:hover,
-.lab a.lab-cta:visited:focus,
-.lab a.lab-cta:visited:active {
-  background: var(--text);
-  color: #fff;
+.nav a:hover,
+.nav a:focus-visible { color: var(--ink, #000); }
+
+.hero,
+.chapter {
+  scroll-margin-top: 56px;
 }
 
-.lab-menu-btn {
-  display: none;
-  width: 42px;
-  height: 42px;
-  margin-left: auto;
-  border: 0;
-  background: transparent;
-  padding: 10px;
-  position: relative;
-  cursor: pointer;
-}
-
-.lab-menu-btn span:not(.lab-sr) {
-  display: block;
-  height: 1px;
-  background: var(--text);
-  margin: 6px 0;
-}
-
-.lab-menu { display: none; }
-
-.lab-section,
-.lab-footer {
-  max-width: 1160px;
-  margin: 0 auto;
-  padding-left: 28px;
-  padding-right: 28px;
-}
-
-.lab-hero {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background: #141311;
-  color: #f6f3ec;
-}
-
-.lab-hero-inner {
-  max-width: 1160px;
-  margin: 0 auto;
-  padding: 32px 28px 36px;
+.hero {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: clamp(32px, 4vw, 72px);
-}
-
-.lab-hero-visual {
+  flex-direction: column;
   position: relative;
-  flex: 0 0 auto;
-  width: min(440px, 42%);
-  aspect-ratio: 1 / 1;
-  background: #141311;
+  overflow: visible;
+  background: transparent;
+  padding: 56px var(--gutter) 28px;
 }
 
-.lab-hero-visual canvas {
-  position: absolute;
-  inset: 0;
+.meta-line {
+  margin: 0;
+  max-width: 70ch;
+  color: var(--ash-strong);
+}
+
+:global(html[data-world] .rec .meta-line),
+:global(html[data-world] .rec .desc),
+:global(html[data-world] .rec .caption),
+:global(html[data-world] .rec .hero-cap),
+:global(html[data-world] .rec .entry),
+:global(html[data-world] .rec .why),
+:global(html[data-world] .rec .note),
+:global(html[data-world] .rec .kicker) { color: var(--ink); }
+
+.thesis {
+  max-width: 14ch;
+  margin-top: 18px;
+  font-size: var(--t-display);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-wrap: pretty;
+}
+
+.ghost {
+  display: inline;
+  border: 1px solid var(--ink, #000);
+  padding: 0 0.12em;
+  text-decoration: none;
+  color: inherit;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.hero-foot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 28px;
+}
+
+.hero-num {
+  margin: 0;
+  font-size: var(--t-mega);
+  font-weight: 300;
+  line-height: 0.8;
+  letter-spacing: -0.045em;
+  color: var(--ink, #000);
+}
+
+.hero-cap {
+  max-width: 36ch;
+  margin: 0 0 0.6em;
+  text-align: right;
+  color: var(--ash-strong);
+}
+
+.hero-cap a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+
+.chapter { padding: var(--gap) var(--gutter) 0; }
+.chapter.tight { --gap: 72px; }
+
+.rule {
+  height: 0;
+  border: 0;
+  border-top: 1px solid var(--ink, #000);
+  margin: 0 calc(var(--gutter) * -1) 8px;
+}
+
+.chapter-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  padding: 8px 0 28px;
+}
+
+.mega {
+  margin: 0 0 10px;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0;
+  color: var(--ink, #000);
+}
+
+.titles { max-width: 60ch; }
+
+.titles h2,
+.about-head h2,
+.proof-copy h3,
+.pair-copy h3,
+.half h3 {
+  font-size: var(--t-h2);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.desc {
+  margin-top: 8px;
+  color: var(--ash-strong);
+}
+
+.proof {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 24px;
+  align-items: stretch;
+}
+
+.proof .ratio-proof { grid-column: 1 / 9; height: 70vh; min-height: 420px; }
+.proof-copy { grid-column: 9 / 13; max-width: 62ch; display: flex; flex-direction: column; gap: 14px; }
+
+.frame {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--ink, #000);
+  background: #111;
+  text-decoration: none;
+  color: inherit;
+}
+
+.frame img,
+.window img,
+.m-shot img,
+.mini {
   display: block;
   width: 100%;
   height: 100%;
-  background: #141311;
+  object-fit: cover;
+  object-position: center top;
 }
 
-.lab-hero-copy {
-  position: relative;
-  flex: 1 1 auto;
-  min-width: 0;
-  max-width: 34rem;
+.kicker { color: var(--ash-strong); }
+
+.pitch,
+.pair-copy p,
+.half p,
+.about-copy p,
+.dek,
+.note,
+.entry {
+  max-width: 62ch;
+  text-wrap: pretty;
+}
+
+.pair-copy,
+.proof-copy { font-size: var(--t-body); }
+
+.textlink {
+  align-self: flex-start;
+  color: var(--ink, #000);
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+}
+
+.sublinks {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  color: var(--ash-strong);
 }
 
-.lab-hero-mark {
-  display: block;
-  margin: 0 0 16px;
-  font-size: 15px;
-  color: #f6f3ec;
+.sublinks a { color: inherit; }
+
+:global(html[data-world] .rec .sublinks),
+:global(html[data-world] .rec .sublinks a) { color: var(--ink); }
+
+.pair {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 24px;
+  align-items: center;
+  margin-top: 28px;
+  padding-top: 28px;
+  border-top: 1px solid var(--ink, #000);
 }
 
-.lab-eyebrow,
-.lab-kicker,
-.lab-mono {
+.pair .frame { grid-column: 1 / 7; aspect-ratio: 16 / 9; }
+.pair-copy { grid-column: 7 / 13; display: flex; flex-direction: column; gap: 12px; max-width: 62ch; }
+.pair-copy h3 a,
+.half h3 a { text-decoration: none; }
+.pair-copy h3 a:hover,
+.half h3 a:hover { text-decoration: underline; text-underline-offset: 0.12em; }
+
+.core {
+  --bg: #000000;
+  --ink: #ffffff;
+  --accent: #ffffff;
+  --ring: #ffffff;
+  background: #000000;
+  color: #ffffff;
+}
+
+.core .desc,
+.core .sublinks { color: var(--ash); }
+
+:global(html[data-world] .rec .core) {
+  --bg: unset;
+  --ink: unset;
+  --accent: unset;
+  --ring: unset;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.halves {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid currentColor;
+}
+
+.half { padding: 28px 28px 36px; min-width: 0; }
+.half + .half { border-left: 1px solid currentColor; }
+.half-num { font-size: clamp(100px, 12vw, 220px); }
+.half h3 { margin-top: 8px; }
+.half p { margin-top: 12px; }
+.why { color: inherit; }
+.half .sublinks { margin-top: 16px; }
+.half .sublinks a { border-bottom: 1px solid currentColor; text-decoration: none; }
+
+.mini {
+  width: 33%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  margin-top: 28px;
+  border: 1px solid currentColor;
+  filter: grayscale(1) contrast(1.1);
+}
+
+.half:hover .mini,
+.half:focus-within .mini { filter: none; }
+
+.proj {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 28px;
+  align-items: start;
+}
+
+.ledger { grid-column: 1 / 8; min-width: 0; }
+.ledger-full { grid-column: 1 / -1; }
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(7rem, 10rem) minmax(6.5rem, 8.75rem) minmax(0, 1fr) auto;
+  column-gap: 16px;
+  align-items: baseline;
+  padding: 5px 0 8px;
+  border-bottom: 1px solid var(--ink, #000);
+}
+
+.cols {
+  color: var(--ash-strong);
   font-family: var(--mono);
   font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.04em;
-  color: var(--muted);
+  letter-spacing: 0;
+  border-bottom: 1px solid var(--ink, #000);
 }
 
-.lab-eyebrow { margin: 0 0 28px; }
-
-.lab-hero h1 {
-  margin: 0;
-  font-size: clamp(1.85rem, 2.8vw, 2.65rem);
-  font-weight: 600;
-  letter-spacing: -0.035em;
-  line-height: 1.08;
-  text-wrap: balance;
-  max-width: 18ch;
-  color: #f7f4ee;
+.no {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink, #000);
 }
 
-.lab-dek {
-  margin: 28px 0 0;
-  max-width: 38rem;
-  font-size: 18px;
-  line-height: 1.5;
-  color: var(--text);
-  text-wrap: pretty;
+.row.is-on .no { color: var(--accent, #000); }
+
+:global(html[data-chip] .rec .row.is-on .no) {
+  background: var(--accent);
+  color: var(--on-accent);
+  padding: 0 0.28em;
 }
 
-.lab-hero .lab-dek {
-  margin-top: 14px;
-  font-size: 16px;
-  line-height: 1.45;
-  max-width: 36rem;
-  color: rgba(247, 244, 238, 0.78);
-}
-
-.lab-tools {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-  margin-top: 22px;
-}
-
-.lab a.lab-tool,
-.lab a.lab-tool:visited {
-  display: inline-flex;
-  align-items: center;
-  height: 34px;
-  padding: 0 12px;
-  border: 1px solid var(--text);
-  border-radius: 2px;
-  background: transparent;
-  color: var(--text);
-  text-decoration: none;
-  font-size: 14px;
+.nm {
+  font-size: var(--t-row);
   font-weight: 500;
-  letter-spacing: -0.01em;
-}
-
-.lab a.lab-tool.is-primary,
-.lab a.lab-tool.is-primary:visited {
-  height: 40px;
-  padding: 0 16px;
-  background: var(--text);
-  color: #fff;
-  font-weight: 600;
-}
-
-.lab a.lab-tool:hover,
-.lab a.lab-tool:focus,
-.lab a.lab-tool:active,
-.lab a.lab-tool:visited:hover,
-.lab a.lab-tool:visited:focus,
-.lab a.lab-tool:visited:active {
-  background: var(--text);
-  color: #fff;
-}
-
-.lab a.lab-tool.is-primary:hover,
-.lab a.lab-tool.is-primary:focus,
-.lab a.lab-tool.is-primary:active,
-.lab a.lab-tool.is-primary:visited:hover,
-.lab a.lab-tool.is-primary:visited:focus,
-.lab a.lab-tool.is-primary:visited:active {
-  background: #242424;
-  color: #fff;
-}
-
-.lab .lab-hero a.lab-tool,
-.lab .lab-hero a.lab-tool:visited {
-  border-color: rgba(246, 243, 236, 0.82);
-  background: transparent;
-  color: #f6f3ec;
-}
-
-.lab .lab-hero a.lab-tool.is-primary,
-.lab .lab-hero a.lab-tool.is-primary:visited {
-  background: #f4f1ea;
-  border-color: #f4f1ea;
-  color: #141311;
-}
-
-.lab .lab-hero a.lab-tool:hover,
-.lab .lab-hero a.lab-tool:focus,
-.lab .lab-hero a.lab-tool:active,
-.lab .lab-hero a.lab-tool:visited:hover,
-.lab .lab-hero a.lab-tool:visited:focus,
-.lab .lab-hero a.lab-tool:visited:active,
-.lab .lab-hero a.lab-tool.is-primary:hover,
-.lab .lab-hero a.lab-tool.is-primary:focus,
-.lab .lab-hero a.lab-tool.is-primary:active,
-.lab .lab-hero a.lab-tool.is-primary:visited:hover,
-.lab .lab-hero a.lab-tool.is-primary:visited:focus,
-.lab .lab-hero a.lab-tool.is-primary:visited:active {
-  background: #f4f1ea;
-  border-color: #f4f1ea;
-  color: #141311;
-}
-
-.lab .lab-hero a:focus-visible {
-  outline-color: #f4f1ea;
-}
-
-.lab-hero-actions,
-.lab-linkrow {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 14px 22px;
-  margin-top: 36px;
-}
-
-.lab a.lab-btn,
-.lab a.lab-btn:visited {
-  display: inline-flex;
-  align-items: center;
-  height: 42px;
-  padding: 0 16px;
-  background: var(--text);
-  color: #fff;
-  text-decoration: none;
-  border-radius: 2px;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.lab a.lab-btn:hover,
-.lab a.lab-btn:focus,
-.lab a.lab-btn:active,
-.lab a.lab-btn:visited:hover,
-.lab a.lab-btn:visited:focus,
-.lab a.lab-btn:visited:active {
-  background: #242424;
-  color: #fff;
-}
-
-.lab-textlink,
-.lab-linkrow a:not(.lab-btn) {
-  color: var(--text);
-  text-decoration: none;
-  font-size: 14px;
-  border-bottom: 1px solid var(--text);
   line-height: 1.2;
-  padding-bottom: 1px;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  white-space: nowrap;
+  color: var(--ink, #000);
 }
 
-.lab-section {
-  padding-top: 88px;
-  padding-bottom: 96px;
-  border-top: 1px solid var(--line);
-  scroll-margin-top: 80px;
+.row.is-on .nm {
+  text-decoration: underline;
+  text-underline-offset: 0.14em;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--accent, currentColor);
 }
 
-.lab-band {
-  background: #f4f4f5;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
+:global(html[data-faint] .rec .row.is-on .nm) { text-decoration-color: var(--ink); }
+
+.kind {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0;
+  color: var(--ink, #000);
 }
 
-.lab-products { border-top: 0; }
-
-.lab-band + .lab-section { border-top: 0; }
-
-.lab-tier {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px 12px;
-}
-
-.lab-tier .lab-kicker { margin: 0; }
-
-.lab-products-intro {
-  margin-top: 16px;
-  max-width: 34rem;
-}
-
-.lab-flagship { margin-top: 40px; }
-
-.lab-kicker {
-  margin: 0 0 22px;
-  text-transform: uppercase;
-  scroll-margin-top: 80px;
-}
-
-.lab-section-head h2,
-.lab-flagship h3 {
+.entry {
   margin: 0;
-  font-size: clamp(2rem, 3.4vw, 3rem);
-  font-weight: 600;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
-  text-wrap: balance;
+  color: var(--ash-strong);
+  font-size: var(--t-body);
+  line-height: 1.35;
 }
 
-.lab-prose {
-  max-width: 40rem;
-  margin-top: 22px;
+.row:hover .entry,
+.row:focus-within .entry { color: var(--ink, #000); }
+
+.entry .inline {
+  margin-left: 0.7em;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0;
+  color: inherit;
 }
 
-.lab-prose p {
-  margin: 0 0 14px;
-  font-size: 18px;
-  line-height: 1.5;
-  text-wrap: pretty;
+.go,
+.repo {
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0;
+  text-decoration: none;
+  color: var(--ink, #000);
 }
 
-.lab-quote {
-  margin: 28px 0 0;
+.exp-row { grid-template-columns: minmax(7rem, 10rem) minmax(6.5rem, 8.75rem) minmax(0, 1fr) auto; }
+
+.m-shot { display: none; }
+
+.window-wrap {
+  grid-column: 8 / 13;
+  position: sticky;
+  top: 64px;
+  align-self: start;
+}
+
+.window {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1200 / 630;
+  margin-left: auto;
+  border: 1px solid var(--ink, #000);
+  background: #111;
+  overflow: hidden;
+}
+
+:global(html[data-world] .rec .window) { border-color: var(--accent); }
+
+.window img {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 160ms var(--ease);
+}
+
+.window img.show { opacity: 1; }
+
+.caption {
+  margin: 8px 0 0;
+  color: var(--ash-strong);
+}
+
+.window-wrap .caption { text-align: right; }
+
+.sheet {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin: 48px calc(var(--gutter) * -1) 0;
+  border-top: 1px solid var(--ink, #000);
+  border-left: 1px solid var(--ink, #000);
+}
+
+.cell {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  text-decoration: none;
+  color: inherit;
+  border-right: 1px solid var(--ink, #000);
+  border-bottom: 1px solid var(--ink, #000);
+}
+
+.cell .frame { border: 0; aspect-ratio: 1200 / 630; }
+.ratio-og { aspect-ratio: 1200 / 630; }
+.cell .caption { padding: 8px 10px 10px; }
+
+.quote {
+  margin: 8px 0 0;
   padding: 0;
   border: 0;
-  max-width: 40rem;
+  max-width: 62ch;
 }
 
-.lab-quote p {
-  margin: 0;
-  font-size: clamp(1.5rem, 2.4vw, 2rem);
-  font-weight: 600;
-  letter-spacing: -0.03em;
-  line-height: 1.2;
+.quote p {
+  font-size: var(--t-h2);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.02em;
 }
 
-.lab-quote footer {
+.quote footer {
   margin-top: 12px;
   font-family: var(--mono);
   font-size: 12px;
   font-style: normal;
-  color: var(--muted);
+  letter-spacing: 0;
 }
 
-.lab-quote a { color: var(--muted); }
+.quote a { color: inherit; }
 
-.lab-frame {
-  display: block;
-  margin: 40px 0 0;
-  background: var(--frame);
-  border: 1px solid #2a2a2e;
-  padding: 10px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  text-decoration: none;
-  color: inherit;
-}
+.dek { margin-top: 18px; max-width: 62ch; }
 
-.lab-stack .lab-frame,
-.lab-product-card .lab-frame { margin: 0; }
-
-.lab-product-pair {
+.inst {
+  list-style: none;
+  margin: 28px 0 0;
+  padding: 0;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 48px 32px;
-  margin-top: 72px;
+  column-gap: 32px;
 }
 
-.lab-product-card {
-  display: flex;
-  flex-direction: column;
-}
-
-.lab-product-card .lab-piece-text {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.lab-product-card h3 {
-  margin: 0 0 8px;
-  font-size: 26px;
-  font-weight: 600;
-  letter-spacing: -0.03em;
-  text-wrap: balance;
-}
-
-.lab-piece-text > p.lab-pitch {
-  margin: 0 0 8px;
-  color: var(--text);
-  font-size: 16px;
-  font-weight: 500;
-  letter-spacing: -0.02em;
+.inst li {
+  padding: 6px 0 8px;
+  border-top: 1px solid var(--ink, #000);
+  font-family: var(--mono);
+  font-size: 13px;
   line-height: 1.35;
-  text-wrap: balance;
+  letter-spacing: 0;
 }
 
-.lab-product-cta {
-  margin-top: auto;
-  padding-top: 18px;
+.inst a { color: inherit; text-decoration: none; }
+.inst a:hover { text-decoration: underline; text-underline-offset: 0.15em; }
+.inst .status { display: block; color: var(--ash-strong); margin-top: 2px; }
+:global(html[data-world] .rec .inst .status) { color: var(--ink); }
+.inst-line { display: block; margin-top: 4px; font-family: var(--sans); font-size: 13px; letter-spacing: -0.02em; }
+
+.note { margin-top: 18px; max-width: 62ch; color: var(--ash-strong); font-size: 14px; }
+
+.bleed-crop {
+  margin: 0 calc(var(--gutter) * -1);
+  padding-left: var(--gutter);
+  overflow: hidden;
 }
 
-.lab-stack {
+.mark-crop {
+  margin: 0;
+  font-size: calc((100vw - 2 * var(--gutter)) / 4.6);
+  font-weight: 300;
+  line-height: 0.8;
+  letter-spacing: -0.045em;
+  white-space: nowrap;
+  color: var(--ink, #000);
+}
+
+.about-head {
+  justify-content: flex-end;
+}
+
+.about-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px 32px;
-  margin-top: 36px;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.7fr);
+  gap: 32px 48px;
+  margin-top: 28px;
 }
 
-.lab-why {
-  margin: 8px 0 0;
-  color: var(--muted);
-  font-size: 15px;
-  line-height: 1.5;
-  text-wrap: pretty;
+.about-copy { display: flex; flex-direction: column; gap: 14px; max-width: 62ch; }
+
+.contact {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.lab-frame img,
-.lab-shot img {
+.contact a { color: var(--ash-strong); text-decoration: none; }
+.contact a:hover,
+:global(html[data-world] .rec .contact a) { color: var(--ink); }
+
+.colophon {
+  margin: 48px calc(var(--gutter) * -1) 0;
+  padding: 14px var(--gutter) 20px;
+  border-top: 1px solid var(--ink, #000);
+  color: var(--ash-strong);
+}
+
+:global(html[data-world] .rec .colophon) { color: var(--ink); }
+
+.float {
+  position: fixed;
+  z-index: 50;
+  width: 240px;
+  height: 150px;
+  border: 1px solid var(--ink, #000);
+  background: #111;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.float img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
 }
 
-.lab-frame img { border-radius: 4px; }
-
-.lab-rows,
-.lab-register {
-  list-style: none;
-  margin: 36px 0 0;
-  padding: 0;
-}
-
-.lab-rows li {
-  display: grid;
-  grid-template-columns: minmax(160px, 200px) minmax(0, 1fr) auto;
-  gap: 18px 28px;
-  align-items: baseline;
-  padding: 22px 0;
-  border-top: 1px solid var(--line);
-}
-
-.lab-rows li:last-child { border-bottom: 1px solid var(--line); }
-
-.lab-row-name {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 10px;
-}
-
-.lab-row-name a,
-.lab-register-name,
-.lab-piece h3 a,
-.lab-product-card h3 a {
-  color: var(--text);
-  text-decoration: none;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-}
-
-.lab-row-name a:hover,
-.lab-register-name:hover,
-.lab-piece h3 a:hover,
-.lab-product-card h3 a:hover { text-decoration: underline; text-underline-offset: 3px; }
-
-.lab-rows p,
-.lab-register p,
-.lab-piece-text > p {
-  margin: 0;
-  color: var(--text);
-  text-wrap: pretty;
-}
-
-.lab-row-meta { color: var(--muted); font-family: var(--mono); font-size: 12px; }
-
-.lab-note {
-  margin: 18px 0 0;
-  max-width: 44rem;
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.5;
-  text-wrap: pretty;
-}
-
-.lab-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 56px 36px;
-  margin-top: 40px;
-}
-
-.lab-shot {
-  display: block;
-  border: 1px solid var(--line);
-  background: #f4f4f5;
-  text-decoration: none;
-  color: inherit;
-}
-
-.lab-shot.is-specimen {
-  aspect-ratio: 16 / 10;
-  display: flex;
-  align-items: flex-end;
-  padding: 18px 20px;
-}
-
-.lab-specimen {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.lab-specimen-name {
-  font-size: clamp(1.7rem, 3vw, 2.4rem);
-  font-weight: 600;
-  letter-spacing: -0.04em;
-  line-height: 0.95;
-  color: var(--text);
-}
-
-.lab-shot:hover { border-color: var(--text); }
-
-.lab-piece-text { padding-top: 14px; }
-
-.lab-piece h3 {
-  margin: 0 0 6px;
-  font-size: 22px;
-  font-weight: 600;
-  letter-spacing: -0.03em;
-}
-
-.lab-piece-text > p { color: var(--muted); font-size: 15px; }
-
-.lab-piece-meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 14px;
-  margin-top: 12px;
-}
-
-.lab-piece-meta a {
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--text);
-  text-decoration: none;
-  border-bottom: 1px solid var(--text);
-}
-
-.lab-chip {
-  display: inline-flex;
-  align-items: center;
-  height: 20px;
-  padding: 0 6px;
-  border: 1px solid var(--line);
-  border-radius: 2px;
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: 0.02em;
-  color: var(--muted);
-  white-space: nowrap;
-}
-
-.lab-chip.is-open {
-  color: var(--status);
-  border-color: var(--status-line);
-  background: transparent;
-}
-
-.lab-chip.is-commercial {
-  color: #fff;
-  background: var(--text);
-  border-color: var(--text);
-}
-
-.lab-register li {
-  display: grid;
-  grid-template-columns: 36px minmax(140px, 180px) minmax(0, 1fr) auto;
-  gap: 12px 20px;
-  align-items: baseline;
-  padding: 16px 0;
-  border-top: 1px solid var(--line);
-}
-
-.lab-register li:last-child { border-bottom: 1px solid var(--line); }
-
-.lab-index { padding-top: 4px; }
-
-.lab-footer {
-  display: grid;
-  grid-template-columns: 1.25fr repeat(5, 1fr);
-  gap: 32px 24px;
-  padding-top: 64px;
-  padding-bottom: 28px;
-  border-top: 1px solid var(--line);
-  scroll-margin-top: 80px;
-}
-
-.lab-footer-brand .lab-wordmark { display: block; margin: 0 0 14px; }
-
-.lab-footer-emails {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin: 0 0 14px;
-}
-
-.lab-footer-emails a,
-.lab-footer-brand > a {
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 14px;
-}
-
-.lab-footer-emails a:hover,
-.lab-footer-brand > a:hover { color: var(--text); }
-
-.lab-footer-col h2 {
-  margin: 0 0 12px;
-  font-family: var(--mono);
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.lab-footer-col ul { list-style: none; margin: 0; padding: 0; }
-
-.lab-footer-col li { margin: 0 0 8px; }
-
-.lab-footer-col a {
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 14px;
-}
-
-.lab-footer-col a:hover { color: var(--text); }
-
-.lab-copy {
-  grid-column: 1 / -1;
-  margin: 12px 0 0;
-  padding-top: 18px;
-  border-top: 1px solid var(--line);
-  color: var(--muted);
-  font-family: var(--mono);
-  font-size: 12px;
-}
-
-.lab a:focus-visible,
-.lab button:focus-visible {
-  outline: 2px solid var(--text);
+.rec a:focus-visible {
+  outline: 2px solid var(--ring, #000);
   outline-offset: 3px;
 }
 
-@media (max-width: 900px) {
-  .lab-nav,
-  .lab-header-bar > .lab-cta { display: none; }
-
-  .lab-menu-btn { display: block; }
-
-  .lab-header.is-open .lab-menu {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    padding: 4px 20px 20px;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .lab-menu a:not(.lab-cta) {
-    display: flex;
-    align-items: center;
-    min-height: 44px;
-    font-size: 16px;
-    color: var(--text);
-  }
-
-  .lab-menu a.lab-cta,
-  .lab-menu a.lab-cta:visited {
-    margin-top: 8px;
-    height: 44px;
-    color: var(--text);
-    background: transparent;
-  }
-
-  .lab-menu a.lab-cta:hover,
-  .lab-menu a.lab-cta:focus,
-  .lab-menu a.lab-cta:active,
-  .lab-menu a.lab-cta:visited:hover,
-  .lab-menu a.lab-cta:visited:focus,
-  .lab-menu a.lab-cta:visited:active {
-    background: var(--text);
-    color: #fff;
-  }
-
-  .lab-hero-inner {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-    padding: 28px 20px 32px;
-  }
-
-  .lab-hero-copy { max-width: 40rem; }
-
-  .lab-hero-visual {
-    width: min(100%, 380px);
-    aspect-ratio: 4 / 3;
-    align-self: center;
-    margin-top: 12px;
-  }
-
-  .lab-stack,
-  .lab-grid,
-  .lab-product-pair { grid-template-columns: 1fr; gap: 40px; }
-
-  .lab-product-pair { margin-top: 56px; }
-
-  .lab-rows li,
-  .lab-register li {
-    grid-template-columns: 1fr;
-    gap: 6px;
-  }
-
-  .lab-footer { grid-template-columns: 1fr 1fr; }
-  .lab-footer-brand { grid-column: 1 / -1; }
+.proof,
+.pair,
+.half,
+.row,
+.cell {
+  scroll-margin-top: 64px;
 }
 
-@media (max-width: 560px) {
-  .lab-header-bar,
-  .lab-section,
-  .lab-footer {
-    padding-left: 20px;
-    padding-right: 20px;
+.rec a,
+.rec button {
+  transition: background-color 220ms var(--ease), color 220ms var(--ease), border-color 220ms var(--ease), outline-color 220ms var(--ease), text-decoration-color 220ms var(--ease);
+}
+
+:global(html),
+:global(body),
+:global(#app) {
+  background: var(--bg, #ffffff);
+  color: var(--ink, #000000);
+  margin: 0;
+}
+
+:global(html) {
+  transition: background-color 220ms cubic-bezier(.2, .7, .1, 1), color 220ms cubic-bezier(.2, .7, .1, 1);
+}
+
+.rec,
+.bar,
+.rule,
+.row,
+.pair,
+.halves,
+.half,
+.cell,
+.frame,
+.window,
+.inst li,
+.colophon,
+.ghost,
+.nav a,
+.counter,
+.entry,
+.caption,
+.meta-line,
+.desc,
+.hero-num,
+.mega,
+.nm,
+.no,
+.textlink {
+  transition: background-color 220ms var(--ease), color 220ms var(--ease), border-color 220ms var(--ease), outline-color 220ms var(--ease), text-decoration-color 220ms var(--ease);
+}
+
+@media (min-width: 768px) {
+  .rec { --gutter: 24px; }
+}
+
+@media (min-width: 1024px) {
+  .sheet { grid-template-columns: 1fr 1fr; }
+}
+
+@media (min-width: 1280px) {
+  .rec { --gap: 112px; }
+  .chapter.tight { --gap: 96px; }
+  .sheet { grid-template-columns: 1fr 1fr 1fr; }
+}
+
+@media (min-width: 1920px) {
+  .rec { --gutter: 32px; }
+}
+
+
+@media (max-width: 1023px) {
+  .proj { display: block; }
+  .window-wrap { display: none; }
+  .ledger { grid-column: auto; }
+  .cols { display: none; }
+  .row,
+  .exp-row {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      "name name"
+      "kind kind"
+      "entry entry"
+      "go go"
+      "shot shot";
+    row-gap: 4px;
+    align-items: baseline;
   }
-  .lab-hero-inner { padding-left: 20px; padding-right: 20px; }
-  .lab-section { padding-top: 56px; padding-bottom: 64px; }
-  .lab-dek,
-  .lab-prose p { font-size: 16px; }
-  .lab-footer { grid-template-columns: 1fr; }
+  .no { grid-area: no; }
+  .nm { grid-area: name; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .kind { grid-area: kind; }
+  .entry { grid-area: entry; }
+  .go, .repo { grid-area: go; justify-self: start; }
+  .m-shot {
+    display: block;
+    grid-area: shot;
+    aspect-ratio: 16 / 10;
+    margin-top: 8px;
+  }
+  .exp-row .m-shot { display: none; }
+  .float { display: none; }
+}
+
+@media (max-width: 800px) {
+  .rec {
+    --t-mega: 140px;
+    --t-display: 36px;
+    --t-h2: 28px;
+    --t-chapter: 140px;
+    --t-row: 20px;
+    --t-body: 16px;
+  }
+  .bar {
+    height: auto;
+    min-height: 40px;
+    flex-wrap: wrap;
+    align-content: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    row-gap: 6px;
+  }
+  .nav {
+    order: 3;
+    flex: 1 0 100%;
+    margin-left: 0;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    overflow: visible;
+  }
+  .hero { padding-top: 80px; }
+  .thesis { max-width: none; }
+  .hero-foot { flex-direction: column; align-items: flex-start; }
+  .hero-cap { text-align: left; margin: 0; max-width: 62ch; }
+  .chapter-head { flex-direction: column; align-items: flex-start; }
+  .titles { text-align: left; }
+  .proof,
+  .pair { grid-template-columns: 1fr; gap: 16px; }
+  .proof .ratio-proof,
+  .proof-copy,
+  .pair .frame,
+  .pair-copy { grid-column: auto; }
+  .proof .ratio-proof { height: auto; min-height: 0; aspect-ratio: 4 / 5; }
+  .pair .frame { aspect-ratio: 16 / 10; }
+  .halves { grid-template-columns: 1fr; }
+  .half + .half { border-left: 0; border-top: 1px solid currentColor; }
+  .mini { width: 66%; }
+  .inst,
+  .about-grid { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lab a,
-  .lab button { transition: none; }
+  :global(html),
+  .rec,
+  .rec *,
+  .window img { transition: none !important; }
+  :global(html) { scroll-behavior: auto; }
+}
+
+/* Takeover worlds: every secondary grey becomes the world's ink so text never drops below AA. */
+:global(html[data-world] .rec) { --ash: var(--ink); --ash-strong: var(--ink); }
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 40px;
+  padding: 64px var(--gutter) 24px;
+}
+.hero-text { display: flex; flex-direction: column; gap: 20px; }
+.lede { margin: 0; max-width: 46ch; font-size: clamp(17px, 1.35vw, 21px); line-height: 1.45; }
+.hero-jump { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 4px 0 0; }
+.hero-jump a { color: var(--ink, #000); text-underline-offset: 0.2em; }
+.hero-products { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.hp {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--ink, #000);
+  color: var(--ink, #000);
+  text-decoration: none;
+}
+.hp:hover .hp-name, .hp:focus-visible .hp-name { text-decoration: underline; text-underline-offset: 0.14em; }
+.hp-shot { display: block; aspect-ratio: 16 / 9; overflow: hidden; background: #111; }
+.hp-shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: left top; }
+.hp-copy { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.hp-tag { font-size: 12px; color: var(--ash-strong); }
+.hp-name { font-size: clamp(22px, 1.9vw, 30px); font-weight: 400; letter-spacing: -0.02em; line-height: 1.05; }
+.hp-line { font-size: 15px; line-height: 1.4; }
+@media (min-width: 1024px) {
+  .hero { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); align-items: center; gap: 56px; padding-top: 72px; padding-bottom: 40px; }
+}
+@media (max-width: 800px) {
+  .hero { padding-top: 96px; }
+  .hp { grid-template-columns: 120px minmax(0, 1fr); gap: 12px; padding: 10px; }
+  .hp-name { font-size: 22px; }
+  .hp-line { font-size: 14px; }
+}
+.core { padding-top: 64px; }
+.core + .chapter { --gap: 72px; }
+.hero-products { scroll-margin-top: 64px; }
+
+/* Flagship: Proof, in reqproof.com's own palette and type. */
+.flagship {
+  --forest: #1b2823;
+  --paper: #f3f0e9;
+  --moss: #7fa34e;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  min-height: calc(100vh - 41px);
+  min-height: calc(100svh - 41px);
+  margin-top: 41px;
+  background: var(--forest);
+  color: var(--paper);
+  scroll-margin-top: 41px;
+}
+.fl-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 22px;
+  padding: clamp(48px, 7vh, 96px) var(--gutter) clamp(48px, 7vh, 96px) clamp(20px, 4vw, 72px);
+  min-width: 0;
+}
+.fl-id { margin: 0; color: var(--paper); opacity: 0.86; max-width: 60ch; }
+.fl-kicker { margin: 18px 0 0; display: inline-flex; align-items: center; gap: 10px; color: var(--paper); font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; }
+.fl-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--moss); }
+.fl-title {
+  margin: 0;
+  font-family: "Iowan Old Style", Baskerville, "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(56px, 8.4vw, 168px);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  color: var(--paper);
+}
+.fl-line { margin: 0; max-width: 34ch; font-size: clamp(18px, 1.5vw, 24px); line-height: 1.4; color: var(--paper); }
+.fl-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 28px; margin-top: 10px; }
+.flagship .fl-btn {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 16px 26px;
+  background: var(--paper); color: var(--forest);
+  font-size: 18px; font-weight: 500; text-decoration: none;
+  border: 1px solid var(--paper);
+}
+.flagship .fl-btn:hover, .flagship .fl-btn:focus-visible { background: transparent; color: var(--paper); }
+.fl-sub { display: flex; gap: 18px; margin: 0; }
+.flagship .fl-sub a { color: var(--paper); text-underline-offset: 0.25em; }
+.flagship a:focus-visible { outline-color: var(--paper); }
+.fl-art { display: block; position: relative; overflow: hidden; min-height: 100%; }
+.fl-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
+
+.also { padding: 56px var(--gutter) 24px; scroll-margin-top: 41px; }
+.also-label { margin: 0 0 18px; font-size: 13px; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink, #000); }
+.also-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.also-card { display: flex; flex-direction: column; border: 1px solid var(--ink, #000); color: var(--ink, #000); text-decoration: none; }
+.also-shot { display: block; aspect-ratio: 1440 / 640; overflow: hidden; background: #111; border-bottom: 1px solid var(--ink, #000); }
+.also-shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: left top; transition: transform 400ms var(--ease); }
+.also-card:hover .also-shot img { transform: scale(1.02); }
+.also-copy { display: flex; flex-direction: column; gap: 8px; padding: 18px 20px 20px; }
+.also-tag { font-size: 12px; color: var(--ash-strong); }
+.also-name { font-size: clamp(26px, 2.2vw, 36px); letter-spacing: -0.02em; line-height: 1; }
+.also-line { font-size: 16px; line-height: 1.45; max-width: 52ch; }
+.also-link { margin-top: 6px; font-size: 13px; text-decoration: underline; text-underline-offset: 0.25em; }
+
+@media (max-width: 900px) {
+  .flagship { grid-template-columns: 1fr; min-height: 0; }
+  .fl-art { order: -1; aspect-ratio: 4 / 3; min-height: 0; }
+  .fl-text { padding: 36px var(--gutter) 44px; }
+  .also-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 800px) {
+  .flagship { margin-top: 64px; }
 }
 </style>
