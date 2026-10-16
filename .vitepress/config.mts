@@ -47,10 +47,10 @@ export default defineConfig({
     if (!isProject && !isOel) return
 
     const title = isOel
-      ? 'Oel by ProbeLabs — the code-grounded company brain'
+      ? 'Oel by ProbeLabs — the GitOps-friendly, security-first company brain'
       : frontmatter.title
     const description = isOel
-      ? 'Oel is an AI teammate for product and engineering teams. It answers across code, Jira, Zendesk, Confluence, Slack, docs, CI, and observability, then opens pull requests, updates tickets, posts to Slack, and sends scheduled digests. On-prem, with audit trails. Powered by Probe and Visor.'
+      ? 'Oel is the GitOps-friendly, security-first company brain. Config, prompts, workflows and permissions live in git and are reviewed as pull requests. It runs on your own infrastructure with scoped permissions and an audit trail, and answers are grounded in your code and tools with the evidence attached. Powered by Probe and Visor.'
       : frontmatter.description
     const url = `https://probelabs.com/${slug}`
     const image = frontmatter.ogImage ? `https://probelabs.com${frontmatter.ogImage}` : ''

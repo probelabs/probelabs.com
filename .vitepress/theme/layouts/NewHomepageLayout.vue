@@ -8,12 +8,12 @@
       <div class="nh-hero-left">
         <p class="nh-hero-eyebrow">by ProbeLabs</p>
         <h1>Oel</h1>
-        <p class="nh-hero-value">The code-grounded company brain.</p>
+        <p class="nh-hero-value">The GitOps-friendly, security-first company brain.</p>
         <p class="nh-hero-sub">
-          An AI teammate for product and engineering teams.
-          Ask across code, Jira, Zendesk, Confluence, Slack, docs, CI, and observability.
-          Answers come from the code, with the evidence attached.
-          Then it acts — pull requests, ticket updates, Slack posts, and scheduled digests.
+          Config, prompts, workflows and permissions live in git, reviewed as pull requests.
+          It runs on your infrastructure, with scoped permissions and an audit trail.
+          Ask across code, Jira, Zendesk, Confluence, Slack, docs, CI, and observability —
+          answers are grounded in your code and tools, with the evidence attached.
           <span class="nh-hero-verbs">Learn. Debug. Plan. Review. Automate.</span>
           Powered by <a href="/probe">Probe</a> &amp; <a href="/visor">Visor</a>.
         </p>

@@ -11,7 +11,6 @@
           <a href="#projects">Projects</a>
           <a href="/company/about">About</a>
         </nav>
-        <a class="lab-cta" href="https://reqproof.com/demo">Request demo</a>
         <button
           class="lab-menu-btn"
           type="button"
@@ -28,7 +27,6 @@
         <a href="#stack" @click="closeAndGo($event, 'stack')">Core stack</a>
         <a href="#projects" @click="closeAndGo($event, 'projects')">Projects</a>
         <a href="/company/about" @click="menuOpen = false">About</a>
-        <a class="lab-cta" href="https://reqproof.com/demo">Request demo</a>
       </div>
     </header>
 
@@ -57,7 +55,7 @@
             <h2 class="lab-kicker">01 / Products</h2>
             <span class="lab-chip is-commercial">Commercial</span>
           </div>
-          <p class="lab-dek lab-products-intro">The products you can book. Open instruments and research follow.</p>
+          <p class="lab-dek lab-products-intro">Our products. Open instruments and research follow.</p>
 
           <article class="lab-flagship" id="proof">
             <div class="lab-section-head">
@@ -81,7 +79,6 @@
             </figure>
             <div class="lab-linkrow">
               <a class="lab-btn" href="https://reqproof.com">Proof website</a>
-              <a href="https://reqproof.com/demo">Request demo</a>
               <a href="https://reqproof.com/method">Method</a>
               <a href="https://reqproof.com/product">Product</a>
               <a href="https://reqproof.com/about">Public register</a>
@@ -95,15 +92,15 @@
                   src="/images/portfolio/oel.png"
                   width="1440"
                   height="616"
-                  alt="Oel page: The code-grounded company brain, with Book a demo and an answer that cites middleware/rate_limit.go."
+                  alt="Oel page: the company brain, with an answer that cites middleware/rate_limit.go."
                 >
               </a>
               <div class="lab-piece-text">
                 <h3><a href="/oel">Oel</a></h3>
-                <p class="lab-pitch">The code-grounded company brain.</p>
-                <p>Ask across code, Jira, Zendesk, Confluence, Slack, docs, CI, and observability. Every answer shows its evidence. Every action runs as a governed workflow on your infrastructure.</p>
+                <p class="lab-pitch">The security-first company brain.</p>
+                <p>GitOps-friendly: config, prompts, workflows and permissions live in git, reviewed as pull requests. Runs on your infrastructure with scoped permissions and an audit trail. Answers are grounded in your code and tools, with the evidence attached.</p>
                 <div class="lab-product-cta">
-                  <a class="lab-btn" href="/oel#demo">Book a demo</a>
+                  <a class="lab-btn" href="/oel">Explore Oel →</a>
                 </div>
               </div>
             </article>
@@ -113,7 +110,7 @@
                   src="/images/portfolio/spirit-room.png"
                   width="1440"
                   height="640"
-                  alt="Spirit Room homepage: Optimise your MCP, CLI or API for AI agents, with Book a pilot and Get updates."
+                  alt="Spirit Room homepage: Optimise your MCP, CLI or API for AI agents."
                 >
               </a>
               <div class="lab-piece-text">
@@ -121,7 +118,7 @@
                 <p class="lab-pitch">Optimise your MCP, CLI or API for AI agents.</p>
                 <p>You give us the jobs agents need to get right. We run every major agent through hundreds of simulations, trying new tool descriptions, help text, errors and combined tools. The result: agents finish your jobs in fewer steps, with fewer mistakes, even on cheaper models.</p>
                 <div class="lab-product-cta">
-                  <a class="lab-btn" href="https://spiritroom.app/#contact">Book a pilot</a>
+                  <a class="lab-btn" href="https://spiritroom.app">Visit Spirit Room →</a>
                 </div>
               </div>
             </article>
@@ -245,7 +242,6 @@
           <li><a href="https://reqproof.com/method">Method</a></li>
           <li><a href="https://reqproof.com/product">Product</a></li>
           <li><a href="https://reqproof.com/about">About / register</a></li>
-          <li><a href="https://reqproof.com/demo">Request demo</a></li>
           <li><a href="/oel">Oel</a></li>
           <li><a href="https://spiritroom.app/">Spirit Room</a></li>
         </ul>
