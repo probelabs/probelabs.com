@@ -7,6 +7,7 @@ import { onMounted, watch } from 'vue'
 import PortfolioTheme from '../portfolio-theme/index.js'
 
 // Import default theme styles and components
+import './projects/probe-lock.css'
 import './custom.css'
 import './home.css'
 import './blog.css'
@@ -21,6 +22,12 @@ import DocsLayout from './layouts/DocsLayout.vue'
 import NewHomepageLayout from './layouts/NewHomepageLayout.vue'
 import LabPortfolioLayout from './layouts/LabPortfolioLayout.vue'
 import ProjectPageLayout from './layouts/ProjectPageLayout.vue'
+import QcPage from './projects/qc/QcPage.vue'
+import StePage from './projects/ste/StePage.vue'
+import AeoPage from './projects/aeo/AeoPage.vue'
+import FuzzersPage from './projects/fuzzers/FuzzersPage.vue'
+import DocsMcpPage from './projects/docs-mcp/DocsMcpPage.vue'
+import RecsPage from './projects/recs/RecsPage.vue'
 import PricingLayout from './layouts/PricingLayout.vue'
 import SolutionsLayout from './layouts/SolutionsLayout.vue'
 import SiteFooter from './components/SiteFooter.vue'
@@ -80,6 +87,12 @@ const ThemeSwitcher = {
       if (frontmatter.value?.theme === 'lab-portfolio') {
         return h(LabPortfolioLayout)
       }
+      if (frontmatter.value?.theme === 'qc-sheet') return h(QcPage)
+      if (frontmatter.value?.theme === 'ste-spec') return h(StePage)
+      if (frontmatter.value?.theme === 'aeo-board') return h(AeoPage)
+      if (frontmatter.value?.theme === 'fuzzers-malformed') return h(FuzzersPage)
+      if (frontmatter.value?.theme === 'docs-room') return h(DocsMcpPage)
+      if (frontmatter.value?.theme === 'recs-desktop') return h(RecsPage)
       if (frontmatter.value?.theme === 'project') {
         return h(ProjectPageLayout)
       }

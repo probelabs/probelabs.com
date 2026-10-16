@@ -42,7 +42,15 @@ export default defineConfig({
   transformHead({ page, pageData, head }) {
     const frontmatter = pageData?.frontmatter || {}
     const slug = String(page || '').replace(/\.md$/, '')
-    const isProject = frontmatter.theme === 'project'
+    const isProject = [
+      'project',
+      'qc-sheet',
+      'ste-spec',
+      'aeo-board',
+      'fuzzers-malformed',
+      'docs-room',
+      'recs-desktop'
+    ].includes(frontmatter.theme)
     const isOel = page === 'oel.md'
     if (!isProject && !isOel) return
 
@@ -92,13 +100,6 @@ export default defineConfig({
       if (frontmatter.ogImageAlt) {
         tags.push(['meta', { property: 'og:image:alt', content: frontmatter.ogImageAlt }])
       }
-    }
-    if (isProject) {
-      tags.push(
-        ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
-        ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
-        ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap' }]
-      )
     }
     return tags
   },
