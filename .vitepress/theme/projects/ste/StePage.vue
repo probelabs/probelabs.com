@@ -123,7 +123,7 @@ onBeforeUnmount(clearTimers)
         <p v-if="struck" class="good">{{ hero[1] }}</p>
         <p v-else class="good" hidden>USE</p>
       </div>
-      <p class="rule mono">ste check manual.md → 1 finding · suggestion: use</p>
+      <p class="rule mono">ste check manual.md → 1 finding · suggestion: {{ hero[1].toLowerCase() }}</p>
       <div class="install-row">
         <p><button class="copy" type="button" @click="copy(GO, 'go')">{{ GO }}</button></p>
         <p><button class="copy" type="button" @click="copy(NPM, 'npm')">{{ NPM }}</button></p>
