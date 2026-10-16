@@ -9,11 +9,17 @@
   --display: "Fraunces", serif;
   --text: "Inter", sans-serif;
   --mono: "IBM Plex Mono", monospace;
+  --page: min(1080px, calc(100% - clamp(32px, 7vw, 120px) * 2));
   background: #043f2e;
   color: #fcfcfc;
   font-family: var(--text);
-  font-size: 17px;
+  font-size: clamp(16px, 0.2vw + 15px, 17px);
   line-height: 1.5;
+}
+
+.room main {
+  width: var(--page);
+  margin-inline: auto;
 }
 
 .room h1,
@@ -48,22 +54,22 @@
 
 .room .hero {
   display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-  gap: 28px;
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 400px);
+  gap: clamp(20px, 3vw, 40px);
   align-items: start;
-  padding: 48px 40px 0;
+  padding: clamp(28px, 4vh, 48px) 0 0;
 }
 
 .room h1 {
   margin: 0 0 16px;
-  font-size: clamp(44px, 5vw, 96px);
+  font-size: clamp(36px, 3.8vw, 64px);
   color: #fcfcfc;
 }
 
 .room .lede {
   margin: 0 0 16px;
-  max-width: 38rem;
-  font-size: 18px;
+  max-width: 36rem;
+  font-size: clamp(16px, 0.3vw + 15px, 18px);
 }
 
 .room .paper {
@@ -119,13 +125,17 @@
 }
 
 .room .stack {
-  padding: 88px 40px 24px;
-  max-width: 920px;
+  padding: clamp(28px, 4vh, 40px) 0 8px;
+  max-width: none;
+}
+
+.room .hero + .stack {
+  padding-top: clamp(56px, 7vh, 80px);
 }
 
 .room h2 {
   margin: 0 0 12px;
-  font-size: clamp(36px, 4vw, 56px);
+  font-size: clamp(30px, 3vw, 48px);
 }
 
 .room .flow {
@@ -155,7 +165,7 @@
 
 .room dt {
   font-family: var(--display);
-  font-size: 28px;
+  font-size: clamp(22px, 1.6vw, 28px);
   font-weight: 400;
   margin-top: 18px;
 }
@@ -250,12 +260,6 @@
 }
 
 @media (max-width: 800px) {
-  .room .hero,
-  .room .stack {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
   .room .hero {
     grid-template-columns: 1fr;
   }
@@ -270,4 +274,10 @@
     animation: none;
     transform: none;
   }
+}
+
+/* Keep the config card (and its Copy button) fully visible. */
+.room .hero {
+  overflow: visible;
+  padding-bottom: 8px;
 }

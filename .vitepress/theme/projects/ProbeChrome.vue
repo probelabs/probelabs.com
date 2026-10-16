@@ -74,11 +74,12 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  min-height: 32px;
-  height: 32px;
-  padding: 0 16px;
   box-sizing: border-box;
-  background: var(--bg);
+  width: min(1120px, calc(100% - clamp(32px, 7vw, 120px) * 2));
+  min-height: 32px;
+  margin-inline: auto;
+  padding: 0;
+  background: transparent;
   color: var(--ink);
   font-family: system-ui, sans-serif;
   font-size: 12px;
@@ -118,7 +119,6 @@ onBeforeUnmount(() => {
 
 @media (max-width: 420px) {
   .probe-strip {
-    padding: 0 8px;
     gap: 8px;
   }
 

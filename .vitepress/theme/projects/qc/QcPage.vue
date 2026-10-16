@@ -134,7 +134,7 @@ onBeforeUnmount(clearTimers)
   >
     <header class="hero">
       <div class="hero-top">
-        <div>
+        <div class="hero-copy">
           <h1>QC</h1>
           <p class="kicker">Deterministic checklist gate for AI-driven development</p>
         </div>
@@ -160,7 +160,7 @@ onBeforeUnmount(clearTimers)
       </div>
     </header>
 
-    <table>
+    <table class="sheet">
       <caption>Inspection sheet · demonstration rows, not a sealed run</caption>
       <tbody>
         <tr
@@ -193,7 +193,7 @@ onBeforeUnmount(clearTimers)
       </div>
     </section>
 
-    <table>
+    <table class="ledger">
       <caption>How it runs</caption>
       <tbody>
         <tr v-for="(row, index) in ledger" :key="row.cmd">

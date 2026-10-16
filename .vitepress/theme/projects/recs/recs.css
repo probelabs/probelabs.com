@@ -9,11 +9,12 @@
   --pixel: "Jersey 10", system-ui;
   --ui: system-ui, -apple-system, "Inter", sans-serif;
   --mono: "JetBrains Mono", monospace;
+  --page: min(1120px, calc(100% - clamp(32px, 7vw, 120px) * 2));
   background: #f1f2f3;
   color: #111;
   font-family: var(--ui);
   font-weight: 500;
-  font-size: 16px;
+  font-size: clamp(15px, 0.2vw + 14px, 16px);
   letter-spacing: -0.016em;
   line-height: 1.35;
 }
@@ -35,20 +36,28 @@
 
 .desk .stage {
   position: relative;
-  min-height: 820px;
-  padding: 20px 20px 40px;
+  width: var(--page);
+  margin-inline: auto;
+  min-height: 560px;
+  padding: clamp(12px, 2vh, 20px) 0 clamp(20px, 3vh, 32px);
+}
+
+.desk .mast {
+  position: relative;
+  z-index: 6;
+  max-width: calc(100% - 460px);
 }
 
 .desk h1 {
   margin: 0;
-  font-size: clamp(72px, 16vw, 140px);
+  font-size: clamp(64px, 8vw, 112px);
   line-height: 0.9;
 }
 
 .desk .dek {
   margin: 8px 0 0;
   max-width: 28rem;
-  font-size: 28px;
+  font-size: clamp(20px, 1.5vw, 26px);
   font-weight: 700;
   letter-spacing: -0.02em;
   text-wrap: balance;
@@ -93,7 +102,7 @@
 
 .desk .win {
   position: absolute;
-  width: min(420px, calc(100% - 32px));
+  width: min(520px, 54%);
   background: #fff;
   border-radius: 25px;
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04), 0 12px 32px rgba(0, 0, 0, 0.08);
@@ -129,7 +138,7 @@
 
 .desk .titlebar b {
   font-family: var(--pixel);
-  font-size: 28px;
+  font-size: clamp(22px, 1.6vw, 28px);
   font-weight: 400;
   letter-spacing: 0;
   line-height: 1;
@@ -225,7 +234,7 @@
 .desk .more b {
   display: block;
   font-family: var(--pixel);
-  font-size: 28px;
+  font-size: clamp(22px, 1.6vw, 28px);
 }
 
 .desk .count {
@@ -253,7 +262,9 @@
 }
 
 .desk .below {
-  padding: 24px 20px 64px;
+  width: min(760px, var(--page));
+  margin-inline: auto;
+  padding: clamp(24px, 4vw, 40px) 0 clamp(48px, 6vw, 72px);
   display: grid;
   gap: 20px;
 }
@@ -275,10 +286,14 @@
 
 @media (max-width: 800px) {
   .desk .stage {
-    min-height: 0;
+    min-height: 0 !important;
     display: flex;
     flex-direction: column;
     gap: 16px;
+  }
+
+  .desk .mast {
+    max-width: none;
   }
 
   .desk .win {

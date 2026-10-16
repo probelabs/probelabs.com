@@ -250,7 +250,7 @@ xfuzz::gates::no_panic("parse", || {
 
     <section class="why">
       <div>
-        <h2 style="font-size:72px;margin:0 0 12px">Why structure-aware</h2>
+        <h2>Why structure-aware</h2>
         <p>A grammar emits valid structure first. Format-aware operators then break that structure where the parser has to change state.</p>
         <p>Blind mutation reaches a cut just after a colon, a truncated escape, or a brace with no closer only after a huge number of trials.</p>
       </div>
