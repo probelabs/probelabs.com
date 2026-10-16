@@ -124,8 +124,12 @@
         </div>
         <div class="lab-grid">
           <article v-for="item in projects" :key="item.name" class="lab-piece">
-            <a class="lab-shot" :href="item.href" :target="item.external ? '_blank' : undefined" :rel="item.external ? 'noopener noreferrer' : undefined">
-              <img :src="item.image" width="1440" height="900" :alt="item.alt" loading="lazy">
+            <a class="lab-shot" :class="{ 'is-specimen': !item.image }" :href="item.href" :target="item.external ? '_blank' : undefined" :rel="item.external ? 'noopener noreferrer' : undefined">
+              <img v-if="item.image" :src="item.image" :width="item.width || 1440" :height="item.height || 900" :alt="item.alt" loading="lazy">
+              <span v-else class="lab-specimen">
+                <span class="lab-mono">{{ item.specimen }}</span>
+                <span class="lab-specimen-name">{{ item.name }}</span>
+              </span>
             </a>
             <div class="lab-piece-text">
               <h3>
@@ -204,8 +208,10 @@
           <li><a href="/oel">Oel</a></li>
           <li><a href="/visor">Visor</a></li>
           <li><a href="https://goreplay.org">GoReplay</a></li>
-          <li><a href="https://github.com/probelabs/json-fuzz">json-fuzz</a></li>
-          <li><a href="https://github.com/probelabs/graphql-fuzz">graphql-fuzz</a></li>
+          <li><a href="/fuzzers">Fuzzers</a></li>
+          <li><a href="/fuzzers#json-fuzz">json-fuzz</a></li>
+          <li><a href="/fuzzers#graphql-fuzz">graphql-fuzz</a></li>
+          <li><a href="/fuzzers#xml-fuzz">xml-fuzz</a></li>
           <li><a href="https://github.com/probelabs/proof-action">proof-action</a></li>
         </ul>
       </div>
@@ -218,6 +224,11 @@
           <li><a href="/vow">Vow</a></li>
           <li><a href="/memaris">Memaris</a></li>
           <li><a href="/logoscope">Logoscope</a></li>
+          <li><a href="/qc">qc</a></li>
+          <li><a href="/ste">ste</a></li>
+          <li><a href="/aeo">aeo</a></li>
+          <li><a href="/docs-mcp">docs-mcp</a></li>
+          <li><a href="/recs">recs</a></li>
           <li><a href="/products/memory-layer">Memory Layer</a></li>
         </ul>
       </div>
@@ -251,9 +262,16 @@ let heroCancelled = false
 
 const infrastructure = [
   {
+    name: 'Fuzzers',
+    href: '/fuzzers',
+    line: 'Structure-aware fuzzers for JSON, GraphQL, and XML. Grammar generators, format-aware mutations, and correctness gates.',
+    meta: 'Go · Rust',
+    chip: 'Published',
+    chipKind: 'open'
+  },
+  {
     name: 'json-fuzz',
-    href: 'https://github.com/probelabs/json-fuzz',
-    external: true,
+    href: '/fuzzers#json-fuzz',
     line: 'Structure-aware JSON fuzzer. A grammar-based generator, JSON-aware mutations, and correctness gates for differential testing of JSON parsers.',
     meta: 'Go',
     chip: 'Published',
@@ -261,9 +279,16 @@ const infrastructure = [
   },
   {
     name: 'graphql-fuzz',
-    href: 'https://github.com/probelabs/graphql-fuzz',
-    external: true,
+    href: '/fuzzers#graphql-fuzz',
     line: 'Structure-aware GraphQL fuzzer. Grammar-based query, operation, and schema generators, with correctness gates for differential testing of GraphQL parsers.',
+    meta: 'Rust',
+    chip: 'Published',
+    chipKind: 'open'
+  },
+  {
+    name: 'xml-fuzz',
+    href: '/fuzzers#xml-fuzz',
+    line: 'Structure-aware XML fuzzer. Grammar-based documents, XML-aware mutations, and correctness gates, with optional libxml2 harnesses.',
     meta: 'Rust',
     chip: 'Published',
     chipKind: 'open'
@@ -314,6 +339,83 @@ const coreStack = [
 ]
 
 const projects = [
+  {
+    name: 'qc',
+    href: '/qc',
+    specimen: '/qc',
+    line: 'Deterministic checklist gate. Evidenced answers stay bound to file hashes, and the gate stays closed until every item is answered.',
+    meta: 'Gate',
+    chip: 'Public repo',
+    chipKind: 'neutral',
+    links: [
+      { label: 'GitHub', href: 'https://github.com/probelabs/qc', external: true }
+    ]
+  },
+  {
+    name: 'ste',
+    href: '/ste',
+    specimen: '/ste',
+    line: 'ASD-STE100 Simplified Technical English validator, with matching Go and Node CLIs and JSON output.',
+    meta: 'Go · Node',
+    chip: 'Open source',
+    chipKind: 'open',
+    links: [
+      { label: 'GitHub', href: 'https://github.com/probelabs/ste', external: true }
+    ]
+  },
+  {
+    name: 'aeo',
+    href: '/aeo',
+    specimen: '/aeo',
+    line: 'Measures whether Claude Code, Codex, and Grok mention your product, with search off and with search on.',
+    meta: 'Python',
+    chip: 'Open source',
+    chipKind: 'open',
+    links: [
+      { label: 'GitHub', href: 'https://github.com/probelabs/aeo', external: true }
+    ]
+  },
+  {
+    name: 'docs-mcp',
+    href: '/docs-mcp',
+    specimen: '/docs-mcp',
+    line: 'Turns any GitHub repository into an MCP server so an assistant can search its code or docs.',
+    meta: 'MCP',
+    chip: 'Open source',
+    chipKind: 'open',
+    links: [
+      { label: 'GitHub', href: 'https://github.com/probelabs/docs-mcp', external: true }
+    ]
+  },
+  {
+    name: 'recs',
+    href: '/recs',
+    image: '/images/projects/recs-gallery.png',
+    width: 2880,
+    height: 1694,
+    alt: 'recs dashboard gallery in a dark theme: Pipeline metrics, a Revenue line chart, an Open tasks list, and a Week calendar.',
+    line: 'A file-based CRM for agents. Markdown records, YAML dashboards, and a local UI over the same files.',
+    meta: 'Go',
+    chip: 'Open source',
+    chipKind: 'open',
+    links: [
+      { label: 'GitHub', href: 'https://github.com/buger/recs', external: true }
+    ]
+  },
+  {
+    name: 'Fuzzers',
+    href: '/fuzzers',
+    specimen: '/fuzzers',
+    line: 'Structure-aware fuzzers for JSON, GraphQL, and XML. Grammar generators, format-aware mutations, and correctness gates.',
+    meta: 'Go · Rust',
+    chip: 'Published',
+    chipKind: 'open',
+    links: [
+      { label: 'json-fuzz', href: 'https://github.com/probelabs/json-fuzz', external: true },
+      { label: 'graphql-fuzz', href: 'https://github.com/probelabs/graphql-fuzz', external: true },
+      { label: 'xml-fuzz', href: 'https://github.com/probelabs/xml-fuzz', external: true }
+    ]
+  },
   {
     name: 'Maid',
     href: '/maid',
@@ -993,6 +1095,29 @@ onUnmounted(() => {
   display: block;
   border: 1px solid var(--line);
   background: #f4f4f5;
+  text-decoration: none;
+  color: inherit;
+}
+
+.lab-shot.is-specimen {
+  aspect-ratio: 16 / 10;
+  display: flex;
+  align-items: flex-end;
+  padding: 18px 20px;
+}
+
+.lab-specimen {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lab-specimen-name {
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  color: var(--text);
 }
 
 .lab-shot:hover { border-color: var(--text); }

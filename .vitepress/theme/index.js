@@ -20,6 +20,7 @@ import ProbelabsLanding from './layouts/ProbelabsLanding.vue'
 import DocsLayout from './layouts/DocsLayout.vue'
 import NewHomepageLayout from './layouts/NewHomepageLayout.vue'
 import LabPortfolioLayout from './layouts/LabPortfolioLayout.vue'
+import ProjectPageLayout from './layouts/ProjectPageLayout.vue'
 import PricingLayout from './layouts/PricingLayout.vue'
 import SolutionsLayout from './layouts/SolutionsLayout.vue'
 import SiteFooter from './components/SiteFooter.vue'
@@ -78,6 +79,9 @@ const ThemeSwitcher = {
       }
       if (frontmatter.value?.theme === 'lab-portfolio') {
         return h(LabPortfolioLayout)
+      }
+      if (frontmatter.value?.theme === 'project') {
+        return h(ProjectPageLayout)
       }
       // Use pricing theme
       if (frontmatter.value?.theme === 'pricing') {
