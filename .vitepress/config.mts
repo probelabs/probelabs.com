@@ -39,10 +39,22 @@ export default defineConfig({
     `]
   ],
 
-  transformHead({ page, head }) {
-    if (page !== 'oel.md') return
-    const title = 'Oel by ProbeLabs — the code-grounded company brain'
-    const description = 'Oel is an AI teammate for product and engineering teams. It answers across code, Jira, Zendesk, Confluence, Slack, docs, CI, and observability, then opens pull requests, updates tickets, posts to Slack, and sends scheduled digests. On-prem, with audit trails. Powered by Probe and Visor.'
+  transformHead({ page, pageData, head }) {
+    const frontmatter = pageData?.frontmatter || {}
+    const slug = String(page || '').replace(/\.md$/, '')
+    const isProject = frontmatter.theme === 'project'
+    const isOel = page === 'oel.md'
+    if (!isProject && !isOel) return
+
+    const title = isOel
+      ? 'Oel by ProbeLabs — the code-grounded company brain'
+      : frontmatter.title
+    const description = isOel
+      ? 'Oel is an AI teammate for product and engineering teams. It answers across code, Jira, Zendesk, Confluence, Slack, docs, CI, and observability, then opens pull requests, updates tickets, posts to Slack, and sends scheduled digests. On-prem, with audit trails. Powered by Probe and Visor.'
+      : frontmatter.description
+    const url = `https://probelabs.com/${slug}`
+    const image = frontmatter.ogImage ? `https://probelabs.com${frontmatter.ogImage}` : ''
+
     const drop = (tag, attr, value) => {
       for (let i = head.length - 1; i >= 0; i--) {
         const [name, attrs] = head[i]
@@ -53,22 +65,37 @@ export default defineConfig({
     drop('meta', 'property', 'og:url')
     drop('meta', 'property', 'og:title')
     drop('meta', 'property', 'og:description')
+    drop('meta', 'property', 'og:image')
     drop('meta', 'property', 'og:type')
     drop('meta', 'name', 'description')
     drop('meta', 'name', 'twitter:card')
     drop('meta', 'name', 'twitter:title')
     drop('meta', 'name', 'twitter:description')
-    return [
-      ['link', { rel: 'canonical', href: 'https://probelabs.com/oel' }],
+    drop('meta', 'name', 'twitter:image')
+
+    const tags = [
+      ['link', { rel: 'canonical', href: url }],
       ['meta', { name: 'description', content: description }],
       ['meta', { property: 'og:type', content: 'website' }],
       ['meta', { property: 'og:title', content: title }],
       ['meta', { property: 'og:description', content: description }],
-      ['meta', { property: 'og:url', content: 'https://probelabs.com/oel' }],
-      ['meta', { name: 'twitter:card', content: 'summary' }],
+      ['meta', { property: 'og:url', content: url }],
+      ['meta', { name: 'twitter:card', content: image ? 'summary_large_image' : 'summary' }],
       ['meta', { name: 'twitter:title', content: title }],
       ['meta', { name: 'twitter:description', content: description }]
     ]
+    if (image) {
+      tags.push(['meta', { property: 'og:image', content: image }])
+      tags.push(['meta', { name: 'twitter:image', content: image }])
+    }
+    if (isProject) {
+      tags.push(
+        ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
+        ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
+        ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap' }]
+      )
+    }
+    return tags
   },
   
   markdown: {
