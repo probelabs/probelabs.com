@@ -15,41 +15,52 @@
     </header>
 
     <main id="content">
-      <section
-        class="hero"
-        aria-labelledby="thesis"
-        @pointerleave="leave"
-        @focusout="onFocusOut"
-      >
-        <div class="hero-text">
-          <p class="mono meta-line">ProbeLabs · research lab · engineering craft in the agentic era</p>
-          <h1 id="thesis" class="thesis">Making agents trustworthy on real software.</h1>
-          <p class="lede">We build the instruments that turn agent work into recoverable intent and rerunnable evidence. They ship as three products, plus an open-source stack and smaller tools.</p>
-          <p class="mono hero-jump">
-            <a href="#products">Products</a>
-            <a href="#stack">Open-source stack</a>
-            <a href="#projects">Projects</a>
-            <a href="#experiments">Experiments</a>
-          </p>
+      <section class="flagship" aria-labelledby="thesis">
+        <div class="fl-text">
+          <p class="mono fl-id">ProbeLabs — a research lab making AI agents trustworthy on real software</p>
+          <p class="mono fl-kicker"><span class="fl-dot" aria-hidden="true"></span>Flagship product · Proof</p>
+          <h1 id="thesis" class="fl-title">From prompt<br>to production.</h1>
+          <p class="fl-line">Proof brings NASA-grade rigor to your AI workflow. Review the evidence. Spend less time reconstructing it.</p>
+          <div class="fl-actions">
+            <a class="fl-btn" href="https://reqproof.com">Open Proof <span aria-hidden="true">→</span></a>
+            <p class="mono fl-sub">
+              <a href="https://reqproof.com/method">Method</a>
+              <a href="https://reqproof.com/product">Product</a>
+              <a href="https://reqproof.com/about">Public register</a>
+            </p>
+          </div>
         </div>
-        <ul id="products" class="hero-products" aria-label="Products">
-          <li
-            v-for="item in heroProducts"
-            :key="item.world"
-            :data-world="item.world"
-            @pointerenter="enter(item.world, { pointer: true })"
-            @focusin="enter(item.world)"
+        <a class="fl-art" href="https://reqproof.com" tabindex="-1" aria-hidden="true">
+          <img
+            src="/images/proof/proof-landscape-1086.webp"
+            srcset="/images/proof/proof-landscape-800.webp 800w, /images/proof/proof-landscape-1086.webp 1086w"
+            sizes="(max-width: 900px) 100vw, 50vw"
+            width="1086"
+            height="1448"
+            alt=""
+            fetchpriority="high"
           >
-            <a class="hp" :href="item.href">
-              <span class="hp-shot"><img :src="item.image" width="1440" height="900" :alt="item.alt"></span>
-              <span class="hp-copy">
-                <span class="mono hp-tag">{{ item.tag }}</span>
-                <span class="hp-name">{{ item.name }} <span aria-hidden="true">→</span></span>
-                <span class="hp-line">{{ item.line }}</span>
-              </span>
-            </a>
-          </li>
-        </ul>
+        </a>
+      </section>
+
+      <section id="products" class="also" aria-labelledby="also-title">
+        <h2 id="also-title" class="mono also-label">Also from ProbeLabs</h2>
+        <div class="also-grid">
+          <a
+            v-for="item in secondaryProducts"
+            :key="item.world"
+            class="also-card"
+            :href="item.href"
+          >
+            <span class="also-shot"><img :src="item.image" :width="item.width" :height="item.height" :alt="item.alt" loading="lazy"></span>
+            <span class="also-copy">
+              <span class="mono also-tag">{{ item.tag }}</span>
+              <span class="also-name">{{ item.name }}</span>
+              <span class="also-line">{{ item.line }}</span>
+              <span class="mono also-link">{{ item.linkText }} <span aria-hidden="true">→</span></span>
+            </span>
+          </a>
+        </div>
       </section>
 
       <section
@@ -609,10 +620,9 @@ instruments.forEach((item) => {
   cursor += 1
 })
 
-const heroProducts = [
-  { world: 'proof', name: 'Proof', href: 'https://reqproof.com', tag: 'Flagship · software assurance', image: '/images/portfolio/proof.png', alt: 'Proof homepage', line: 'From prompt to production: NASA-grade rigor for your AI workflow.' },
-  { world: 'oel', name: 'Oel', href: '/oel', tag: 'Company brain', image: '/images/portfolio/oel-gitops.png', alt: 'Oel page', line: 'The GitOps-friendly, security-first company brain.' },
-  { world: 'spirit-room', name: 'Spirit Room', href: 'https://spiritroom.app/', tag: 'Agent experience', image: '/images/portfolio/spirit-room.png', alt: 'Spirit Room homepage', line: 'Optimise your MCP, CLI or API for AI agents.' }
+const secondaryProducts = [
+  { world: 'oel', name: 'Oel', href: '/oel', linkText: 'Explore Oel', tag: 'Company brain', image: '/images/portfolio/oel-gitops.png', width: 1440, height: 616, alt: 'Oel page: the GitOps-friendly, security-first company brain.', line: 'The GitOps-friendly, security-first company brain: self-hosted, with scoped permissions and answers grounded in your code.' },
+  { world: 'spirit-room', name: 'Spirit Room', href: 'https://spiritroom.app/', linkText: 'Visit spiritroom.app', tag: 'Agent experience', image: '/images/portfolio/spirit-room.png', width: 1440, height: 640, alt: 'Spirit Room homepage: Optimise your MCP, CLI or API for AI agents.', line: 'Optimise your MCP, CLI or API for AI agents, tested across every major agent.' }
 ]
 
 const byWorld = Object.fromEntries(projects.map((item) => [item.world, item]))
@@ -1739,4 +1749,77 @@ onUnmounted(() => {
 .core { padding-top: 64px; }
 .core + .chapter { --gap: 72px; }
 .hero-products { scroll-margin-top: 64px; }
+
+/* Flagship: Proof, in reqproof.com's own palette and type. */
+.flagship {
+  --forest: #1b2823;
+  --paper: #f3f0e9;
+  --moss: #7fa34e;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  min-height: calc(100vh - 41px);
+  min-height: calc(100svh - 41px);
+  margin-top: 41px;
+  background: var(--forest);
+  color: var(--paper);
+  scroll-margin-top: 41px;
+}
+.fl-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 22px;
+  padding: clamp(48px, 7vh, 96px) var(--gutter) clamp(48px, 7vh, 96px) clamp(20px, 4vw, 72px);
+  min-width: 0;
+}
+.fl-id { margin: 0; color: var(--paper); opacity: 0.86; max-width: 60ch; }
+.fl-kicker { margin: 18px 0 0; display: inline-flex; align-items: center; gap: 10px; color: var(--paper); font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; }
+.fl-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--moss); }
+.fl-title {
+  margin: 0;
+  font-family: "Iowan Old Style", Baskerville, "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(56px, 8.4vw, 168px);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  color: var(--paper);
+}
+.fl-line { margin: 0; max-width: 34ch; font-size: clamp(18px, 1.5vw, 24px); line-height: 1.4; color: var(--paper); }
+.fl-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 28px; margin-top: 10px; }
+.flagship .fl-btn {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 16px 26px;
+  background: var(--paper); color: var(--forest);
+  font-size: 18px; font-weight: 500; text-decoration: none;
+  border: 1px solid var(--paper);
+}
+.flagship .fl-btn:hover, .flagship .fl-btn:focus-visible { background: transparent; color: var(--paper); }
+.fl-sub { display: flex; gap: 18px; margin: 0; }
+.flagship .fl-sub a { color: var(--paper); text-underline-offset: 0.25em; }
+.flagship a:focus-visible { outline-color: var(--paper); }
+.fl-art { display: block; position: relative; overflow: hidden; min-height: 100%; }
+.fl-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 40%; }
+
+.also { padding: 56px var(--gutter) 24px; scroll-margin-top: 41px; }
+.also-label { margin: 0 0 18px; font-size: 13px; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink, #000); }
+.also-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.also-card { display: flex; flex-direction: column; border: 1px solid var(--ink, #000); color: var(--ink, #000); text-decoration: none; }
+.also-shot { display: block; aspect-ratio: 1440 / 640; overflow: hidden; background: #111; border-bottom: 1px solid var(--ink, #000); }
+.also-shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: left top; transition: transform 400ms var(--ease); }
+.also-card:hover .also-shot img { transform: scale(1.02); }
+.also-copy { display: flex; flex-direction: column; gap: 8px; padding: 18px 20px 20px; }
+.also-tag { font-size: 12px; color: var(--ash-strong); }
+.also-name { font-size: clamp(26px, 2.2vw, 36px); letter-spacing: -0.02em; line-height: 1; }
+.also-line { font-size: 16px; line-height: 1.45; max-width: 52ch; }
+.also-link { margin-top: 6px; font-size: 13px; text-decoration: underline; text-underline-offset: 0.25em; }
+
+@media (max-width: 900px) {
+  .flagship { grid-template-columns: 1fr; min-height: 0; }
+  .fl-art { order: -1; aspect-ratio: 4 / 3; min-height: 0; }
+  .fl-text { padding: 36px var(--gutter) 44px; }
+  .also-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 800px) {
+  .flagship { margin-top: 64px; }
+}
 </style>
