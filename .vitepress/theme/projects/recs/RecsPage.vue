@@ -17,9 +17,9 @@ const spawned = ref([])
 const reduce = ref(false)
 
 const wins = reactive({
-  finder: { x: 36, y: 390, z: 1 },
-  editor: { x: 280, y: 430, z: 2 },
-  board: { x: 620, y: 470, z: 3 }
+  finder: { x: 0, y: 280, z: 1, w: 420 },
+  editor: { x: 640, y: 160, z: 2, w: 420 },
+  board: { x: 680, y: 8, z: 3, w: 420 }
 })
 
 const columns = ['lead', 'proposal', 'won']
@@ -106,13 +106,41 @@ function addDashboard() {
   widgets.value += 3
   if (spawned.value.length < 12) {
     const n = spawned.value.length
+    const w = stage.value?.clientWidth || 800
+    const top = stage.value?.querySelector('.mast')?.offsetHeight || 200
     spawned.value.push({
       id: n + 1,
-      x: 80 + (n % 6) * 28,
-      y: 160 + (n % 5) * 24,
+      x: Math.min(Math.max(0, w - 280), 12 + (n % 4) * 36),
+      y: Math.min(top + 180, top + 8 + (n % 3) * 28),
       z: ++zTop
     })
   }
+}
+
+function place() {
+  narrow.value = window.matchMedia('(max-width: 800px)').matches
+  if (narrow.value || !stage.value) return
+  const w = stage.value.clientWidth
+  const mast = stage.value.querySelector('.mast')
+  const top = (mast?.offsetHeight || 220) + 18
+  const boardW = Math.min(440, Math.max(280, Math.round(w * 0.4)))
+  const mastW = mast?.offsetWidth || Math.round(w * 0.58)
+  const col = Math.min(460, Math.max(280, w - mastW - 20))
+  wins.board.w = boardW
+  wins.board.x = Math.max(0, w - boardW)
+  wins.board.y = 8
+  wins.finder.w = Math.max(280, mastW - 16)
+  wins.finder.x = 0
+  wins.finder.y = top
+  wins.editor.w = col
+  wins.editor.x = Math.max(0, w - col)
+  wins.editor.y = wins.board.y + 156
+  const floor = top + 250
+  stage.value.style.minHeight = `${floor}px`
+  spawned.value.forEach((dash, n) => {
+    dash.x = Math.min(Math.max(0, w - 280), 12 + (n % 4) * 36)
+    dash.y = Math.min(floor - 140, top + 8 + (n % 3) * 28)
+  })
 }
 
 async function copy() {
@@ -120,12 +148,12 @@ async function copy() {
 }
 
 function onResize() {
-  narrow.value = window.matchMedia('(max-width: 800px)').matches
+  place()
 }
 
 onMounted(() => {
   reduce.value = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  onResize()
+  place()
   window.addEventListener('resize', onResize)
 })
 
@@ -146,18 +174,24 @@ onBeforeUnmount(() => {
     :style="{ '--bg': '#f1f2f3', '--ink': '#111111', '--focus': '#ff5e24', colorScheme: 'light' }"
   >
     <div ref="stage" class="stage">
-      <h1>recs</h1>
-      <p class="dek">The CRM your agents actually run. Local files. Unlimited dashboards.</p>
-      <div class="cta-row">
-        <button class="go" type="button" @click="copy">{{ INSTALL }}</button>
-        <a class="slate" href="https://github.com/buger/recs" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <p v-if="copied" role="status">Copied</p>
+      <div class="mast">
+        <h1>recs</h1>
+        <p class="dek">The CRM your agents actually run. Local files. Unlimited dashboards.</p>
+        <div class="cta-row">
+          <button class="go" type="button" @click="copy">{{ INSTALL }}</button>
+          <a class="slate" href="https://github.com/buger/recs" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <p v-if="copied" role="status">Copied</p>
+        </div>
+        <button class="more" type="button" @click="addDashboard">
+          <b>+ New dashboard</b>
+          <span class="count">dashboards: {{ dashboards }} / ∞ · widgets: {{ widgets }} / ∞</span>
+        </button>
       </div>
 
       <section
         class="win"
         :class="{ 'is-active': active === 'finder' }"
-        :style="narrow ? null : { left: wins.finder.x + 'px', top: wins.finder.y + 'px', zIndex: wins.finder.z }"
+        :style="narrow ? null : { left: wins.finder.x + 'px', top: wins.finder.y + 'px', zIndex: wins.finder.z, width: wins.finder.w + 'px' }"
         @pointerdown="focus('finder')"
       >
         <div class="titlebar" @pointerdown="onBarDown($event, 'finder')">
@@ -176,7 +210,7 @@ onBeforeUnmount(() => {
       <section
         class="win"
         :class="{ 'is-active': active === 'editor' }"
-        :style="narrow ? null : { left: wins.editor.x + 'px', top: wins.editor.y + 'px', zIndex: wins.editor.z }"
+        :style="narrow ? null : { left: wins.editor.x + 'px', top: wins.editor.y + 'px', zIndex: wins.editor.z, width: wins.editor.w + 'px' }"
         @pointerdown="focus('editor')"
       >
         <div class="titlebar" @pointerdown="onBarDown($event, 'editor')">
@@ -198,7 +232,7 @@ next: 2026-10-20
       <section
         class="win"
         :class="{ 'is-active': active === 'board' }"
-        :style="narrow ? null : { left: wins.board.x + 'px', top: wins.board.y + 'px', zIndex: wins.board.z, width: narrow ? null : 'min(520px, calc(100% - 32px))' }"
+        :style="narrow ? null : { left: wins.board.x + 'px', top: wins.board.y + 'px', zIndex: wins.board.z, width: wins.board.w + 'px' }"
         @pointerdown="focus('board')"
       >
         <div class="titlebar" @pointerdown="onBarDown($event, 'board')">
@@ -220,11 +254,6 @@ next: 2026-10-20
           </div>
         </div>
       </section>
-
-      <button class="more" type="button" @click="addDashboard">
-        <b>+ New dashboard</b>
-        <span class="count">dashboards: {{ dashboards }} / ∞ · widgets: {{ widgets }} / ∞</span>
-      </button>
 
       <section
         v-for="dash in spawned"

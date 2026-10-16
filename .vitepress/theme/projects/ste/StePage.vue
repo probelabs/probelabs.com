@@ -241,7 +241,7 @@ onBeforeUnmount(clearTimers)
       <p id="s5" class="label">Install 06</p>
       <p class="prose" style="padding: 12px 24px 0">Install the tool from the copy above.</p>
       <p class="prose" style="padding: 0 24px 12px">Read the source on GitHub.</p>
-      <div class="install-row" style="margin-left: -24px; margin-right: -24px">
+      <div class="install-row">
         <p><button class="copy" type="button" @click="copy(GO, 'go2')">{{ GO }}</button></p>
         <p><button class="copy" type="button" @click="copy(NPM, 'npm2')">{{ NPM }}</button></p>
         <p><a class="gh" href="https://github.com/probelabs/ste" target="_blank" rel="noopener noreferrer">GitHub →</a></p>
