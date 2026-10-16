@@ -16,7 +16,7 @@
 
     <main id="content">
       <section class="intro" aria-labelledby="intro-title">
-        <canvas ref="heroCanvas" class="intro-canvas" aria-hidden="true"></canvas>
+        <div class="intro-canvas"><IntroVisual :variant="introVariant" /></div>
         <div class="intro-text">
           <p class="mono intro-id">ProbeLabs · research lab</p>
           <h1 id="intro-title" class="intro-title">We make AI agents <em>trustworthy</em> on real software.</h1>
@@ -329,6 +329,10 @@
 
 <script setup>
 import { onMounted, onUnmounted, reactive, ref } from 'vue'
+import IntroVisual from '../components/IntroVisual.vue'
+
+// Switch intro visuals for review with ?visual=a|b|c (default a).
+const introVariant = ref('a')
 
 const heroCanvas = ref(null)
 let unmountHero = null
@@ -874,10 +878,8 @@ function useWorld() {
 useWorld()
 
 onMounted(() => {
-  import('../hero-specimen.js').then((mod) => {
-    if (heroCancelled || !heroCanvas.value) return
-    unmountHero = mod.mount(heroCanvas.value)
-  }).catch(() => {})
+  const v = new URLSearchParams(location.search).get('visual')
+  if (['a', 'b', 'c'].includes(v)) introVariant.value = v
   lockLight()
   paint(null)
   classObserver = new MutationObserver(lockLight)
@@ -1872,9 +1874,10 @@ onUnmounted(() => {
   overflow: hidden;
   isolation: isolate;
 }
-.intro-canvas { position: absolute; top: 0; bottom: 0; left: 38%; width: 62%; height: 100%; z-index: -1; display: block; }
-.intro::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #141311 0%, rgba(20,19,17,.75) 38%, rgba(20,19,17,0) 58%); pointer-events: none; }
-.intro-text { max-width: 760px; display: flex; flex-direction: column; gap: 22px; padding: 56px 0 120px clamp(0px, 3vw, 48px); }
+.intro-canvas { position: absolute; top: 41px; bottom: 0; left: 54%; right: var(--gutter); z-index: 0; display: flex; align-items: center; padding: 40px 0 80px; }
+.intro-text { position: relative; z-index: 1; }
+.intro::after { display: none; content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #141311 0%, rgba(20,19,17,.75) 38%, rgba(20,19,17,0) 58%); pointer-events: none; }
+.intro-text { max-width: min(760px, 50vw); display: flex; flex-direction: column; gap: 22px; padding: 56px 0 120px clamp(0px, 3vw, 48px); }
 .intro-id { margin: 0; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: #d8a25b; }
 .intro-title { margin: 0; font-size: clamp(44px, 6.2vw, 112px); font-weight: 400; line-height: .98; letter-spacing: -0.035em; color: #f3f0e9; text-wrap: balance; }
 .intro-title em { font-style: normal; color: #d8a25b; }
@@ -1894,10 +1897,11 @@ onUnmounted(() => {
 @keyframes intro-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
 .intro a:focus-visible { outline-color: #f3f0e9; }
 @media (max-width: 900px) {
-  .intro-canvas { left: 0; width: 100%; top: 40px; bottom: auto; height: 42vh; }
+  .intro-canvas { position: relative; inset: auto; left: auto; right: auto; order: 2; padding: 0 0 110px; }
   .intro::after { background: linear-gradient(180deg, rgba(20,19,17,0) 0%, rgba(20,19,17,0) 34vh, #141311 46vh); }
-  .intro-text { padding: 40vh 0 110px; }
+  .intro-text { padding: 40px 0 32px; }
   .intro-map > div { grid-template-columns: 1fr; gap: 6px; }
+  .intro-text { max-width: none; }
 }
 @media (max-width: 800px) { .intro { padding-top: 64px; } }
 @media (prefers-reduced-motion: reduce) { .intro-arrow { animation: none; } }
