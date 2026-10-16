@@ -1,0 +1,19 @@
+# Technical names for the /ste page copy. Product and format vocabulary
+# only, matching the allowance in probelabs/ste ste.yaml.
+technical_names:
+  - ASD-STE100
+  - Issue
+  - SARIF
+  - JSON
+  - CLI
+  - Go
+  - STE
+  - GitHub
+  - MIT
+  - Node.js
+  - npm
+  - npx
+  - ReqProof
+  - README
+  - ASD
+  - Validator

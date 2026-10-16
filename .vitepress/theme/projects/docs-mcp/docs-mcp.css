@@ -1,0 +1,273 @@
+.room,
+.room *,
+.room *::before,
+.room *::after {
+  box-sizing: border-box;
+}
+
+.room {
+  --display: "Fraunces", serif;
+  --text: "Inter", sans-serif;
+  --mono: "IBM Plex Mono", monospace;
+  background: #043f2e;
+  color: #fcfcfc;
+  font-family: var(--text);
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.room h1,
+.room h2 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-variation-settings: "SOFT" 0, "WONK" 0, "opsz" 96, "wght" 400;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  line-height: 1.02;
+}
+
+.room a {
+  color: #fcfcfc;
+}
+
+.room a:focus-visible,
+.room button:focus-visible,
+.room input:focus-visible {
+  outline: 2px solid #c8f169;
+  outline-offset: 3px;
+}
+
+.room .call {
+  margin: 0 0 12px;
+  font-family: var(--text);
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+.room .hero {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: 28px;
+  align-items: start;
+  padding: 48px 40px 0;
+}
+
+.room h1 {
+  margin: 0 0 16px;
+  font-size: clamp(44px, 5vw, 96px);
+  color: #fcfcfc;
+}
+
+.room .lede {
+  margin: 0 0 16px;
+  max-width: 38rem;
+  font-size: 18px;
+}
+
+.room .paper {
+  background: #eef2e3;
+  color: #000;
+  border-radius: 20px;
+  padding: 24px;
+  margin-bottom: -48px;
+  position: relative;
+  z-index: 2;
+}
+
+.room .paper label {
+  display: block;
+  font-family: var(--text);
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+.room .paper input {
+  width: 100%;
+  margin: 8px 0 14px;
+  border: 0;
+  border-radius: 8px;
+  background: #fff;
+  color: #000;
+  padding: 12px;
+  font-family: var(--mono);
+  font-size: 14px;
+}
+
+.room .paper pre {
+  margin: 0 0 12px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.room .lime {
+  border: 0;
+  border-radius: 16px;
+  background: #c8f169;
+  color: #000;
+  padding: 12px 16px;
+  font-family: var(--text);
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.room .stack {
+  padding: 88px 40px 24px;
+  max-width: 920px;
+}
+
+.room h2 {
+  margin: 0 0 12px;
+  font-size: clamp(36px, 4vw, 56px);
+}
+
+.room .flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.room .flow li {
+  border: 1.5px solid #eef2e3;
+  border-radius: 16px;
+  padding: 8px 12px;
+  font-size: 15px;
+}
+
+.room .flow span {
+  color: #eef2e3;
+}
+
+.room dl {
+  margin: 0;
+}
+
+.room dt {
+  font-family: var(--display);
+  font-size: 28px;
+  font-weight: 400;
+  margin-top: 18px;
+}
+
+.room dd {
+  margin: 4px 0 0;
+}
+
+.room code,
+.room .mono {
+  font-family: var(--mono);
+  font-size: 14px;
+}
+
+.room .ask {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 0;
+}
+
+.room .ask button {
+  border: 1.5px solid #eef2e3;
+  border-radius: 16px;
+  background: transparent;
+  color: #fcfcfc;
+  padding: 8px 12px;
+  font-family: var(--text);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.room .ask button[aria-expanded="true"] {
+  background: #c8f169;
+  color: #000;
+  border-color: #c8f169;
+}
+
+.room .drawer {
+  display: grid;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.room .slip {
+  display: block;
+  background: #eef2e3;
+  color: #000;
+  border-radius: 16px;
+  padding: 16px;
+  text-decoration: none;
+  transform: translateY(12px);
+  animation: slip-in 220ms ease-out forwards;
+}
+
+.room .slip .call {
+  color: #043f2e;
+}
+
+.room .slip pre {
+  margin: 8px 0 0;
+  white-space: pre-wrap;
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.room .hit {
+  background: #c8f169;
+  color: #000;
+  padding: 0 0.12em;
+}
+
+.room .snippet {
+  background: #eef2e3;
+  color: #000;
+  border-radius: 16px;
+  padding: 16px;
+  margin-top: 12px;
+}
+
+.room .snippet pre {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 14px;
+  white-space: pre-wrap;
+}
+
+@keyframes slip-in {
+  from { transform: translateY(16px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@media (max-width: 800px) {
+  .room .hero,
+  .room .stack {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .room .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .room .paper {
+    margin-bottom: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .room .slip {
+    animation: none;
+    transform: none;
+  }
+}
