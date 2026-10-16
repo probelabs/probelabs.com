@@ -8,6 +8,10 @@ https://www.probelabs.com/* https://probelabs.com/:splat 301
 
 # Legacy shortcuts
 /quick-start /docs/quick-start 301
+/probe-agent /oel 301
+/probe-agent/ /oel 301
+/home-v2 /oel 301
+/home-v2/ /oel 301
 
 # Fallback for any 404s to custom 404 page
 /* /404.html 404

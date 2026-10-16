@@ -201,7 +201,7 @@
         <h2>Instruments</h2>
         <ul>
           <li><a href="/probe">Probe</a></li>
-          <li><a href="/probe-agent">Probe Agent</a></li>
+          <li><a href="/oel">Oel</a></li>
           <li><a href="/visor">Visor</a></li>
           <li><a href="https://goreplay.org">GoReplay</a></li>
           <li><a href="https://github.com/probelabs/json-fuzz">json-fuzz</a></li>
@@ -292,7 +292,7 @@ const coreStack = [
     chip: 'Open source',
     chipKind: 'open',
     links: [
-      { label: 'Probe Agent', href: '/probe-agent' },
+      { label: 'Oel', href: '/oel' },
       { label: 'GitHub', href: 'https://github.com/probelabs/probe', external: true }
     ]
   },

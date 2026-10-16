@@ -21,9 +21,9 @@
                   <strong>Proof</strong>
                   <span>AI-native software assurance</span>
                 </a>
-                <a href="/probe-agent" class="nh-dropdown-item">
-                  <strong>Probe Agent</strong>
-                  <span>AI agent for product teams</span>
+                <a href="/oel" class="nh-dropdown-item">
+                  <strong>Oel</strong>
+                  <span>Code-grounded company brain</span>
                 </a>
                 <a href="/probe" class="nh-dropdown-item">
                   <strong>Probe</strong>
@@ -120,7 +120,7 @@
         <div class="nh-mobile-dropdown-content" v-show="mobileDropdown === 'platform'">
           <div class="nh-mobile-dropdown-label">Engine</div>
           <a href="https://reqproof.com" class="nh-mobile-link" target="_blank" rel="noopener noreferrer" @click="mobileMenuOpen = false">Proof</a>
-          <a href="/probe-agent" class="nh-mobile-link" @click="mobileMenuOpen = false">Probe Agent</a>
+          <a href="/oel" class="nh-mobile-link" @click="mobileMenuOpen = false">Oel</a>
           <a href="/probe" class="nh-mobile-link" @click="mobileMenuOpen = false">Probe</a>
           <a href="/visor" class="nh-mobile-link" @click="mobileMenuOpen = false">Visor</a>
           <div class="nh-mobile-dropdown-label">Tools</div>
