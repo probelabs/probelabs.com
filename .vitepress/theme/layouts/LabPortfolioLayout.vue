@@ -61,13 +61,14 @@
             <div class="lab-section-head">
               <h3>Proof</h3>
               <div class="lab-prose">
-                <p>
-                  Proof is AI-native software assurance for changes made by humans and by coding agents. It reduces the work between a software change and the evidence required to trust it.
-                </p>
-                <p>
-                  The Software Intent Graph connects approved requirements, code, dependencies, risks, and checks, so reviewers look at evidence instead of reconstructing it.
-                </p>
+                <p>From prompt to production. Proof brings NASA-grade rigor to your AI workflow: review the evidence, spend less time reconstructing it.</p>
               </div>
+            <div class="lab-linkrow">
+              <a class="lab-btn" href="https://reqproof.com">Proof website →</a>
+              <a href="https://reqproof.com/method">Method</a>
+              <a href="https://reqproof.com/product">Product</a>
+              <a href="https://reqproof.com/about">Public register</a>
+            </div>
             </div>
             <figure class="lab-frame">
               <img
@@ -77,12 +78,6 @@
                 alt="Proof homepage: From prompt to production, with Start with a change and See the evidence."
               >
             </figure>
-            <div class="lab-linkrow">
-              <a class="lab-btn" href="https://reqproof.com">Proof website</a>
-              <a href="https://reqproof.com/method">Method</a>
-              <a href="https://reqproof.com/product">Product</a>
-              <a href="https://reqproof.com/about">Public register</a>
-            </div>
           </article>
 
           <div class="lab-product-pair">
@@ -98,7 +93,7 @@
               <div class="lab-piece-text">
                 <h3><a href="/oel">Oel</a></h3>
                 <p class="lab-pitch">The security-first company brain.</p>
-                <p>GitOps-friendly: config, prompts, workflows and permissions live in git, reviewed as pull requests. Runs on your infrastructure with scoped permissions and an audit trail. Answers are grounded in your code and tools, with the evidence attached.</p>
+                <p>GitOps-friendly and self-hosted, with scoped permissions, an audit trail and answers grounded in your code.</p>
                 <div class="lab-product-cta">
                   <a class="lab-btn" href="/oel">Explore Oel →</a>
                 </div>
@@ -116,7 +111,7 @@
               <div class="lab-piece-text">
                 <h3><a href="https://spiritroom.app/">Spirit Room</a></h3>
                 <p class="lab-pitch">Optimise your MCP, CLI or API for AI agents.</p>
-                <p>You give us the jobs agents need to get right. We run every major agent through hundreds of simulations, trying new tool descriptions, help text, errors and combined tools. The result: agents finish your jobs in fewer steps, with fewer mistakes, even on cheaper models.</p>
+                <p>We run every major agent through hundreds of simulations, trying new tool descriptions, help text, errors and combined tools. The result: agents finish your jobs in fewer steps, with fewer mistakes, even on cheaper models.</p>
                 <div class="lab-product-cta">
                   <a class="lab-btn" href="https://spiritroom.app">Visit Spirit Room →</a>
                 </div>
