@@ -36,36 +36,42 @@
 
     <main id="content">
       <header class="pp-hero">
-        <div class="pp-hero-grid">
-          <div>
-            <p class="lab-kicker">{{ project.kicker }}</p>
-            <h1>{{ project.name }}</h1>
-            <p class="lab-dek">{{ project.pitch }}</p>
-            <p class="pp-meta">
-              <span v-for="item in project.meta" :key="item">{{ item }}</span>
-            </p>
-            <div class="pp-hero-actions">
-              <template v-if="project.repos">
-                <a
-                  v-for="repo in project.repos"
-                  :key="repo.href"
-                  class="pp-textlink"
-                  :href="repo.href"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >{{ repo.label }}</a>
-              </template>
-              <template v-else>
-                <a class="lab-btn" :href="project.github" target="_blank" rel="noopener noreferrer">GitHub</a>
-                <a class="pp-textlink" :href="project.github" target="_blank" rel="noopener noreferrer">{{ project.githubLabel }}</a>
-              </template>
-            </div>
+        <div class="pp-hero-visual">
+          <ProjectField
+            v-if="project.visual"
+            :scene="project.visual.scene"
+            variant="hero"
+            :label="project.visual.label"
+          />
+        </div>
+        <div class="pp-hero-copy">
+          <p class="lab-kicker">{{ project.kicker }}</p>
+          <h1>{{ project.name }}</h1>
+          <p class="lab-dek">{{ project.pitch }}</p>
+          <p class="pp-meta">
+            <span v-for="item in project.meta" :key="item">{{ item }}</span>
+          </p>
+          <div class="pp-hero-actions">
+            <template v-if="project.repos">
+              <a
+                v-for="repo in project.repos"
+                :key="repo.href"
+                class="pp-textlink"
+                :href="repo.href"
+                target="_blank"
+                rel="noopener noreferrer"
+              >{{ repo.label }}</a>
+            </template>
+            <template v-else>
+              <a class="lab-btn" :href="project.github" target="_blank" rel="noopener noreferrer">GitHub</a>
+              <a class="pp-textlink" :href="project.github" target="_blank" rel="noopener noreferrer">{{ project.githubLabel }}</a>
+            </template>
           </div>
-          <nav class="pp-index" aria-label="On this page">
-            <a v-for="item in toc" :key="item.id" :href="'#' + item.id">{{ item.label }}</a>
-          </nav>
         </div>
       </header>
+      <nav class="pp-index" aria-label="On this page">
+        <a v-for="item in toc" :key="item.id" :href="'#' + item.id">{{ item.label }}</a>
+      </nav>
 
       <section
         v-for="section in project.sections"
@@ -92,6 +98,14 @@
             <template v-else>{{ para }}</template>
           </p>
         </div>
+        <figure v-if="section.visual" class="pp-visual">
+          <ProjectField
+            :scene="section.visual.scene"
+            :variant="section.visual.frame || 'panel'"
+            :label="section.visual.label"
+          />
+          <figcaption>{{ section.visual.caption }}</figcaption>
+        </figure>
         <p v-if="section.note" class="pp-note">{{ section.note }}</p>
 
         <dl v-if="section.facts" class="pp-facts">
@@ -212,6 +226,7 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useData } from 'vitepress'
+import ProjectField from '../components/ProjectField.vue'
 import { projects } from '../project-pages.js'
 
 const { frontmatter } = useData()
@@ -431,6 +446,7 @@ onUnmounted(() => {
 .pp-kind,
 .pp-block figcaption,
 .pp-figure figcaption,
+.pp-visual figcaption,
 .pp-index a {
   font-family: var(--mono);
   font-size: 12px;
@@ -444,8 +460,8 @@ onUnmounted(() => {
   text-transform: uppercase;
 }
 
-.pp-hero,
 .pp-section,
+.pp-index,
 .lab-footer {
   max-width: 1160px;
   margin: 0 auto;
@@ -453,13 +469,36 @@ onUnmounted(() => {
   padding-right: 28px;
 }
 
-.pp-hero { padding-top: 48px; padding-bottom: 64px; }
+.pp-hero {
+  position: relative;
+  width: 100%;
+  max-width: none;
+  height: clamp(520px, 62vh, 640px);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #141311;
+  color: #f6f3ec;
+}
 
-.pp-hero-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 240px;
-  gap: 48px 36px;
-  align-items: end;
+.pp-hero-visual {
+  position: absolute;
+  inset: 0;
+  background: #141311;
+}
+
+.pp-hero-copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  width: min(520px, 46%);
+  height: 100%;
+  margin-left: max(28px, calc((100% - 1160px) / 2 + 28px));
+  padding: 36px 48px 36px 0;
+  background: linear-gradient(90deg, rgba(20, 19, 17, 0.92) 0%, rgba(20, 19, 17, 0.72) 62%, rgba(20, 19, 17, 0) 100%);
 }
 
 .pp-hero h1 {
@@ -469,6 +508,37 @@ onUnmounted(() => {
   letter-spacing: -0.045em;
   line-height: 0.92;
   text-wrap: balance;
+  color: #f7f4ee;
+}
+
+.pp-hero .lab-kicker { color: rgba(224, 214, 194, 0.72); }
+
+.pp-hero .lab-dek {
+  color: rgba(247, 244, 238, 0.78);
+}
+
+.pp-hero .pp-meta { color: rgba(224, 214, 194, 0.66); }
+
+.pp-hero .pp-textlink {
+  color: #f6f3ec;
+  border-bottom-color: rgba(246, 243, 236, 0.72);
+}
+
+.lab a.pp-hero .lab-btn,
+.pp-hero a.lab-btn,
+.pp-hero a.lab-btn:visited {
+  background: #f4f1ea;
+  color: #141311;
+}
+
+.pp-hero a.lab-btn:hover,
+.pp-hero a.lab-btn:focus,
+.pp-hero a.lab-btn:active,
+.pp-hero a.lab-btn:visited:hover,
+.pp-hero a.lab-btn:visited:focus,
+.pp-hero a.lab-btn:visited:active {
+  background: #fff;
+  color: #141311;
 }
 
 .lab-dek {
@@ -519,6 +589,22 @@ onUnmounted(() => {
   color: #fff;
 }
 
+.pp-hero a.lab-btn,
+.pp-hero a.lab-btn:visited {
+  background: #f4f1ea;
+  color: #141311;
+}
+
+.pp-hero a.lab-btn:hover,
+.pp-hero a.lab-btn:focus,
+.pp-hero a.lab-btn:active,
+.pp-hero a.lab-btn:visited:hover,
+.pp-hero a.lab-btn:visited:focus,
+.pp-hero a.lab-btn:visited:active {
+  background: #fff;
+  color: #141311;
+}
+
 .pp-textlink,
 .lab-prose a,
 .pp-rows a {
@@ -529,12 +615,19 @@ onUnmounted(() => {
   padding-bottom: 1px;
 }
 
+.pp-hero .pp-textlink {
+  color: #f6f3ec;
+  border-bottom-color: rgba(246, 243, 236, 0.72);
+}
+
 .pp-index {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 0;
-  padding-bottom: 6px;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  margin: 0 auto;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
 }
 
 .pp-index a {
@@ -637,6 +730,10 @@ onUnmounted(() => {
 }
 
 .pp-block code { font-family: inherit; }
+
+.pp-visual { margin: 36px 0 0; }
+
+.pp-visual figcaption { margin: 10px 0 0; text-transform: uppercase; }
 
 .pp-figure { margin: 36px 0 0; }
 
@@ -752,6 +849,10 @@ onUnmounted(() => {
   outline-offset: 3px;
 }
 
+.pp-hero a:focus-visible {
+  outline-color: #f4f1ea;
+}
+
 @media (max-width: 900px) {
   .lab-nav,
   .lab-header-bar > .lab-cta { display: none; }
@@ -791,26 +892,30 @@ onUnmounted(() => {
     color: #fff;
   }
 
-  .pp-hero-grid { grid-template-columns: 1fr; gap: 28px; }
+  .pp-hero {
+    height: clamp(620px, 82vh, 760px);
+  }
 
-  .pp-index {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px 18px;
-    padding-bottom: 0;
+  .pp-hero-copy {
+    width: auto;
+    height: auto;
+    min-height: 0;
+    margin-left: 0;
+    padding: 32px 28px 56px;
+    justify-content: flex-start;
+    background: linear-gradient(180deg, rgba(20, 19, 17, 0.94) 0%, rgba(20, 19, 17, 0.78) 58%, rgba(20, 19, 17, 0) 100%);
   }
 }
 
 @media (max-width: 560px) {
   .lab-header-bar,
-  .pp-hero,
+  .pp-index,
   .pp-section,
   .lab-footer {
     padding-left: 20px;
     padding-right: 20px;
   }
-
-  .pp-hero { padding-top: 32px; padding-bottom: 40px; }
+  .pp-hero-copy { padding-left: 20px; padding-right: 20px; }
   .pp-section { padding-top: 56px; padding-bottom: 64px; }
   .lab-dek,
   .lab-prose p { font-size: 16px; }
