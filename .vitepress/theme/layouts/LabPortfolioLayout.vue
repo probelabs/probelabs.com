@@ -1027,8 +1027,8 @@ onUnmounted(() => {
   flex: 0 0 auto;
 }
 
-:global(html[data-world]) .counter,
-:global(html[data-world]) .nav a { color: var(--ink); }
+:global(html[data-world] .rec .counter),
+:global(html[data-world] .rec .nav a) { color: var(--ink); }
 
 .nav {
   position: static;
@@ -1080,14 +1080,14 @@ onUnmounted(() => {
   color: var(--ash-strong);
 }
 
-:global(html[data-world]) .meta-line,
-:global(html[data-world]) .desc,
-:global(html[data-world]) .caption,
-:global(html[data-world]) .hero-cap,
-:global(html[data-world]) .entry,
-:global(html[data-world]) .why,
-:global(html[data-world]) .note,
-:global(html[data-world]) .kicker { color: var(--ink); }
+:global(html[data-world] .rec .meta-line),
+:global(html[data-world] .rec .desc),
+:global(html[data-world] .rec .caption),
+:global(html[data-world] .rec .hero-cap),
+:global(html[data-world] .rec .entry),
+:global(html[data-world] .rec .why),
+:global(html[data-world] .rec .note),
+:global(html[data-world] .rec .kicker) { color: var(--ink); }
 
 .thesis {
   max-width: 66.666%;
@@ -1248,8 +1248,8 @@ onUnmounted(() => {
 
 .sublinks a { color: inherit; }
 
-:global(html[data-world]) .sublinks,
-:global(html[data-world]) .sublinks a { color: var(--ink); }
+:global(html[data-world] .rec .sublinks),
+:global(html[data-world] .rec .sublinks a) { color: var(--ink); }
 
 .pair {
   display: grid;
@@ -1280,7 +1280,7 @@ onUnmounted(() => {
 .core .desc,
 .core .sublinks { color: var(--ash); }
 
-:global(html[data-world]) .core {
+:global(html[data-world] .rec .core) {
   --bg: unset;
   --ink: unset;
   --accent: unset;
@@ -1353,7 +1353,7 @@ onUnmounted(() => {
 
 .row.is-on .no { color: var(--accent, #000); }
 
-:global(html[data-chip]) .row.is-on .no {
+:global(html[data-chip] .rec .row.is-on .no) {
   background: var(--accent);
   color: var(--on-accent);
   padding: 0 0.28em;
@@ -1376,7 +1376,7 @@ onUnmounted(() => {
   text-decoration-color: var(--accent, currentColor);
 }
 
-:global(html[data-faint]) .row.is-on .nm { text-decoration-color: var(--ink); }
+:global(html[data-faint] .rec .row.is-on .nm) { text-decoration-color: var(--ink); }
 
 .kind {
   font-family: var(--mono);
@@ -1434,8 +1434,7 @@ onUnmounted(() => {
   overflow: hidden;
 }
 
-:global(html[data-world]) .window { border-color: var(--accent); }
-:global(html[data-faint]) .window { border-color: var(--ink); }
+:global(html[data-world] .rec .window) { border-color: var(--accent); }
 
 .window img {
   position: absolute;
@@ -1522,7 +1521,7 @@ onUnmounted(() => {
 .inst a { color: inherit; text-decoration: none; }
 .inst a:hover { text-decoration: underline; text-underline-offset: 0.15em; }
 .inst .status { display: block; color: var(--ash-strong); margin-top: 2px; }
-:global(html[data-world]) .inst .status { color: var(--ink); }
+:global(html[data-world] .rec .inst .status) { color: var(--ink); }
 .inst-line { display: block; margin-top: 4px; font-family: var(--sans); font-size: 13px; letter-spacing: -0.02em; }
 
 .note { margin-top: 18px; max-width: 62ch; color: var(--ash-strong); font-size: 14px; }
@@ -1567,7 +1566,7 @@ onUnmounted(() => {
 
 .contact a { color: var(--ash-strong); text-decoration: none; }
 .contact a:hover,
-:global(html[data-world]) .contact a { color: var(--ink); }
+:global(html[data-world] .rec .contact a) { color: var(--ink); }
 
 .colophon {
   margin: 48px calc(var(--gutter) * -1) 0;
@@ -1576,7 +1575,7 @@ onUnmounted(() => {
   color: var(--ash-strong);
 }
 
-:global(html[data-world]) .colophon { color: var(--ink); }
+:global(html[data-world] .rec .colophon) { color: var(--ink); }
 
 .float {
   position: fixed;
@@ -1745,10 +1744,10 @@ onUnmounted(() => {
     flex: 1 0 100%;
     margin-left: 0;
     flex-wrap: wrap;
-    gap: 4px 14px;
+    gap: 4px 12px;
     overflow: visible;
   }
-  .hero { padding-top: 96px; }
+  .hero { padding-top: 80px; }
   .thesis { max-width: none; }
   .hero-foot { flex-direction: column; align-items: flex-start; }
   .hero-cap { text-align: left; margin: 0; max-width: 62ch; }
