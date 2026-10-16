@@ -15,11 +15,37 @@
     </header>
 
     <main id="content">
-      <section class="flagship" aria-labelledby="thesis">
+      <section class="intro" aria-labelledby="intro-title">
+        <div class="intro-canvas"><IntroVisual /></div>
+        <div class="intro-text">
+          <p class="mono intro-id">ProbeLabs · research lab</p>
+          <h1 id="intro-title" class="intro-title">We make AI agents <em>trustworthy</em> on real software.</h1>
+          <p class="intro-lede">We build the instruments that turn agent work into recoverable intent and rerunnable evidence, then ship them as products and open source.</p>
+          <dl class="intro-map">
+            <div>
+              <dt class="mono">Products</dt>
+              <dd><a href="#proof">Proof</a><a href="/oel">Oel</a><a href="https://spiritroom.app/">Spirit Room</a></dd>
+            </div>
+            <div>
+              <dt class="mono">Open-source core</dt>
+              <dd><a href="/probe">Probe</a><a href="/visor">Visor</a></dd>
+            </div>
+            <div>
+              <dt class="mono">Projects &amp; experiments</dt>
+              <dd><a href="#projects">qc, ste, aeo, fuzzers…</a><a href="#experiments">Maid, AFK, Vow…</a></dd>
+            </div>
+          </dl>
+        </div>
+        <a class="intro-cue" href="#proof">
+          <span class="mono">Start with our flagship: Proof</span>
+          <span class="intro-arrow" aria-hidden="true">↓</span>
+        </a>
+      </section>
+
+      <section id="proof" class="flagship" aria-labelledby="thesis">
         <div class="fl-text">
-          <p class="mono fl-id">ProbeLabs — a research lab making AI agents trustworthy on real software</p>
-          <p class="mono fl-kicker"><span class="fl-dot" aria-hidden="true"></span>Flagship product · Proof</p>
-          <h1 id="thesis" class="fl-title">From prompt<br>to production.</h1>
+                    <p class="mono fl-kicker"><span class="fl-dot" aria-hidden="true"></span>Flagship product · Proof</p>
+          <h2 id="thesis" class="fl-title">From prompt<br>to production.</h2>
           <p class="fl-line">Proof brings NASA-grade rigor to your AI workflow. Review the evidence. Spend less time reconstructing it.</p>
           <div class="fl-actions">
             <a class="fl-btn" href="https://reqproof.com">Open Proof <span aria-hidden="true">→</span></a>
@@ -303,6 +329,7 @@
 
 <script setup>
 import { onMounted, onUnmounted, reactive, ref } from 'vue'
+import IntroVisual from '../components/IntroVisual.vue'
 
 const updated = '16 Oct 2026'
 
@@ -1759,7 +1786,6 @@ onUnmounted(() => {
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
   min-height: calc(100vh - 41px);
   min-height: calc(100svh - 41px);
-  margin-top: 41px;
   background: var(--forest);
   color: var(--paper);
   scroll-margin-top: 41px;
@@ -1820,6 +1846,57 @@ onUnmounted(() => {
   .also-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 800px) {
-  .flagship { margin-top: 64px; }
+  .flagship { margin-top: 0; }
 }
+
+/* Screen 1: who ProbeLabs is, over the Specimen instrument. */
+.intro {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 41px var(--gutter) 0;
+  background: #141311;
+  color: #f3f0e9;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  isolation: isolate;
+}
+.intro-canvas { position: absolute; top: 41px; bottom: 0; left: 54%; right: var(--gutter); z-index: 0; display: flex; align-items: center; padding: 40px 0 80px; }
+.intro-text { position: relative; z-index: 1; }
+.intro::after { display: none; content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #141311 0%, rgba(20,19,17,.75) 38%, rgba(20,19,17,0) 58%); pointer-events: none; }
+.intro-text { max-width: min(760px, 50vw); display: flex; flex-direction: column; gap: 22px; padding: 56px 0 120px clamp(0px, 3vw, 48px); }
+.intro-id { margin: 0; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: #d8a25b; }
+.intro-title { margin: 0; font-size: clamp(44px, 6.2vw, 112px); font-weight: 400; line-height: .98; letter-spacing: -0.035em; color: #f3f0e9; text-wrap: balance; }
+.intro-title em { font-style: normal; color: #d8a25b; }
+.intro-lede { margin: 0; max-width: 44ch; font-size: clamp(17px, 1.4vw, 22px); line-height: 1.45; color: #e6e1d6; }
+.intro-map { margin: 10px 0 0; display: grid; gap: 0; border-top: 1px solid rgba(243,240,233,.28); max-width: 640px; }
+.intro-map > div { display: grid; grid-template-columns: 13rem 1fr; gap: 16px; padding: 12px 0; border-bottom: 1px solid rgba(243,240,233,.28); align-items: baseline; }
+.intro-map dt { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: #cfc9bd; }
+.intro-map dd { margin: 0; display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 18px; }
+.intro .intro-map a { color: #f3f0e9; text-decoration: none; border-bottom: 1px solid rgba(243,240,233,.45); }
+.intro .intro-map a:hover, .intro .intro-map a:focus-visible { border-bottom-color: #d8a25b; color: #fff; }
+.intro .intro-cue {
+  position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  color: #f3f0e9; text-decoration: none; font-size: 13px;
+}
+.intro-arrow { font-size: 22px; line-height: 1; animation: intro-bob 1.8s ease-in-out infinite; }
+@keyframes intro-bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+.intro a:focus-visible { outline-color: #f3f0e9; }
+@media (max-width: 900px) {
+  .intro-canvas { position: relative; inset: auto; left: auto; right: auto; order: 2; padding: 0 0 110px; }
+  .intro::after { background: linear-gradient(180deg, rgba(20,19,17,0) 0%, rgba(20,19,17,0) 34vh, #141311 46vh); }
+  .intro-text { padding: 40px 0 32px; }
+  .intro-map > div { grid-template-columns: 1fr; gap: 6px; }
+  .intro-text { max-width: none; }
+}
+@media (max-width: 800px) { .intro { padding-top: 64px; } }
+@media (min-width: 901px) and (max-height: 860px) {
+  .intro-text { padding: 24px 0 88px clamp(0px, 3vw, 48px); gap: 16px; }
+  .intro-title { font-size: clamp(44px, min(6.2vw, 10vh), 112px); }
+  .intro-map > div { padding: 9px 0; }
+}
+@media (prefers-reduced-motion: reduce) { .intro-arrow { animation: none; } }
 </style>
