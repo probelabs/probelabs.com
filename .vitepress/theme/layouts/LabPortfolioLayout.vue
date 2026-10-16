@@ -4,7 +4,6 @@
 
     <header class="bar">
       <a class="word" href="/">ProbeLabs</a>
-      <span class="mono counter">RECORD PL-01—PL-{{ pad(total) }}</span>
       <nav class="nav" aria-label="Primary">
         <a href="#products">Products</a>
         <a href="#stack">Stack</a>
@@ -22,43 +21,35 @@
         @pointerleave="leave"
         @focusout="onFocusOut"
       >
-        <p class="mono meta-line">PROBELABS — RESEARCH LAB — ENGINEERING CRAFT IN THE AGENTIC ERA</p>
-        <h1 id="thesis" class="thesis">
-          Making agents trustworthy on real software. We build the instruments that turn agent work into recoverable intent and rerunnable evidence — shipped as
-          <a
-            class="ghost"
-            href="https://reqproof.com"
-            data-world="proof"
-            @pointerenter="enter('proof', { pointer: true })"
-            @focus="enter('proof')"
-          >Proof</a>,
-          <a
-            class="ghost"
-            href="/oel"
-            data-world="oel"
-            @pointerenter="enter('oel', { pointer: true })"
-            @focus="enter('oel')"
-          >Oel</a>
-          and
-          <a
-            class="ghost"
-            href="https://spiritroom.app/"
-            data-world="spirit-room"
-            @pointerenter="enter('spirit-room', { pointer: true })"
-            @focus="enter('spirit-room')"
-          >Spirit Room</a>.
-        </h1>
-        <div class="hero-foot">
-          <p class="hero-num">{{ total }}</p>
-          <p class="mono hero-cap">
-            works on the record.
-            <a href="#products">{{ counts.products }} products</a>
-            · <a href="#stack">{{ counts.core }} core</a>
-            · <a href="#projects">{{ counts.projects }} projects</a>
-            · <a href="#experiments">{{ counts.experiments }} experiments</a>
-            · <a href="#instruments">{{ counts.instruments }} instruments</a>
+        <div class="hero-text">
+          <p class="mono meta-line">ProbeLabs · research lab · engineering craft in the agentic era</p>
+          <h1 id="thesis" class="thesis">Making agents trustworthy on real software.</h1>
+          <p class="lede">We build the instruments that turn agent work into recoverable intent and rerunnable evidence. They ship as three products, plus an open-source stack and smaller tools.</p>
+          <p class="mono hero-jump">
+            <a href="#products">Products</a>
+            <a href="#stack">Open-source stack</a>
+            <a href="#projects">Projects</a>
+            <a href="#experiments">Experiments</a>
           </p>
         </div>
+        <ul class="hero-products" aria-label="Products">
+          <li
+            v-for="item in heroProducts"
+            :key="item.world"
+            :data-world="item.world"
+            @pointerenter="enter(item.world, { pointer: true })"
+            @focusin="enter(item.world)"
+          >
+            <a class="hp" :href="item.href">
+              <span class="hp-shot"><img :src="item.image" width="1440" height="900" :alt="item.alt"></span>
+              <span class="hp-copy">
+                <span class="mono hp-tag">{{ item.tag }}</span>
+                <span class="hp-name">{{ item.name }} <span aria-hidden="true">→</span></span>
+                <span class="hp-line">{{ item.line }}</span>
+              </span>
+            </a>
+          </li>
+        </ul>
       </section>
 
       <section
@@ -73,7 +64,7 @@
           <p class="mega" aria-hidden="true">01</p>
           <div class="titles">
             <h2 id="products-title">Products</h2>
-            <p class="mono desc">Our products. Open instruments and research follow.</p>
+            <p class="mono desc">What we sell. Each one links to its own site.</p>
           </div>
         </div>
 
@@ -93,7 +84,7 @@
             >
           </a>
           <div class="proof-copy">
-            <p class="mono kicker">PL-01 · PRODUCT · reqproof.com</p>
+            <p class="mono kicker">Product · reqproof.com</p>
             <h3>Proof</h3>
             <p class="pitch">From prompt to production. Proof brings NASA-grade rigor to your AI workflow: review the evidence, spend less time reconstructing it.</p>
             <a class="textlink" href="https://reqproof.com">reqproof.com ↗</a>
@@ -118,7 +109,7 @@
             <img :src="item.image" :width="item.width" :height="item.height" :alt="item.alt" loading="lazy">
           </a>
           <div class="pair-copy">
-            <p class="mono kicker">{{ item.id }} · PRODUCT · {{ item.where }}</p>
+            <p class="mono kicker">Product · {{ item.where }}</p>
             <h3><a :href="item.href">{{ item.name }}</a></h3>
             <p class="pitch">{{ item.pitch }}</p>
             <p>{{ item.body }}</p>
@@ -138,7 +129,7 @@
         <div class="chapter-head">
           <p class="mega" aria-hidden="true">02</p>
           <div class="titles">
-            <h2 id="stack-title">Core stack</h2>
+            <h2 id="stack-title">Open-source core</h2>
             <p class="mono desc">Probe walks code and corpus. Visor runs agent work as a traced workflow. Both sit beside Proof.</p>
           </div>
         </div>
@@ -152,7 +143,6 @@
             @pointerenter="enter(item.world, { pointer: true })"
             @focusin="enter(item.world)"
           >
-            <p class="mega half-num">{{ item.num }}</p>
             <h3><a :href="item.href">{{ item.name }}</a></h3>
             <p>{{ item.line }}</p>
             <p class="why">{{ item.why }}</p>
@@ -190,14 +180,13 @@
           <p class="mega" aria-hidden="true">03</p>
           <div class="titles">
             <h2 id="projects-title">Projects</h2>
-            <p class="mono desc">Live pages, captured as they ship.</p>
+            <p class="mono desc">Open-source tools, each with its own page. Hover a row to preview it.</p>
           </div>
         </div>
 
         <div class="proj">
           <div class="ledger">
             <div class="row cols" aria-hidden="true">
-              <span>№</span>
               <span>Name</span>
               <span>Kind</span>
               <span>Entry</span>
@@ -213,7 +202,6 @@
               @pointerenter="enter(item.world, { pointer: true, poster: item.world })"
               @focusin="enter(item.world, { poster: item.world })"
             >
-              <span class="no">{{ item.num }}</span>
               <a class="nm" :href="item.href" @focus="enter(item.world, { poster: item.world })">{{ item.name }}</a>
               <span class="kind">{{ item.kind }}</span>
               <p class="entry">
@@ -258,23 +246,6 @@
           </aside>
         </div>
 
-        <div class="sheet">
-          <a
-            v-for="item in projects"
-            :key="'sheet-' + item.world"
-            class="cell"
-            :href="item.href"
-            :data-world="item.world"
-            data-takeover
-            @pointerenter="enter(item.world, { pointer: true, poster: item.world })"
-            @focus="enter(item.world, { poster: item.world })"
-          >
-            <span class="frame ratio-og">
-              <img :src="item.image" width="1200" height="630" alt="" loading="lazy">
-            </span>
-            <span class="mono caption">{{ item.id }} {{ item.name }} — {{ item.sheet }}</span>
-          </a>
-        </div>
       </section>
 
       <section
@@ -294,7 +265,6 @@
         </div>
         <div class="ledger ledger-full">
           <div class="row cols exp-row" aria-hidden="true">
-            <span>№</span>
             <span>Name</span>
             <span>Kind</span>
             <span>Entry</span>
@@ -308,7 +278,6 @@
             @pointermove="moveFloat"
             @pointerleave="hideFloat"
           >
-            <span class="no">{{ item.num }}</span>
             <a class="nm" :href="item.href" :target="item.external ? '_blank' : undefined" :rel="item.external ? 'noopener noreferrer' : undefined">{{ item.name }}</a>
             <span class="kind">{{ item.kind }}</span>
             <p class="entry">{{ item.line }}</p>
@@ -341,7 +310,7 @@
         </blockquote>
         <ul class="inst">
           <li v-for="item in instruments" :key="item.name">
-            <a :href="item.href" :target="item.external ? '_blank' : undefined" :rel="item.external ? 'noopener noreferrer' : undefined">{{ item.id }} {{ item.name }}</a>
+            <a :href="item.href" :target="item.external ? '_blank' : undefined" :rel="item.external ? 'noopener noreferrer' : undefined">{{ item.name }}</a>
             <span class="status">{{ item.meta }}<template v-if="item.chip"> · {{ item.chip }}</template></span>
             <span class="inst-line">{{ item.line }}</span>
           </li>
@@ -373,7 +342,7 @@
           <li><a href="/terms">Terms</a></li>
         </ul>
       </div>
-      <p class="mono colophon">© ProbeLabs · RECORD PL-01—PL-{{ pad(total) }} · updated {{ updated }}</p>
+      <p class="mono colophon">© ProbeLabs · updated {{ updated }}</p>
     </footer>
 
     <div
@@ -405,7 +374,7 @@ const WORLDS = {
   visor: { bg: '#000000', ink: '#ffffff', accent: '#ffffff', onAccent: '#000000', chip: false, faint: false, ring: '#ffffff', scheme: 'dark' },
   qc: { bg: '#f3f3f3', ink: '#151515', accent: '#fff824', onAccent: '#151515', chip: true, faint: true, ring: '#151515', scheme: 'light' },
   ste: { bg: '#ffffff', ink: '#000000', accent: '#000000', onAccent: '#ffffff', chip: false, faint: false, ring: '#000000', scheme: 'light' },
-  aeo: { bg: '#008fff', ink: '#ffffff', accent: '#ffe400', onAccent: '#111111', chip: true, faint: true, ring: '#ffffff', scheme: 'light' },
+  aeo: { bg: '#0062c4', ink: '#ffffff', accent: '#ffe400', onAccent: '#111111', chip: true, faint: true, ring: '#ffffff', scheme: 'light' },
   fuzzers: { bg: '#000000', ink: '#ffffff', accent: '#00fb34', onAccent: '#000000', chip: false, faint: false, ring: '#00fb34', scheme: 'dark' },
   'docs-mcp': { bg: '#043f2e', ink: '#fcfcfc', accent: '#c8f169', onAccent: '#043f2e', chip: false, faint: false, ring: '#c8f169', scheme: 'dark' },
   recs: { bg: '#f1f2f3', ink: '#111111', accent: '#ff5e24', onAccent: '#111111', chip: true, faint: true, ring: '#111111', scheme: 'light' }
@@ -477,7 +446,7 @@ const core = [
     image: '/images/portfolio/visor.png',
     alt: 'Visor homepage: predictable agent workflows defined in YAML.',
     line: 'YAML workflows with validation, approvals, fallbacks, and an OpenTelemetry trace for every run.',
-    why: 'It keeps an agent run visible: the same steps, the same gates, and an OpenTelemetry trace. Proof’s CI/CD orchestrator is a separate instrument, and is not identified as Visor.',
+    why: 'It keeps an agent run visible: the same steps, the same gates, and an OpenTelemetry trace.',
     links: [
       { label: 'GitHub', href: 'https://github.com/probelabs/visor', external: true }
     ]
@@ -635,13 +604,6 @@ const experiments = [
 
 const instruments = [
   {
-    name: 'Fuzzers',
-    href: '/fuzzers',
-    line: 'Structure-aware fuzzers for JSON, GraphQL, and XML. Grammar generators, format-aware mutations, and correctness gates.',
-    meta: 'Go · Rust',
-    chip: 'Published'
-  },
-  {
     name: 'json-fuzz',
     href: '/fuzzers#json-fuzz',
     line: 'Structure-aware JSON fuzzer. A grammar-based generator, JSON-aware mutations, and correctness gates for differential testing of JSON parsers.',
@@ -713,6 +675,12 @@ instruments.forEach((item) => {
   cursor += 1
 })
 
+const heroProducts = [
+  { world: 'proof', name: 'Proof', href: 'https://reqproof.com', tag: 'Flagship · software assurance', image: '/images/portfolio/proof.png', alt: 'Proof homepage', line: 'From prompt to production: NASA-grade rigor for your AI workflow.' },
+  { world: 'oel', name: 'Oel', href: '/oel', tag: 'Company brain', image: '/images/portfolio/oel-gitops.png', alt: 'Oel page', line: 'The GitOps-friendly, security-first company brain.' },
+  { world: 'spirit-room', name: 'Spirit Room', href: 'https://spiritroom.app/', tag: 'Agent experience', image: '/images/portfolio/spirit-room.png', alt: 'Spirit Room homepage', line: 'Optimise your MCP, CLI or API for AI agents.' }
+]
+
 const byWorld = Object.fromEntries(projects.map((item) => [item.world, item]))
 
 const activeKey = ref('')
@@ -738,7 +706,7 @@ let onMotion
 
 function captionFor(item) {
   const world = WORLDS[item.world]
-  return `${item.id} ${item.name} — bg ${world.bg} / accent ${world.accent}`
+  return `${item.name} · ${item.kind} — open ${item.href}`
 }
 
 function paint(key) {
@@ -784,9 +752,39 @@ function showPoster(worldKey) {
   else posterTimer = window.setTimeout(flip, 32)
 }
 
+let enterTimer = 0
+let lastScroll = 0
+let scrollTimer = 0
+const pointerAt = { x: -1, y: -1 }
+function onPointerMove(event) { pointerAt.x = event.clientX; pointerAt.y = event.clientY }
+function onScroll() {
+  lastScroll = performance.now()
+  window.clearTimeout(enterTimer)
+  if (!fineHover.value || !activeKey.value) return
+  window.clearTimeout(scrollTimer)
+  // When scrolling settles, keep the colour only if the cursor still sits on that work.
+  scrollTimer = window.setTimeout(() => {
+    const el = pointerAt.x < 0 ? null : document.elementFromPoint(pointerAt.x, pointerAt.y)
+    const zone = el && el.closest ? el.closest('.rec [data-world]') : null
+    if (!zone || zone.dataset.world !== activeKey.value) leave()
+  }, 160)
+}
+
 function enter(key, opts = {}) {
   if (!key || !WORLDS[key]) return
-  if (opts.pointer && !fineHover.value) return
+  if (opts.pointer) {
+    if (!fineHover.value) return
+    // Never repaint because content scrolled under a resting cursor,
+    // and wait a beat so passing over a row does not flash the page.
+    window.clearTimeout(enterTimer)
+    if (performance.now() - lastScroll < 250) return
+    enterTimer = window.setTimeout(() => apply(key, opts), 180)
+    return
+  }
+  apply(key, opts)
+}
+
+function apply(key, opts) {
   window.clearTimeout(leaveTimer)
   activeKey.value = key
   if (opts.poster) showPoster(opts.poster)
@@ -796,12 +794,13 @@ function enter(key, opts = {}) {
 function focusedWorld(root) {
   const el = document.activeElement
   if (!el || !el.closest) return ''
-  const zone = el.closest('[data-world]')
+  const zone = el.closest('.rec [data-world]')
   if (!zone || (root && !root.contains(zone))) return ''
   return zone.dataset.world || ''
 }
 
 function leave() {
+  window.clearTimeout(enterTimer)
   window.clearTimeout(leaveTimer)
   const delay = reduced.value ? 0 : 120
   leaveTimer = window.setTimeout(() => {
@@ -922,9 +921,15 @@ onMounted(() => {
   motionQuery.addEventListener('change', onMotion)
   fineQuery.addEventListener('change', onFine)
   mountScroll()
+  window.addEventListener('scroll', onScroll, { passive: true })
+  window.addEventListener('pointermove', onPointerMove, { passive: true })
 })
 
 onUnmounted(() => {
+  window.removeEventListener('scroll', onScroll)
+  window.removeEventListener('pointermove', onPointerMove)
+  window.clearTimeout(scrollTimer)
+  window.clearTimeout(enterTimer)
   window.clearTimeout(leaveTimer)
   window.clearTimeout(posterTimer)
   observer?.disconnect()
@@ -1090,7 +1095,7 @@ onUnmounted(() => {
 :global(html[data-world] .rec .kicker) { color: var(--ink); }
 
 .thesis {
-  max-width: 66.666%;
+  max-width: 14ch;
   margin-top: 18px;
   font-size: var(--t-display);
   font-weight: 300;
@@ -1151,22 +1156,21 @@ onUnmounted(() => {
 
 .chapter-head {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 24px;
-  padding-bottom: 20px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  padding: 8px 0 28px;
 }
 
 .mega {
-  margin: 0;
-  font-size: var(--t-chapter);
-  font-weight: 300;
-  line-height: 0.8;
-  letter-spacing: -0.045em;
+  margin: 0 0 10px;
+  font-family: var(--mono);
+  font-size: 13px;
+  letter-spacing: 0;
   color: var(--ink, #000);
 }
 
-.titles { max-width: 36ch; text-align: right; }
+.titles { max-width: 60ch; }
 
 .titles h2,
 .about-head h2,
@@ -1328,7 +1332,7 @@ onUnmounted(() => {
 
 .row {
   display: grid;
-  grid-template-columns: 3rem max-content minmax(6.5rem, 8.75rem) minmax(0, 1fr) auto;
+  grid-template-columns: minmax(7rem, 10rem) minmax(6.5rem, 8.75rem) minmax(0, 1fr) auto;
   column-gap: 16px;
   align-items: baseline;
   padding: 5px 0 8px;
@@ -1412,7 +1416,7 @@ onUnmounted(() => {
   color: var(--ink, #000);
 }
 
-.exp-row { grid-template-columns: 3rem max-content minmax(6rem, 8rem) minmax(0, 1fr) auto; }
+.exp-row { grid-template-columns: minmax(7rem, 10rem) minmax(6.5rem, 8.75rem) minmax(0, 1fr) auto; }
 
 .m-shot { display: none; }
 
@@ -1425,9 +1429,8 @@ onUnmounted(() => {
 
 .window {
   position: relative;
-  width: min(100%, calc(78vh * 0.8));
-  aspect-ratio: 4 / 5;
-  max-height: 78vh;
+  width: 100%;
+  aspect-ratio: 1200 / 630;
   margin-left: auto;
   border: 1px solid var(--ink, #000);
   background: #111;
@@ -1534,7 +1537,7 @@ onUnmounted(() => {
 
 .mark-crop {
   margin: 0;
-  font-size: var(--t-mega);
+  font-size: calc((100vw - 2 * var(--gutter)) / 4.6);
   font-weight: 300;
   line-height: 0.8;
   letter-spacing: -0.045em;
@@ -1662,22 +1665,8 @@ onUnmounted(() => {
 }
 
 @media (min-width: 1280px) {
-  .rec { --gap: 160px; }
-  .chapter.tight { --gap: 120px; }
-  .hero {
-    height: 100vh;
-    padding-bottom: 0;
-    overflow: hidden;
-  }
-  .hero-foot {
-    position: absolute;
-    left: var(--gutter);
-    right: var(--gutter);
-    bottom: 0;
-    margin-top: 0;
-  }
-  .hero-num { transform: translateY(18%); }
-  .hero-cap { margin-bottom: 20px; position: relative; z-index: 1; }
+  .rec { --gap: 112px; }
+  .chapter.tight { --gap: 96px; }
   .sheet { grid-template-columns: 1fr 1fr 1fr; }
 }
 
@@ -1685,9 +1674,6 @@ onUnmounted(() => {
   .rec { --gutter: 32px; }
 }
 
-@media (max-width: 1279px) {
-  .hero-num { font-size: clamp(140px, 28vw, 280px); }
-}
 
 @media (max-width: 1023px) {
   .proj { display: block; }
@@ -1698,7 +1684,7 @@ onUnmounted(() => {
   .exp-row {
     grid-template-columns: auto minmax(0, 1fr);
     grid-template-areas:
-      "no name"
+      "name name"
       "kind kind"
       "entry entry"
       "go go"
@@ -1775,4 +1761,47 @@ onUnmounted(() => {
   .window img { transition: none !important; }
   :global(html) { scroll-behavior: auto; }
 }
+
+/* Takeover worlds: every secondary grey becomes the world's ink so text never drops below AA. */
+:global(html[data-world] .rec) { --ash: var(--ink); --ash-strong: var(--ink); }
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 40px;
+  padding: 64px var(--gutter) 24px;
+}
+.hero-text { display: flex; flex-direction: column; gap: 20px; }
+.lede { margin: 0; max-width: 46ch; font-size: clamp(17px, 1.35vw, 21px); line-height: 1.45; }
+.hero-jump { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 4px 0 0; }
+.hero-jump a { color: var(--ink, #000); text-underline-offset: 0.2em; }
+.hero-products { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.hp {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--ink, #000);
+  color: var(--ink, #000);
+  text-decoration: none;
+}
+.hp:hover .hp-name, .hp:focus-visible .hp-name { text-decoration: underline; text-underline-offset: 0.14em; }
+.hp-shot { display: block; aspect-ratio: 16 / 9; overflow: hidden; background: #111; }
+.hp-shot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: left top; }
+.hp-copy { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.hp-tag { font-size: 12px; color: var(--ash-strong); }
+.hp-name { font-size: clamp(22px, 1.9vw, 30px); font-weight: 400; letter-spacing: -0.02em; line-height: 1.05; }
+.hp-line { font-size: 15px; line-height: 1.4; }
+@media (min-width: 1024px) {
+  .hero { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); align-items: center; gap: 56px; padding-top: 72px; padding-bottom: 40px; }
+}
+@media (max-width: 800px) {
+  .hero { padding-top: 96px; }
+  .hp { grid-template-columns: 120px minmax(0, 1fr); gap: 12px; padding: 10px; }
+  .hp-name { font-size: 22px; }
+  .hp-line { font-size: 14px; }
+}
+.core { padding-top: 64px; }
+.core + .chapter { --gap: 72px; }
 </style>
