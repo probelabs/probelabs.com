@@ -16,7 +16,7 @@
 
     <main id="content">
       <section class="intro" aria-labelledby="intro-title">
-        <div class="intro-canvas"><IntroVisual :variant="introVariant" /></div>
+        <div class="intro-canvas"><IntroVisual /></div>
         <div class="intro-text">
           <p class="mono intro-id">ProbeLabs · research lab</p>
           <h1 id="intro-title" class="intro-title">We make AI agents <em>trustworthy</em> on real software.</h1>
@@ -330,13 +330,6 @@
 <script setup>
 import { onMounted, onUnmounted, reactive, ref } from 'vue'
 import IntroVisual from '../components/IntroVisual.vue'
-
-// Switch intro visuals for review with ?visual=a|b|c (default a).
-const introVariant = ref('a')
-
-const heroCanvas = ref(null)
-let unmountHero = null
-let heroCancelled = false
 
 const updated = '16 Oct 2026'
 
@@ -878,8 +871,6 @@ function useWorld() {
 useWorld()
 
 onMounted(() => {
-  const v = new URLSearchParams(location.search).get('visual')
-  if (['a', 'b', 'c'].includes(v)) introVariant.value = v
   lockLight()
   paint(null)
   classObserver = new MutationObserver(lockLight)
@@ -906,8 +897,6 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  heroCancelled = true
-  unmountHero?.()
   window.removeEventListener('scroll', onScroll)
   window.removeEventListener('pointermove', onPointerMove)
   window.clearTimeout(scrollTimer)
@@ -1904,5 +1893,10 @@ onUnmounted(() => {
   .intro-text { max-width: none; }
 }
 @media (max-width: 800px) { .intro { padding-top: 64px; } }
+@media (min-width: 901px) and (max-height: 860px) {
+  .intro-text { padding: 24px 0 88px clamp(0px, 3vw, 48px); gap: 16px; }
+  .intro-title { font-size: clamp(44px, min(6.2vw, 10vh), 112px); }
+  .intro-map > div { padding: 9px 0; }
+}
 @media (prefers-reduced-motion: reduce) { .intro-arrow { animation: none; } }
 </style>
