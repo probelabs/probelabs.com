@@ -1,0 +1,354 @@
+.fuzz,
+.fuzz *,
+.fuzz *::before,
+.fuzz *::after {
+  box-sizing: border-box;
+}
+
+.fuzz {
+  --display: "Big Shoulders Display", sans-serif;
+  --body: "Tinos", "Times New Roman", serif;
+  --mono: "JetBrains Mono", monospace;
+  background: #000;
+  color: #fff;
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.fuzz h1,
+.fuzz h2,
+.fuzz .name {
+  font-family: var(--display);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  line-height: 0.84;
+}
+
+.fuzz a {
+  color: #fff;
+}
+
+.fuzz a:focus-visible,
+.fuzz button:focus-visible,
+.fuzz .doc:focus-visible {
+  outline: 2px solid #fff500;
+  outline-offset: 3px;
+}
+
+.fuzz .stage {
+  position: relative;
+  min-height: 760px;
+  padding: 24px 20px 40px;
+  overflow: hidden;
+}
+
+.fuzz .doc {
+  position: absolute;
+  width: min(48%, 560px);
+  margin: 0;
+  background: #000;
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 18px;
+  line-height: 1.35;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  z-index: 1;
+}
+
+.fuzz .doc:nth-of-type(1) { top: 24px; left: 3%; transform: rotate(-2deg); }
+.fuzz .doc:nth-of-type(2) { top: 180px; right: 4%; left: auto; transform: rotate(1.5deg); }
+.fuzz .doc:nth-of-type(3) { top: 380px; left: 18%; transform: rotate(-1deg); }
+
+.fuzz .chip {
+  display: inline-block;
+  margin-bottom: 8px;
+  border: 1px solid #ff0000;
+  color: #ff0000;
+  padding: 2px 6px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  background: #000;
+}
+
+.fuzz .gate {
+  border-color: #fff500;
+  color: #fff500;
+}
+
+.fuzz .char {
+  border-radius: 0;
+}
+
+.fuzz .char.is-caret {
+  background: #00fb34;
+  color: #000;
+}
+
+.fuzz h1 {
+  position: relative;
+  z-index: 3;
+  margin: 220px 0 0;
+  font-size: clamp(72px, 20vw, 360px);
+  color: #fff;
+  pointer-events: none;
+  mix-blend-mode: normal;
+}
+
+.fuzz .pixels {
+  position: absolute;
+  z-index: 4;
+  display: grid;
+  grid-template-columns: repeat(6, 14px);
+  gap: 3px;
+  pointer-events: none;
+}
+
+.fuzz .pixels i {
+  display: block;
+  width: 14px;
+  height: 14px;
+  background: #00fb34;
+}
+
+.fuzz .pixels.is-on i {
+  animation: fuzz-scatter 120ms linear forwards;
+}
+
+.fuzz .burst {
+  position: relative;
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: top;
+}
+
+.fuzz .burst i {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  background: #00fb34;
+  animation: fuzz-scatter 120ms linear forwards;
+}
+
+.fuzz .sub {
+  position: relative;
+  z-index: 3;
+  max-width: 36rem;
+  margin: 12px 0 0;
+}
+
+.fuzz .actions {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 22px;
+  margin-top: 22px;
+}
+
+.fuzz .pill {
+  border: 0;
+  border-radius: 30px;
+  background: #00fb34;
+  color: #000;
+  padding: 8px 22px;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 32px;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.fuzz .plain {
+  font-family: var(--mono);
+  font-size: 14px;
+}
+
+.fuzz .op {
+  position: relative;
+  z-index: 5;
+  display: inline-block;
+  margin-top: 12px;
+  border: 1px solid #ff0000;
+  color: #ff0000;
+  padding: 2px 8px;
+  font-family: var(--mono);
+  font-size: 13px;
+  background: #000;
+}
+
+.fuzz .panic-line {
+  position: relative;
+  z-index: 3;
+  margin: 10px 0 0;
+  font-family: var(--mono);
+  font-size: 14px;
+}
+
+.fuzz .mute {
+  color: #aba4a4;
+}
+
+.fuzz .kill {
+  background: #ff0000;
+  color: #000;
+  padding: 48px 20px;
+}
+
+.fuzz .kill h2 {
+  margin: 0 0 12px;
+  font-size: clamp(64px, 12vw, 140px);
+  color: #000;
+}
+
+.fuzz .kill p {
+  margin: 0 0 16px;
+  font-family: var(--body);
+}
+
+.fuzz .kill li {
+  list-style: none;
+  border-top: 1px solid #000;
+  padding: 10px 0;
+  font-family: var(--mono);
+  font-size: 15px;
+}
+
+.fuzz .kill ul {
+  margin: 0;
+  padding: 0;
+}
+
+.fuzz .three {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 28px;
+  align-items: start;
+  padding: 80px 20px 40px;
+}
+
+.fuzz .three article:nth-child(2) { margin-top: 80px; }
+.fuzz .three article:nth-child(3) { margin-top: 160px; }
+
+.fuzz .name {
+  margin: 0 0 8px;
+  font-size: clamp(56px, 8vw, 96px);
+}
+
+.fuzz .lang {
+  display: inline-block;
+  margin-bottom: 12px;
+  border: 1px solid #fff500;
+  color: #fff500;
+  padding: 2px 6px;
+  font-family: var(--mono);
+  font-size: 12px;
+}
+
+.fuzz .bugs,
+.fuzz .gates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+}
+
+.fuzz pre {
+  margin: 0 0 12px;
+  border: 1px solid #aba4a4;
+  padding: 12px;
+  color: #fff;
+  background: #000;
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.fuzz .strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 20px;
+}
+
+.fuzz .why {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  padding: 20px 20px 80px;
+}
+
+.fuzz .bytes {
+  font-family: var(--mono);
+  font-size: 14px;
+  letter-spacing: 0.08em;
+}
+
+.fuzz .mark {
+  color: #00fb34;
+}
+
+@keyframes fuzz-scatter {
+  from { transform: translate(0, 0); }
+  to { transform: translate(var(--dx), var(--dy)); }
+}
+
+@media (max-width: 800px) {
+  .fuzz .stage {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fuzz .doc,
+  .fuzz .doc:nth-of-type(1),
+  .fuzz .doc:nth-of-type(2),
+  .fuzz .doc:nth-of-type(3) {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    width: auto;
+    transform: none;
+    margin-bottom: 18px;
+  }
+
+  .fuzz h1 {
+    margin-top: 8px;
+    order: -1;
+  }
+
+  .fuzz .three {
+    grid-template-columns: 1fr;
+  }
+
+  .fuzz .three article:nth-child(2),
+  .fuzz .three article:nth-child(3) {
+    margin-top: 36px;
+  }
+
+  .fuzz .why {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fuzz .pixels.is-on i,
+  .fuzz .burst i {
+    animation: none;
+  }
+}

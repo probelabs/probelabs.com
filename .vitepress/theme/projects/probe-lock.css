@@ -1,0 +1,13 @@
+/* Active only while a project page is mounted. */
+html.probe-lock,
+html.probe-lock body,
+html.probe-lock #app {
+  background: var(--probe-page-bg, #fff) !important;
+  margin: 0;
+  padding: 0;
+  max-width: none;
+}
+
+html.probe-lock body {
+  overflow-x: clip;
+}
