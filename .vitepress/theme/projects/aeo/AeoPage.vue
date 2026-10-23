@@ -71,9 +71,9 @@ onMounted(() => {
     class="aeo"
     slug="aeo"
     bg="#008fff"
-    github="https://github.com/probelabs/aeo"
-    repo-label="github.com/probelabs/aeo"
-    license="MIT"
+    status="Currently in private development"
+    site="https://aeoverdict.com"
+    site-label="AEO Verdict"
     :style="{ '--bg': '#008fff', '--ink': '#ffffff', '--focus': '#ffe400', colorScheme: 'light' }"
   >
     <header class="hero">
@@ -91,8 +91,9 @@ onMounted(() => {
         <p class="src">Question: “What’s the best way to search through a folder of files by content?” Call: trap. Prebelief in the Codex search: ripgrep, recoll, docfetcher. Source file says it is an example fixture, not a live CLI capture.</p>
       </div>
       <div class="cta-row">
+        <a class="visit" href="https://aeoverdict.com">Visit AEO Verdict →</a>
         <button class="cta" type="button" @click="copy">{{ INIT }}</button>
-        <a class="ghost" href="https://github.com/probelabs/aeo" target="_blank" rel="noopener noreferrer">GitHub →</a>
+        <p class="private-note">aeo is in private development. AEO Verdict is the product built on it.</p>
         <p v-if="copied" role="status">Copied</p>
       </div>
     </header>
@@ -140,7 +141,7 @@ onMounted(() => {
     <section class="number" aria-labelledby="rate">
       <p class="example-flag">Example</p>
       <p id="rate" class="num">0.00</p>
-      <p>Search-arm mention rate on the committed fixture <span style="font-family: var(--mono)">examples/xerj/aeo-data/example-run.json</span>. One watch question. Not a live capture. Knowledge mention rate on that file is also 0.00. Search rate is 0.33 because Codex searched.</p>
+      <p>Search-arm mention rate on the example fixture <span style="font-family: var(--mono)">examples/xerj/aeo-data/example-run.json</span>. One watch question. Not a live capture. Knowledge mention rate on that file is also 0.00. Search rate is 0.33 because Codex searched.</p>
     </section>
 
     <section aria-labelledby="loop-title">
@@ -159,7 +160,7 @@ onMounted(() => {
 python3 -m aeo init --from-example xerj --out aeo.config.json
 python3 -m aeo run --config aeo.config.json --engine all --arm both
 python3 -m aeo board aeo-data/runs/&lt;run_id&gt;.json</pre>
-      <p>Python 3.11+. Standard library only. Run on your own machine, not a VPS. The README says not to run those CLIs from a datacenter.</p>
+      <p>Python 3.11+. Standard library only. Runs on your own machine, not a VPS or datacenter. aeo is currently in private development, so these commands show how a run works rather than a public install.</p>
     </section>
   </ProbeChrome>
 </template>

@@ -161,6 +161,27 @@
   text-underline-offset: 3px;
 }
 
+.aeo .visit {
+  display: inline-block;
+  background: #ffe400;
+  color: #000;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.aeo .visit:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.aeo .private-note {
+  margin: 0;
+  color: #fff;
+  font-weight: 600;
+}
+
 .aeo .ticker {
   margin-top: 20px;
   background: #000;

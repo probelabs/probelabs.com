@@ -218,11 +218,12 @@ export const projects = {
 
   aeo: {
     name: 'aeo',
-    kicker: 'Open source',
+    kicker: 'In private development',
     pitch: 'Measures whether Claude Code, Codex, and Grok mention your product, once with search off and once with search on.',
-    github: 'https://github.com/probelabs/aeo',
-    githubLabel: 'github.com/probelabs/aeo',
-    meta: ['Python 3.11+', 'MIT'],
+    site: 'https://aeoverdict.com',
+    siteLabel: 'Visit AEO Verdict',
+    siteNote: 'The product built on aeo',
+    meta: ['Python 3.11+', 'Private development'],
     visual: {
       scene: 'aeo',
       label: 'Three columns of points, split into a quiet half and a half with one amber search ray.'
@@ -285,7 +286,7 @@ export const projects = {
         kicker: '04 / Example',
         title: 'A board from the repo',
         paragraphs: [
-          'examples/xerj is a real workspace in the repository, not a hard-coded only-brand. This is the top of examples/xerj/aeo-data/boards/example-xerj-folder-search.md. The query cell is truncated in that file. Methodology walks the same question: “What’s the best way to search through a folder of files by content?” Nobody mentioned the brand. Codex searched, and the query already named ripgrep, Recoll, and DocFetcher. The call is trap, a watch query with no brand mention.'
+          'examples/xerj is a real workspace in the project, not a hard-coded only-brand. This is the top of examples/xerj/aeo-data/boards/example-xerj-folder-search.md. The query cell is truncated in that file. Methodology walks the same question: “What’s the best way to search through a folder of files by content?” Nobody mentioned the brand. Codex searched, and the query already named ripgrep, Recoll, and DocFetcher. The call is trap, a watch query with no brand mention.'
         ],
         examples: [
           {
@@ -294,11 +295,6 @@ export const projects = {
           }
         ]
       }
-    ],
-    docs: [
-      { label: 'Methodology', href: 'https://github.com/probelabs/aeo/blob/main/METHODOLOGY.md', note: 'Arms, isolation, board calls, how to read a run' },
-      { label: 'Playbook', href: 'https://github.com/probelabs/aeo/blob/main/PLAYBOOK.md', note: 'What to do after a zero-mention grid' },
-      { label: 'Skills', href: 'https://github.com/probelabs/aeo/tree/main/skills', note: 'aeo, aeo-board, and aeo-playbook for agents' }
     ],
     related: [
       { name: 'docs-mcp', href: '/docs-mcp', line: 'If they cannot retrieve the page, make the repo itself searchable.' },
