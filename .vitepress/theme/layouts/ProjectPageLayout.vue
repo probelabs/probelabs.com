@@ -60,7 +60,7 @@
                 rel="noopener noreferrer"
               >{{ repo.label }}</a>
             </template>
-            <template v-else>
+            <template v-else-if="project.github">
               <a class="lab-btn" :href="project.github" target="_blank" rel="noopener noreferrer">GitHub</a>
               <a class="pp-textlink" :href="project.github" target="_blank" rel="noopener noreferrer">{{ project.githubLabel }}</a>
             </template>
@@ -251,7 +251,9 @@ const closingLinks = computed(() => {
   if (!project.value) return []
   const repoLinks = project.value.repos
     ? project.value.repos.map((repo) => ({ kind: 'Repo', label: repo.label, href: repo.href, note: 'Source repository' }))
-    : [{ kind: 'Repo', label: project.value.githubLabel, href: project.value.github, note: 'Source repository' }]
+    : project.value.github
+      ? [{ kind: 'Repo', label: project.value.githubLabel, href: project.value.github, note: 'Source repository' }]
+      : []
   const docs = (project.value.docs || []).map((doc) => ({
     kind: 'Docs',
     label: doc.label,

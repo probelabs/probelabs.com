@@ -161,6 +161,12 @@
   text-underline-offset: 3px;
 }
 
+.aeo .private-note {
+  margin: 0;
+  color: #fff;
+  font-weight: 600;
+}
+
 .aeo .ticker {
   margin-top: 20px;
   background: #000;
