@@ -60,6 +60,9 @@
                 rel="noopener noreferrer"
               >{{ repo.label }}</a>
             </template>
+            <template v-else-if="project.site">
+              <a class="lab-btn" :href="project.site">{{ project.siteLabel || 'Visit site' }}</a>
+            </template>
             <template v-else-if="project.github">
               <a class="lab-btn" :href="project.github" target="_blank" rel="noopener noreferrer">GitHub</a>
               <a class="pp-textlink" :href="project.github" target="_blank" rel="noopener noreferrer">{{ project.githubLabel }}</a>
@@ -254,6 +257,9 @@ const closingLinks = computed(() => {
     : project.value.github
       ? [{ kind: 'Repo', label: project.value.githubLabel, href: project.value.github, note: 'Source repository' }]
       : []
+  const siteLinks = project.value.site
+    ? [{ kind: 'Site', label: project.value.siteLabel || project.value.site, href: project.value.site, note: project.value.siteNote || 'Product site' }]
+    : []
   const docs = (project.value.docs || []).map((doc) => ({
     kind: 'Docs',
     label: doc.label,
@@ -266,7 +272,7 @@ const closingLinks = computed(() => {
     href: item.href,
     note: item.line
   }))
-  return [...repoLinks, ...docs, ...related]
+  return [...siteLinks, ...repoLinks, ...docs, ...related]
 })
 
 function isExternal(href) {

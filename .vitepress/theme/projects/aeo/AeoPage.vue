@@ -72,6 +72,8 @@ onMounted(() => {
     slug="aeo"
     bg="#008fff"
     status="Currently in private development"
+    site="https://aeoverdict.com"
+    site-label="AEO Verdict"
     :style="{ '--bg': '#008fff', '--ink': '#ffffff', '--focus': '#ffe400', colorScheme: 'light' }"
   >
     <header class="hero">
@@ -89,8 +91,9 @@ onMounted(() => {
         <p class="src">Question: “What’s the best way to search through a folder of files by content?” Call: trap. Prebelief in the Codex search: ripgrep, recoll, docfetcher. Source file says it is an example fixture, not a live CLI capture.</p>
       </div>
       <div class="cta-row">
+        <a class="visit" href="https://aeoverdict.com">Visit AEO Verdict →</a>
         <button class="cta" type="button" @click="copy">{{ INIT }}</button>
-        <p class="private-note">Currently in private development</p>
+        <p class="private-note">aeo is in private development. AEO Verdict is the product built on it.</p>
         <p v-if="copied" role="status">Copied</p>
       </div>
     </header>

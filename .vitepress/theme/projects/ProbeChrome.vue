@@ -6,6 +6,8 @@ const props = defineProps({
   github: { type: String, default: '' },
   repoLabel: { type: String, default: '' },
   status: { type: String, default: '' },
+  site: { type: String, default: '' },
+  siteLabel: { type: String, default: '' },
   license: { type: String, default: '' },
   bg: { type: String, required: true }
 })
@@ -28,6 +30,7 @@ onBeforeUnmount(() => {
       <a class="probe-home" href="/">ProbeLabs / {{ slug }}</a>
       <nav aria-label="Project">
         <a href="/#projects">Projects</a>
+        <a v-if="site" :href="site">{{ siteLabel || site }}</a>
         <a v-if="github" :href="github" target="_blank" rel="noopener noreferrer">GitHub</a>
       </nav>
     </header>
@@ -41,6 +44,10 @@ onBeforeUnmount(() => {
         <template v-if="github">
           ·
           <a :href="github" target="_blank" rel="noopener noreferrer">{{ repoLabel }}</a>
+        </template>
+        <template v-if="site">
+          ·
+          <a :href="site">{{ siteLabel || site }}</a>
         </template>
         <template v-if="license"> · {{ license }}</template>
         <template v-if="status"> · {{ status }}</template>

@@ -220,6 +220,9 @@ export const projects = {
     name: 'aeo',
     kicker: 'In private development',
     pitch: 'Measures whether Claude Code, Codex, and Grok mention your product, once with search off and once with search on.',
+    site: 'https://aeoverdict.com',
+    siteLabel: 'Visit AEO Verdict',
+    siteNote: 'The product built on aeo',
     meta: ['Python 3.11+', 'Private development'],
     visual: {
       scene: 'aeo',
