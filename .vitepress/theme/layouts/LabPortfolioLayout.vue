@@ -47,15 +47,15 @@
           <h2 id="thesis" class="fl-title">From prompt<br>to production.</h2>
           <p class="fl-line">Proof brings NASA-grade rigor to your AI workflow. Review the evidence. Spend less time reconstructing it.</p>
           <div class="fl-actions">
-            <a class="fl-btn" href="https://reqproof.com">Open Proof <span aria-hidden="true">→</span></a>
+            <a class="fl-btn" href="https://reqproof.com?utm_source=probelabs&utm_medium=referral&utm_campaign=proof">Open Proof <span aria-hidden="true">→</span></a>
             <p class="mono fl-sub">
-              <a href="https://reqproof.com/method">Method</a>
-              <a href="https://reqproof.com/product">Product</a>
-              <a href="https://reqproof.com/about">Public register</a>
+              <a href="https://reqproof.com/method?utm_source=probelabs&utm_medium=referral&utm_campaign=proof">Method</a>
+              <a href="https://reqproof.com/product?utm_source=probelabs&utm_medium=referral&utm_campaign=proof">Product</a>
+              <a href="https://reqproof.com/about?utm_source=probelabs&utm_medium=referral&utm_campaign=proof">Public register</a>
             </p>
           </div>
         </div>
-        <a class="fl-art" href="https://reqproof.com" tabindex="-1" aria-hidden="true">
+        <a class="fl-art" href="https://reqproof.com?utm_source=probelabs&utm_medium=referral&utm_campaign=proof" tabindex="-1" aria-hidden="true">
           <img
             src="/images/proof/proof-landscape-1086.webp"
             srcset="/images/proof/proof-landscape-800.webp 800w, /images/proof/proof-landscape-1086.webp 1086w"

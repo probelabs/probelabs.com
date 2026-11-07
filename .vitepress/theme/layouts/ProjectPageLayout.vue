@@ -164,10 +164,10 @@
       <div class="lab-footer-col">
         <h2>Proof</h2>
         <ul>
-          <li><a href="https://reqproof.com">Website</a></li>
-          <li><a href="https://reqproof.com/method">Method</a></li>
-          <li><a href="https://reqproof.com/product">Product</a></li>
-          <li><a href="https://reqproof.com/about">About / register</a></li>
+          <li><a href="https://reqproof.com?utm_source=probelabs&utm_medium=referral&utm_campaign=proof">Website</a></li>
+          <li><a href="https://reqproof.com/method?utm_source=probelabs&utm_medium=referral&utm_campaign=proof">Method</a></li>
+          <li><a href="https://reqproof.com/product?utm_source=probelabs&utm_medium=referral&utm_campaign=proof">Product</a></li>
+          <li><a href="https://reqproof.com/about?utm_source=probelabs&utm_medium=referral&utm_campaign=proof">About / register</a></li>
         </ul>
       </div>
       <div class="lab-footer-col">

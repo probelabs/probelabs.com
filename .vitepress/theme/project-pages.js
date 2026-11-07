@@ -111,7 +111,7 @@ export const projects = {
     related: [
       { name: 'ste', href: '/ste', line: 'Another deterministic checker: Simplified Technical English, with JSON a machine can re-read.' },
       { name: 'Fuzzers', href: '/fuzzers', line: 'Correctness gates for parsers, the same idea as a failing check you can run again.' },
-      { name: 'Proof', href: 'https://reqproof.com', line: 'The flagship assurance product these instruments sit beside.' }
+      { name: 'Proof', href: 'https://reqproof.com?utm_source=probelabs&utm_medium=referral&utm_campaign=proof', line: 'The flagship assurance product these instruments sit beside.' }
     ]
   },
 
@@ -211,7 +211,7 @@ export const projects = {
     ],
     related: [
       { name: 'qc', href: '/qc', line: 'A checklist gate that will not clear without falsifiable evidence.' },
-      { name: 'Proof', href: 'https://reqproof.com', line: 'ste uses ReqProof as the spec, the mirror, and the release gate.' },
+      { name: 'Proof', href: 'https://reqproof.com?utm_source=probelabs&utm_medium=referral&utm_campaign=proof', line: 'ste uses ReqProof as the spec, the mirror, and the release gate.' },
       { name: 'docs-mcp', href: '/docs-mcp', line: 'Search a documentation repo from an assistant, instead of guessing at it.' }
     ]
   },
@@ -435,7 +435,7 @@ export const projects = {
     related: [
       { name: 'qc', href: '/qc', line: 'A gate with exit codes, for checklists rather than parser bytes.' },
       { name: 'proof-action', href: 'https://github.com/probelabs/proof-action', line: 'The GitHub Action that runs a ReqProof audit and writes the job summary.' },
-      { name: 'Proof', href: 'https://reqproof.com', line: 'The instruments behind an audit, and the product they serve.' }
+      { name: 'Proof', href: 'https://reqproof.com?utm_source=probelabs&utm_medium=referral&utm_campaign=proof', line: 'The instruments behind an audit, and the product they serve.' }
     ]
   },
 

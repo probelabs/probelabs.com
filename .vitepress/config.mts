@@ -167,7 +167,7 @@ export default defineConfig({
     
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Proof', link: 'https://reqproof.com' },
+      { text: 'Proof', link: 'https://reqproof.com?utm_source=probelabs&utm_medium=referral&utm_campaign=proof' },
       {
         text: 'Solutions',
         items: [
@@ -183,7 +183,7 @@ export default defineConfig({
         text: 'Products',
         items: [
           { text: 'Core Products', items: [
-            { text: 'Proof', link: 'https://reqproof.com' },
+            { text: 'Proof', link: 'https://reqproof.com?utm_source=probelabs&utm_medium=referral&utm_campaign=proof' },
             { text: 'Probe', link: '/probe' },
             { text: 'Oel', link: '/oel' },
             { text: 'Visor', link: '/visor' }
