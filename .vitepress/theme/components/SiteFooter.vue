@@ -18,7 +18,7 @@
         <div class="footer-col">
           <h4>Products</h4>
           <ul>
-            <li><a href="https://reqproof.com">Proof</a></li>
+            <li><a href="https://reqproof.com?utm_source=probelabs&utm_medium=referral&utm_campaign=proof">Proof</a></li>
             <li><a href="/oel">Oel</a></li>
             <li><a href="/probe">Probe</a></li>
             <li><a href="/visor">Visor</a></li>
